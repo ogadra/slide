@@ -1,0 +1,8 @@
+{
+  "name": "slide",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "ogadra's slides website.",
+  "author": "ogadra",
+  "private": true
+}
