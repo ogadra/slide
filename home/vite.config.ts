@@ -3,7 +3,7 @@ import UnoCSS from 'unocss/vite'
 
 export default defineConfig({
   build: {
-    outDir: '../../dist',
+    outDir: '../dist',
   },
   plugins: [
     UnoCSS(),

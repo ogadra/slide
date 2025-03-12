@@ -4,6 +4,13 @@
   "version": "0.0.1",
   "description": "ogadra's slides website.",
   "author": "ogadra",
+  "workspaces": [
+    "cloudflare-fullstack-application",
+    "home"
+  ],
+  "scripts": {
+    "build": "npm run -ws build"
+  },
   "private": true,
   "devDependencies": {
     "@slidev/cli": "^51.4.0",

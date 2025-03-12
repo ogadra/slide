@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-fullstack-application",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "slidev build --base /cloudfalre-fullstack-application/ --out ../dist/cloudflare-fullstack-application",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
