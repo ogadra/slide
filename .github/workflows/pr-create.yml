@@ -1,0 +1,33 @@
+name: Create Pull Request
+
+on:
+  create:
+    ref_type: branch
+
+jobs:
+  create_pr:
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - name: Create pull request
+        uses: actions/github-script@v7
+        env:
+          BRANCH: ${{ github.ref_name }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branch = process.env.BRANCH;
+            const issueNum = branch.match(/0*(\d+)/)[1];
+            const linkedIssue = await github.rest.issues.get({
+              issue_number: issueNum,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `${linkedIssue.data.title}`,
+              body: `close #${issueNum}\n\n${linkedIssue.data.body}`,
+              head: process.env.BRANCH,
+              base: "main"
+            });
