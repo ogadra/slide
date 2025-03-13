@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "slidev build --base ./ --out ../dist/cloudflare-fullstack-application",
+    "build": "slidev build --base ./cloudflare-fullstack-application --out ../dist/cloudflare-fullstack-application",
     "dev": "slidev --open",
     "export": "slidev export"
   }
