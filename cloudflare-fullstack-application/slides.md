@@ -22,15 +22,11 @@ mdc: true
 # Webアプリを作成してみた
 ## おがどら
 
-<Footer />
-
 ---
 
 ## はじめに
 
 写真撮影はご遠慮ください 🙇
-
-<Footer />
 
 ---
 
@@ -43,8 +39,6 @@ mdc: true
   alt="もがみシステムのトップページ"
 />
 
-<Footer />
-
 ---
 
 ## システム概要
@@ -55,8 +49,6 @@ mdc: true
   - 250人まで負荷試験を実施
 - 結果をOGPつきでツイートできる
 
-<Footer />
-
 ---
 
 ## こんなアーキテクチャで動いています
@@ -66,8 +58,6 @@ mdc: true
   class="w-204 m-auto"
   alt="Cloudflare構成図"
 />
-
-<Footer />
 
 ---
 
@@ -81,8 +71,6 @@ mdc: true
   - WebSocket通信
   - クイズ進行状況の保持
 
-<Footer />
-
 ---
 
 ## Rules, Workersによる前処理
@@ -93,8 +81,6 @@ mdc: true
 - その他、Honoを用いた共通処理
   - クイズ管理画面へのアクセス制限
 
-<Footer />
-
 ---
 
 ## Durable Objectsをフル活用！
@@ -102,8 +88,6 @@ mdc: true
 - serializeAttachementによりsocketから属性を取得
 - acceptWebSocketにより属性からsocketを取得
 - strageに進行状況を保存・取得
-
-<Footer />
 
 ---
 
@@ -125,8 +109,6 @@ this.state.acceptWebSocket(server, [
 
 ```
 
-<Footer />
-
 ---
 
 ## ユーザー接続処理
@@ -143,8 +125,6 @@ private async webSocketMessage(
     // { id: userId, name: userName }
 }
 ```
-
-<Footer />
 
 ---
 
@@ -165,8 +145,6 @@ this.state.acceptWebSocket(server, [
   userId,
 ]);
 ```
-
-<Footer />
 
 ---
 
@@ -190,8 +168,6 @@ this.state.getWebSockets().map((ws) => {
 });
 ```
 
-<Footer />
-
 ---
 
 ## Durable Objects
@@ -203,8 +179,6 @@ this.state.getWebSockets().map((ws) => {
   - なんでもできる
   - 神クラスが降臨されました(2000行超)
 
-<Footer />
-
 ---
 
 ご清聴ありがとうございました
@@ -215,6 +189,3 @@ this.state.getWebSockets().map((ws) => {
 made by Slidev
 
 <PoweredBySlidev mt-10 />
-
-<Footer />
-
