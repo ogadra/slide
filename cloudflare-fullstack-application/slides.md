@@ -14,6 +14,7 @@ colorSchema: 'dark'
 drawings:
   enabled: false
 # slide transition: https://sli.dev/guide/animations.html#slide-transitions
+transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 ---
@@ -29,9 +30,22 @@ mdc: true
 写真撮影はご遠慮ください 🙇
 
 ---
+layout: image-x
+image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
+imageOrder: 2
+---
+
+# おがどら
+座右の銘は `Done is better than perfect.`
+
+好きな言語 : Typescript, Go
+
+右のアイコンは自宅サーバーに置いて、<br/>
+Cloudflare Tunnelで公開しています
+
+---
 
 ## こんなアプリケーションを作りました
-
 
 <img
   src="./imgs/mogami-lp.png"
