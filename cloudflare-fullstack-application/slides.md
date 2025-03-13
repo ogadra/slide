@@ -17,17 +17,26 @@ drawings:
 transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
+canvasWidth: 960
 ---
 
+<style>
+h2 {
+  padding-top: 30px;
+}
+</style>
+
 # Cloudflareだけで
-# Webアプリを作成してみた
+# Webアプリを
+# 作成してみた
 ## おがどら
 
 ---
 
 ## はじめに
 
-写真撮影はご遠慮ください 🙇
+顔出しNGで活動しております。<br />
+QRコードを除き、写真撮影はご遠慮ください 🙇
 
 ---
 layout: image-x
@@ -36,20 +45,30 @@ imageOrder: 2
 ---
 
 # おがどら
-座右の銘は `Done is better than perfect.`
+
+座右の銘は<br/>
+Done is better than perfect.
 
 好きな言語 : Typescript, Go
 
-右のアイコンは自宅サーバーに置いて、<br/>
+右のアイコンは<br/>
+自宅サーバーに置いて、<br/>
 Cloudflare Tunnelで公開しています
 
 ---
+
+<style>
+h2 {
+  font-size: 2.25rem !important;
+  padding: 0 !important;
+}
+</style>
 
 ## こんなアプリケーションを作りました
 
 <img
   src="./imgs/mogami-lp.png"
-  class="w-192 m-auto"
+  class="w-132 m-auto"
   alt="もがみシステムのトップページ"
 />
 
@@ -69,7 +88,7 @@ Cloudflare Tunnelで公開しています
 
 <img
   src="./imgs/mogami-architecture.png"
-  class="w-204 m-auto"
+  class="w-144 m-auto"
   alt="Cloudflare構成図"
 />
 
@@ -80,7 +99,6 @@ Cloudflare Tunnelで公開しています
 - Rules, Workersによる前処理
   - Rulesによってヘッダ付与
   - フロントエンド、WebSocket共通処理
-
 - Durable Objectsをフル活用！
   - WebSocket通信
   - クイズ進行状況の保持
@@ -164,22 +182,19 @@ this.state.acceptWebSocket(server, [
 
 ## ユーザー接続処理
 
-```ts {1-4|6-9|11-14}
+```ts {1-3|5-7|9-11}
 
-// 解答者全員に対してメッセージを送信
 this.state.getWebSockets(UserType.Answerer).map((ws) => {
     this.webSocketResSend(ws, message);
-});
+}); // 解答者全員に対してメッセージを送信
 
-// 特定のユーザーに対してメッセージを送信
 this.state.getWebSockets(userId).map((ws) => {
     this.webSocketResSend(ws, message);
-});
+}); // 特定のユーザーに対してメッセージを送信
 
-// 全員に対してメッセージを送信
 this.state.getWebSockets().map((ws) => {
     this.webSocketResSend(ws, message);
-});
+}); // 全員に対してメッセージを送信
 ```
 
 ---
@@ -199,7 +214,5 @@ this.state.getWebSockets().map((ws) => {
 
 - Twitter: [@const_myself](https://twitter.com/const_myself)
 - GitHub: [ogadra](https://github.com/ogadra)
-
-made by Slidev
 
 <PoweredBySlidev mt-10 />
