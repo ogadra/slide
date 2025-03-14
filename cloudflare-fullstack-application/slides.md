@@ -84,6 +84,18 @@ h2 {
 
 ---
 
+## デモします！
+
+※ ここだけカメラOK
+
+<img
+  src="https://media.ogadra.com/misskey/drive/378c11c0-7839-4024-b4a7-204877721368.webp"
+  class="w-60 m-auto"
+  alt="もがみシステムへのログインQR"
+/>
+
+---
+
 ## こんなアーキテクチャで動いています
 
 <img
@@ -145,8 +157,10 @@ this.state.acceptWebSocket(server, [
 
 ## ユーザー接続処理
 
-```ts {6-8}
 
+
+```ts {1,7-9}
+// ソケット情報から解答者を特定
 private async webSocketMessage(
     socket: WebSocket,
     rawMessage: string | ArrayBuffer,
@@ -182,8 +196,10 @@ this.state.acceptWebSocket(server, [
 
 ## ユーザー接続処理
 
-```ts {1-3|5-7|9-11}
 
+
+```ts {1,2-4|1,6-8|1,10-12}
+// 属性からconnectionを特定、メッセージ送信
 this.state.getWebSockets(UserType.Answerer).map((ws) => {
     this.webSocketResSend(ws, message);
 }); // 解答者全員に対してメッセージを送信
