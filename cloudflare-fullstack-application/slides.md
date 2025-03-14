@@ -32,13 +32,6 @@ h2 {
 ## おがどら
 
 ---
-
-## はじめに
-
-顔出しNGで活動しております。<br />
-QRコードを除き、写真撮影はご遠慮ください 🙇
-
----
 layout: image-x
 image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
 imageOrder: 2
@@ -81,18 +74,6 @@ h2 {
 - 数百人規模に対応
   - 250人まで負荷試験を実施
 - 結果をOGPつきでツイートできる
-
----
-
-## デモします！
-
-※ ここだけカメラOK
-
-<img
-  src="https://media.ogadra.com/misskey/drive/378c11c0-7839-4024-b4a7-204877721368.webp"
-  class="w-60 m-auto"
-  alt="もがみシステムへのログインQR"
-/>
 
 ---
 
