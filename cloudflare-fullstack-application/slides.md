@@ -99,9 +99,10 @@ h2 {
 ## こんなアーキテクチャで動いています
 
 <img
-  src="./imgs/mogami-architecture.png"
+  src="./imgs/mogami-architecture.svg"
   class="w-144 m-auto"
   alt="Cloudflare構成図"
+  style="background-color: #FFF"
 />
 
 ---
