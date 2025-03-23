@@ -1,0 +1,12 @@
+{
+  "name": "using-conform-in-remix",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "slidev build --base /using-conform-in-remix/ --out ../../dist/using-conform-in-remix",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
