@@ -75,7 +75,7 @@ export default function Index() {
 	const actionData = useActionData<typeof action>();
 	const { state } = useNavigation();
 
-	const [form, { userName }] = useForm({
+	const [form, { username }] = useForm({
 		onValidate: ({ formData }) => {
 			return parseWithValibot(formData, {
 				schema: clientSchema,
@@ -100,9 +100,9 @@ return (
   >
     <label>username</label>
     <Input
-      {...getInputProps(userName, { type: "text" })}
+      {...getInputProps(username, { type: "text" })}
     />
-    {userName.errors?.map((e) => (<div key={e}>{e}</div>))}
+    {username.errors?.map((e) => (<div key={e}>{e}</div>))}
     <button>{state !== "submitting" ? "Join" : "Sending..."}</button>
   </Form>
 );
@@ -130,7 +130,7 @@ Error messages appear when submitting.
 
 <div class="my-12">
 ```tsx {2}
-const [form, { userName }] = useForm({
+const [form, { username }] = useForm({
   shouldValidate: "onInput",
   onValidate: ({ formData }) => {
     return parseWithValibot(formData, {
@@ -177,9 +177,9 @@ To enhance User Experience. We want to implement validation to help users achiev
 >
   <label>username</label>
   <Input
-    {...getInputProps(userName, { type: "text" })}
+    {...getInputProps(username, { type: "text" })}
   />
-  {userName.errors?.map((e) => (<div key={e}>{e}</div>))}
+  {username.errors?.map((e) => (<div key={e}>{e}</div>))}
   <button
     disabled={!form.valid || !form.dirty || state === "submitting"}
   >
@@ -221,11 +221,11 @@ const createClientSchema = pipe(
   baseSchema,
   forward(
     partialCheck(
-      [["userName"]],
+      [["username"]],
       () => { return false }, // always false
       conformValibotMessage.VALIDATION_UNDEFINED,
     ),
-    ["userName"],
+    ["username"],
   ),
 );
 ```
@@ -244,13 +244,13 @@ const createServerSchema = pipeAsync(
   baseSchema,
   forwardAsync(
     partialCheckAsync(
-      [["userName"]],
+      [["username"]],
       async ({username}) => {
         return await checkUserName(username);
       },
       "This username is already in use.",
     ),
-    ["userName"],
+    ["username"],
   ),
 );
 ```
