@@ -154,7 +154,7 @@ Error messages appear on input.
 
 ---
 
-## Why Do We Perform Validation on the Frontend?
+## Why Do We Perform Validation on the client-side?
 
 <div class="my-3">
 To enhance User Experience. We want to implement validation to help users achieve their goals with as few clicks or taps as possible.
@@ -203,7 +203,7 @@ The submit button is disabled when the form is invalid.
 
 ## Thoughts
 
-The documentation on form properties was not found, and the implementation was difficult. 😢
+The documentation on form properties was not found, and the implementation was difficult 😢
 
 <!--
   formのプロパティに関するドキュメントが見当たらず、実装が大変だった
@@ -213,7 +213,7 @@ The documentation on form properties was not found, and the implementation was d
 
 ## Async Validation (with Valibot)
 
-### Frontend
+### Client
 
 <div class="my-4">
 ```typescript {|6-7}
@@ -235,7 +235,7 @@ const createClientSchema = pipe(
 
 ## Async Validation (with Valibot)
 
-### Backend
+### Server
 
 <div class="text-094">
 
@@ -271,7 +271,7 @@ The username is checked asynchronously on the server.
 
 ## How it works
 
-When the form has changed, the frontend makes a request to the backend with the `__intent__` property.
+When the form has changed, the client-side makes a request to the server-side with the `__intent__` property.
 
 When the form has the `__intent__` property, Conform returns only the validation result.
 
@@ -279,21 +279,40 @@ I believe this request sets `navigation.state` to `submitting`.
 
 <!--
   フォームが変更されたとき、フロントエンドは`__intent__`プロパティとともにバックエンドにリクエストを送信する。
-  このリクエストによって`navigation.state`が`submitting`に設定されると考えられる。
   フォームに`__intent__`プロパティが含まれているとき、Conformは検証結果のみを返す。
+  このリクエストによって`navigation.state`が`submitting`に設定されると考えられる。
 -->
 
 ---
 
-## Thoughts
+## Pros and Cons
 
-Because the `navigation.state` becomes `submitting`, the message `Sending...` is displayed during validation.
+### pros
+
+We can validate user input asynchronously on the server 😊
+
+### cons
+
+Because the `navigation.state` becomes `submitting`, the message `Sending...` is displayed during validation 😢
 
 Could adding a "validating" property to the form help distinguish between the states?
 
 <!--
-  navigation.stateが"submitting"になってしまうため、validate時に`Sending...`と表示されてしまう。
+  navigation.stateが"submitting"になってしまうため、validate時に`Sending...`と表示されてしまう 😢
   formのプロパティに`validating`があれば、`state`との区別がつくのではないか？
+-->
+
+---
+
+## Conclusion
+
+Conform is a powerful library that allows you to validate client input asynchronously on the server.
+
+You'll be amazed at how easily you can asynchronously validate client input server-side. You really should give it a try.
+
+<!--
+Conformは、クライアントの入力をサーバーで非同期に検証することができる強力なライブラリです。
+クライアントの入力をサーバーで非同期に検証することが簡単にできて衝撃的です。ぜひ試してみてください。
 -->
 
 ---
