@@ -5,7 +5,7 @@
   "description": "ogadra's slides website.",
   "author": "ogadra",
   "workspaces": [
-    "cloudflare-fullstack-application",
+    "slidev/*",
     "home"
   ],
   "scripts": {
