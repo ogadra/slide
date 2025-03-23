@@ -319,7 +319,16 @@ Conformは、クライアントの入力をサーバーで非同期に検証す�
 
 ## Thank you for listening!
 
+I wanna talk about Conform's `defaultValue` but I'm out of time 😢
+
+Let's talk about it at the social gathering!
+
 - Twitter: [@const_myself](https://twitter.com/const_myself)
 - GitHub: [ogadra](https://github.com/ogadra)
 
 <PoweredBySlidev mt-10 />
+
+<!--
+Conformの`defaultValue`について話したかったが時間切れ 😢
+懇親会で話しましょう！
+-->
