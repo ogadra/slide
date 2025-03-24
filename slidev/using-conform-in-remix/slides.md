@@ -47,6 +47,27 @@ canvasWidth: 960
   The slides are in English, but the presentation will be in Japanese.
 -->
 
+---
+
+## Slide
+
+<div class="flex flex-wrap w-160 mx-auto my-10">
+  <div class="w-1/2 px-12">
+    <img src="./imgs/using-conform-in-remix.png" alt="English Slide" class="w-full">
+    <p class="text-center">English</p>
+  </div>
+  <div class="w-1/2 px-12">
+    <img src="./imgs/ja-using-conform-in-remix.png" alt="Japanese Slide" class="w-full">
+    <p class="text-center">Japanese</p>
+  </div>
+</div>
+
+<!--
+  日英のスライドQRコードです。
+
+  The slides are in English, but the presentation will be in Japanese.
+-->
+
 
 ---
 layout: image-x
