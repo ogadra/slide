@@ -3,9 +3,9 @@ theme: purplin
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
-title: Conform in Remix Personal Observations
+title: RemixでConformを使って感じたこと
 info: |
-  Conform in Remix Personal Observations (RemixでConformを使って感じたこと)
+  RemixでConformを使って感じたこと (Conform in Remix Personal Observations)
 # apply unocss classes to the current slide
 # class: text-center
 colorSchema: 'dark'
@@ -26,27 +26,8 @@ canvasWidth: 960
 
 </style>
 
-# Conform in Remix Personal Observations
+# RemixでConformを使って感じたこと
 ## ogadra
-
----
-
-## Attention
-
-- Please do not take photos.
-- The slides are in English, but the presentation will be in Japanese.
-
-## 注意
-
-- 写真撮影はご遠慮ください。
-- スライドは英語ですが、発表は日本語で行います。
-
-<!--
-  スライドは英語で書いてありますが、発表は日本語で行います。
-
-  The slides are in English, but the presentation will be in Japanese.
--->
-
 
 ---
 layout: image-x
@@ -63,7 +44,7 @@ Favorite languages: Typescript, Go
 
 ---
 
-## Thema
+## テーマ
 
 <div class="my-8 text-09675">
 ```
@@ -75,8 +56,9 @@ Favorite languages: Typescript, Go
  ╚══════╝  ╚═════╝  ╚═╝  ╚══╝ ╚═╝        ╚═════╝  ╚═╝   ╚═╝ ╚═╝   ╚═╝
 ```
 </div>
-A type-safe form validation library utilizing web fundamentals to progressively enhance HTML Forms with full support for server frameworks like Remix and Next.js.
 
+Conformは、Web標準に則ってHTMLフォームを段階的に強化する、型安全なフォーム検証ライブラリです。
+RemixやNext.jsなどのフレームワークと組み合わせて使うことができます。
 
 <!--
   今回のテーマは、せっかくエドモンドさんがいらしてくださったので、Conformについて話します。
@@ -85,7 +67,7 @@ A type-safe form validation library utilizing web fundamentals to progressively 
 -->
 ---
 
-## HOW TO USE
+## 使い方
 
 <div class="my-2">
 
@@ -109,10 +91,9 @@ export default function Index() {
 <!--
   使い方は、`useForm`を使ってフォームを作成して
 -->
-
 ---
 
-## HOW TO USE
+## 使い方
 
 <div class="text-09675 my-5">
 
@@ -139,12 +120,12 @@ return (
 
 ---
 
-## Result
+## 結果
 
-![onSubmitValidation](./imgs/onSubmitValidation.gif)
+![onSubmitValidation](../using-conform-in-remix/imgs/onSubmitValidation.gif)
 
 <div class="text-center">
-Error messages appear when submitting.
+サブミット時にエラーメッセージが表示されます。
 </div>
 
 <!--
@@ -153,7 +134,7 @@ Error messages appear when submitting.
 
 ---
 
-## Error messages appear on input
+## 入力時にエラーメッセージを表示する
 
 <div class="my-12">
 ```tsx {2}
@@ -175,12 +156,12 @@ const [form, { username }] = useForm({
 
 ---
 
-## Result
+## 結果
 
-![onInputValidation](./imgs/onInputValidation.gif)
+![onInputValidation](../using-conform-in-remix/imgs/onInputValidation.gif)
 
 <div class="text-center">
-Error messages appear on input.
+入力時にエラーメッセージが表示されます。
 </div>
 
 <!--
@@ -189,14 +170,16 @@ Error messages appear on input.
 
 ---
 
-## Why Do We Perform Validation on the client-side?
+## なぜフロントで検証を行うのか？
 
 <div class="my-3">
-To enhance User Experience. We want to implement validation to help users achieve their goals with as few clicks or taps as possible.
+ユーザーエクスペリエンスを向上させるために。<br/>
+
+1クリック、タップでも少なく、ユーザーが目的を達成させるためにバリデーションしたいと考えています。
 </div>
 
 <div class="my-3">
-So, it would be desirable to disable the Submit button when an error message is displayed.
+であれば、エラーメッセージが表示されているときは、Submitボタンを無効にするのが望ましいと考えます。
 </div>
 
 <!--
@@ -213,7 +196,7 @@ So, it would be desirable to disable the Submit button when an error message is 
 
 ---
 
-## Disable submit button when form is valid
+## 検証失敗時にSubmitボタンを無効にする
 
 <div class="text-094 my-2">
 
@@ -241,12 +224,12 @@ So, it would be desirable to disable the Submit button when an error message is 
 
 ---
 
-## Result
+## 結果
 
-![submitDisabledOnInvalidForm](./imgs/submitDisabledOnInvalidForm.gif)
+![submitDisabledOnInvalidForm](../using-conform-in-remix/imgs/submitDisabledOnInvalidForm.gif)
 
 <div class="text-center">
-The submit button is disabled when the form is invalid.
+検証に失敗したときにサブミットボタンが無効になります。
 </div>
 
 <!--
@@ -255,9 +238,11 @@ The submit button is disabled when the form is invalid.
 
 ---
 
-## Thoughts
+## 感想
 
-The documentation on form properties was not found, and the implementation was difficult 😢
+formのプロパティに関するドキュメントが見当たらず、実装が大変でした 😢
+
+
 
 <!--
   formのプロパティに関するドキュメントが見当たらず、実装が大変でした。
@@ -265,11 +250,11 @@ The documentation on form properties was not found, and the implementation was d
 
 ---
 
-## So, I created a PR to add the docs
+## だから、ドキュメントPRを作成しました
 
 <div class="w-144 mx-auto my-4">
 
-![pr](./imgs/conform-pr-887.png)
+![pr](../using-conform-in-remix/imgs/conform-pr-887.png)
 
 </div>
 
@@ -281,7 +266,7 @@ The documentation on form properties was not found, and the implementation was d
 
 ---
 
-## Async Validation (with Valibot)
+## 非同期検証 (with Valibot)
 
 ### Client
 
@@ -309,7 +294,7 @@ const createClientSchema = pipe(
 
 ---
 
-## Async Validation (with Valibot)
+## 非同期検証 (with Valibot)
 
 ### Server
 
@@ -338,12 +323,12 @@ const createServerSchema = pipeAsync(
 
 ---
 
-## Result
+## 結果
 
-![asyncValidation](./imgs/asyncValidation.gif)
+![asyncValidation](../using-conform-in-remix/imgs/asyncValidation.gif)
 
 <div class="text-center">
-The username is checked asynchronously on the server.
+ユーザー名がサーバーで非同期にチェックされます。
 </div>
 
 <!--
@@ -352,13 +337,13 @@ The username is checked asynchronously on the server.
 
 ---
 
-## How it works
+## どのように動くのか？
 
-When the form has changed, the client-side makes a request to the server-side with the `__intent__` property.
+フォームが変更されたとき、フロントエンドは`__intent__`プロパティとともにバックエンドにリクエストを送信します。
 
-When the form has the `__intent__` property, Conform returns only the validation result.
+フォームに`__intent__`プロパティが含まれているとき、Conformは検証結果のみを返します。
 
-This request trrigers the Remix action, which sets `navigation.state` to `submitting`.
+このリクエストによってRemixのactionが呼び出され、`navigation.state`が`submitting`に設定されます。
 
 <!--
   これがどのように動くのか軽く説明します。
@@ -372,17 +357,17 @@ This request trrigers the Remix action, which sets `navigation.state` to `submit
 
 ---
 
-## Pros and Cons
+## メリデメ
 
 ### pros
 
-We can validate user input asynchronously on the server 😊
+サーバー側でユーザーの検証を簡単に行うことができる 😊
 
 ### cons
 
-Because the `navigation.state` becomes `submitting`, the message `Sending...` is displayed during validation 😢
+navigation.stateが"submitting"になってしまうため、validate時に`Sending...`と表示されてしまう 😢
 
-I'm considering whether introducing a `validating` property to the `form` might provide a clearer distinction from the `submitting`. I'd appreciate your opinion on this.
+formのプロパティに`validating`があれば、`submitting`との区別がつくのではないか？と考えているのですが、どうでしょうか？
 
 <!--
   サーバー側でユーザーの検証を簡単に行うことができるのがメリットです。
@@ -394,11 +379,11 @@ I'm considering whether introducing a `validating` property to the `form` might 
 
 ---
 
-## Conclusion
+## まとめ
 
-Conform is a powerful library that allows you to validate client input asynchronously on the server.
+Conformは、クライアントの入力をサーバーで非同期に検証することができる強力なライブラリです。
 
-You'll be amazed at how easily you can asynchronously validate client input server-side. You really should give it a try.
+クライアントの入力をサーバーで非同期に検証することが簡単にできて衝撃的です。ぜひ試してみてください。
 
 <!--
   Conformは、クライアントの入力をサーバーで非同期に検証することができる強力なライブラリです。
@@ -408,11 +393,11 @@ You'll be amazed at how easily you can asynchronously validate client input serv
 
 ---
 
-## Thank you for listening!
+## おしまい
 
-I wanna talk about Conform's `defaultValue` but I'm out of time 😢
+Conformの`defaultValue`について話したかったのですが、時間切れのようです 😢
 
-Let's talk about it at the social gathering!
+懇親会で話しましょう！
 
 - Twitter: [@const_myself](https://twitter.com/const_myself)
 - GitHub: [ogadra](https://github.com/ogadra)

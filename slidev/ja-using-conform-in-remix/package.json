@@ -1,0 +1,12 @@
+{
+  "name": "ja-using-conform-in-remix",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "slidev build --base /ja-using-conform-in-remix/ --out ../../dist/ja-using-conform-in-remix",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
