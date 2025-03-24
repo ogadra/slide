@@ -30,6 +30,25 @@ canvasWidth: 960
 ## ogadra
 
 ---
+
+## Attention
+
+- Please do not take photos.
+- The slides are in English, but the presentation will be in Japanese.
+
+## 注意
+
+- 写真撮影はご遠慮ください。
+- スライドは英語ですが、発表は日本語で行います。
+
+<!--
+  スライドは英語で書いてありますが、発表は日本語で行います。
+
+  The slides are in English, but the presentation will be in Japanese.
+-->
+
+
+---
 layout: image-x
 image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
 imageOrder: 2
@@ -41,9 +60,6 @@ Motto: Done is better than perfect.
 
 Favorite languages: Typescript, Go
 
-<!--
-  スライドは英語で書くが、発表は日本語で行う
--->
 
 ---
 
@@ -63,13 +79,16 @@ A type-safe form validation library utilizing web fundamentals to progressively 
 
 
 <!--
-  Web標準に則ってHTMLフォームを段階的に強化する、型安全なフォーム検証ライブラリ。
+  今回のテーマは、せっかくエドモンドさんがいらしてくださったので、Conformについて話します。
+
+  Conformは、Web標準に則ってHTMLフォームを段階的に強化する、型安全なフォーム検証ライブラリです。
 -->
 ---
 
 ## HOW TO USE
 
 <div class="my-2">
+
 ```tsx {|5-12}
 export default function Index() {
 	const actionData = useActionData<typeof action>();
@@ -86,6 +105,10 @@ export default function Index() {
 ```
 </div>
 
+
+<!--
+  使い方は、`useForm`を使ってフォームを作成して
+-->
 
 ---
 
@@ -110,6 +133,10 @@ return (
 ```
 </div>
 
+<!--
+  FormやInputに`getFormProps`や`getInputProps`を渡してあげるだけです。
+-->
+
 ---
 
 ## Result
@@ -121,7 +148,7 @@ Error messages appear when submitting.
 </div>
 
 <!--
-  サブミット時にエラーメッセージが表示される。
+  これだけで、サブミット時に設定したバリデーションエラーが表示されます。
 -->
 
 ---
@@ -142,6 +169,10 @@ const [form, { username }] = useForm({
 ```
 </div>
 
+<!--
+  入力直後にエラーメッセージを表示するには、`shouldValidate`を`onInput`に設定します。
+-->
+
 ---
 
 ## Result
@@ -152,6 +183,10 @@ const [form, { username }] = useForm({
 Error messages appear on input.
 </div>
 
+<!--
+  すると、キーボード入力時にエラーメッセージが表示されます。
+-->
+
 ---
 
 ## Why Do We Perform Validation on the client-side?
@@ -161,8 +196,15 @@ To enhance User Experience. We want to implement validation to help users achiev
 </div>
 
 <!--
-  ## なぜ我々はフロントエンドでバリデーションするのか？
-  > User Experience向上のため。1クリック、タップでも少なく、ユーザーが目的を達成させるためにバリデーションしたい。
+  （直近でも燃えていましたが）
+
+  なぜ我々はフロントエンドでバリデーションするのか？と問われれば、
+
+  「User Experience向上のため」と答えるでしょう。
+
+  1クリック、タップでも少なく、ユーザーが目的を達成させるためにバリデーションしたいと考えています。
+
+  であれば、エラーメッセージが表示されているときは、Submitボタンを無効にするのが望ましいです。
 -->
 
 ---
@@ -189,6 +231,10 @@ To enhance User Experience. We want to implement validation to help users achiev
 ```
 </div>
 
+<!--
+  検証失敗時にサブミットボタンを無効にするには、`disabled`プロパティに`!form.valid || !form.dirty`を設定します。
+-->
+
 ---
 
 ## Result
@@ -199,6 +245,10 @@ To enhance User Experience. We want to implement validation to help users achiev
 The submit button is disabled when the form is invalid.
 </div>
 
+<!--
+  すると、フォームが無効なときにサブミットボタンが無効になります。
+-->
+
 ---
 
 ## Thoughts
@@ -206,7 +256,23 @@ The submit button is disabled when the form is invalid.
 The documentation on form properties was not found, and the implementation was difficult 😢
 
 <!--
-  formのプロパティに関するドキュメントが見当たらず、実装が大変だった
+  formのプロパティに関するドキュメントが見当たらず、実装が大変でした。
+-->
+
+---
+
+## So, I created a PR to add the docs
+
+<div class="w-144 mx-auto my-4">
+
+![pr](./imgs/conform-pr-887.png)
+
+</div>
+
+<!--
+  そこで、ドキュメントを追加するためのPRを作成しました。
+
+  Edmund, please check this.
 -->
 
 ---
@@ -222,7 +288,7 @@ const createClientSchema = pipe(
   forward(
     partialCheck(
       [["username"]],
-      () => { return false }, // always false
+      () => false, // always false
       conformValibotMessage.VALIDATION_UNDEFINED,
     ),
     ["username"],
@@ -230,6 +296,12 @@ const createClientSchema = pipe(
 );
 ```
 </div>
+
+<!--
+  Conformには面白い機能があります。
+
+  クライアント側のバリデーションメッセージとして`VALIDATION_UNDEFINED`を設定することにより、サーバー側でのバリデーションを行うことができます。
+-->
 
 ---
 
@@ -254,8 +326,11 @@ const createServerSchema = pipeAsync(
   ),
 );
 ```
-
 </div>
+
+<!--
+  たとえば、ユーザー名の重複チェックなど、サーバー側でしかできないバリデーションを行うことができます。
+-->
 
 ---
 
@@ -267,6 +342,10 @@ const createServerSchema = pipeAsync(
 The username is checked asynchronously on the server.
 </div>
 
+<!--
+  すると、入力時にサーバー側へバリデーションのためのリクエストが行われ、ユーザー名が非同期にチェックされます。
+-->
+
 ---
 
 ## How it works
@@ -275,12 +354,16 @@ When the form has changed, the client-side makes a request to the server-side wi
 
 When the form has the `__intent__` property, Conform returns only the validation result.
 
-I believe this request sets `navigation.state` to `submitting`.
+( I believe this request sets `navigation.state` to `submitting`. )
 
 <!--
-  フォームが変更されたとき、フロントエンドは`__intent__`プロパティとともにバックエンドにリクエストを送信する。
-  フォームに`__intent__`プロパティが含まれているとき、Conformは検証結果のみを返す。
-  このリクエストによって`navigation.state`が`submitting`に設定されると考えられる。
+  これがどのように動くのか軽く説明します。
+
+  フォームが変更されたとき、フロントエンドは`__intent__`プロパティとともにバックエンドにリクエストを送信します。
+
+  フォームに`__intent__`プロパティが含まれているとき、Conformは検証結果のみを返します。
+
+  このリクエストによって`navigation.state`が`submitting`に設定されると考えられます。
 -->
 
 ---
@@ -298,8 +381,11 @@ Because the `navigation.state` becomes `submitting`, the message `Sending...` is
 Could adding a "validating" property to the form help distinguish between the states?
 
 <!--
-  navigation.stateが"submitting"になってしまうため、validate時に`Sending...`と表示されてしまう 😢
-  formのプロパティに`validating`があれば、`state`との区別がつくのではないか？
+  サーバー側でユーザーの検証を簡単に行うことができるのがメリットです。
+
+  しかし、navigation.stateが"submitting"になってしまうため、validate時に`Sending...`と表示されてしまいます 😢
+
+  formのプロパティに`validating`があれば、`state`との区別がつくのではないか？と考えているのですが、どうでしょうか？
 -->
 
 ---
@@ -311,8 +397,9 @@ Conform is a powerful library that allows you to validate client input asynchron
 You'll be amazed at how easily you can asynchronously validate client input server-side. You really should give it a try.
 
 <!--
-Conformは、クライアントの入力をサーバーで非同期に検証することができる強力なライブラリです。
-クライアントの入力をサーバーで非同期に検証することが簡単にできて衝撃的です。ぜひ試してみてください。
+  Conformは、クライアントの入力をサーバーで非同期に検証することができる強力なライブラリです。
+
+  クライアントの入力をサーバーで非同期に検証することが簡単にできて衝撃的です。ぜひ試してみてください。
 -->
 
 ---
@@ -329,6 +416,7 @@ Let's talk about it at the social gathering!
 <PoweredBySlidev mt-10 />
 
 <!--
-Conformの`defaultValue`について話したかったが時間切れ 😢
-懇親会で話しましょう！
+  Conformの`defaultValue`について話したかったが時間切れのようです 😢
+
+  懇親会で話しましょう！
 -->
