@@ -1,0 +1,12 @@
+{
+  "name": "solo-dev-considerations",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "slidev build --base /solo-dev-considerations/ --out ../../dist/solo-dev-considerations",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
