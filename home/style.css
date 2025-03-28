@@ -1,41 +1,114 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
-  font-size: 24px;
-
+  font-size: 16px;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
+  color: #eee;
+  background-color: #1a1a1a;
 }
 
 body {
+  margin: 0;
   display: flex;
   flex-direction: column;
-  min-width: 320px;
   min-height: 100vh;
-
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
-div {
-  margin: 0 auto 36px;
+header {
+  text-align: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid #333;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #252525;
+  border-radius: 8px;
+}
+
+.date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.event-link,
+.slide-link {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #64b5f6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.event-link:hover,
+.slide-link:hover {
+  color: #81d4fa;
+}
+
+.slide-link {
+  font-size: 1.2rem;
+}
+
+.en {
+  color: #a5d6a7;
+}
+
+.ja {
+  color: #ef9a9a;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid #333;
+}
+
+.footer-links {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  margin: 0 1rem;
+  color: #64b5f6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #81d4fa;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 1rem;
+  }
+
+  .slide-link {
+    font-size: 1rem;
+  }
+}
+
+.slide-container {
+  margin-top: 1rem;
+  overflow-x: auto; /* 横スクロールを有効にする */
+  white-space: nowrap; /* 画像を折り返さない */
+}
+
+.slide-container a {
+  display: inline-block; /* 横並びにする */
+  margin-right: 0.5rem; /* 画像間の間隔 */
+}
+
+.slide-container img {
+  max-width: 100%; /* 画像の最大幅をコンテナに合わせる */
+  height: auto; /* 高さを自動調整 */
 }
