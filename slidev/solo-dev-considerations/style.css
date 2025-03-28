@@ -10,7 +10,8 @@ h2 {
   font-size: 3rem !important;
   line-height: 1.25 !important;
   font-size: 2.25rem !important;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 h3 {
@@ -31,12 +32,3 @@ li {
 code {
   font-size: 1rem !important;
 }
-
-.text-09675 * {
-  font-size: 0.9675rem !important;
-}
-
-.text-094 * {
-  font-size: 0.94rem !important;
-}
-
