@@ -5,8 +5,11 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "slidev build --base /cloudflare-fullstack-application/ --out ../../dist/cloudflare-fullstack-application",
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/cloudflare-fullstack-application",
+    "build:slidev": "slidev build --base /cloudflare-fullstack-application/ --out ../../dist/cloudflare-fullstack-application",
     "dev": "slidev --open",
-    "export": "slidev export"
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
   }
 }
