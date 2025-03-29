@@ -1,0 +1,10 @@
+{
+  "name": "slide",
+  "main": "./home/server.ts",
+  "compatibility_date": "2024-08-21",
+  "workers_dev": false,
+  "assets": {
+    "directory": "./dist/",
+    "binding": "ASSETS"
+  }
+}
