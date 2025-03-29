@@ -7,9 +7,7 @@ app.on("GET", ["/:slide/:num"], async (c: Context) => {
   const regex = /^(https?:\/\/[^/]+\/[^/]+\/)/;
   const urlPrefix = c.req.url.match(regex)?.[1] ?? c.req.url;
   const html = await c.env.ASSETS.fetch(urlPrefix);
-  // return rewriter.transform(html);
-  console.log("URL Prefix:", urlPrefix);
-  // return rewriter.transform(html);
+
   return rewriter
     .on(
       "head",
