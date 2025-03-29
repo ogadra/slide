@@ -5,6 +5,7 @@
   "workers_dev": false,
   "assets": {
     "directory": "./dist/",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true
   }
 }
