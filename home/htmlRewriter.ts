@@ -1,9 +1,11 @@
 const rewriter = new HTMLRewriter();
 
-class ElementHandler {
+class HeadHandler {
   content: string;
-  constructor(content: string) {
+  title: string;
+  constructor(content: string, title: string) {
     this.content = content;
+    this.title = title;
   }
 
   element(element:any) {
@@ -21,17 +23,30 @@ class ElementHandler {
       `  <meta property="twitter:image" content="${this.content}" />\n`,
       { html: true }
     )
-}
-}
-
-async function handleRequest(req) {
-  const res = await fetch(req);
-
-  return 
-}
-
-rewriter.on('head', {
     
-})
+    element.append(
+      `  <meta property="og:title" content="${this.title}" />\n`,
+      { html: true }
+    )
+    element.append(
+      `  <meta property="twitter:title" content="${this.title}" />\n`,
+      { html: true }
+    )
+    element.append(
+      `  <meta property="twitter:text:title" content="${this.title}" />\n`,
+      { html: true }
+    )
+  }
+  text(text:any) {
+    const regex = / - Slidev$/;
+    if (regex.test(text.text)) {
+      const title = text.text.replace(regex, "");
+      text.replace(
+        title,
+        { html: true }
+      );
+    }
+  }
+}
 
-export { rewriter, ElementHandler }
+export { rewriter, HeadHandler }
