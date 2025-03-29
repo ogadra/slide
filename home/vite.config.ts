@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     UnoCSS(),
     devServer({
-      entry: 'index.ts', // The file path of your application.
+      entry: 'server.ts', // The file path of your application.
     }),
   ],
 })
