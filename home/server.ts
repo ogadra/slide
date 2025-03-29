@@ -8,7 +8,7 @@ app.on("GET", ["/assets/*"], async (c: Context) => {
 });
 
 app.on("GET", ["/:slide/", "/:slide/:num"], async (c: Context) => {
-  return HTMLRewriterHandler(c, Number(c.req.param("num")) ?? 1);
+  return HTMLRewriterHandler(c, Number(c.req.param("num") ?? 1));
 });
 
 app.on("GET", ["*"], async (c: Context) => {
