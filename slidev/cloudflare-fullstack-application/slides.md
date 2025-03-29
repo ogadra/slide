@@ -4,9 +4,7 @@ theme: purplin
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: CloudflareだけでWebアプリを作成してみた
-info: |
-  ## CloudflareだけでWebアプリを作成してみた
-  https://qiita.com/ogadra/items/b7e0d790a8f4105cf99c
+info: CloudflareだけでWebアプリを作成してみた
 # apply unocss classes to the current slide
 # class: text-center
 colorSchema: 'dark'

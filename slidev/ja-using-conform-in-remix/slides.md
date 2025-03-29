@@ -4,8 +4,7 @@ theme: purplin
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: RemixでConformを使って感じたこと
-info: |
-  RemixでConformを使って感じたこと (Conform in Remix Personal Observations)
+info: RemixでConformを使って感じたこと (Conform in Remix Personal Observations)
 # apply unocss classes to the current slide
 # class: text-center
 colorSchema: 'dark'
