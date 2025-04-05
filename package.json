@@ -13,7 +13,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@slidev/cli": "^51.4.0",
+    "@slidev/cli": "^51.5.0",
     "@slidev/client": "^51.5.0",
     "playwright-chromium": "^1.51.1",
     "slidev-theme-purplin": "^1.2.0",
