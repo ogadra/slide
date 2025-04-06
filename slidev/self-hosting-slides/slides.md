@@ -79,8 +79,6 @@ https://github.com/ogadra/slide
 
 https://slide.ogadra.com
 
-（ & みなさんが今見ているスライド）
-
 ---
 
 ## 主な機能
