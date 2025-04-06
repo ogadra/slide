@@ -7,6 +7,8 @@ const titles = (path: string): string => {
       return "CloudflareだけでWebアプリを作成してみた";
     case "ja-using-conform-in-remix":
       return "RemixでConformを使って感じたこと";
+    case "self-hosting-slides":
+      return "スライド自己管理のすゝめ";
     case "solo-dev-considerations":
       return "個人開発で気をつけるべきこと";
     case "using-conform-in-remix":
