@@ -17,7 +17,7 @@ const titles = (path: string): string => {
 }
 
 export const HTMLRewriterHandler = async (c: Context, num: number) =>{
-  const regex = /^(https?:\/\/[^/]+\/[^/]+\/)/;
+  const regex = /^(https?:\/\/[^/]+\/[^/]+)/;
   const urlPrefix = c.req.url.match(regex)?.[1] ?? c.req.url;
   const html = await c.env.ASSETS.fetch(urlPrefix);
   const title = titles(c.req.param("slide"));
@@ -25,7 +25,7 @@ export const HTMLRewriterHandler = async (c: Context, num: number) =>{
   return rewriter
     .on(
       "head",
-      new HeadHandler(`${urlPrefix}slides-export/${num}.png`, title)
+      new HeadHandler(`${urlPrefix}/slides-export/${num}.png`, title)
     )
     .transform(html);
 }

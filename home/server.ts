@@ -7,7 +7,7 @@ app.on("GET", ["/assets/*"], async (c: Context) => {
   return c.env.ASSETS.fetch(c.req.url);
 });
 
-app.on("GET", ["/:slide/", "/:slide/:num"], async (c: Context) => {
+app.on("GET", ["/:slide", "/:slide/", "/:slide/:num"], async (c: Context) => {
   return HTMLRewriterHandler(c, Number(c.req.param("num") ?? 1));
 });
 
