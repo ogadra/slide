@@ -7,6 +7,8 @@ const titles = (path: string): string => {
       return "CloudflareだけでWebアプリを作成してみた";
     case "ja-using-conform-in-remix":
       return "RemixでConformを使って感じたこと";
+    case "self-hosting-slides":
+      return "スライド自己管理のすゝめ";
     case "solo-dev-considerations":
       return "個人開発で気をつけるべきこと";
     case "using-conform-in-remix":
@@ -17,7 +19,7 @@ const titles = (path: string): string => {
 }
 
 export const HTMLRewriterHandler = async (c: Context, num: number) =>{
-  const regex = /^(https?:\/\/[^/]+\/[^/]+\/)/;
+  const regex = /^(https?:\/\/[^/]+\/[^/]+)/;
   const urlPrefix = c.req.url.match(regex)?.[1] ?? c.req.url;
   const html = await c.env.ASSETS.fetch(urlPrefix);
   const title = titles(c.req.param("slide"));
@@ -25,7 +27,7 @@ export const HTMLRewriterHandler = async (c: Context, num: number) =>{
   return rewriter
     .on(
       "head",
-      new HeadHandler(`${urlPrefix}slides-export/${num}.png`, title)
+      new HeadHandler(`${urlPrefix}/slides-export/${num}.png`, title)
     )
     .transform(html);
 }

@@ -1,0 +1,36 @@
+html {
+  font-size: 125%;
+}
+
+h1 {
+  line-height: 1.0 !important;
+  font-size: 3.4rem !important;
+  text-align: center !important;
+}
+
+h2 {
+  font-size: 2.5rem !important;
+  line-height: 1.25 !important;
+  font-size: 2.25rem !important;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  line-height: 1.25 !important;
+  font-size: 0.8rem !important;
+}
+
+p {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+}
+
+li {
+  font-size: 1.4rem !important;
+  line-height: 2 !important;
+}
+
+code {
+  font-size: 1rem !important;
+}
