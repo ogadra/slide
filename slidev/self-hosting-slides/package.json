@@ -1,0 +1,15 @@
+{
+  "name": "self-hosting-slides",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/self-hosting-slides",
+    "build:slidev": "slidev build --base /self-hosting-slides/ --out ../../dist/self-hosting-slides",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
