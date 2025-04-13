@@ -1,0 +1,15 @@
+{
+  "name": "remix-on-hono",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/remix-on-hono",
+    "build:slidev": "slidev build --base /remix-on-hono/ --out ../../dist/remix-on-hono",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
