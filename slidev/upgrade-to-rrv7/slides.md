@@ -3,8 +3,8 @@ theme: default
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
-title: hono-remix-adapter使ってみた
-info: hono-remix-adapter使ってみた
+title: RRv7移行のつらみポイント
+info: RRv7移行のつらみポイント
 # apply unocss classes to the current slide
 # class: text-center
 colorSchema: 'dark'

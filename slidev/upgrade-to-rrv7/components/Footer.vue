@@ -7,7 +7,7 @@ div {
 <template>
   <div class="fixed left-0 bottom-0 bg-barBottom flex absolute w-full text-sm">
     <div class="text-left bg-barBottomLeft left-0 py-0.5 px-2">
-      hono-remix-adapter使ってみた
+      RRv7移行のつらみポイント
     </div>
 
     <div class="w-1/2 flex justify-end ml-auto px-2">
