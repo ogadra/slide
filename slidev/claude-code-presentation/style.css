@@ -5,6 +5,7 @@ html {
 h1 {
   line-height: 1.0 !important;
   font-size: 3.25rem !important;
+  color: #eee !important;
 }
 
 h2 {
@@ -12,17 +13,21 @@ h2 {
   line-height: 1.25 !important;
   padding-top: 0 !important;
   padding-bottom: 1.5rem !important;
+  color: #eee !important;
 }
 
 h3 {
   font-size: 2.5rem !important;
   line-height: 1.25 !important;
   padding-bottom: 1.5rem !important;
+  /* color: #eee !important; */
+  opacity: 1 !important;
 }
 
 p {
   font-size: 1.25rem !important;
   line-height: 1.5 !important;
+  color: #eee !important;
 }
 
 li {
