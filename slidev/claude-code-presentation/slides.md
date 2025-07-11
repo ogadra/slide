@@ -1,7 +1,7 @@
 ---
 theme: purplin
 title: 大興奮！Claude Codeはなぜ我々の価値観を変えるのか
-info: Claude Codeの革新的な機能と開発体験への影響について
+info: Claude Codeの革新的な機能と開発フローへの影響について
 colorSchema: 'dark'
 drawings:
   enabled: false
@@ -32,51 +32,154 @@ imageOrder: 2
 座右の銘は<br/>
 Done is better than perfect.
 
-好きな言語 : Typescript, Go
+Claude Code Maxプラン契約中
 
-右のアイコンは<br/>
-自宅サーバーに置いて、<br/>
-Cloudflare Tunnelで公開しています
+Claude Codeが楽しすぎて、<br/>1日で198コミットしたことあり
 
 ---
 
 ## Claude Codeとは？
 
 - AnthropicがリリースしたCLIツール
-- コードベース全体を理解したコーディング支援
-- インタラクティブなコマンドライン体験
-- 既存のIDEとの統合も可能
+- コードベース**全体**を理解したコーディング支援
+- インタラクティブな**CLI**体験
+- **月額定額制**
+
 
 ---
 
-## 従来のコーディング体験
+契約1週目
+
+```
+ccusage monthly
+
+┌──────────┬─────────────┐
+│ Month    │  Cost (USD) │
+├──────────┼─────────────┤
+│ 2025-07  │     $371.42 │
+└──────────┴─────────────┘
+```
+
+---
+
+## コードベース**全体**を理解
+
+<Comparison>
+  <template #left>
+    <ul>
+      <li>単発のファイル編集</li>
+      <li>局所的な理解</li>
+      <li>手動でコンテキスト収集</li>
+    </ul>
+  </template>
+  <template #right>
+    <ul>
+      <li>プロジェクト全体を把握</li>
+      <li>ファイル間の関係性を理解</li>
+      <li>一貫した変更提案</li>
+    </ul>
+  </template>
+</Comparison>
+
+---
+
+## コードベース**全体**理解の実例
 
 ```bash
-# 手動でファイルを探し回る
+# 従来: 手動でファイルを探し回る
 find . -name "*.ts" | grep component
 cat src/components/Button.tsx
 grep -r "handleClick" src/
 ```
 
-- ファイル探索に時間がかかる
-- コンテキストの把握が困難
-- 複数ファイルの関連性を理解するのが大変
+```bash
+# Claude Code: 一発で全体を理解
+claude "Buttonコンポーネントのローディング状態を追加"
+# → 関連するファイルを自動で特定・編集
+# → テストファイルも同時に更新
+# → 型定義も適切に変更
+```
 
 ---
 
-## Claude Codeの体験
+## インタラクティブな**CLI**体験
+
+<Comparison leftTitle="従来のCLI" rightTitle="Claude Code">
+  <template #left>
+    <ul>
+      <li>一方向の命令実行</li>
+      <li>結果を見て次の命令を考える</li>
+      <li>エラーが出たら手動で対処</li>
+    </ul>
+  </template>
+  <template #right>
+    <ul>
+      <li>対話形式で進行</li>
+      <li>途中で方向性を変更可能</li>
+      <li>エラーも一緒に解決</li>
+    </ul>
+  </template>
+</Comparison>
+
+---
+
+## インタラクティブ**CLI**の実例
 
 ```bash
-# 自然言語でタスクを指示
-claude "この Button コンポーネントにローディング状態を追加して"
-
-# 複雑なリファクタリングも一発
-claude "この API クライアントを TypeScript の strict モードに対応させて"
+# 従来のCLI
+$ npm test
+❌ 3 tests failed
+$ # 手動でエラーを確認
+$ # 一つずつ修正
+$ # 再度テスト実行
 ```
 
-- 自然言語でタスクを指示
-- コードベース全体を理解した提案
-- 複数ファイルの同期的な変更
+```bash
+# Claude Code
+$ claude "テストを修正して"
+Claude: テストの失敗を確認します...
+Claude: 3つのテストが失敗していますね。修正しましょう
+Claude: 修正完了！再実行しますか？
+> はい
+✅ All tests passed!
+```
+
+---
+
+## **月額定額制**
+
+<Comparison leftTitle="従来の料金体系" rightTitle="Claude Code">
+  <template #left>
+    <ul>
+      <li>使用量に応じた従量課金</li>
+      <li>予算の予測が困難</li>
+      <li>使用を控えめにしがち</li>
+    </ul>
+  </template>
+  <template #right>
+    <ul>
+      <li>月額固定料金</li>
+      <li>使い放題で気兼ねなし</li>
+      <li>積極的に活用できる</li>
+    </ul>
+  </template>
+</Comparison>
+
+---
+
+## **月額定額制**の心理的効果
+
+**従来の従量課金**:
+- 「この作業にいくらかかるかな...」
+- 「簡単な作業は自分でやろう」
+- 使用を控えめにする心理
+
+**Claude Code定額制**:
+- 「どんどん使おう！」
+- 「小さな作業も任せよう」
+- 積極的に活用する心理
+
+→ **開発効率が劇的に向上**
 
 ---
 

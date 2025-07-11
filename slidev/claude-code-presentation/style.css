@@ -4,10 +4,11 @@ html {
 
 h1 {
   line-height: 1.0 !important;
+  font-size: 3.25rem !important;
 }
 
 h2 {
-  font-size: 3rem !important;
+  font-size: 2rem !important;
   line-height: 1.25 !important;
   padding-top: 0 !important;
   padding-bottom: 1.5rem !important;
