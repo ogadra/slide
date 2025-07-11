@@ -23,25 +23,33 @@ h2 {
 
 ---
 
+<div style="font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap;">
 Claude Code 使ってみました
+</div>
 
 ---
 
+<div style="font-size: 4rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 はやい！
-
+</div>
 
 ---
 
+<div style="font-size: 6rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 すごい！
-
-
----
-
-☆&nbsp;大&nbsp;☆&nbsp;興&nbsp;☆&nbsp;奮&nbsp;☆
+</div>
 
 ---
 
+<div style="font-size: 8rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #60a5fa;">
+大&nbsp;☆&nbsp;興&nbsp;☆&nbsp;奮
+</div>
+
+---
+
+<div style="font-size: 1.65rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap;">
 皆さんに興奮と熱狂をお届けできればと思っております。
+</div>
 
 ---
 layout: image-x
