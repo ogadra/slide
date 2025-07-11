@@ -51,7 +51,7 @@ defineProps({
 }
 
 .comparison-column h3 {
-  font-size: 2rem !important;
+  font-size: 1.75rem !important;
   margin: 0.5rem !important;
   padding-top: 0 !important;
   padding-bottom: 0.5rem !important;

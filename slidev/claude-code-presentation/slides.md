@@ -22,6 +22,28 @@ h2 {
 ## おがどら
 
 ---
+
+Claude Code 使ってみました
+
+---
+
+はやい！
+
+
+---
+
+すごい！
+
+
+---
+
+☆&nbsp;大&nbsp;☆&nbsp;興&nbsp;☆&nbsp;奮&nbsp;☆
+
+---
+
+皆さんに興奮と熱狂をお届けできればと思っております。
+
+---
 layout: image-x
 image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
 imageOrder: 2
@@ -83,6 +105,45 @@ ccusage monthly
 ### （実質）定額使い放題
 - 書いて、捨てて、書いて、捨てる
 - 「API料金が無駄になる」恐れからの解放
+
+---
+
+## GitHub Copilotとの違い
+
+<Comparison leftTitle="GitHub Copilot" rightTitle="Claude Code">
+  <template #left>
+    <ul>
+      <li>エディタ内補完</li>
+      <li>行・関数単位の提案</li>
+      <li>コンテキストは現在のファイル + 手動追加中心</li>
+    </ul>
+  </template>
+  <template #right>
+    <ul>
+      <li>CLI</li>
+      <li>プロジェクト全体の変更</li>
+      <li>コードベース全体を理解</li>
+      <li>月額定額制</li>
+    </ul>
+  </template>
+</Comparison>
+
+---
+
+## Clineとの違い
+
+<Comparison leftTitle="Cline" rightTitle="Claude Code">
+  <template #left>
+    <ul>
+      <li>従量課金（API利用）</li>
+    </ul>
+  </template>
+  <template #right>
+    <ul>
+      <li>月額定額制</li>
+    </ul>
+  </template>
+</Comparison>
 
 ---
 
