@@ -1,17 +1,11 @@
 <template>
   <div class="comparison-container">
     <div class="comparison-column left-column">
-      <h3>
-        <span class="text-back">{{ leftTitle }}</span>
-        <span class="text-front">{{ leftTitle }}</span>
-      </h3>
+      <h3>{{ leftTitle }}</h3>
       <slot name="left"></slot>
     </div>
     <div class="comparison-column right-column">
-      <h3>
-        <span class="text-back">{{ rightTitle }}</span>
-        <span class="text-front">{{ rightTitle }}</span>
-      </h3>
+      <h3>{{ rightTitle }}</h3>
       <slot name="right"></slot>
     </div>
   </div>
@@ -59,39 +53,26 @@ defineProps({
 .comparison-column h3 {
   font-size: 2rem !important;
   margin: 0.5rem !important;
+  padding-top: 0 !important;
   padding-bottom: 0.5rem !important;
   border-bottom: 2px solid currentColor;
   text-align: center;
-  position: relative;
-  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
   font-family: 'Fira Code', 'Rubik', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   letter-spacing: 0.05em;
   opacity: 1;
-}
-
-.text-back {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-weight: bold;
-  -webkit-text-stroke: 2.5px #fff;
-  text-stroke: 2.5px #fff;
-  z-index: 0;
-  white-space: nowrap;
-  font-family: 'Fira Code', 'Rubik', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-  opacity: 0.95;
-}
-
-.text-front {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  white-space: nowrap;
-  font-family: 'Fira Code', 'Rubik', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  text-shadow: 
+    -1px -1px 2px #eee,
+    1px -1px 2px #eee,
+    -1px 1px 2px #eee,
+    1px 1px 2px #eee,
+    2px 0 2px #eee,
+    -2px 0 2px #eee,
+    0 2px 2px #eee,
+    0 -2px 2px #eee;
 }
 
 .left-column h3 {

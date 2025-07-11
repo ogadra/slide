@@ -33,3 +33,8 @@ li {
 code {
   font-size: 1rem !important;
 }
+
+/* Comparison component内のリストを明るく */
+.comparison-column li {
+  color: #eee !important;
+}
