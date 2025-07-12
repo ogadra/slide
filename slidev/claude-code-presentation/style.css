@@ -1,0 +1,45 @@
+html {
+  font-size: 125%;
+}
+
+h1 {
+  line-height: 1.0 !important;
+  font-size: 3.25rem !important;
+  color: #eee !important;
+}
+
+h2 {
+  font-size: 2rem !important;
+  line-height: 1.25 !important;
+  padding-top: 0 !important;
+  padding-bottom: 1.5rem !important;
+  color: #eee !important;
+}
+
+h3 {
+  font-size: 2.5rem !important;
+  line-height: 1.25 !important;
+  padding-bottom: 1.5rem !important;
+  /* color: #eee !important; */
+  opacity: 1 !important;
+}
+
+p {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+  color: #eee !important;
+}
+
+li {
+  font-size: 1.4rem !important;
+  line-height: 2 !important;
+}
+
+code {
+  font-size: 1rem !important;
+}
+
+/* Comparison component内のリストを明るく */
+.comparison-column li {
+  color: #eee !important;
+}
