@@ -123,6 +123,8 @@ transition: fade
 
 
 ---
+transition: fade
+---
 
 ### MCPに向いているモデルを選ぶ
 
@@ -137,6 +139,8 @@ transition: fade
 <span style="font-size: 0.75rem; padding-top: -20px;">https://github.com/microsoft/playwright-mcp/issues/320</span>
 
 ---
+transition: fade
+---
 
 ### MCPに向いているモデルを選ぶ
 
@@ -147,6 +151,8 @@ transition: fade
   - `browser_take_screenshot`
 - モデルによっては上記2つを混同し、呼び間違える
 
+---
+transition: fade
 ---
 
 ### MCPに向いているモデルを選ぶ
@@ -179,6 +185,8 @@ def browser_snapshot() -> str:
   - `browser_take_screenshot`を呼び直す
 
 ---
+transition: fade
+---
 
 ### configの書き方
 
@@ -189,12 +197,16 @@ def browser_snapshot() -> str:
   - リリースノートに書かれたり書かれなかったり
 
 ---
+transition: fade
+---
 
 ### configの書き方
 
 - configFileはv0.0.16でリリース [#281](https://github.com/microsoft/playwright-mcp/pull/281)
 - 話すと長くなりそうな、`omitBase64`に関して
 
+---
+transition: fade
 ---
 
 ### configの書き方
@@ -206,6 +218,8 @@ def browser_snapshot() -> str:
 - 証跡としてファイルを保存したいだけなんじゃ！
   - コンテキストのムダじゃ！ [#277](https://github.com/microsoft/playwright-mcp/issues/277)
 
+---
+transition: fade
 ---
 
 ### configの書き方
@@ -224,6 +238,8 @@ tools: {
 }
 ```
 ---
+transition: fade
+---
 
 ### configの書き方
 
@@ -231,6 +247,8 @@ tools: {
 <span style="font-size: 9em;">😅</span>
 </p>
 
+---
+transition: fade
 ---
 
 ### configの書き方
@@ -249,6 +267,8 @@ v0.0.20 [#362](https://github.com/microsoft/playwright-mcp/pull/362)
 ```
 toolsと言いながら、それしか設定項目なかったんかい！
 
+---
+transition: fade
 ---
 
 ### configの書き方
@@ -341,6 +361,8 @@ async callTool(
 ```
 
 ---
+transition: fade
+---
 
 ### 仕様上の限界
 
@@ -361,6 +383,8 @@ async callTool(
 -> 内部的にはPlaywrightの`snapshotForAI`を呼ぶ 
 
 ---
+transition: fade
+---
 
 ### 仕様上の限界
 
@@ -374,6 +398,8 @@ async callTool(
   </p>
 </v-click>
 
+---
+transition: fade
 ---
 
 
@@ -389,6 +415,8 @@ input[type="checkbox"] {
 }
 ```
 
+---
+transition: fade
 ---
 
 ### 仕様上の限界
@@ -413,6 +441,8 @@ input[type="checkbox"] {
 
 
 ---
+transition: fade
+---
 
 ### 仕様上の限界
 
@@ -428,6 +458,8 @@ input[type="checkbox"] {
 }
 ```
 ---
+transition: fade
+---
 
 ### 仕様上の限界
 
@@ -439,6 +471,8 @@ input[type="checkbox"] {
   </span>
 </p>
 
+---
+transition: fade
 ---
 
 ### 仕様上の限界
