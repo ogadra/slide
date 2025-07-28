@@ -48,10 +48,37 @@ Contributor of Playwright MCP
 |||
 |:-:|:-:|
 | OpenAI Agents SDK | v0.1.0 |
-| Playwright MCP | v0.0.30 |
+| Playwright MCP | v0.0.32 |
 | GPT-4.1 mini | 2025-04-14 |
 
 ---
+
+## Playwright MCPがでた！
+
+これですべての苦役から開放される！
+
+<v-click>
+
+<img
+  src="./imgs/と思っていたのか.jpg"
+  alt="と思っていたのか" 
+  style="height: 30vh;"
+/>
+
+</v-click>
+
+---
+
+## Playwright MCPの幻想に打ち砕かれた話です
+
+- MCPについては説明しません
+  - 「仕組みまで理解している」ことを前提とします
+- 話す内容
+  - 使うときに気をつけること
+  - 現時点でできること・できないこと
+
+---
+
 
 ## モデル選定
 
@@ -65,7 +92,7 @@ Contributor of Playwright MCP
 - Webサイト全体を文字列として読み込むため
 - サイトによっては読み込めない可能性がある
 - コストに注意
-  - 事前見積もりには限界があるので、少しずつ試す
+  - 事前見積もりには限界があるので、小さいモデルから試す
   - **慎重なモデル変更**（1敗）
 - Geminiが良さそうらしいので検証予定
 
