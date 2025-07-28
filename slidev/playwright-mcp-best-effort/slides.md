@@ -178,11 +178,12 @@ def browser_snapshot() -> str:
 
 #### 何が起こるか
 
-- 上記のToolとMCPのToolの両方が呼ばれる
-- snapshotを期待して関数を呼んだ場合
-  - 何も起こらない（独自toolは無視する）
-- 画像を期待して呼んだ場合
-  - `browser_take_screenshot`を呼び直す
+- `browser_snapshot`が呼ばれた場合
+  - 上記のToolとMCPのToolの両方が呼ばれる
+  - snapshotを期待して関数を呼んだ場合
+    - 何も起こらない（独自toolは無視する）
+  - 画像を期待して呼んだ場合
+    - `browser_take_screenshot`を呼び直す
 
 ---
 transition: fade
@@ -289,6 +290,9 @@ Cursorのチャットで複数モデルに対応するための変更
 ```
 
 ---
+transition: fade
+---
+
 
 ### configの書き方
 
@@ -310,7 +314,7 @@ Cursor側が追従して`auto`が必要なくなった
 
 ---
 
-### configFile
+### configの書き方
 
 とにかく変わりまくるので、バージョンアップの際はdiffを隅から隅まで見る 😅
 
@@ -389,9 +393,12 @@ transition: fade
 ### 仕様上の限界
 
 操作できる要素 => アクセシビリティツリーに現れる要素
+<v-click>
+アクセシビリティに配慮して作られているサイトでないと、うまく操作できない
+</v-click>
 
 <v-click>
-  <p style="text-align: center; padding-top: 3em;">
+  <p style="text-align: center; padding-top: 4em;">
     <span style="font-size: 1.5em;">
       カスタマイズされたInput要素が触れない！
     </span>
