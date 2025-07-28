@@ -40,6 +40,8 @@ Contributor of Playwright MCP
   - iframeに苦戦！
 
 ---
+transition: fade
+---
 
 ### 注意書き
 
@@ -50,6 +52,22 @@ Contributor of Playwright MCP
 | OpenAI Agents SDK | v0.1.0 |
 | Playwright MCP | v0.0.32 |
 | GPT-4.1 mini | 2025-04-14 |
+
+---
+
+### 注意書き
+
+<div style="background-color: #1a365d; border-left: 4px solid #4299e1; padding: 1.5rem 2rem; margin: 2rem auto; border-radius: 8px; position: relative; max-width: 80%;">
+  <div style="padding: 0; font-size: 1.2rem; color: #63b3ed; font-weight: bold;">
+    ℹ️ INFO
+  </div>
+  <p style="margin: 0.5rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
+    このスライド作成仕事はまだAIに奪われていません
+  </p>
+  <p style="margin: 0.5rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
+    人間の手で温かみを持って作られています
+  </p>
+</div>
 
 ---
 
