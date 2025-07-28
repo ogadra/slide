@@ -21,11 +21,12 @@ h2 {
 h3 {
     opacity: 1 !important;
     font-size: 1.5rem !important;
-    line-height: 1.25 !important;
-    margin-top: 0.5rem;
+    line-height: 1 !important;
+    margin-top: 0rem;
     margin-bottom: 1rem;
     text-align: left !important;
     letter-spacing: 0.05em !important;
+    text-decoration: underline;
 }
 
 h4 {
