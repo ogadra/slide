@@ -33,11 +33,13 @@ Contributor of Playwright MCP
 
 ## 目次
 
-- モデル選定
-- configFileの書き方
-- 仕様上の限界
-  - 操作できる要素・できない要素
-  - iframeに苦戦！
+- 使うときに気をつけること
+  - モデル選定
+  - configFileの書き方
+- 現時点でできること・できないこと
+  - 仕様上の限界
+    - 操作できる要素・できない要素
+    - iframeに苦戦！
 
 ---
 transition: fade
@@ -97,6 +99,14 @@ transition: fade
 
 ---
 
+# 使うときに気をつけること
+
+
+<p style="text-align: center; padding-top: 4em; opacity: 1;">
+  <span style="font-size: 3em;">モデル選定</span>
+</p>
+
+---
 
 ## モデル選定
 
@@ -114,6 +124,8 @@ transition: fade
   - **慎重なモデル変更**（1敗）
 - Geminiが良さそうらしいので検証予定
 
+---
+transition: fade
 ---
 
 ### MCPに向いているモデルを選ぶ
@@ -186,6 +198,15 @@ def browser_snapshot() -> str:
     - `browser_take_screenshot`を呼び直す
 
 ---
+
+# 使うときに気をつけること
+
+<p style="text-align: center; padding-top: 4em; opacity: 1;">
+  <span style="font-size: 3em;">configの書き方</span>
+</p>
+
+
+---
 transition: fade
 ---
 
@@ -215,7 +236,7 @@ transition: fade
 #### 初期の`browser_take_screenshot`について
 
 - 画像をbase64エンコードしたものをLLMに返す、という仕様
-- LLMに画像から解釈してもらう用の関数
+- LLMに画像を解釈してもらう用の関数
 - 証跡としてファイルを保存したいだけなんじゃ！
   - コンテキストのムダじゃ！ [#277](https://github.com/microsoft/playwright-mcp/issues/277)
 
@@ -320,9 +341,16 @@ Cursor側が追従して`auto`が必要なくなった
 
 ---
 
+# 現時点でできること・できないこと
+
+---
+
 ### 仕様上の限界
 
 `snapshotForAI`が曲者！
+
+- Playwrightの関数
+- Playwright MCPから呼び出している
 
 ---
 transition: none
@@ -385,6 +413,17 @@ async callTool(
 ```
 
 -> 内部的にはPlaywrightの`snapshotForAI`を呼ぶ 
+
+---
+
+### 仕様上の限界
+#### アクセシビリティツリーってなんですか
+
+スクリーンリーダーなどの支援技術のために構築する、ページを木構造で表したもの。
+要素ごとに役割（Role）、名前（Name）、状態（State）、値（Value）といった情報を持つ。
+アクセシビリティオブジェクトモデル（AOM）とも。
+
+https://developer.mozilla.org/ja/docs/Glossary/Accessibility_tree
 
 ---
 transition: fade
