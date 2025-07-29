@@ -59,17 +59,23 @@ transition: fade
 
 ### 注意書き
 
-<div style="background-color: #1a365d; border-left: 4px solid #4299e1; padding: 1.5rem 2rem; margin: 2rem auto; border-radius: 8px; position: relative; max-width: 80%;">
-  <div style="padding: 0; font-size: 1.2rem; color: #63b3ed; font-weight: bold;">
-    ℹ️ INFO
-  </div>
-  <p style="margin: 0.5rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
+<div style="background-color: #1a365d; border-left: 4px solid #4299e1; padding: 0.5rem 2rem; margin: 0.25rem auto; border-radius: 8px; position: relative; max-width: 80%;">
+  <p style="margin: 0.25rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
     このスライド作成仕事はまだAIに奪われていません
   </p>
-  <p style="margin: 0.5rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
+  <p style="margin: 0.25rem 0; color: #e2e8f0; font-size: 1.2rem !important; text-align: left;">
     人間の手で温かみを持って作られています
   </p>
 </div>
+
+<v-click>
+  <img
+    src="./imgs/commits.png"
+    alt="commit messageの様子。ほとんどClaude Codeにコミットされている。"
+    style="height: 260px; margin-top: 1em;"
+  />
+</v-click>
+
 
 ---
 
