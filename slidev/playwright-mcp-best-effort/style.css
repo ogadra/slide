@@ -1,0 +1,95 @@
+/* スライド固有のスタイル */
+
+html {
+    font-size: 125%;
+}
+
+h1 {
+    line-height: 1.0 !important;
+    font-size: 2.9rem !important;
+    text-align: left !important;
+}
+
+h2 {
+    font-size: 2rem !important;
+    line-height: 1.25 !important;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: left !important;
+}
+
+h3 {
+    opacity: 1 !important;
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    text-align: left !important;
+    letter-spacing: 0.05em !important;
+    color: #e2e8f0;
+    border-bottom: 3px solid #4299e1;
+    padding-bottom: 0.2rem;
+    display: inline-block;
+}
+
+h4 {
+    opacity: 1 !important;
+    font-size: 1.2rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 1rem;
+    text-align: left !important;
+    letter-spacing: 0.05em !important;
+    color: #94a3b8;
+}
+
+p {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
+    /* margin-top:  !important; */
+}
+
+li {
+    font-size: 1.4rem !important;
+    line-height: 2 !important;
+}
+
+li > ul > li {
+    font-size: 87.5% !important;
+}
+
+img {
+    margin: 0 auto;
+}
+
+code {
+    font-size: 1rem !important;
+    line-height: 1.25 !important;
+}
+
+/* Links */
+a {
+    color: #4299e1 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid transparent !important;
+    transition: border-bottom 0.2s ease !important;
+}
+
+a:hover {
+    border-bottom: 1px solid #4299e1 !important;
+}
+
+/* Emphasis styles */
+strong {
+    color: #f56565 !important;
+    font-weight: bold !important;
+}
+
+/* Diff code blocks */
+.language-diff .token.deleted {
+    color: #f56565 !important;
+}
+
+.language-diff .token.inserted {
+    color: #48bb78 !important;
+}
+
