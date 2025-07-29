@@ -99,7 +99,7 @@ transition: fade
 
 ---
 
-# 使うときに気をつけること
+## 使うときに気をつけること
 
 
 <p style="text-align: center; padding-top: 4em; opacity: 1;">
@@ -199,7 +199,7 @@ def browser_snapshot() -> str:
 
 ---
 
-# 使うときに気をつけること
+## 使うときに気をつけること
 
 <p style="text-align: center; padding-top: 4em; opacity: 1;">
   <span style="font-size: 3em;">configの書き方</span>
@@ -341,7 +341,7 @@ Cursor側が追従して`auto`が必要なくなった
 
 ---
 
-# 現時点でできること・できないこと
+## 現時点でできること・できないこと
 
 ---
 

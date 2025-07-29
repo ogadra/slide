@@ -23,19 +23,23 @@ h3 {
     font-size: 1.5rem !important;
     line-height: 1 !important;
     margin-top: 0rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     text-align: left !important;
     letter-spacing: 0.05em !important;
-    text-decoration: underline;
+    color: #e2e8f0;
+    border-bottom: 3px solid #4299e1;
+    padding-bottom: 0.2rem;
+    display: inline-block;
 }
 
 h4 {
-    opacity: 0.6 !important;
+    opacity: 1 !important;
     font-size: 1.2rem !important;
     line-height: 1.25 !important;
     margin-bottom: 1rem;
     text-align: left !important;
     letter-spacing: 0.05em !important;
+    color: #94a3b8;
 }
 
 p {
@@ -61,3 +65,31 @@ code {
     font-size: 1rem !important;
     line-height: 1.25 !important;
 }
+
+/* Links */
+a {
+    color: #4299e1 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid transparent !important;
+    transition: border-bottom 0.2s ease !important;
+}
+
+a:hover {
+    border-bottom: 1px solid #4299e1 !important;
+}
+
+/* Emphasis styles */
+strong {
+    color: #f56565 !important;
+    font-weight: bold !important;
+}
+
+/* Diff code blocks */
+.language-diff .token.deleted {
+    color: #f56565 !important;
+}
+
+.language-diff .token.inserted {
+    color: #48bb78 !important;
+}
+
