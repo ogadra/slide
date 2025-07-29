@@ -82,7 +82,7 @@ transition: fade
 <img
   src="./imgs/と思っていたのか.jpg"
   alt="と思っていたのか" 
-  style="height: 30vh;"
+  style="height: 300px;"
 />
 
 </v-click>
@@ -145,7 +145,7 @@ transition: fade
 <img
   src="./imgs/playwright-mcp-Issue-320.png"
   alt="Playwright MCPのIssueを写したスクリーンショット。MS社員のコントリビューターの方が「Sonnet 3.7を使え」と言っている。" 
-  style="height: 22.5vh;"
+  style="height: 225px;"
 />
 
 <span style="font-size: 0.75rem; padding-top: -20px;">https://github.com/microsoft/playwright-mcp/issues/320</span>
@@ -245,6 +245,8 @@ transition: fade
 ---
 
 ### configの書き方
+
+v0.0.20 [#286](https://github.com/microsoft/playwright-mcp/pull/286)
 
 ```typescript
 tools: {
