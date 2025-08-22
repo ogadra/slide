@@ -13,6 +13,6 @@
     "hono": "^4.9.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250726.0"
+    "@cloudflare/workers-types": "^4.20250822.0"
   }
 }
