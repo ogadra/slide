@@ -1,7 +1,8 @@
 {
   "name": "slide",
-  "main": "./home/server.ts",
+  "main": "./home/worker.ts",
   "compatibility_date": "2024-08-21",
+	"compatibility_flags": ["nodejs_compat"],
   "workers_dev": false,
   "assets": {
     "directory": "./dist/",
