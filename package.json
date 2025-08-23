@@ -6,7 +6,8 @@
   "author": "ogadra",
   "workspaces": [
     "slidev/*",
-    "home"
+    "home",
+    "demo"
   ],
   "scripts": {
     "build": "npm run -ws build"
