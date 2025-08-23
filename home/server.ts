@@ -2,8 +2,13 @@ import { type Context, Hono } from "hono";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 
 const app = new Hono();
+console.log("Server started...");
 
 app.on("GET", ["/assets/*"], async (c: Context) => {
+  return c.env.ASSETS.fetch(c.req.url);
+});
+
+app.on("*", ["/demo/*"], async (c: Context) => {
   return c.env.ASSETS.fetch(c.req.url);
 });
 

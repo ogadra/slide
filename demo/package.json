@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "npm run build:rr && npm run build:copy",
+    "build:rr": "react-router build",
+    "build:copy": "cp -r ./build ../dist/demo",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
