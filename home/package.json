@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp ./style.css ../dist/",
+    "build": "cp ./style.css ../dist/",
     "preview": "vite preview",
     "export:png": "",
     "lint": "biome check",
@@ -18,8 +18,6 @@
   },
   "devDependencies": {
     "biome": "^0.3.3",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.3",
-    "vite-tsconfig-paths": "^5.1.4"
+    "typescript": "^5.8.3"
   }
 }
