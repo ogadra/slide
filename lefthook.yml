@@ -3,18 +3,18 @@ pre-commit:
   piped: true
   commands:
     01_typecheck:
-      root: "app"
+      root: "home"
       glob: "*.{ts,tsx}"
       stage_fixed: true
-      run: npm run -w home typecheck
+      run: npm run typecheck
     01_secrets:
       run: gitleaks protect --staged -v
     02_fix:
-      root: "app"
+      root: "home"
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,jsonc}"
       stage_fixed: true
-      run: npm run -w home lint:fix {staged_files}
+      run: npm run lint:fix {staged_files}
     03_check:
-      root: "app"
+      root: "home"
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,jsonc}"
-      run: npm run -w home lint {staged_files}
+      run: npm run lint {staged_files}
