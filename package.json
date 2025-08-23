@@ -9,7 +9,8 @@
     "home"
   ],
   "scripts": {
-    "build": "npm run -ws build"
+    "build": "npm run -ws build",
+    "dev": "wrangler dev --local"
   },
   "private": true,
   "devDependencies": {

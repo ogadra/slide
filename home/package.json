@@ -5,14 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "cp ./style.css ../dist/",
     "preview": "vite preview",
-    "export:png": ""
+    "export:png": "",
+    "lint": "biome check",
+    "lint:fix": "biome format --write",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hono/vite-dev-server": "^0.20.1",
     "hono": "^4.9.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250726.0"
+    "biome": "^0.3.3",
+    "typescript": "^5.8.3"
   }
 }

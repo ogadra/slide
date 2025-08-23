@@ -1,5 +1,6 @@
 import { type Context, Hono } from "hono";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
+import { Index } from "./app/index";
 
 const app = new Hono();
 
@@ -9,6 +10,10 @@ app.on("GET", ["/assets/*"], async (c: Context) => {
 
 app.on("GET", ["/:slide", "/:slide/", "/:slide/:num"], async (c: Context) => {
   return HTMLRewriterHandler(c, Number(c.req.param("num") ?? 1));
+});
+
+app.on("GET", ["/"], async (c: Context) => {
+  return Index(c);
 });
 
 app.on("GET", ["*"], async (c: Context) => {
