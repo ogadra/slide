@@ -1,7 +1,8 @@
 /** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 
-import { type Context } from 'hono'
+import { type Context } from "hono";
+import { Section } from "./components/Section";
 
 export const Index = (c: Context) => {
     return c.html(
@@ -30,113 +31,124 @@ const Header = () => (
     </head>
 )
 
-const Body = () => (
-    <body>
-        <header>
-            <h1>ogadra's Slide Archive</h1>
-        </header>
+const Body = () => {
+    const year = new Date().getFullYear();
+    return(
+        <body>
+            <header>
+                <h1>ogadra's Slide Archive</h1>
+            </header>
 
-        <main>
-            <section>
-                <div class="date">2025/07/29</div>
-                <a href="https://dev-hive.connpass.com/event/361847/" class="event-link" target="_blank"
-                    rel="noopener noreferrer">全力で生成AIに仕事奪わせてみたLT会</a>
-                <div class="slide-container">
-                    <a href="./playwright-mcp-best-effort" target="_blank" rel="noopener noreferrer">
-                    <img src="./playwright-mcp-best-effort/slides-export/1.png" alt="Playwright MCPの、今の全力" />
-                    </a>
+            <main>
+                <Section
+                    date="2025/07/29"
+                    eventLink="https://dev-hive.connpass.com/event/361847/"
+                    eventTitle="全力で生成AIに仕事奪わせてみたLT会"
+                    slide={[
+                        {
+                            link: "./playwright-mcp-best-effort",
+                            title: "Playwright MCPの、今の全力"
+                        }
+                    ]}
+                />
+
+                <Section
+                    date="2025/07/10"
+                    eventTitle="非公開発表"
+                    slide={[
+                        {
+                            link: "./claude-code-presentation",
+                            title: "大興奮！Claude Codeはなぜ我々の価値観を変えるのか"
+                        }
+                    ]}
+                />
+
+                <Section
+                    date="2025/06/23"
+                    eventLink="https://lu.ma/paz62qi5"
+                    eventTitle="Remix Tokyo Meetup 第5回 『Bring Your Own Talk』"
+                    slide={[
+                        {
+                            link: "./upgrade-to-rrv7",
+                            title: "RRv7移行のつらみポイント"
+                        }
+                    ]}
+                />
+
+                <Section
+                    date="2025/04/10"
+                    eventLink="https://canly.connpass.com/event/349882/"
+                    eventTitle="初心者歓迎！クラフトビールを楽しむLT会！#2"
+                    slide={[
+                        {
+                            link: "./self-hosting-slides",
+                            title: "スライド自己管理のすゝめ"
+                        }
+                    ]}
+                />
+
+                <Section
+                    date="2025/03/29"
+                    eventLink="https://mii-meetup.connpass.com/event/347603/"
+                    eventTitle="個人開発LT会"
+                    slide={[
+                        {
+                            link: "./solo-dev-considerations",
+                            title: "個人開発で気をつけるべきこと"
+                        }
+                    ]}
+                />
+
+                <Section
+                    date="2025/03/25"
+                    eventLink="https://lu.ma/l9539owb"
+                    eventTitle="Remix Tokyo Meetup 第4回 『Remix in Production』"
+                    slide={[
+                        {
+                            link: "./using-conform-in-remix",
+                            title: "Conform in Remix Personal Observations"
+                        },
+                        {
+                            link: "./ja-using-conform-in-remix",
+                            title: "RemixでConformを使って感じたこと"
+                        }
+                    ]}
+                
+                />
+
+                <Section
+                    date="2025/03/14"
+                    eventLink="https://cfm-cts.connpass.com/event/344633/"
+                    eventTitle="Cloudflare Meet-up Tokyo Vol.7"
+                    slide={[
+                        {
+                            link: "./cloudflare-fullstack-application",
+                            title: "CloudflareだけでWebアプリを作成してみた"
+                        },
+                    ]}
+                />
+
+                <Section
+                    date="2024/11/19"
+                    eventLink="https://lu.ma/wv9xzam7"
+                    eventTitle="Remix Tokyo × Cloudflare Meetup"
+                    slide={[
+                        {
+                            link: "./remix-on-hono",
+                            title: "hono-remix-adapter 使ってみた"
+                        }
+                    ]}
+                />
+
+            </main>
+
+            <footer>
+                <div class="footer-links">
+                <a href="https://twitter.com/const_myself" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="https://github.com/ogadra/slide" target="_blank" rel="noopener noreferrer">このページのGitHub</a>
                 </div>
-            </section>
-
-            <section>
-                <div class="date">2025/07/10</div>
-                <div >非公開発表</div>
-                <div class="slide-container">
-                    <a href="./claude-code-presentation" target="_blank" rel="noopener noreferrer">
-                    <img src="./claude-code-presentation/slides-export/1.png" alt="大興奮！Claude Codeはなぜ我々の価値観を変えるのか" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2025/06/23</div>
-                <a href="https://lu.ma/paz62qi5" class="event-link" target="_blank"
-                    rel="noopener noreferrer">Remix Tokyo Meetup 第5回 『Bring Your Own Talk』</a>
-                <div class="slide-container">
-                    <a href="./upgrade-to-rrv7" target="_blank" rel="noopener noreferrer">
-                    <img src="./upgrade-to-rrv7/slides-export/1.png" alt="RRv7移行のつらみポイント" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2025/04/10</div>
-                <a href="https://canly.connpass.com/event/349882/" class="event-link" target="_blank"
-                    rel="noopener noreferrer">初心者歓迎！クラフトビールを楽しむLT会！#2</a>
-                <div class="slide-container">
-                    <a href="./self-hosting-slides" target="_blank" rel="noopener noreferrer">
-                    <img src="./self-hosting-slides/slides-export/1.png" alt="スライド自己管理のすゝめ" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2025/03/29</div>
-                <a href="https://mii-meetup.connpass.com/event/347603/" class="event-link" target="_blank"
-                    rel="noopener noreferrer">個人開発LT会</a>
-                <div class="slide-container">
-                    <a href="./solo-dev-considerations" target="_blank" rel="noopener noreferrer">
-                    <img src="./solo-dev-considerations/slides-export/1.png" alt="個人開発で気をつけるべきこと" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2025/03/25</div>
-                <a href="https://lu.ma/l9539owb" class="event-link" target="_blank" rel="noopener noreferrer">Remix Tokyo Meetup
-                    第4回 『Remix in Production』</a>
-                <div class="slide-container">
-                    <a href="./using-conform-in-remix" target="_blank" rel="noopener noreferrer">
-                    <img src="./using-conform-in-remix/slides-export/1.png" alt="Conform in Remix Personal Observations" />
-                    </a>
-                </div>
-                <div class="slide-container">
-                    <a href="./ja-using-conform-in-remix" target="_blank" rel="noopener noreferrer">
-                    <img src="./ja-using-conform-in-remix/slides-export/1.png" alt="RemixでConformを使って感じたこと" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2025/03/14</div>
-                <a href="https://cfm-cts.connpass.com/event/344633/" class="event-link" target="_blank"
-                    rel="noopener noreferrer">Cloudflare Meet-up Tokyo Vol.7</a>
-                <div class="slide-container">
-                    <a href="./cloudflare-fullstack-application" target="_blank" rel="noopener noreferrer">
-                    <img src="./cloudflare-fullstack-application/slides-export/1.png" alt="CloudflareだけでWebアプリを作成してみた" />
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="date">2024/11/19</div>
-                <a href="https://lu.ma/wv9xzam7" class="event-link" target="_blank"
-                    rel="noopener noreferrer">Remix Tokyo × Cloudflare Meetup</a>
-                <div class="slide-container">
-                    <a href="./remix-on-hono" target="_blank" rel="noopener noreferrer">
-                    <img src="./remix-on-hono/slides-export/1.png" alt="hono-remix-adapter 使ってみた" />
-                    </a>
-                </div>
-            </section>
-
-        </main>
-
-        <footer>
-            <div class="footer-links">
-            <a href="https://twitter.com/const_myself" target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href="https://github.com/ogadra/slide" target="_blank" rel="noopener noreferrer">このページのGitHub</a>
-            </div>
-            <p>&copy; 2025 ogadra</p>
-        </footer>
-    </body>
+                <p>&copy; {year} ogadra</p>
+            </footer>
+        </body>
 )
+}
