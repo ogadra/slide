@@ -6,15 +6,15 @@ pre-commit:
       root: "app"
       glob: "*.{ts,tsx}"
       stage_fixed: true
-      run: npm run -w demo typecheck
+      run: npm run -w home typecheck
     01_secrets:
       run: gitleaks protect --staged -v
     02_fix:
       root: "app"
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,jsonc}"
       stage_fixed: true
-      run: npm run -w demo lint:fix {staged_files}
+      run: npm run -w home lint:fix {staged_files}
     03_check:
       root: "app"
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,jsonc}"
-      run: npm run -w demo lint {staged_files}
+      run: npm run -w home lint {staged_files}

@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build && cp ./style.css ../dist/",
     "preview": "vite preview",
-    "export:png": ""
+    "export:png": "",
+    "lint": "biome check",
+    "lint:fix": "biome format --write",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hono/vite-dev-server": "^0.20.1",
