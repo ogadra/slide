@@ -6,6 +6,21 @@
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",
-    "run_worker_first": true
-  }
+    "run_worker_first": true,
+  },
+  "vars": {
+    "ENVIRONMENT": "production",
+  },
+  "env": {
+    "dev": {
+      "vars": {
+        "ENVIRONMENT": "dev",
+      },
+    },
+    "prod": {
+      "vars": {
+        "ENVIRONMENT": "production",
+      },
+    },
+  },
 }

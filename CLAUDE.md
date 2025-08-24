@@ -38,6 +38,22 @@ npm run export:png      # Export slides as PNG images
 wrangler deploy
 ```
 
+### Quality Assurance
+```bash
+# Run type checking (from home directory)
+cd home
+npm run typecheck
+
+# Run linting
+npm run lint          # Check for issues
+npm run lint:fix      # Auto-fix issues
+
+# Pre-commit hooks automatically run:
+# - Type checking
+# - Secrets detection with gitleaks
+# - Code formatting and linting
+```
+
 ## Architecture
 
 ### Monorepo Structure
@@ -51,7 +67,8 @@ wrangler deploy
 #### Homepage (`home/`)
 - **server.ts**: Hono server with asset handling and slide routing
 - **htmlRewriterHandler.ts**: Dynamic HTML manipulation for slide metadata
-- **index.html**: Landing page displaying all slide presentations
+- **app/index.tsx**: React-based landing page displaying all slide presentations
+- **demo/**: Demo functionality routes (e.g., iOS Safari App Experience)
 
 #### Slide Presentations (`slidev/`)
 Each slide deck is self-contained with:
@@ -86,6 +103,13 @@ Each slide deck is self-contained with:
 - Homepage: `/`
 - Slide deck: `/:slide-name/`
 - Specific slide: `/:slide-name/:slide-number`
+- Demo pages: `/demo/*` (e.g., `/demo/ios-safari-app-experience`)
 
 ### Asset Handling
 Static assets are served through Cloudflare Workers binding with `c.env.ASSETS.fetch()`
+
+### Development Workflow
+1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection
+2. **Monorepo Management**: npm workspaces handle dependencies across slide decks and homepage
+3. **Build Pipeline**: Each slide deck builds independently to shared dist directory
+4. **Local Development**: Use `wrangler dev --local` for full-stack testing with Workers runtime

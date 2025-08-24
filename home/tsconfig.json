@@ -14,7 +14,7 @@
             "DOM",
             "DOM.Iterable"
         ],
-        "types": ["node", "vite/client"],
+        "types": ["node", "vite/client", "./worker-configuration"],
         "jsx": "react-jsx",
         "jsxImportSource": "hono/jsx",
         "rootDirs": [".", "./.react-router/types"],

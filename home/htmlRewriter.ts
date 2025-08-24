@@ -1,4 +1,3 @@
-// @ts-expect-error : HTMLRewriter is a global in Cloudflare Workers environment
 const rewriter = new HTMLRewriter();
 
 class HeadHandler {

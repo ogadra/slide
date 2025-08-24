@@ -4,7 +4,7 @@ pre-commit:
   commands:
     01_typecheck:
       root: "home"
-      glob: "*.{ts,tsx}"
+      glob: "*.{ts,tsx,js,jsx}"
       stage_fixed: true
       run: npm run typecheck
     01_secrets:

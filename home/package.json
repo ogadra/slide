@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cp ./style.css ../dist/",
+    "dev:cf": "wrangler dev --ip 0.0.0.0",
+    "build": "vite build --mode client && cp -r ./dist/* style.css ../dist",
     "preview": "vite preview",
     "export:png": "",
     "lint": "biome check",
