@@ -225,13 +225,16 @@ export default defineConfig({
 })
 EOF
 
-# npm install
-
+# Install dependencies
+echo -e "${GREEN}Installing dependencies...${NC}"
 npm install
 
-cd "$SLIDE_DIR" && npm run dev
-
 # Success message
+echo ""
 echo -e "${GREEN}✨ Successfully created slide: $SLIDE_NAME_EN${NC}"
+echo -e "${GREEN}Starting development server...${NC}"
 echo ""
 echo -e "${GREEN}Happy presenting! 🚀${NC}"
+
+# Start development server (this will block until stopped)
+cd "$SLIDE_DIR" && npm run dev
