@@ -8,7 +8,7 @@ export const renderer = jsxRenderer(({ children }) => {
         <script
             type="module"
             src={env.ENVIRONMENT === 'production'
-                ? '/demo/ios-safari-app-experience/app.js'
+                ? '/client/demo/ios-safari-app-experience/app.js'
                 : './ios-safari-app-experience/app.tsx'
             }></script>
         <Header />
