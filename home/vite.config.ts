@@ -29,7 +29,6 @@ export default defineConfig(({ mode, command }) => {
     }
     return {}
   } else {
-    console.log(32);
     return {
       plugins: [cloudflare()],
       environments: {
@@ -38,6 +37,9 @@ export default defineConfig(({ mode, command }) => {
             ENVIRONMENT: JSON.stringify("dev"),
           },
         },
+      },
+      server: {
+        host: '0.0.0.0',
       },
     };
   };

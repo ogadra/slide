@@ -1,4 +1,4 @@
-import { useState } from "hono/jsx"
+import { useState, useEffect } from "hono/jsx"
 import { css } from "hono/css";
 import { render } from "hono/jsx/dom";
 
@@ -12,7 +12,9 @@ const App = () => (
 
 
 const Body = () => {
-    const [messages, setMessages] = useState<string[]>(["サンプルメッセージ"]);
+    const [messages, setMessages] = useState<string[]>([..."サンプルメッセージです。"]);
+    const [height, setHeight] = useState<number>(0);
+    const [footerRef, setFooterRef] = useState<HTMLDivElement | null>(null);
 
     const sendMessage = (e: Event) => {
         e.preventDefault();
@@ -24,13 +26,41 @@ const Body = () => {
         }
     };
 
+    useEffect(() => {
+		// 画面からフッターの距離を調整
+		reSizeHeight();
+		window.visualViewport?.addEventListener("resize", reSizeHeight);
+
+		return () => {
+			window.visualViewport?.removeEventListener("resize", reSizeHeight);
+		};
+	});
+
+    const reSizeHeight = () => {
+        if (typeof window === 'undefined') return;
+		if (!window.visualViewport) {
+			return;
+		}
+        const beforeHeight = height;
+		if (!footerRef) {
+			setHeight(Math.floor(window.visualViewport.height));
+			return;
+		}
+
+        const afterHeight = Math.floor(window.visualViewport.height) - Math.ceil(footerRef.clientHeight) - 1;
+		setHeight(afterHeight);
+        if ( afterHeight > beforeHeight ) {
+            window.scrollTo(0, 0);
+        }
+	};
+
     return (
         <>
             <header class={headerClass}>
-                <h1 class={headerTitleClass}>iOS Safari Demo Chat</h1>
+                <h1 class={headerTitleClass}>Height: {height}px</h1>
             </header>
             
-            <main class={mainClass}>
+            <main class={mainClass} style={{ height: `${height}px` }}>
                 <section class={sectionClass}>
                 {messages.map((msg, index) => (
                     <article key={index} class={articleClass}>
@@ -38,23 +68,23 @@ const Body = () => {
                     </article>
                 ))}
                 </section>
-                
-                <footer class={footerClass}>
-                    <form class={footerFormClass} onSubmit={sendMessage}>
-                        <div class={footerInputWrapperClass}>
-                            <input 
-                                class={footerInputClass}
-                                type="text"
-                                placeholder="メッセージを入力..."
-                                maxlength={100}
-                            />
-                        </div>
-                        <button class={footerButtonClass} type="submit">
-                            <span>送信</span>
-                        </button>
-                    </form>
-                </footer>
             </main>
+
+            <div class={footerClass} ref={setFooterRef}>
+                <form class={footerFormClass} onSubmit={sendMessage}>
+                    <div class={footerInputWrapperClass}>
+                        <input 
+                            class={footerInputClass}
+                            type="text"
+                            placeholder="メッセージを入力..."
+                            maxlength={100}
+                        />
+                    </div>
+                    <button class={footerButtonClass} type="submit">
+                        <span>送信</span>
+                    </button>
+                </form>
+            </div>
         </>
     )
 }
@@ -63,18 +93,23 @@ const headerClass = css`
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   color: white;
-  padding: 12px 16px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 `
 
 const headerTitleClass = css`
   font-size: 17px;
   font-weight: 600;
-  margin: 0;
+  margin: auto;
 `
 
 const mainClass = css`
@@ -83,15 +118,18 @@ const mainClass = css`
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  padding: 50px 0 0 0;
 `
 
 const sectionClass = css`
   flex: 1;
   overflow-y: auto;
-  padding: 16px 16px 100px 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
 `
 
 const articleClass = css`
@@ -113,10 +151,8 @@ const articlePClass = css`
 
 const footerClass = css`
   font-size: 20px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: absolute;
+  height: 80px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.3);
