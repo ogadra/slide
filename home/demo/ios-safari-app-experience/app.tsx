@@ -159,14 +159,14 @@ const articlePClass = css`
 `
 
 const footerClass = css`
-    font-size: 20px;
+    font-size: 16px;
     position: absolute;
-    height: 80px;
+    height: 68px;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 16px 20px;
+    padding: 10px 20px;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
 `
 
