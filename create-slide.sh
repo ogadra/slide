@@ -8,9 +8,9 @@ NC='\033[0m' # No Color
 
 # Usage function
 usage() {
-    echo "Usage: $0 <slide-name>"
+    echo "Usage: $0 <slide-name-en> <slide-name-ja>"
     echo "Creates a new Slidev presentation with the given name"
-    echo "Example: $0 my-awesome-presentation"
+    echo "Example: $0 my-awesome-presentation 私の素晴らしいプレゼンテーション"
     exit 1
 }
 
@@ -20,17 +20,18 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
-SLIDE_NAME=$1
+SLIDE_NAME_EN=$1
+SLIDE_NAME_JA=$2
 
 # Validate slide name (kebab-case)
-if ! [[ "$SLIDE_NAME" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+if ! [[ "$SLIDE_NAME_EN" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
     echo -e "${RED}Error: Slide name must be in kebab-case (lowercase letters, numbers, and hyphens only)${NC}"
     echo -e "${YELLOW}Example: my-awesome-presentation${NC}"
     exit 1
 fi
 
 # Check if directory already exists
-SLIDE_DIR="slidev/$SLIDE_NAME"
+SLIDE_DIR="slidev/$SLIDE_NAME_EN"
 if [ -d "$SLIDE_DIR" ]; then
     echo -e "${RED}Error: Directory $SLIDE_DIR already exists${NC}"
     exit 1
@@ -46,15 +47,15 @@ mkdir -p "$SLIDE_DIR/slides-export"
 echo -e "${GREEN}Creating package.json...${NC}"
 cat > "$SLIDE_DIR/package.json" <<EOF
 {
-  "name": "$SLIDE_NAME",
+  "name": "$SLIDE_NAME_EN",
   "type": "module",
   "version": "0.0.1",
   "private": true,
   "author": "ogadra",
   "scripts": {
     "build": "npm run build:slidev && npm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/$SLIDE_NAME",
-    "build:slidev": "slidev build --base /$SLIDE_NAME/ --out ../../dist/$SLIDE_NAME",
+    "build:copy": "cp -r ./slides-export ../../dist/$SLIDE_NAME_EN",
+    "build:slidev": "slidev build --base /$SLIDE_NAME_EN/ --out ../../dist/$SLIDE_NAME_EN",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"
@@ -64,106 +65,76 @@ EOF
 
 # Create slides.md
 echo -e "${GREEN}Creating slides.md...${NC}"
-cat > "$SLIDE_DIR/slides.md" <<'EOF'
+cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
-theme: seriph
-background: https://cover.sli.dev
-title: Welcome to Slidev
-class: text-center
-highlighter: shiki
+theme: purplin
+title: $SLIDE_NAME_JA
+info: $SLIDE_NAME_JA
+colorSchema: 'dark'
 drawings:
-  persist: false
+  enabled: false
 transition: slide-left
 mdc: true
+canvasWidth: 960
 ---
 
-# Welcome to Slidev
+<style>
+.slidev-layout {
+  padding-top: 0 !important;
+}
 
-Presentation slides for developers
+</style>
 
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
-
-<div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub" title="Open in GitHub"
-    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
-</div>
+# $SLIDE_NAME_JA
+## ogadra
 
 ---
-transition: fade-out
+layout: image-x
+image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
+imageOrder: 2
 ---
 
-# What is Slidev?
+# ogadra
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+Motto: Done is better than perfect.
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+Favorite languages: TypeScript, Go
 
 ---
 
-# Navigation
+- Twitter: [@const_myself](https://twitter.com/const_myself)
+- GitHub: [ogadra](https://github.com/ogadra)
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
+<PoweredBySlidev mt-10 />
 
-## Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
----
-layout: center
-class: text-center
----
-
-# Learn More
-
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
 EOF
 
 # Create components/Footer.vue
 echo -e "${GREEN}Creating components/Footer.vue...${NC}"
-cat > "$SLIDE_DIR/components/Footer.vue" <<'EOF'
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useSlideContext } from '@slidev/client'
-
-const { $slidev } = useSlideContext()
-const slideNumber = computed(() => $slidev.nav.currentPage)
-const totalSlides = computed(() => $slidev.nav.total)
-</script>
+cat > "$SLIDE_DIR/components/Footer.vue" <<EOF
+<style scoped>
+div {
+  font-size: 0.75rem;
+}
+</style>
 
 <template>
-  <footer
-    v-if="slideNumber > 1"
-    class="absolute bottom-0 left-0 right-0 p-2 text-gray-400"
-  >
-    <p class="text-xs text-center">
-      @ogadra - {{ slideNumber }} / {{ totalSlides }}
-    </p>
-  </footer>
+  <div class="fixed left-0 bottom-0 bg-barBottom flex absolute w-full text-sm">
+    <div class="text-left bg-barBottomLeft left-0 py-0.5 px-1">
+      $SLIDE_NAME_JA
+    </div>
+    <div class="w-1/2 flex justify-end ml-auto px-2">
+      <Item text="ogadra">
+        <carbon:logo-github />
+      </Item>
+      <Item text="const_myself">
+        <carbon:logo-twitter />
+      </Item>
+      <Item text="slide.ogadra.com">
+        <carbon:link />
+      </Item>
+    </div>
+  </div>
 </template>
 EOF
 
@@ -178,81 +149,89 @@ EOF
 # Create style.css
 echo -e "${GREEN}Creating style.css...${NC}"
 cat > "$SLIDE_DIR/style.css" <<'EOF'
-/* Custom styles for the presentation */
-
-.slidev-layout h1 {
-  @apply text-4xl font-bold mb-4;
+html {
+  font-size: 125%;
 }
 
-.slidev-layout h2 {
-  @apply text-3xl font-semibold mb-3;
+h1 {
+  line-height: 1.0 !important;
+  padding-top: 2rem;
 }
 
-.slidev-layout h3 {
-  @apply text-2xl font-medium mb-2;
+h2 {
+  font-size: 3rem !important;
+  line-height: 1.25 !important;
+  font-size: 2.25rem !important;
+  padding-top: 1.5rem;
 }
 
-.slidev-layout p {
-  @apply mb-4;
+h3 {
+  line-height: 1.25 !important;
+  font-size: 0.8rem !important;
 }
 
-.slidev-layout ul, .slidev-layout ol {
-  @apply mb-4 ml-6;
+p {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
 }
 
-.slidev-layout li {
-  @apply mb-2;
+li {
+  font-size: 1.4rem !important;
+  line-height: 2 !important;
 }
 
-.slidev-layout code {
-  @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
+code {
+  font-size: 1rem !important;
 }
 
-.slidev-layout pre {
-  @apply mb-4;
+.text-09675 * {
+  font-size: 0.9675rem !important;
 }
 
-/* Custom animations */
-.fade-in {
-  animation: fadeIn 0.5s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.text-094 * {
+  font-size: 0.94rem !important;
 }
 EOF
 
 # Create uno.config.ts
 echo -e "${GREEN}Creating uno.config.ts...${NC}"
 cat > "$SLIDE_DIR/uno.config.ts" <<'EOF'
-import { defineConfig } from 'unocss'
-import config from '@slidev/client/uno.config'
+import { resolve } from 'path'
+import { defineConfig } from 'vite-plugin-windicss'
 
+// extend the base config
 export default defineConfig({
-  ...config,
-  shortcuts: {
-    ...config.shortcuts,
-    // Custom shortcuts can be added here
+  extract: {
+    include: [
+      resolve(__dirname, '**/*.{vue,ts}'),
+    ],
   },
-  rules: [
-    ...config.rules || [],
-    // Custom rules can be added here
-  ],
+  shortcuts: {
+    // custom the default background
+    'bg-main': 'bg-[#1E1E1E] text-[#D4D4D4]',
+    'border-image': 'border border-[#121212] border-opacity-10 shadow-md shadow-[#121212]',
+    'bg-barBottom': 'bg-[#007ACC] text-[#FFFFFF]',
+    'bg-barBottomLeft': 'bg-[#16825D] text-[#FFFFFF]',
+  },
+  theme: {
+    extend: {
+      // fonts can be replaced here, remember to update the web font links in `index.html`
+      fontFamily: {
+        sans: '"Rubik", ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
+        mono: '"Fira Code", monospace',
+      }
+    },
+  },
 })
 EOF
 
+# npm install
+
+npm install
+
+cd "$SLIDE_DIR" && npm run dev
+
 # Success message
-echo -e "${GREEN}✨ Successfully created slide: $SLIDE_NAME${NC}"
-echo -e "${YELLOW}Next steps:${NC}"
-echo -e "  1. cd $SLIDE_DIR"
-echo -e "  2. npm install @slidev/cli @slidev/theme-seriph"
-echo -e "  3. npm run dev"
+echo -e "${GREEN}✨ Successfully created slide: $SLIDE_NAME_EN${NC}"
 echo ""
 echo -e "${GREEN}Happy presenting! 🚀${NC}"
