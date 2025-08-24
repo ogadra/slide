@@ -2,8 +2,6 @@ import { env } from 'cloudflare:workers'
 import { jsxRenderer } from 'hono/jsx-renderer'
 
 export const renderer = jsxRenderer(({ children }) => {
-    console.log('Environment:', env.ENVIRONMENT)
-    console.log(process.env.NODE_ENV)
   return (
     <html lang="ja">
       <head>
