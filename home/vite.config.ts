@@ -24,11 +24,21 @@ export default defineConfig(({ mode, command }) => {
           ssr: 'server.ts',
           outDir: '.cloudflare/worker'
         },
-        ssr: { target: 'webworker' }
+        ssr: { target: 'webworker' },
       }
     }
     return {}
   } else {
-    return { plugins: [cloudflare()] }
-  }
+    console.log(32);
+    return {
+      plugins: [cloudflare()],
+      environments: {
+        hono_jsx_spa: {
+          define: {
+            ENVIRONMENT: JSON.stringify("dev"),
+          },
+        },
+      },
+    };
+  };
 })

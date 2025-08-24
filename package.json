@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "npm run -ws build",
-    "dev": "wrangler dev --ip 0.0.0.0",
+    "dev": "wrangler dev --ip 0.0.0.0 --env dev",
     "start": "wrangler dev --ip 0.0.0.0 --env prod"
   },
   "private": true,
