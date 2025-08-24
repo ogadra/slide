@@ -17,7 +17,8 @@ canvasWidth: 960
 
 </style>
 
-# Safariでもネイティブアプリの触り心地を実現したい！
+# Safariでもネイティブアプリの触り心地を
+# 実現したい！
 ## ogadra
 
 ---
@@ -31,6 +32,37 @@ imageOrder: 2
 Motto: Done is better than perfect.
 
 Favorite languages: TypeScript, Go
+
+---
+
+### スマホブラウザ対応と聞いて思い浮かべるもの
+
+- Width / Heightが変わっても動く「レスポンシブデザイン」
+- input要素のfont-sizeを16px以上にする
+  - iOSブラウザでの意図せぬズームを防ぐ
+
+
+<v-click>
+  <div class="text-center text-4xl font-bold mt-16">
+    それだけじゃない！という話をします
+  </div>
+</v-click>
+
+---
+
+### デモページ
+
+
+<img
+  src="./imgs/demo.png"
+  alt="デモページのURLをQRコード画像にしたもの"
+  style="height: 300px; margin-top: 40px;"
+/>
+
+<div class="text-center">
+
+  [https://slide.ogadra.com/demo/ios-safari-app-experience](https://slide.ogadra.com/demo/ios-safari-app-experience)
+</div>
 
 ---
 
