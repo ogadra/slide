@@ -28,7 +28,15 @@ const Body = () => {
 
     const firstHeight = calcHeight();
     const [height, setHeight] = useState<number>(firstHeight);
-    const [messages, setMessages] = useState<string[]>([..."サンプルメッセージです。"]);
+    const [messages, setMessages] = useState<string[]>([
+        "is-evenっていうnpmパッケージ見つけた 😂",
+        "数値が偶数かどうか判定するだけのライブラリ",
+        "しかもis-oddに依存してる",
+        "is-oddはis-numberに依存してて...",
+        "たった一行で書ける処理に2つのパッケージに依存してる 🤯",
+        "でも週間DL数16万超えてるという現実",
+        "JavaScriptエコシステムの闇を見た気分"
+    ]);
 
     const sendMessage = (e: Event) => {
         e.preventDefault();
