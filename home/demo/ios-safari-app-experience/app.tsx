@@ -48,13 +48,34 @@ const Body = () => {
         }
     };
 
+    const appendMetaViewport = () => {
+        const metaViewport = document.createElement("meta");
+        metaViewport.name = "viewport";
+        metaViewport.content = "width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
+        document.getElementsByTagName("head")[0].appendChild(metaViewport);
+    }
+
+    const removeMetaViewport = () => {
+        const metaTags = document.getElementsByTagName("meta");
+        for (let i = metaTags.length - 1; i >= 0; i--) {
+            const meta = metaTags[i];
+            if (meta.name === "viewport") {
+                document.getElementsByTagName("head")[0].removeChild(meta);
+            }
+        }
+    }
+
     useEffect(() => {
 		// 画面からフッターの距離を調整
 		reSizeHeight();
 		window.visualViewport?.addEventListener("resize", reSizeHeight);
 
+        // meta viewportを追加
+        appendMetaViewport();
+
 		return () => {
 			window.visualViewport?.removeEventListener("resize", reSizeHeight);
+            removeMetaViewport();
 		};
 	});
 
