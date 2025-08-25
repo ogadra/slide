@@ -46,6 +46,19 @@ const Body = () => {
         "JavaScriptエコシステムの闇を見た気分"
     ]);
 
+    const heightAttribute = (pattern: Pattern) => {
+        switch (pattern) {
+            case Patterns.Pattern0:
+            case Patterns.Pattern3:
+                return { height: `${height}px` };
+            case Patterns.Pattern2:
+                return { height: `calc(100vh - ${footerHeight}px - ${headerHeight}px)` };
+            case Patterns.Pattern1:
+            default:
+                return {};
+        }
+    }
+
     const sendMessage = (e: Event) => {
         e.preventDefault();
         const input = (e.currentTarget as HTMLFormElement).querySelector('input');
@@ -140,8 +153,8 @@ const Body = () => {
                     </div>
                 </form>
             </header>
-            
-            <main class={mainClass} style={{ height: `${height}px` }}>
+
+            <main class={mainClass} style={heightAttribute(pattern)}>
 
                 <section class={sectionClass}>
                 {messages.map((msg, index) => (
@@ -152,7 +165,10 @@ const Body = () => {
                 </section>
             </main>
 
-            <div class={footerClass} ref={setFooterRef}>
+            <div
+                class={footerClass(pattern)}
+                ref={setFooterRef}
+            >
                 <form class={footerFormClass} onSubmit={sendMessage}>
                     <div class={footerInputWrapperClass}>
                         <input 
@@ -171,6 +187,9 @@ const Body = () => {
     )
 }
 
+const headerHeight = 96;
+const footerHeight = 68;
+
 const htmlClass = css`
     overflow: hidden;
 `
@@ -179,7 +198,7 @@ const headerClass = css`
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     color: white;
-    height: 96px;
+    height: ${headerHeight}px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,10 +256,10 @@ const articlePClass = css`
     word-wrap: break-word;
 `
 
-const footerClass = css`
+const footerClass = (pattern: Pattern) => css`
     font-size: 16px;
-    position: absolute;
-    height: 68px;
+    position: ${pattern === Patterns.Pattern1 ? "fixed" : "absolute"};
+    height: ${footerHeight}px;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
