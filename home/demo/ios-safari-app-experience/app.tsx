@@ -19,7 +19,7 @@ type Pattern = (typeof Patterns)[keyof typeof Patterns];
 const App = () => <Body />;
 
 const Body = () => {
-	const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern1);
+	const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern0);
 
 	const calcHeight = () => {
 		if (typeof window === "undefined") return 0;
@@ -38,7 +38,7 @@ const Body = () => {
 		"しかもis-oddに依存してる",
 		"is-oddはis-numberに依存してて...",
 		"たった一行で書ける処理に2つのパッケージに依存してる 🤯",
-		..."でも週間DL数16万超えてるという現実",
+		"でも週間DL数16万超えてるという現実",
 		"JavaScriptエコシステムの闇を見た気分",
 	]);
 
@@ -128,7 +128,8 @@ const Body = () => {
 					<form class={radioFormClass}>
 						<div class={radioGroupClass}>
 							{Object.values(Patterns).map((p) => (
-								<div
+								<button
+									type="button"
 									key={p}
 									class={radioItemClass}
 									onClick={() => setPattern(p)}
@@ -142,7 +143,7 @@ const Body = () => {
 										onChange={onChangePattern}
 									/>
 									{p}
-								</div>
+								</button>
 							))}
 						</div>
 					</form>
@@ -251,7 +252,7 @@ const mainClass = (pattern: Pattern, height: number) => {
                 `;
 			case Patterns.Pattern2:
 				return `
-                    height: calc(100dvh - ${footerHeight}px - ${headerHeight}px);
+                    height: calc(100svh - ${footerHeight}px);
                     position: relative;
                 `;
 			case Patterns.Pattern1:
