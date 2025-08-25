@@ -86,9 +86,22 @@ Favorite languages: TypeScript, Go
 
 ---
 
-#### パターン1: `position: Fixed;` を使う
+### パターン1: `position: fixed;`
 
 
+---
+
+### パターン2: `position: absolute;` + `calc(100vh - footerHeight - headerHeight)`
+
+
+---
+
+### パターン3: `position: absolute;` + Visual Viewport API
+
+
+---
+
+### 完成版: `position: absolute;` + Visual Viewport API + meta viewport tag
 
 
 ---

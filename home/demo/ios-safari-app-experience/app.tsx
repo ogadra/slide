@@ -19,17 +19,17 @@ type Pattern = typeof Patterns[keyof typeof Patterns];
 const App = () =>  <Body />;
 
 const Body = () => {
-    const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern0);
+    const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern1);
     const [footerRef, setFooterRef] = useState<HTMLDivElement | null>(null);
 
     const calcHeight = () => {
         if (typeof window === 'undefined') return 0;
-		if (!window.visualViewport) {
-			return 0;
-		}
-		if (!footerRef) {
-			return Math.floor(window.visualViewport.height);
-		}
+        if (!window.visualViewport) {
+            return 0;
+        }
+        if (!footerRef) {
+            return Math.floor(window.visualViewport.height);
+        }
 
         return Math.floor(window.visualViewport.height) - Math.ceil(footerRef.clientHeight) - 1;
     }
@@ -42,7 +42,7 @@ const Body = () => {
         "しかもis-oddに依存してる",
         "is-oddはis-numberに依存してて...",
         "たった一行で書ける処理に2つのパッケージに依存してる 🤯",
-        "でも週間DL数16万超えてるという現実",
+        ..."でも週間DL数16万超えてるという現実",
         "JavaScriptエコシステムの闇を見た気分"
     ]);
 
@@ -52,7 +52,7 @@ const Body = () => {
             case Patterns.Pattern3:
                 return { height: `${height}px` };
             case Patterns.Pattern2:
-                return { height: `calc(100vh - ${footerHeight}px - ${headerHeight}px)` };
+                return { height: `calc(100dvh - ${footerHeight}px - ${headerHeight}px)` };
             case Patterns.Pattern1:
             default:
                 return {};
@@ -96,25 +96,25 @@ const Body = () => {
     const reSizeHeight = () => {
         const afterHeight = calcHeight();
 
-		setHeight(afterHeight);
+        setHeight(afterHeight);
 
         window.scrollTo(0, 0);
-	};
+    };
 
     // 初期化処理
     useEffect(() => {
-		// 画面からフッターの距離を調整
-		reSizeHeight();
-		window.visualViewport?.addEventListener("resize", reSizeHeight);
+        // 画面からフッターの距離を調整
+        reSizeHeight();
+        window.visualViewport?.addEventListener("resize", reSizeHeight);
 
         // meta viewportを追加
         appendMetaViewport(pattern);
 
-		return () => {
-			window.visualViewport?.removeEventListener("resize", reSizeHeight);
+        return () => {
+            window.visualViewport?.removeEventListener("resize", reSizeHeight);
             removeMetaViewport();
-		};
-	});
+        };
+    }, [reSizeHeight, removeMetaViewport]);
 
     const onChangePattern = (e: Event) => {
         const select = e.currentTarget as HTMLSelectElement;
@@ -154,7 +154,7 @@ const Body = () => {
                 </form>
             </header>
 
-            <main class={mainClass} style={heightAttribute(pattern)}>
+            <main class={mainClass(pattern)} style={heightAttribute(pattern)}>
 
                 <section class={sectionClass}>
                 {messages.map((msg, index) => (
@@ -191,7 +191,7 @@ const headerHeight = 96;
 const footerHeight = 68;
 
 const htmlClass = css`
-    overflow: hidden;
+    /*overflow: hidden;*/
 `
 
 const headerClass = css`
@@ -218,19 +218,24 @@ const headerTitleClass = css`
     margin: auto;
 `
 
-const mainClass = css`
+const mainClass = (pattern: Pattern) => css`
     flex: 1;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
     padding: 96px 0 0 0;
     transition: height 0.25s cubic-bezier(0,1,0,1);
-`
+
+    ${pattern === Patterns.Pattern1 ? `
+        /*min-height: 0;*/
+    ` : `
+        position: relative;
+    `}
+`;
 
 const sectionClass = css`
     flex: 1;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -258,7 +263,6 @@ const articlePClass = css`
 
 const footerClass = (pattern: Pattern) => css`
     font-size: 16px;
-    position: ${pattern === Patterns.Pattern1 ? "fixed" : "absolute"};
     height: ${footerHeight}px;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
@@ -266,6 +270,16 @@ const footerClass = (pattern: Pattern) => css`
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px 20px;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+    
+    ${pattern === Patterns.Pattern1 ? `
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+    ` : `
+        position: absolute;
+    `}
 `
 
 const footerFormClass = css`
