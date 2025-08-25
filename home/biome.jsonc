@@ -29,6 +29,10 @@
 			},
 			"suspicious": {
 				"noConsole": "error",
+				"noArrayIndexKey": "warn",
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "info",
 			},
 			"complexity": {
 				"noForEach": "off",
