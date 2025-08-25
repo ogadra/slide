@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "export:png": "",
     "lint": "biome check",
-    "lint:fix": "biome format --write",
+    "lint:fix": "biome check --write --unsafe",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "hono": "^4.9.4"
   },
   "devDependencies": {
-    "biome": "^0.3.3",
+    "@biomejs/biome": "2.0.6",
     "typescript": "^5.8.3"
   }
 }
