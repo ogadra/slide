@@ -14,7 +14,7 @@ export const renderer = jsxRenderer(({ children }) => {
             }></script>
         <Header />
       </head>
-      <body class={bodyClass}>{children}</body>
+      <body>{children}</body>
     </html>
   )
 })
@@ -37,13 +37,4 @@ const htmlClass = css`
     padding: 0;
     box-sizing: border-box;
   }
-`
-
-const bodyClass = css`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 `

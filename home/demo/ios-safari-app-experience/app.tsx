@@ -20,18 +20,14 @@ const App = () =>  <Body />;
 
 const Body = () => {
     const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern1);
-    const [footerRef, setFooterRef] = useState<HTMLDivElement | null>(null);
 
     const calcHeight = () => {
         if (typeof window === 'undefined') return 0;
         if (!window.visualViewport) {
             return 0;
         }
-        if (!footerRef) {
-            return Math.floor(window.visualViewport.height);
-        }
 
-        return Math.floor(window.visualViewport.height) - Math.ceil(footerRef.clientHeight) - 1;
+        return Math.floor(window.visualViewport.height) - footerHeight - 1;
     }
 
     const firstHeight = calcHeight();
@@ -46,18 +42,6 @@ const Body = () => {
         "JavaScriptエコシステムの闇を見た気分"
     ]);
 
-    const heightAttribute = (pattern: Pattern) => {
-        switch (pattern) {
-            case Patterns.Pattern0:
-            case Patterns.Pattern3:
-                return { height: `${height}px` };
-            case Patterns.Pattern2:
-                return { height: `calc(100dvh - ${footerHeight}px - ${headerHeight}px)` };
-            case Patterns.Pattern1:
-            default:
-                return {};
-        }
-    }
 
     const sendMessage = (e: Event) => {
         e.preventDefault();
@@ -93,28 +77,36 @@ const Body = () => {
         }
     }
 
-    const reSizeHeight = () => {
+    const reSizeHeight = (reSizePattern: Pattern) => {
         const afterHeight = calcHeight();
 
         setHeight(afterHeight);
-
-        window.scrollTo(0, 0);
+        if (reSizePattern !== Patterns.Pattern1) {
+            window.scrollTo(0, 0);
+        }
+        
     };
 
     // 初期化処理
     useEffect(() => {
         // 画面からフッターの距離を調整
-        reSizeHeight();
-        window.visualViewport?.addEventListener("resize", reSizeHeight);
+        reSizeHeight(pattern);
+        window.visualViewport?.addEventListener(
+            "resize",
+            () => reSizeHeight(pattern),
+        );
 
         // meta viewportを追加
         appendMetaViewport(pattern);
-
+        
         return () => {
-            window.visualViewport?.removeEventListener("resize", reSizeHeight);
+            window.visualViewport?.removeEventListener(
+                "resize",
+                () => reSizeHeight(pattern),
+            );
             removeMetaViewport();
         };
-    }, [reSizeHeight, removeMetaViewport]);
+    }, [pattern]);
 
     const onChangePattern = (e: Event) => {
         const select = e.currentTarget as HTMLSelectElement;
@@ -132,56 +124,57 @@ const Body = () => {
     }, [pattern]);
 
     return (
-        <div class={htmlClass}>
-            <header class={headerClass}>
-                <h1 class={headerTitleClass}>{pattern}を表示中</h1>
-                <form class={radioFormClass}>
-                    <div class={radioGroupClass}>
-                        {Object.values(Patterns).map((p) => (
-                            <div key={p} class={radioItemClass} onClick={() => setPattern(p)}>
-                                <input
-                                    type="radio"
-                                    id={`pattern${p}`}
-                                    name="pattern"
-                                    value={p}
-                                    checked={pattern === p}
-                                    onChange={onChangePattern}
-                                />
-                                {p}
-                            </div>
-                        ))}
-                    </div>
-                </form>
-            </header>
+        <div class={wrapper(pattern, height)}>
+            <div class={htmlClass(pattern)}>
+                <header class={headerClass}>
+                    <h1 class={headerTitleClass}>{pattern}を表示中</h1>
+                    <form class={radioFormClass}>
+                        <div class={radioGroupClass}>
+                            {Object.values(Patterns).map((p) => (
+                                <div key={p} class={radioItemClass} onClick={() => setPattern(p)}>
+                                    <input
+                                        type="radio"
+                                        id={`pattern${p}`}
+                                        name="pattern"
+                                        value={p}
+                                        checked={pattern === p}
+                                        onChange={onChangePattern}
+                                    />
+                                    {p}
+                                </div>
+                            ))}
+                        </div>
+                    </form>
+                </header>
 
-            <main class={mainClass(pattern)} style={heightAttribute(pattern)}>
+                <main class={mainClass(pattern, height)}>
 
-                <section class={sectionClass}>
-                {messages.map((msg, index) => (
-                    <article key={index} class={articleClass}>
-                        <p class={articlePClass}>{msg}</p>
-                    </article>
-                ))}
-                </section>
-            </main>
+                    <section class={sectionClass}>
+                    {messages.map((msg, index) => (
+                        <article key={index} class={articleClass}>
+                            <p class={articlePClass}>{msg}</p>
+                        </article>
+                    ))}
+                    </section>
+                </main>
 
-            <div
-                class={footerClass(pattern)}
-                ref={setFooterRef}
-            >
-                <form class={footerFormClass} onSubmit={sendMessage}>
-                    <div class={footerInputWrapperClass}>
-                        <input 
-                            class={footerInputClass}
-                            type="text"
-                            placeholder="メッセージを入力..."
-                            maxlength={100}
-                        />
-                    </div>
-                    <button class={footerButtonClass} type="submit">
-                        <span>送信</span>
-                    </button>
-                </form>
+                <div
+                    class={footerClass(pattern)}
+                >
+                    <form class={footerFormClass} onSubmit={sendMessage}>
+                        <div class={footerInputWrapperClass}>
+                            <input 
+                                class={footerInputClass}
+                                type="text"
+                                placeholder="メッセージを入力..."
+                                maxlength={100}
+                            />
+                        </div>
+                        <button class={footerButtonClass} type="submit">
+                            <span>送信</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     )
@@ -190,8 +183,37 @@ const Body = () => {
 const headerHeight = 96;
 const footerHeight = 68;
 
-const htmlClass = css`
-    /*overflow: hidden;*/
+const wrapper = (pattern: Pattern, height: number) => {
+    
+    const customStyleFunc = (pattern: Pattern) => {
+        switch (pattern) {
+            case Patterns.Pattern0:
+                return `height: ${height}px;`;
+            case Patterns.Pattern1:
+                return ``;
+            case Patterns.Pattern2:
+            case Patterns.Pattern3:
+            default:
+                return `
+                    height: 100vh;
+                    overflow: hidden;
+                `;
+        }
+    }
+    const customStyle = customStyleFunc(pattern);
+
+    return css`
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  ${customStyle}
+`};
+
+const htmlClass = (pattern: Pattern) => css`
+    ${pattern === Patterns.Pattern1 ? `
+        
+    ` : ``}
 `
 
 const headerClass = css`
@@ -218,24 +240,43 @@ const headerTitleClass = css`
     margin: auto;
 `
 
-const mainClass = (pattern: Pattern) => css`
-    flex: 1;
-    /*display: flex;*/
-    flex-direction: column;
-    /*overflow: hidden;*/
-    padding: 96px 0 0 0;
-    transition: height 0.25s cubic-bezier(0,1,0,1);
+const mainClass = (pattern: Pattern, height: number) => {
 
-    ${pattern === Patterns.Pattern1 ? `
-        /*min-height: 0;*/
-    ` : `
-        position: relative;
-    `}
+    const customStyleFunc = (pattern: Pattern, height: number) => {
+        switch (pattern) {
+            case Patterns.Pattern0:
+            case Patterns.Pattern3:
+                return `
+                    height: ${height}px;
+                    position: relative;
+                `;
+            case Patterns.Pattern2:
+                return `
+                    height: calc(100dvh - ${footerHeight}px - ${headerHeight}px);
+                    position: relative;
+                `;
+            case Patterns.Pattern1:
+                return `margin-bottom: ${footerHeight}px;`;
+            default:
+                return `position: relative;`;
+        }
+    }
+
+    const customStyle = customStyleFunc(pattern, height);
+
+    
+    return css`
+        flex: 1;
+        flex-direction: column;
+        padding: 96px 0 0 0;
+        transition: height 0.25s cubic-bezier(0,1,0,1);
+        ${customStyle}
 `;
+}
 
 const sectionClass = css`
     flex: 1;
-    /*overflow-y: auto;*/
+    overflow-y: auto;
     padding: 16px;
     display: flex;
     flex-direction: column;
