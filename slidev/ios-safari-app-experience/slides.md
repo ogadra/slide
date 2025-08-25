@@ -66,6 +66,40 @@ Favorite languages: TypeScript, Go
 
 ---
 
+### チャットアプリのようなUI
+
+- 画面下部に入力欄 / 送信ボタンがある
+  - Focusするとスマホではキーボードが出る
+    - キーボードがあるときは入力欄がせり上がる
+  - Focus解除でキーボード解除
+- Header / Form部分を除いた部分がスクロール可能
+
+---
+
+### 一見誰でも作れそうなUIですが…
+
+<v-click>
+  <div class="text-center text-6xl font-bold mt-36">
+    落とし穴がいっぱい！
+  </div>
+</v-click>
+
+---
+
+#### パターン1: `position: Fixed;` を使う
+
+
+
+
+---
+layout: image-x
+image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
+imageOrder: 2
+---
+
+
+### ありがとうございました
+
 - Twitter: [@const_myself](https://twitter.com/const_myself)
 - GitHub: [ogadra](https://github.com/ogadra)
 
