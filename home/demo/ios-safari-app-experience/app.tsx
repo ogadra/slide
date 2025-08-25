@@ -2,6 +2,19 @@ import { useState, useEffect } from "hono/jsx"
 import { css } from "hono/css";
 import { render } from "hono/jsx/dom";
 
+// Pattern0: position: absolute; + height calc with visualViewport API + meta viewport tag
+// Pattern1: position: fixed;
+// Pattern2: position: absolute; + height calc with calc(100vh - footerHeight - headerHeight);
+// Pattern3: position: absolute; + height calc with visualViewport API
+
+const Patterns = {
+    Pattern0: '完成版',
+    Pattern1: 'パターン1',
+    Pattern2: 'パターン2',
+    Pattern3: 'パターン3',
+} as const;
+
+type Pattern = typeof Patterns[keyof typeof Patterns];
 
 const App = () => (
     <>
@@ -9,9 +22,8 @@ const App = () => (
     </>
 );
 
-
-
 const Body = () => {
+    const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern0);
     const [footerRef, setFooterRef] = useState<HTMLDivElement | null>(null);
 
     const calcHeight = () => {
@@ -48,10 +60,17 @@ const Body = () => {
         }
     };
 
-    const appendMetaViewport = () => {
+    const appendMetaViewport = (propsPattern: Pattern) => {
         const metaViewport = document.createElement("meta");
         metaViewport.name = "viewport";
-        metaViewport.content = "width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
+
+        switch (propsPattern) {
+            case Patterns.Pattern0:
+                metaViewport.content = "width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
+                break;
+            default:
+                metaViewport.content = "width=device-width, initial-scale=1.0";
+        }
         document.getElementsByTagName("head")[0].appendChild(metaViewport);
     }
 
@@ -65,20 +84,6 @@ const Body = () => {
         }
     }
 
-    useEffect(() => {
-		// 画面からフッターの距離を調整
-		reSizeHeight();
-		window.visualViewport?.addEventListener("resize", reSizeHeight);
-
-        // meta viewportを追加
-        appendMetaViewport();
-
-		return () => {
-			window.visualViewport?.removeEventListener("resize", reSizeHeight);
-            removeMetaViewport();
-		};
-	});
-
     const reSizeHeight = () => {
         const afterHeight = calcHeight();
 
@@ -87,13 +92,61 @@ const Body = () => {
         window.scrollTo(0, 0);
 	};
 
+    // 初期化処理
+    useEffect(() => {
+		// 画面からフッターの距離を調整
+		reSizeHeight();
+		window.visualViewport?.addEventListener("resize", reSizeHeight);
+
+        // meta viewportを追加
+        appendMetaViewport(pattern);
+
+		return () => {
+			window.visualViewport?.removeEventListener("resize", reSizeHeight);
+            removeMetaViewport();
+		};
+	});
+
+    const onChangePattern = (e: Event) => {
+        const select = e.currentTarget as HTMLSelectElement;
+        const selectedPattern = select.value as Pattern;
+        setPattern(selectedPattern);
+    }
+
+    // パターン変更時の処理
+    useEffect(() => {
+        removeMetaViewport();
+        appendMetaViewport(pattern);
+        return () => {
+            removeMetaViewport();
+        }
+    }, [pattern]);
+
     return (
         <div class={htmlClass}>
             <header class={headerClass}>
-                <h1 class={headerTitleClass}>Height: {height}px</h1>
+                <h1 class={headerTitleClass}>{pattern}を表示中</h1>
+                <form class={radioFormClass}>
+                    <div class={radioGroupClass}>
+                        {Object.values(Patterns).map((p) => (
+                            <div key={p} class={radioItemClass} onClick={() => setPattern(p)}>
+                                <input
+                                    type="radio"
+                                    id={`pattern${p}`}
+                                    name="pattern"
+                                    value={p}
+                                    checked={pattern === p}
+                                    onChange={onChangePattern}
+                                />
+                                {p}
+                            </div>
+                        ))}
+                    </div>
+                </form>
             </header>
             
             <main class={mainClass} style={{ height: `${height}px` }}>
+
                 <section class={sectionClass}>
                 {messages.map((msg, index) => (
                     <article key={index} class={articleClass}>
@@ -130,11 +183,12 @@ const headerClass = css`
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     color: white;
-    height: 50px;
+    height: 96px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px 0px;
+    gap: 8px;
 
     position: fixed;
     top: 0;
@@ -155,7 +209,7 @@ const mainClass = css`
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    padding: 50px 0 0 0;
+    padding: 96px 0 0 0;
     transition: height 0.25s cubic-bezier(0,1,0,1);
 `
 
@@ -271,6 +325,63 @@ const footerButtonClass = css`
         font-weight: bold;
     }
 `;
+
+const radioFormClass = css`
+    margin: 0 0 16px;
+    width: 100%;
+`
+
+const radioGroupClass = css`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+`
+
+const radioItemClass = css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: fit-content;
+    border: 1px solid rgba(100, 181, 246, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-select: none;
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(100, 181, 246, 0.8);
+    }
+    
+    &:has(input[type="radio"]:checked) {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(100, 181, 246, 1);
+        color: white;
+        font-weight: 600;
+    }
+    
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+`
 
 const rootDom = document.getElementById("root")!;
 render(<App />, rootDom);
