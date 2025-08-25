@@ -16,11 +16,7 @@ const Patterns = {
 
 type Pattern = typeof Patterns[keyof typeof Patterns];
 
-const App = () => (
-    <>
-        <Body />
-    </>
-);
+const App = () =>  <Body />;
 
 const Body = () => {
     const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern0);
