@@ -9,8 +9,9 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"app/**/*.tsx",
-            "!node_modules/**",
-            "!build/**",
+			"demo/**/*.tsx",
+			"!node_modules/**",
+			"!build/**",
 		],
 	},
 	"formatter": {

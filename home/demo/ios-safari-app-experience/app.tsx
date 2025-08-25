@@ -1,5 +1,5 @@
-import { useState, useEffect } from "hono/jsx"
 import { css } from "hono/css";
+import { useEffect, useState } from "hono/jsx";
 import { render } from "hono/jsx/dom";
 
 // Pattern0: position: absolute; + height calc with visualViewport API + meta viewport tag
@@ -8,213 +8,213 @@ import { render } from "hono/jsx/dom";
 // Pattern3: position: absolute; + height calc with visualViewport API
 
 const Patterns = {
-    Pattern0: '完成版',
-    Pattern1: 'パターン1',
-    Pattern2: 'パターン2',
-    Pattern3: 'パターン3',
+	Pattern0: "完成版",
+	Pattern1: "パターン1",
+	Pattern2: "パターン2",
+	Pattern3: "パターン3",
 } as const;
 
-type Pattern = typeof Patterns[keyof typeof Patterns];
+type Pattern = (typeof Patterns)[keyof typeof Patterns];
 
-const App = () =>  <Body />;
+const App = () => <Body />;
 
 const Body = () => {
-    const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern1);
+	const [pattern, setPattern] = useState<Pattern>(Patterns.Pattern1);
 
-    const calcHeight = () => {
-        if (typeof window === 'undefined') return 0;
-        if (!window.visualViewport) {
-            return 0;
-        }
+	const calcHeight = () => {
+		if (typeof window === "undefined") return 0;
+		if (!window.visualViewport) {
+			return 0;
+		}
 
-        return Math.floor(window.visualViewport.height) - footerHeight - 1;
-    }
+		return Math.floor(window.visualViewport.height) - footerHeight - 1;
+	};
 
-    const firstHeight = calcHeight();
-    const [height, setHeight] = useState<number>(firstHeight);
-    const [messages, setMessages] = useState<string[]>([
-        "is-evenっていうnpmパッケージ見つけた 😂",
-        "数値が偶数かどうか判定するだけのライブラリ",
-        "しかもis-oddに依存してる",
-        "is-oddはis-numberに依存してて...",
-        "たった一行で書ける処理に2つのパッケージに依存してる 🤯",
-        ..."でも週間DL数16万超えてるという現実",
-        "JavaScriptエコシステムの闇を見た気分"
-    ]);
+	const firstHeight = calcHeight();
+	const [height, setHeight] = useState<number>(firstHeight);
+	const [messages, setMessages] = useState<string[]>([
+		"is-evenっていうnpmパッケージ見つけた 😂",
+		"数値が偶数かどうか判定するだけのライブラリ",
+		"しかもis-oddに依存してる",
+		"is-oddはis-numberに依存してて...",
+		"たった一行で書ける処理に2つのパッケージに依存してる 🤯",
+		..."でも週間DL数16万超えてるという現実",
+		"JavaScriptエコシステムの闇を見た気分",
+	]);
 
+	const sendMessage = (e: Event) => {
+		e.preventDefault();
+		const input = (e.currentTarget as HTMLFormElement).querySelector("input");
+		const msg = input?.value.trim();
+		if (msg) {
+			setMessages([...messages, msg]);
+			if (input) input.value = "";
+		}
+	};
 
-    const sendMessage = (e: Event) => {
-        e.preventDefault();
-        const input = (e.currentTarget as HTMLFormElement).querySelector('input');
-        const msg = input?.value.trim();
-        if (msg) {
-            setMessages([...messages, msg]);
-            if (input) input.value = '';
-        }
-    };
+	const appendMetaViewport = (propsPattern: Pattern) => {
+		const metaViewport = document.createElement("meta");
+		metaViewport.name = "viewport";
 
-    const appendMetaViewport = (propsPattern: Pattern) => {
-        const metaViewport = document.createElement("meta");
-        metaViewport.name = "viewport";
+		switch (propsPattern) {
+			case Patterns.Pattern0:
+				metaViewport.content =
+					"width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
+				break;
+			default:
+				metaViewport.content = "width=device-width, initial-scale=1.0";
+		}
+		document.getElementsByTagName("head")[0].appendChild(metaViewport);
+	};
 
-        switch (propsPattern) {
-            case Patterns.Pattern0:
-                metaViewport.content = "width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
-                break;
-            default:
-                metaViewport.content = "width=device-width, initial-scale=1.0";
-        }
-        document.getElementsByTagName("head")[0].appendChild(metaViewport);
-    }
+	const removeMetaViewport = () => {
+		const metaTags = document.getElementsByTagName("meta");
+		for (let i = metaTags.length - 1; i >= 0; i--) {
+			const meta = metaTags[i];
+			if (meta.name === "viewport") {
+				document.getElementsByTagName("head")[0].removeChild(meta);
+			}
+		}
+	};
 
-    const removeMetaViewport = () => {
-        const metaTags = document.getElementsByTagName("meta");
-        for (let i = metaTags.length - 1; i >= 0; i--) {
-            const meta = metaTags[i];
-            if (meta.name === "viewport") {
-                document.getElementsByTagName("head")[0].removeChild(meta);
-            }
-        }
-    }
+	const reSizeHeight = (reSizePattern: Pattern) => {
+		const afterHeight = calcHeight();
 
-    const reSizeHeight = (reSizePattern: Pattern) => {
-        const afterHeight = calcHeight();
+		setHeight(afterHeight);
+		if (reSizePattern !== Patterns.Pattern1) {
+			window.scrollTo(0, 0);
+		}
+	};
 
-        setHeight(afterHeight);
-        if (reSizePattern !== Patterns.Pattern1) {
-            window.scrollTo(0, 0);
-        }
-        
-    };
+	// 初期化処理
+	useEffect(() => {
+		// 画面からフッターの距離を調整
+		reSizeHeight(pattern);
+		window.visualViewport?.addEventListener("resize", () =>
+			reSizeHeight(pattern),
+		);
 
-    // 初期化処理
-    useEffect(() => {
-        // 画面からフッターの距離を調整
-        reSizeHeight(pattern);
-        window.visualViewport?.addEventListener(
-            "resize",
-            () => reSizeHeight(pattern),
-        );
+		// meta viewportを追加
+		appendMetaViewport(pattern);
 
-        // meta viewportを追加
-        appendMetaViewport(pattern);
-        
-        return () => {
-            window.visualViewport?.removeEventListener(
-                "resize",
-                () => reSizeHeight(pattern),
-            );
-            removeMetaViewport();
-        };
-    }, [pattern]);
+		return () => {
+			window.visualViewport?.removeEventListener("resize", () =>
+				reSizeHeight(pattern),
+			);
+			removeMetaViewport();
+		};
+	}, [pattern]);
 
-    const onChangePattern = (e: Event) => {
-        const select = e.currentTarget as HTMLSelectElement;
-        const selectedPattern = select.value as Pattern;
-        setPattern(selectedPattern);
-    }
+	const onChangePattern = (e: Event) => {
+		const select = e.currentTarget as HTMLSelectElement;
+		const selectedPattern = select.value as Pattern;
+		setPattern(selectedPattern);
+	};
 
-    // パターン変更時の処理
-    useEffect(() => {
-        removeMetaViewport();
-        appendMetaViewport(pattern);
-        return () => {
-            removeMetaViewport();
-        }
-    }, [pattern]);
+	// パターン変更時の処理
+	useEffect(() => {
+		removeMetaViewport();
+		appendMetaViewport(pattern);
+		return () => {
+			removeMetaViewport();
+		};
+	}, [pattern]);
 
-    return (
-        <div class={wrapper(pattern, height)}>
-            <div class={htmlClass(pattern)}>
-                <header class={headerClass}>
-                    <h1 class={headerTitleClass}>{pattern}を表示中</h1>
-                    <form class={radioFormClass}>
-                        <div class={radioGroupClass}>
-                            {Object.values(Patterns).map((p) => (
-                                <div key={p} class={radioItemClass} onClick={() => setPattern(p)}>
-                                    <input
-                                        type="radio"
-                                        id={`pattern${p}`}
-                                        name="pattern"
-                                        value={p}
-                                        checked={pattern === p}
-                                        onChange={onChangePattern}
-                                    />
-                                    {p}
-                                </div>
-                            ))}
-                        </div>
-                    </form>
-                </header>
+	return (
+		<div class={wrapper(pattern, height)}>
+			<div class={htmlClass(pattern)}>
+				<header class={headerClass}>
+					<h1 class={headerTitleClass}>{pattern}を表示中</h1>
+					<form class={radioFormClass}>
+						<div class={radioGroupClass}>
+							{Object.values(Patterns).map((p) => (
+								<div
+									key={p}
+									class={radioItemClass}
+									onClick={() => setPattern(p)}
+								>
+									<input
+										type="radio"
+										id={`pattern${p}`}
+										name="pattern"
+										value={p}
+										checked={pattern === p}
+										onChange={onChangePattern}
+									/>
+									{p}
+								</div>
+							))}
+						</div>
+					</form>
+				</header>
 
-                <main class={mainClass(pattern, height)}>
+				<main class={mainClass(pattern, height)}>
+					<section class={sectionClass}>
+						{messages.map((msg, index) => (
+							<article key={index} class={articleClass}>
+								<p class={articlePClass}>{msg}</p>
+							</article>
+						))}
+					</section>
+				</main>
 
-                    <section class={sectionClass}>
-                    {messages.map((msg, index) => (
-                        <article key={index} class={articleClass}>
-                            <p class={articlePClass}>{msg}</p>
-                        </article>
-                    ))}
-                    </section>
-                </main>
-
-                <div
-                    class={footerClass(pattern)}
-                >
-                    <form class={footerFormClass} onSubmit={sendMessage}>
-                        <div class={footerInputWrapperClass}>
-                            <input 
-                                class={footerInputClass}
-                                type="text"
-                                placeholder="メッセージを入力..."
-                                maxlength={100}
-                            />
-                        </div>
-                        <button class={footerButtonClass} type="submit">
-                            <span>送信</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    )
-}
+				<div class={footerClass(pattern)}>
+					<form class={footerFormClass} onSubmit={sendMessage}>
+						<div class={footerInputWrapperClass}>
+							<input
+								class={footerInputClass}
+								type="text"
+								placeholder="メッセージを入力..."
+								maxlength={100}
+							/>
+						</div>
+						<button class={footerButtonClass} type="submit">
+							<span>送信</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 const headerHeight = 96;
 const footerHeight = 68;
 
 const wrapper = (pattern: Pattern, height: number) => {
-    
-    const customStyleFunc = (pattern: Pattern) => {
-        switch (pattern) {
-            case Patterns.Pattern0:
-                return `height: ${height}px;`;
-            case Patterns.Pattern1:
-                return ``;
-            case Patterns.Pattern2:
-            case Patterns.Pattern3:
-            default:
-                return `
+	const customStyleFunc = (pattern: Pattern) => {
+		switch (pattern) {
+			case Patterns.Pattern0:
+				return `height: ${height}px;`;
+			case Patterns.Pattern1:
+				return ``;
+			default:
+				return `
                     height: 100vh;
                     overflow: hidden;
                 `;
-        }
-    }
-    const customStyle = customStyleFunc(pattern);
+		}
+	};
+	const customStyle = customStyleFunc(pattern);
 
-    return css`
+	return css`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   flex-direction: column;
   ${customStyle}
-`};
+`;
+};
 
 const htmlClass = (pattern: Pattern) => css`
-    ${pattern === Patterns.Pattern1 ? `
+    ${
+			pattern === Patterns.Pattern1
+				? `
         
-    ` : ``}
-`
+    `
+				: ``
+		}
+`;
 
 const headerClass = css`
     background: rgba(255, 255, 255, 0.1);
@@ -232,47 +232,45 @@ const headerClass = css`
     left: 0;
     right: 0;
     z-index: 10;
-`
+`;
 
 const headerTitleClass = css`
     font-size: 17px;
     font-weight: 600;
     margin: auto;
-`
+`;
 
 const mainClass = (pattern: Pattern, height: number) => {
-
-    const customStyleFunc = (pattern: Pattern, height: number) => {
-        switch (pattern) {
-            case Patterns.Pattern0:
-            case Patterns.Pattern3:
-                return `
+	const customStyleFunc = (pattern: Pattern, height: number) => {
+		switch (pattern) {
+			case Patterns.Pattern0:
+			case Patterns.Pattern3:
+				return `
                     height: ${height}px;
                     position: relative;
                 `;
-            case Patterns.Pattern2:
-                return `
+			case Patterns.Pattern2:
+				return `
                     height: calc(100dvh - ${footerHeight}px - ${headerHeight}px);
                     position: relative;
                 `;
-            case Patterns.Pattern1:
-                return `margin-bottom: ${footerHeight}px;`;
-            default:
-                return `position: relative;`;
-        }
-    }
+			case Patterns.Pattern1:
+				return `margin-bottom: ${footerHeight}px;`;
+			default:
+				return `position: relative;`;
+		}
+	};
 
-    const customStyle = customStyleFunc(pattern, height);
+	const customStyle = customStyleFunc(pattern, height);
 
-    
-    return css`
+	return css`
         flex: 1;
         flex-direction: column;
         padding: 96px 0 0 0;
         transition: height 0.25s cubic-bezier(0,1,0,1);
         ${customStyle}
 `;
-}
+};
 
 const sectionClass = css`
     flex: 1;
@@ -283,7 +281,7 @@ const sectionClass = css`
     gap: 12px;
     height: 100%;
     -webkit-overflow-scrolling: touch;
-`
+`;
 
 const articleClass = css`
     max-width: 80%;
@@ -293,14 +291,14 @@ const articleClass = css`
     color: white;
     align-self: flex-end;
     border-bottom-right-radius: 4px;
-`
+`;
 
 const articlePClass = css`
     margin: 0;
     font-size: 16px;
     line-height: 1.4;
     word-wrap: break-word;
-`
+`;
 
 const footerClass = (pattern: Pattern) => css`
     font-size: 16px;
@@ -312,28 +310,32 @@ const footerClass = (pattern: Pattern) => css`
     padding: 10px 20px;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
     
-    ${pattern === Patterns.Pattern1 ? `
+    ${
+			pattern === Patterns.Pattern1
+				? `
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         z-index: 10;
-    ` : `
+    `
+				: `
         position: absolute;
-    `}
-`
+    `
+		}
+`;
 
 const footerFormClass = css`
     display: flex;
     align-items: flex-end;
     gap: 12px;
     width: 100%;
-`
+`;
 
 const footerInputWrapperClass = css`
     flex: 1;
     position: relative;
-`
+`;
 
 const footerInputClass = css`
     width: 100%;
@@ -360,7 +362,7 @@ const footerInputClass = css`
     &::placeholder {
         color: #95a5a6;
     }
-`
+`;
 
 const footerButtonClass = css`
     height: 48px;
@@ -399,14 +401,14 @@ const footerButtonClass = css`
 const radioFormClass = css`
     margin: 0 0 16px;
     width: 100%;
-`
+`;
 
 const radioGroupClass = css`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 4px;
-`
+`;
 
 const radioItemClass = css`
     position: relative;
@@ -451,7 +453,10 @@ const radioItemClass = css`
         margin: 0;
         cursor: pointer;
     }
-`
+`;
 
-const rootDom = document.getElementById("root")!;
-render(<App />, rootDom);
+const rootDom = document.getElementById("root");
+
+if (rootDom) {
+	render(<App />, rootDom);
+}
