@@ -155,7 +155,8 @@ html {
 
 h1 {
   line-height: 1.0 !important;
-  padding-top: 2rem;
+  padding-top: 0;
+  font-size: 2rem !important;
 }
 
 h2 {
@@ -166,8 +167,12 @@ h2 {
 }
 
 h3 {
-  line-height: 1.25 !important;
-  font-size: 0.8rem !important;
+  opacity: 1 !important;
+  font-size: 1.5rem !important;
+  line-height: 2 !important;
+  padding-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 3px solid #4299e1;
 }
 
 p {
@@ -191,6 +196,11 @@ code {
 .text-094 * {
   font-size: 0.94rem !important;
 }
+
+img {
+  margin: 0 auto;
+}
+
 EOF
 
 # Create uno.config.ts
