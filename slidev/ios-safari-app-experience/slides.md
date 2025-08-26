@@ -182,8 +182,13 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #ffebee; color: #c62828; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
-      iOS❌, Android❌
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; justify-content: center;">
+      <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); color: #c62828; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #ef5350; display: flex; align-items: center; gap: 0.25rem;">
+        🍎 iOS ❌
+      </div>
+      <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); color: #c62828; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #ef5350; display: flex; align-items: center; gap: 0.25rem;">
+        🤖 Android ❌
+      </div>
     </div>
     <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
       <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">問題点</h4>
@@ -287,8 +292,13 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #fff3e0; color: #e65100; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
-      iOS❌, Android⭕
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; justify-content: center;">
+      <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); color: #c62828; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #ef5350; display: flex; align-items: center; gap: 0.25rem;">
+        🍎 iOS ❌
+      </div>
+      <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #2e7d32; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #4caf50; display: flex; align-items: center; gap: 0.25rem;">
+        🤖 Android ⭕
+      </div>
     </div>
     <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
       <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
@@ -393,8 +403,13 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #fff3e0; color: #e65100; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
-      iOS⭕, Android❌
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; justify-content: center;">
+      <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #2e7d32; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #4caf50; display: flex; align-items: center; gap: 0.25rem;">
+        🍎 iOS ⭕
+      </div>
+      <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); color: #c62828; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #ef5350; display: flex; align-items: center; gap: 0.25rem;">
+        🤖 Android ❌
+      </div>
     </div>
     <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
       <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
@@ -499,8 +514,13 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e8f5e8; color: #2e7d32; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
-      iOS⭕, Android⭕
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; justify-content: center;">
+      <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #2e7d32; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #4caf50; display: flex; align-items: center; gap: 0.25rem;">
+        🍎 iOS ⭕
+      </div>
+      <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #2e7d32; padding: 0.5rem 1rem; border-radius: 1.5rem; font-weight: bold; font-size: 0.85rem; border: 2px solid #4caf50; display: flex; align-items: center; gap: 0.25rem;">
+        🤖 Android ⭕
+      </div>
     </div>
     <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
       <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
