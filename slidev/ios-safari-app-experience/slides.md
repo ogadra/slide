@@ -202,6 +202,21 @@ Favorite languages: TypeScript, Go
 
 ---
 
+#### スクリーンショット
+
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
+  <div style="text-align: center;">
+    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
+    <img src="./imgs/ios_pattern_1.PNG" alt="iOS Safari Pattern1" style="max-height: 375px; object-fit: contain;" />
+  </div>
+  <div style="text-align: center;">
+    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
+    <img src="./imgs/android_pattern_1.jpg" alt="Android Chrome Pattern1" style="max-height: 375px; object-fit: contain;" />
+  </div>
+</div>
+
+---
+
 #### 2: `position: absolute;` + innerHeight + meta viewport
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
@@ -308,6 +323,21 @@ Favorite languages: TypeScript, Go
         <strong style="color: #2e7d32;">Android:</strong> innerHeightがキーボードを考慮して変化し、input要素が見える<br/>
       </div>
     </div>
+  </div>
+</div>
+
+---
+
+#### スクリーンショット
+
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
+  <div style="text-align: center;">
+    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
+    <img src="./imgs/ios_pattern_2.PNG" alt="iOS Safari Pattern2" style="max-height: 375px; object-fit: contain;" />
+  </div>
+  <div style="text-align: center;">
+    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
+    <img src="./imgs/android_pattern_2.jpg" alt="Android Chrome Pattern2" style="max-height: 375px; object-fit: contain;" />
   </div>
 </div>
 
@@ -424,6 +454,21 @@ Favorite languages: TypeScript, Go
 
 ---
 
+#### スクリーンショット
+
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
+  <div style="text-align: center;">
+    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
+    <img src="./imgs/ios_pattern_3.PNG" alt="iOS Safari Pattern3" style="max-height: 375px; object-fit: contain;" />
+  </div>
+  <div style="text-align: center;">
+    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
+    <img src="./imgs/android_pattern_3.jpg" alt="Android Chrome Pattern3" style="max-height: 375px; object-fit: contain;" />
+  </div>
+</div>
+
+---
+
 #### 完成版: `position: absolute;` + Viewport API + meta viewport
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
@@ -529,6 +574,21 @@ Favorite languages: TypeScript, Go
         <strong style="color: #2e7d32;">iOS / Android:</strong> キーボードを出しても謎にスクロールされない
       </div>
     </div>
+  </div>
+</div>
+
+---
+
+#### スクリーンショット
+
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
+  <div style="text-align: center;">
+    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
+    <img src="./imgs/ios_pattern_0.PNG" alt="iOS Safari 完成版" style="max-height: 375px; object-fit: contain;" />
+  </div>
+  <div style="text-align: center;">
+    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
+    <img src="./imgs/android_pattern_0.jpg" alt="Android Chrome 完成版" style="max-height: 375px; object-fit: contain;" />
   </div>
 </div>
 
