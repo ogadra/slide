@@ -4,7 +4,7 @@ import { render } from "hono/jsx/dom";
 
 // Pattern0: position: absolute; + height calc with visualViewport API + meta viewport tag
 // Pattern1: position: fixed;
-// Pattern2: position: absolute; + height calc with calc(100vh - footerHeight - headerHeight);
+// Pattern2: position: absolute; + height calc with innerHeight + meta viewport tag
 // Pattern3: position: absolute; + height calc with visualViewport API
 
 const Patterns = {
@@ -26,8 +26,12 @@ const Body = () => {
 		if (!window.visualViewport) {
 			return 0;
 		}
-
-		return Math.floor(window.visualViewport.height) - footerHeight - 1;
+		switch (pattern) {
+			case Patterns.Pattern2:
+				return Math.floor(window.innerHeight) - footerHeight - 1;
+			default:
+				return Math.floor(window.visualViewport.height) - footerHeight - 1;
+		}
 	};
 
 	const firstHeight = calcHeight();
@@ -58,6 +62,7 @@ const Body = () => {
 
 		switch (propsPattern) {
 			case Patterns.Pattern0:
+			case Patterns.Pattern2:
 				metaViewport.content =
 					"width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
 				break;
@@ -77,11 +82,11 @@ const Body = () => {
 		}
 	};
 
-	const reSizeHeight = (reSizePattern: Pattern) => {
+	const reSizeHeight = () => {
 		const afterHeight = calcHeight();
 
 		setHeight(afterHeight);
-		if (reSizePattern !== Patterns.Pattern1) {
+		if (pattern !== Patterns.Pattern1) {
 			window.scrollTo(0, 0);
 		}
 	};
@@ -89,18 +94,14 @@ const Body = () => {
 	// 初期化処理
 	useEffect(() => {
 		// 画面からフッターの距離を調整
-		reSizeHeight(pattern);
-		window.visualViewport?.addEventListener("resize", () =>
-			reSizeHeight(pattern),
-		);
+		reSizeHeight();
+		window.visualViewport?.addEventListener("resize", reSizeHeight);
 
 		// meta viewportを追加
 		appendMetaViewport(pattern);
 
 		return () => {
-			window.visualViewport?.removeEventListener("resize", () =>
-				reSizeHeight(pattern),
-			);
+			window.visualViewport?.removeEventListener("resize", reSizeHeight);
 			removeMetaViewport();
 		};
 	}, [pattern]);
@@ -186,6 +187,7 @@ const wrapper = (pattern: Pattern, height: number) => {
 	const customStyleFunc = (pattern: Pattern) => {
 		switch (pattern) {
 			case Patterns.Pattern0:
+			case Patterns.Pattern2:
 				return `height: ${height}px;`;
 			case Patterns.Pattern1:
 				return ``;
@@ -199,12 +201,12 @@ const wrapper = (pattern: Pattern, height: number) => {
 	const customStyle = customStyleFunc(pattern);
 
 	return css`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  flex-direction: column;
-  ${customStyle}
-`;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        flex-direction: column;
+        ${customStyle}
+    `;
 };
 
 const htmlClass = (pattern: Pattern) => css`
@@ -245,14 +247,10 @@ const mainClass = (pattern: Pattern, height: number) => {
 	const customStyleFunc = (pattern: Pattern, height: number) => {
 		switch (pattern) {
 			case Patterns.Pattern0:
+			case Patterns.Pattern2:
 			case Patterns.Pattern3:
 				return `
                     height: ${height}px;
-                    position: relative;
-                `;
-			case Patterns.Pattern2:
-				return `
-                    height: calc(100svh - ${footerHeight}px);
                     position: relative;
                 `;
 			case Patterns.Pattern1:
