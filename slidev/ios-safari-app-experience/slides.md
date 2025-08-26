@@ -202,16 +202,38 @@ Favorite languages: TypeScript, Go
 
 ---
 
-#### スクリーンショット
+#### スクリーンショット & コード
 
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
-  <div style="text-align: center;">
-    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
-    <img src="./imgs/ios_pattern_1.PNG" alt="iOS Safari Pattern1" style="max-height: 375px; object-fit: contain;" />
+<div style="display: flex; gap: 2rem; height: 420px;">
+  <div style="width: 500px; display: flex; gap: 1rem; justify-content: center;">
+    <div style="text-align: center;">
+      <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🍎 iOS Safari</div>
+      <img src="./imgs/ios_pattern_1.PNG" alt="iOS Safari Pattern1" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
+    <div style="text-align: center;">
+      <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🤖 Android Chrome</div>
+      <img src="./imgs/android_pattern_1.jpg" alt="Android Chrome Pattern1" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
   </div>
-  <div style="text-align: center;">
-    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
-    <img src="./imgs/android_pattern_1.jpg" alt="Android Chrome Pattern1" style="max-height: 375px; object-fit: contain;" />
+  <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
+
+```css
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+/* 問題: キーボード表示時に
+   fixed要素が画面外に移動 */
+```
+
   </div>
 </div>
 
@@ -328,16 +350,37 @@ Favorite languages: TypeScript, Go
 
 ---
 
-#### スクリーンショット
+#### スクリーンショット & コード
 
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
-  <div style="text-align: center;">
-    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
-    <img src="./imgs/ios_pattern_2.PNG" alt="iOS Safari Pattern2" style="max-height: 375px; object-fit: contain;" />
+<div style="display: flex; gap: 2rem; height: 420px;">
+  <div style="width: 500px; display: flex; gap: 1rem; justify-content: center;">
+    <div style="text-align: center;">
+      <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🍎 iOS Safari</div>
+      <img src="./imgs/ios_pattern_2.PNG" alt="iOS Safari Pattern2" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
+    <div style="text-align: center;">
+      <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🤖 Android Chrome</div>
+      <img src="./imgs/android_pattern_2.jpg" alt="Android Chrome Pattern2" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
   </div>
-  <div style="text-align: center;">
-    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
-    <img src="./imgs/android_pattern_2.jpg" alt="Android Chrome Pattern2" style="max-height: 375px; object-fit: contain;" />
+  <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
+
+```html
+<!-- HTML meta tag -->
+<meta name="viewport" 
+      content="width=device-width,
+               interactive-widget=resizes-content" />
+```
+
+```css
+/* CSS */
+.main {
+  height: calc(100vh - 60px);
+}
+
+/* 問題: iOSでinnerHeightが変わらない */
+```
+
   </div>
 </div>
 
@@ -454,16 +497,35 @@ Favorite languages: TypeScript, Go
 
 ---
 
-#### スクリーンショット
+#### スクリーンショット & コード
 
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
-  <div style="text-align: center;">
-    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
-    <img src="./imgs/ios_pattern_3.PNG" alt="iOS Safari Pattern3" style="max-height: 375px; object-fit: contain;" />
+<div style="display: flex; gap: 2rem; height: 420px;">
+  <div style="width: 500px; display: flex; gap: 1rem; justify-content: center;">
+    <div style="text-align: center;">
+      <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🍎 iOS Safari</div>
+      <img src="./imgs/ios_pattern_3.PNG" alt="iOS Safari Pattern3" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
+    <div style="text-align: center;">
+      <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🤖 Android Chrome</div>
+      <img src="./imgs/android_pattern_3.jpg" alt="Android Chrome Pattern3" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
   </div>
-  <div style="text-align: center;">
-    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
-    <img src="./imgs/android_pattern_3.jpg" alt="Android Chrome Pattern3" style="max-height: 375px; object-fit: contain;" />
+  <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
+
+```javascript
+// Visual Viewport API
+const calcHeight = () => {
+  const vp = window.visualViewport;
+  return vp.height - 60;
+};
+
+// リサイズイベント
+vp.addEventListener('resize',
+  () => setHeight(calcHeight()));
+
+// 問題: Androidでスクロールが発生
+```
+
   </div>
 </div>
 
@@ -579,16 +641,38 @@ Favorite languages: TypeScript, Go
 
 ---
 
-#### スクリーンショット
+#### スクリーンショット & コード
 
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 0.5rem;">
-  <div style="text-align: center;">
-    <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🍎 iOS Safari</div>
-    <img src="./imgs/ios_pattern_0.PNG" alt="iOS Safari 完成版" style="max-height: 375px; object-fit: contain;" />
+<div style="display: flex; gap: 2rem; height: 420px;">
+  <div style="width: 500px; display: flex; gap: 1rem; justify-content: center;">
+    <div style="text-align: center;">
+      <div style="color: #60a5fa; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🍎 iOS Safari</div>
+      <img src="./imgs/ios_pattern_0.PNG" alt="iOS Safari 完成版" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
+    <div style="text-align: center;">
+      <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: bold;">🤖 Android Chrome</div>
+      <img src="./imgs/android_pattern_0.jpg" alt="Android Chrome 完成版" style="height: 375px; width: 240px; object-fit: contain;" />
+    </div>
   </div>
-  <div style="text-align: center;">
-    <div style="color: #4ade80; margin-bottom: 0.5rem; font-size: 1rem; font-weight: bold;">🤖 Android Chrome</div>
-    <img src="./imgs/android_pattern_0.jpg" alt="Android Chrome 完成版" style="max-height: 375px; object-fit: contain;" />
+  <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
+
+```html
+<!-- HTML -->
+<meta name="viewport" 
+      content="width=device-width,
+               interactive-widget=resizes-content" />
+```
+
+```javascript
+// JavaScript
+const height = 
+  window.visualViewport.height - 60;
+
+// 🎉 iOS/Android両対応！
+// ✅ キーボード表示時も適切に動作
+// ✅ 意図しないスクロールなし
+```
+
   </div>
 </div>
 
