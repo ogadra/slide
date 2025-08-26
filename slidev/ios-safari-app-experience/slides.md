@@ -182,18 +182,18 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="margin-bottom: 240px;">
-      <div style="color: #42a5f5; font-weight: bold; margin-bottom: 0.5rem;">← Header Padding Area</div>
+    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      iOS❌, Android❌
     </div>
-    <div>
-      <div style="color: #ff5722; font-weight: bold; margin-bottom: 0.5rem;">← Footer Margin Area</div>
-    </div>
+    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
+      <li style="margin-bottom: 0.5rem;">キーボード表示時にヘッダーが隠れる</li>
+    </ul>
   </div>
 </div>
 
 ---
 
-#### 2: `position: absolute;` + `height: calc(100vh - footer)`
+#### 2: `position: absolute;` + innerHeight + meta viewport
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
@@ -246,9 +246,24 @@ Favorite languages: TypeScript, Go
         font-size: 0.9rem;
         font-weight: bold;
         border-radius: 16px 16px 0 0;
-        transform: translateZ(30px) translateX(-8px);
+        transform: translateZ(30px) translateX(-6px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);
       ">Header (fixed)</div>
+      <div style="
+        position: absolute;
+        top: 60px;
+        left: 4px;
+        right: 4px;
+        height: 207px;
+        background: #e3f2fd;
+        border: 2px solid #2196f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #424242;
+        text-align: center;
+      ">Main Content<br/>window.innerHeight - footer</div>
       <div style="
         position: absolute;
         bottom: 4px;
@@ -269,7 +284,13 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="color: #42a5f5; font-weight: bold; margin-bottom: 276px;">← Header Padding Area</div>
+    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      iOS❌, Android⭕
+    </div>
+    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
+      <li style="margin-bottom: 0.5rem;">iOS: キーボードを出すとinput要素が表示領域外に</li>
+      <li style="margin-bottom: 0.5rem;">Android: ⭕</li>
+    </ul>
   </div>
 </div>
 
@@ -305,7 +326,7 @@ Favorite languages: TypeScript, Go
         height: 60px;
         background: rgba(25, 118, 210, 0.4);
         border: 1px dashed rgba(25, 118, 210, 0.7);
-        transform: translateZ(-5px);
+        transform: translateZ(5px);
         border-radius: 16px 16px 0 0;
         display: flex;
         align-items: center;
@@ -333,10 +354,10 @@ Favorite languages: TypeScript, Go
       ">Header (fixed)</div>
       <div style="
         position: absolute;
-        top: 74px;
-        left: 9px;
-        right: 9px;
-        height: 180px;
+        top: 60px;
+        left: 4px;
+        right: 4px;
+        height: 207px;
         background: #e3f2fd;
         border: 2px solid #2196f3;
         display: flex;
@@ -345,37 +366,34 @@ Favorite languages: TypeScript, Go
         font-size: 0.8rem;
         color: #424242;
         text-align: center;
-        transform: translateZ(15px) translateX(3px);
-        box-shadow: 0 4px 8px rgba(33,150,243,0.2);
-      ">Messages area<br/>(Viewport API)</div>
+      ">Main Content<br/>window.visualViewport.height - footer</div>
       <div style="
         position: absolute;
-        bottom: 15px;
-        left: 9px;
-        right: 9px;
+        bottom: 4px;
+        left: 4px;
+        right: 4px;
+        width: calc(100% - 8px);
         height: 50px;
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #ddd;
+        background: rgba(255, 150, 0, 0.15);
+        border: 2px solid #ff9800;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 0.8rem;
         font-weight: bold;
-        color: #666;
-        transform: translateZ(45px) translateX(8px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        color: #e65100;
+        border-radius: 0 0 16px 16px;
       ">Footer (absolute)</div>
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
     <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-      ⚠️ スクロール可能だが操作性に課題
+      iOS⭕, Android❌
     </div>
-    <div style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-      <div style="margin-bottom: 0.5rem;">• Visual Viewport APIで動的な高さ取得</div>
-      <div style="margin-bottom: 0.5rem;">• キーボード表示に応じて適切にリサイズ</div>
-      <div>• ただし、スクロール時の操作性に問題あり</div>
-    </div>
+    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
+      <li style="margin-bottom: 0.5rem;">iOS: ⭕</li>
+      <li style="margin-bottom: 0.5rem;">Android: 入力欄の下に大きなスペースができる</li>
+    </ul>
   </div>
 </div>
 
@@ -411,7 +429,7 @@ Favorite languages: TypeScript, Go
         height: 60px;
         background: rgba(25, 118, 210, 0.4);
         border: 1px dashed rgba(25, 118, 210, 0.7);
-        transform: translateZ(-5px);
+        transform: translateZ(5px);
         border-radius: 16px 16px 0 0;
         display: flex;
         align-items: center;
@@ -434,53 +452,46 @@ Favorite languages: TypeScript, Go
         font-size: 0.9rem;
         font-weight: bold;
         border-radius: 16px 16px 0 0;
-        transform: translateZ(30px) translateX(-4px);
+        transform: translateZ(30px) translateX(-6px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);
       ">Header (fixed)</div>
       <div style="
         position: absolute;
-        top: 74px;
-        left: 9px;
-        right: 9px;
-        height: 180px;
-        background: #e8f5e8;
-        border: 2px solid #4caf50;
+        top: 60px;
+        left: 4px;
+        right: 4px;
+        height: 207px;
+        background: #e3f2fd;
+        border: 2px solid #2196f3;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 0.8rem;
         color: #424242;
         text-align: center;
-        transform: translateZ(15px) translateX(2px);
-        box-shadow: 0 4px 8px rgba(76,175,80,0.2);
-      ">Messages area<br/>(Perfect height)</div>
+      ">Main Content<br/>window.visualViewport.height - footer</div>
       <div style="
         position: absolute;
-        bottom: 15px;
-        left: 9px;
-        right: 9px;
+        bottom: 4px;
+        left: 4px;
+        right: 4px;
+        width: calc(100% - 8px);
         height: 50px;
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #4caf50;
+        background: rgba(255, 150, 0, 0.15);
+        border: 2px solid #ff9800;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 0.8rem;
         font-weight: bold;
-        color: #2e7d32;
-        transform: translateZ(45px) translateX(6px);
-        box-shadow: 0 12px 24px rgba(76,175,80,0.3);
+        color: #e65100;
+        border-radius: 0 0 16px 16px;
       ">Footer (absolute)</div>
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e8f5e8; color: #2e7d32; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-      ✅ 完璧な高さ調整
-    </div>
-    <div style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-      <div style="margin-bottom: 0.5rem;">• Visual Viewport API + meta viewport</div>
-      <div style="margin-bottom: 0.5rem;">• interactive-widget=resizes-content</div>
-      <div>• 全ての問題を解決した理想的なソリューション</div>
+    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      iOS⭕, Android⭕
     </div>
   </div>
 </div>
