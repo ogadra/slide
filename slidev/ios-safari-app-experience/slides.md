@@ -536,29 +536,39 @@ Favorite languages: TypeScript, Go
 
 ### まとめ
 
-<div style="display: flex; gap: 1rem;">
+<div style="display: flex; gap: 1rem; margin-top: 1rem;">
   <div style="flex: 1;">
-    <h4 style="color: #4299e1; margin-bottom: 1.5rem;">技術的側面</h4>
-    <div style="padding: 0.5rem; border-radius: 0.8rem; border-left: 4px solid #4299e1;">
-      <ul style="margin: 0; padding-left: 1.2rem;">
-        <li style="">現状CSSで設定できない</li>
-        <li>JavaScriptでの動的対応が必要</li>
+    <h4 style="color: #60a5fa; margin-bottom: 0.8rem; font-size: 1.2rem; border: none !important; padding: 0 !important;">🔧 技術的側面</h4>
+    <div style="background: rgba(59, 130, 246, 0.1); padding: 0.5rem; border-radius: 0.6rem; border-left: 3px solid #3b82f6;">
+      <ul style="margin: 0; padding-left: 1rem; font-size: 0.95rem; color: #e2e8f0;">
+        <li style="margin-bottom: 0.5rem;">
+          現状、CSSだけで仮想キーボードに対応できない
+          <ul>
+            <li>JavaScriptでの動的対応が必要</li>
+            <li><code style="font-size: 0.8rem !important;">window.visualViewport.height</code></li>
+          </ul>
+        </li>
+        <li style="margin-bottom: 0.5rem;">
+          Metaタグでの対応も必要
+          <ul>
+            <li><code style="font-size: 0.8rem !important;">interactive-widget=resizes-content</code></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
   
   <div style="flex: 1;">
-    <h4 style="color: #9f7aea; margin-bottom: 1.5rem;">より抽象的に</h4>
-    <div style="padding: 0.5rem; border-radius: 0.8rem; border-left: 4px solid #9f7aea;">
-      <ul style="margin: 0; padding-left: 1.2rem;">
-        <li>
-          レスポンシブデザインだけ->不十分
-          <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
-            <li style="">スマホ独自要素への対応確認</li>
-            <li style="font-size: 0.9rem;">実機 or BrowserStackでの検証</li>
+    <h4 style="color: #c084fc; margin-bottom: 0.8rem; font-size: 1.2rem; border: none !important; padding: 0 !important;">💡 開発視点</h4>
+    <div style="background: rgba(168, 85, 247, 0.1); padding: 0.5rem; border-radius: 0.6rem; border-left: 3px solid #a855f7; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <ul style="margin: 0; padding-left: 1rem; font-size: 0.95rem; line-height: 1.6; color: #e2e8f0;">
+        <li style="margin-bottom: 0.5rem;">レスポンシブ対応だけでは不十分
+          <ul style="margin-top: 0.3rem; padding-left: 1rem;">
+            <li style="font-size: 0.85rem;　margin-bottom: 0.2rem;">スマホ独自要素への対応確認</li>
+            <li style="font-size: 0.85rem;">実機 or BrowserStack検証</li>
           </ul>
         </li>
-        <li>個人開発では「諦める」ポイントも重要</li>
+        <li><strong style="color: #d8b4fe;">「諦める」ポイントが重要</strong> </li>
       </ul>
     </div>
   </div>
