@@ -68,12 +68,24 @@ Favorite languages: TypeScript, Go
 
 ### チャットアプリのようなUI
 
-- 画面上部に、常にHeaderがある
-- 画面下部に入力欄 / 送信ボタンがある
-  - Focusするとスマホではキーボードが出る
-    - キーボードがあるときは入力欄がせり上がる
-  - Focus解除でキーボード解除
-- Header / Form部分を除いた部分がスクロール可能
+<div style="display: flex; align-items: center; gap: 2rem;">
+  <div style="flex: 1;">
+    <ul>
+      <li>画面上部に、常にHeaderがある</li>
+      <li>画面下部に入力欄 / 送信ボタンがある
+        <ul>
+          <li>Focusするとスマホではキーボードが出る</li>
+          <li style="margin-left: 1rem;">キーボードがあるときは入力欄がせり上がる</li>
+          <li>Focus解除でキーボード解除</li>
+        </ul>
+      </li>
+      <li>Header / Form部分を除いた部分がスクロール可能</li>
+    </ul>
+  </div>
+  <div style="display: flex; justify-content: center;">
+    <img src="./imgs/ios_pattern_0.PNG" alt="iOS Safari 完成版UI" style="height: 400px; width: auto; object-fit: contain;" />
+  </div>
+</div>
 
 ---
 
