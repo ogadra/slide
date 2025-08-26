@@ -68,6 +68,7 @@ Favorite languages: TypeScript, Go
 
 ### チャットアプリのようなUI
 
+- 画面上部に、常にHeaderがある
 - 画面下部に入力欄 / 送信ボタンがある
   - Focusするとスマホではキーボードが出る
     - キーボードがあるときは入力欄がせり上がる
@@ -531,6 +532,37 @@ Favorite languages: TypeScript, Go
   </div>
 </div>
 
+---
+
+### まとめ
+
+<div style="display: flex; gap: 1rem;">
+  <div style="flex: 1;">
+    <h4 style="color: #4299e1; margin-bottom: 1.5rem;">技術的側面</h4>
+    <div style="padding: 0.5rem; border-radius: 0.8rem; border-left: 4px solid #4299e1;">
+      <ul style="margin: 0; padding-left: 1.2rem;">
+        <li style="">現状CSSで設定できない</li>
+        <li>JavaScriptでの動的対応が必要</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div style="flex: 1;">
+    <h4 style="color: #9f7aea; margin-bottom: 1.5rem;">より抽象的に</h4>
+    <div style="padding: 0.5rem; border-radius: 0.8rem; border-left: 4px solid #9f7aea;">
+      <ul style="margin: 0; padding-left: 1.2rem;">
+        <li>
+          レスポンシブデザインだけ->不十分
+          <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+            <li style="">スマホ独自要素への対応確認</li>
+            <li style="font-size: 0.9rem;">実機 or BrowserStackでの検証</li>
+          </ul>
+        </li>
+        <li>個人開発では「諦める」ポイントも重要</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 ---
 layout: image-x
