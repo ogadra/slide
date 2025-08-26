@@ -91,7 +91,7 @@ Favorite languages: TypeScript, Go
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
-    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(15deg) rotateY(-20deg); transform-style: flat;">
+    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(15deg) rotateY(-20deg) translateX(-30px) translateY(15px); transform-style: flat;">
     <div style="
       width: 100%;
       height: 100%;
@@ -205,7 +205,7 @@ Favorite languages: TypeScript, Go
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
-    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg); transform-style: preserve-3d;">
+    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg) translateX(-30px) translateY(15px); transform-style: preserve-3d;">
       <div style="
         width: 100%;
         height: 100%;
@@ -316,7 +316,7 @@ Favorite languages: TypeScript, Go
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
-    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg); transform-style: preserve-3d;">
+    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg) translateX(-30px) translateY(15px); transform-style: preserve-3d;">
       <div style="
         width: 100%;
         height: 100%;
@@ -427,7 +427,7 @@ Favorite languages: TypeScript, Go
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
-    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg); transform-style: preserve-3d;">
+    <div style="width: 300px; height: 320px; position: relative; transform: rotateX(20deg) rotateY(-15deg) translateX(-30px) translateY(15px); transform-style: preserve-3d;">
       <div style="
         width: 100%;
         height: 100%;
