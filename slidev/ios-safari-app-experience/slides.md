@@ -218,20 +218,15 @@ Favorite languages: TypeScript, Go
   <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
 
 ```css
-/* Header */
 .header {
   position: fixed;
   top: 0;
 }
 
-/* Footer */
 .footer {
   position: fixed;
   bottom: 0;
 }
-
-/* 問題: キーボード表示時に
-   fixed要素が画面外に移動 */
 ```
 
   </div>
@@ -365,20 +360,26 @@ Favorite languages: TypeScript, Go
   </div>
   <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
 
+
 ```html
-<!-- HTML meta tag -->
+<!-- HTML -->
 <meta name="viewport" 
-      content="width=device-width,
-               interactive-widget=resizes-content" />
+  content="width=device-width,
+    interactive-widget=resizes-content"
+/>
 ```
 
-```css
-/* CSS */
-.main {
-  height: calc(100vh - 60px);
-}
+```jsx
+<main style={{
+  `height:
+    ${window.innerHeight
+      - footerHeight
+    }px`
+  }}
+>
+  ...
+</main>
 
-/* 問題: iOSでinnerHeightが変わらない */
 ```
 
   </div>
@@ -512,18 +513,16 @@ Favorite languages: TypeScript, Go
   </div>
   <div style="width: 400px; display: flex; flex-direction: column; justify-content: center;">
 
-```javascript
-// Visual Viewport API
-const calcHeight = () => {
-  const vp = window.visualViewport;
-  return vp.height - 60;
-};
+```jsx
+<main style={{`
+  height:
+    ${window.visualViewport.height
+      - footerHeight}px
+  `}}
+>
+  ...
+</main>
 
-// リサイズイベント
-vp.addEventListener('resize',
-  () => setHeight(calcHeight()));
-
-// 問題: Androidでスクロールが発生
 ```
 
   </div>
@@ -659,18 +658,19 @@ vp.addEventListener('resize',
 ```html
 <!-- HTML -->
 <meta name="viewport" 
-      content="width=device-width,
-               interactive-widget=resizes-content" />
+  content="width=device-width,
+    interactive-widget=resizes-content"
+/>
 ```
 
-```javascript
-// JavaScript
-const height = 
-  window.visualViewport.height - 60;
+```jsx
 
-// 🎉 iOS/Android両対応！
-// ✅ キーボード表示時も適切に動作
-// ✅ 意図しないスクロールなし
+<main style={{`
+  height:
+    ${window.visualViewport.height
+      - footerHeight}px
+  `}}
+>
 ```
 
   </div>
