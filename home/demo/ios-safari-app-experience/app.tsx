@@ -123,7 +123,7 @@ const Body = () => {
 
 	return (
 		<div class={wrapper(pattern, height)}>
-			<div class={htmlClass(pattern)}>
+			<div>
 				<header class={headerClass}>
 					<h1 class={headerTitleClass}>{pattern}を表示中</h1>
 					<form class={radioFormClass}>
@@ -208,16 +208,6 @@ const wrapper = (pattern: Pattern, height: number) => {
         ${customStyle}
     `;
 };
-
-const htmlClass = (pattern: Pattern) => css`
-    ${
-			pattern === Patterns.Pattern1
-				? `
-        
-    `
-				: ``
-		}
-`;
 
 const headerClass = css`
     background: rgba(255, 255, 255, 0.1);
