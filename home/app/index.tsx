@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2025/08/26"
+					eventLink="https://beenos.connpass.com/event/364554/"
+					eventTitle="個人開発/環境依存LT会"
+					slide={[
+						{
+							link: "./ios-safari-app-experience",
+							title: "Safariでもネイティブアプリの触り心地を実現したい！",
+						},
+					]}
+				/>
+
+				<Section
 					date="2025/07/29"
 					eventLink="https://dev-hive.connpass.com/event/361847/"
 					eventTitle="全力で生成AIに仕事奪わせてみたLT会"
