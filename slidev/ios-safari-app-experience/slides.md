@@ -182,12 +182,15 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <div style="background: #ffebee; color: #c62828; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
       iOS❌, Android❌
     </div>
-    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
-      <li style="margin-bottom: 0.5rem;">キーボード表示時にヘッダーが隠れる</li>
-    </ul>
+    <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">問題点</h4>
+      <div style="font-size: 0.85rem; color: #666; line-height: 1.4;">
+        <strong style="color: #d32f2f;">iOS / Android:</strong> キーボード表示時にfixedなHeaderが画面外に移動する
+      </div>
+    </div>
   </div>
 </div>
 
@@ -284,13 +287,16 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <div style="background: #fff3e0; color: #e65100; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
       iOS❌, Android⭕
     </div>
-    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
-      <li style="margin-bottom: 0.5rem;">iOS: キーボードを出すとinput要素が表示領域外に</li>
-      <li style="margin-bottom: 0.5rem;">Android: ⭕</li>
-    </ul>
+    <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
+      <div style="font-size: 0.85rem; color: #666; line-height: 1.4;">
+        <strong style="color: #d32f2f;">iOS:</strong> innerHeightが変わらないため、input要素がキーボードの裏に<br/>
+        <strong style="color: #2e7d32;">Android:</strong> innerHeightがキーボードを考慮して変化し、input要素が見える<br/>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -387,19 +393,22 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <div style="background: #fff3e0; color: #e65100; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
       iOS⭕, Android❌
     </div>
-    <ul style="margin-top: 1.5rem; font-size: 0.9rem;">
-      <li style="margin-bottom: 0.5rem;">iOS: ⭕</li>
-      <li style="margin-bottom: 0.5rem;">Android: 入力欄の下に大きなスペースができる</li>
-    </ul>
+    <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
+      <div style="font-size: 0.85rem; color: #666; line-height: 1.4;">
+        <strong style="color: #2e7d32;">iOS:</strong> window.visualViewport.heightがキーボードを考慮して変化し、input要素が見える<br/>
+        <strong style="color: #d32f2f;">Android:</strong> 画面がスクロールされ、input要素の下にスペースができる
+      </div>
+    </div>
   </div>
 </div>
 
 ---
 
-#### 4: `position: absolute;` + Viewport API + meta viewport
+#### 完成版: `position: absolute;` + Viewport API + meta viewport
 
 <div style="display: flex; align-items: center; margin: 2rem 0;">
   <div style="flex: 1; display: flex; justify-content: center; perspective: 1200px;">
@@ -490,8 +499,14 @@ Favorite languages: TypeScript, Go
     </div>
   </div>
   <div style="flex: 1; font-size: 1rem;">
-    <div style="background: #e3f2fd; color: #1565c0; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <div style="background: #e8f5e8; color: #2e7d32; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem;">
       iOS⭕, Android⭕
+    </div>
+    <div style="background: #f5f5f5; padding: 0 1rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+      <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: #333;">特徴</h4>
+      <div style="font-size: 0.85rem; color: #666; line-height: 1.4;">
+        <strong style="color: #2e7d32;">iOS / Android:</strong> キーボードを出しても謎にスクロールされない
+      </div>
     </div>
   </div>
 </div>
