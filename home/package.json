@@ -18,7 +18,7 @@
     "hono": "^4.9.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.2.3",
     "typescript": "^5.8.3"
   }
 }
