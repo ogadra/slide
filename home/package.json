@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hono/vite-dev-server": "^0.20.1",
-    "hono": "^4.9.4"
+    "hono": "^4.9.7"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
