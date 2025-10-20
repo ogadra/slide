@@ -1,0 +1,15 @@
+{
+  "name": "playwright-mcp-deep-dive",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/playwright-mcp-deep-dive",
+    "build:slidev": "slidev build --base /playwright-mcp-deep-dive/ --out ../../dist/playwright-mcp-deep-dive",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
