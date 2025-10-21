@@ -96,7 +96,7 @@ Playwright MCPからLLMが何を得ているか、<br/>
 
 ---
 
-## MCPサーバーの仕組み
+## MCPの仕組み
 
 
 ---
@@ -127,16 +127,253 @@ sequenceDiagram
 
 <div style="margin-top: 4.5em;">
 
-1. 初期セットアップ後
-2. LLMはMCPサーバーに対してツール一覧を要求
+1. 初期セットアップ `initialize`
+2. MCPに対してツール一覧を要求 `tools/list`
 3. MCPサーバーは利用可能なツールのリストをLLMに返す
-4. LLMは必要に応じてツールを呼び出す
+4. LLMは必要に応じてツールを呼び出す `tools/call`
 
 </div>
+
+---
+
+## ツール一覧 - tools/list
+
+- MCPサーバーがLLMに提供するツールの一覧を返す
+
+```json
+{
+  "tools": [{
+      "name": "browser_navigate",
+      "description": "Navigate to a URL",
+      "inputSchema": {...},
+      "annotations": { "title": "Navigate to a URL", ... }
+    }, ...
+  ]
+}
+```
+
+---
+
+## tools/listの注意点
+
+<div style="margin: 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
+約<span style="font-size: 5rem">
+2
+</span>KB
+</div>
+
+必要ないときはMCPを無効化しましょう
+
+---
+
+## ツール呼び出し - tools/call
+
+---
+
+### リクエスト
+
+example.comを開く場合
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "browser_navigate",
+    "arguments": {
+      "url": "https://example.com"
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 123
+}
+```
+
+---
+
+### レスポンス
+
+example.comを開いた場合
+
+```json
+{
+	"result": {
+		"content": [{
+				"type": "text",
+				"text": "### Ran Playwright code
+              ### Page state"
+    }]
+	},
+	"jsonrpc": "2.0",
+	"id": 123
+}
+```
+---
+
+## Playwright MCPの渡す情報
+
+### ツール一覧 - tools/list
+
+MCPは下記の流れでツール一覧を返す
+
+1. LLMから"tools/list"リクエストを受け取る
+2. 登録されている全てのツールを取得
+3. 取得したツールをjsonに変換
+4. 変換したツール一覧をLLMに返す
+
+
+---
+
+### ツール一覧 - tools/list
+
+```typescript browser/browserServerBackend.ts
+export class BrowserServerBackend {
+  ...,
+
+  async function listTools(): Promise<mcpServer.Tool[]> {
+    return this._tools.map(tool => toMcpTool(tool.schema));
+  }
+}
+```
+
+"tools/list"が呼ばれたときには、toolsを変換して配列で返す
+
+---
+
+### ツール一覧 - tools/list
+
+```typescript browser/tools.ts
+export const browserTools: Tool<any>[] = [
+  ...common,
+  ...console,
+  ...dialogs,
+  ...evaluate,
+  ...files,
+  ...form,
+  ...keyboard,
+  ...navigate,
+  ...
+];
+
+```
+
+toolsの定義はbrowserToolsにまとめられている
+
+---
+
+### ツール一覧 - tools/list
+
+```typescript browser/tools/navigate.ts
+const navigate = defineTool({
+  schema: {
+    name: 'browser_navigate',
+    description: 'Navigate to a URL',
+    inputSchema: z.object({
+      url: z.string().describe('The URL to navigate to'),
+    }),
+  },
+
+  handle: async (context, params, response) => {...},
+});
+
+```
+
+toolsは名前, 説明, 入力形式, そして実行関数を持つ
+
+---
+
+### ツール一覧 - tools/list
+
+```typescript sdk/tools.ts
+export function toMcpTool(
+  tool: ToolSchema<any>,
+): mcpServer.Tool {
+  return {
+    name: tool.name,
+    description: tool.description,
+    inputSchema: zodToJsonSchema(tool.inputSchema),
+    annotations: { ... },
+  };
+}
+```
+
+toolsをLLM用にjsonへ変換する<br/>
+ZodのスキーマもJSON Schemaに変換している
+
+---
+
+### ツール一覧 - tools/list
+
+- ツール毎に下記の情報をLLMに提供する
+  - name: ツール名
+  - description: ツールの説明
+  - inputSchema: ツールの入力形式（JSON Schema形式）
+  - annotations: 補足
+- ツールの数が多いほどトークンを消費する
+  - Playwright MCPは20以上のツールを持つ
+
+---
+
+### ツール呼び出し - tools/call
+
+MCPは下記の流れでツールを呼ぶ
+
+1. LLMから"tools/call"リクエストを受け取る
+2. リクエスト内のツール名と引数を取得する
+3. 登録されているツールの中から名前が一致するツールを取得
+4. ツールの実行関数を呼び出し、引数を渡す
+5. ツールの実行結果と補足情報をLLMに返す
+
+---
+
+### ツール呼び出し - tools/call
+
+```typescript browser/browserServerBackend.ts
+export class BrowserServerBackend {
+  async callTool(name, reqArguments) {
+    const tool = this._tools.find(
+      tool => tool.schema.name === name
+    );
+    const response = new Response(context, name, reqArguments);
+
+    await tool.handle(context, reqArguments, response);
+    return response.serialize();
+  }
+}
+```
+
+名前が一致するツールに対して引数を渡し、実行する
+
+---
+
+### ツール呼び出し - tools/call
+
+
+```typescript browser/tools/navigate.ts
+const navigate = defineTool({
+  handle: async (context, params, response) => {
+    const tab = await context.ensureTab();
+    await tab.navigate(params.url);
+
+    response.setIncludeSnapshot();
+    response.addCode(`await page.goto('${params.url}');`);
+  },
+});
+```
+
+`tab.navigate`で指定されたURLを開く（`page.goto(url)`相当）<br />
+responseにスナップショット、実行コードを追加
+
+---
+
+### デモ - MCPを人力で使ってみる
+
+https://github.com/ogadra/daien
+
 
 
 
 ---
+
 ## ご清聴ありがとうございました
 
 - Twitter: [@const_myself](https://twitter.com/const_myself)
