@@ -5,16 +5,16 @@ html {
 h1 {
   line-height: 1.0 !important;
   padding-top: 0;
-  font-size: 2rem !important;
+  font-size: 5rem !important;
 }
 
 h2 {
   font-size: 2rem !important;
   margin: 2rem 0 1.5rem !important;
   padding-bottom: 1rem !important;
-  border-bottom: 3px solid transparent;
+  border-bottom: 5px solid transparent;
   background-image: linear-gradient(90deg,#00d4ff 0%,#007acc 100%);
-  background-size: 100% 3px;
+  background-size: 100% 5px;
   background-repeat: no-repeat;
   background-position: bottom;
 }
@@ -34,7 +34,7 @@ h3 {
 }
 
 p {
-  font-size: 1.25rem !important;
+  font-size: 1.4rem !important;
   line-height: 1.5 !important;
 }
 

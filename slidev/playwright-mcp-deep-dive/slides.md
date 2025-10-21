@@ -17,7 +17,8 @@ canvasWidth: 960
 
 </style>
 
-# 深堀り！Playwright MCP
+# 深堀り!
+# Playwright MCP
 ## ogadra
 
 ---
@@ -36,7 +37,7 @@ Contributions: Playwright, playwright-mcp
 
 ## テーマ
 
-<div style="margin-top: 3.5em ;font-weight: bold; text-align: center;">
+<div style="margin-top: 6em ;font-weight: bold; text-align: center;">
   <p style="font-size: 1.75em !important">
   コンテキストエンジニアリング力向上のために<br/>
   Playwright MCPの仕組みを理解しよう！
@@ -47,8 +48,13 @@ Contributions: Playwright, playwright-mcp
 
 ## コンテキストエンジニアリングとは
 
+
+<div style="margin-top: 3.5em; font-size: 1.5em !important;">
+
 >「コンテキストエンジニアリングとは、コンテキストウィンドウを精巧に設計する芸術と科学である」
 > <div style="text-align: right; font-size: 1.25em;">Andrej Karpathy</div>
+
+</div>
 
 ---
 
@@ -64,7 +70,7 @@ Contributions: Playwright, playwright-mcp
 
 ## コンテキスト、把握してますか？
 
-<div style="margin-top: 3em; font-size: 1.5em !important;">
+<div style="margin-top: 4.5em; font-size: 1.5em !important;">
 LLMがMCPから何を得ているか把握することにより、<br/>
 より意図通りの出力を得やすくなります
 </div>
@@ -86,13 +92,11 @@ Playwright MCPからLLMが何を得ているか、<br/>
 
 - コンテキストエンジニアリングについて
 - MCPサーバーの仕組み
-  - initialize
   - tools/list
   - ツール呼び出し
 - Playwright MCPの渡す情報
   - ソースコードを追う
   - demo
-- まとめ
 
 ---
 
@@ -104,7 +108,7 @@ Playwright MCPからLLMが何を得ているか、<br/>
 ### 接続フロー（接続確立）
 
 <div style="display: flex; justify-content: center;">
-  <div style="background: #1e1e1e; padding: 0.1rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 2px solid transparent; background-image: linear-gradient(#1e1e1e, #1e1e1e), linear-gradient(90deg, #00d4ff 0%, #007acc 100%); background-origin: border-box; background-clip: content-box, border-box;">
+  <div style="background: #1e1e1e; padding: 1px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid transparent; background-image: linear-gradient(#1e1e1e, #1e1e1e), linear-gradient(120deg, #00d4ff 0%, #007acc 100%); background-origin: border-box; background-clip: content-box, border-box;">
 
 ```mermaid {scale: 0.9, theme: 'dark'}
 sequenceDiagram
@@ -156,14 +160,14 @@ sequenceDiagram
 
 ## tools/listの注意点
 
-<div style="margin: 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
+<div style="margin: 2em 0 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
 約<span style="font-size: 5rem">
 2
 </span>KB
 </div>
-
-必要ないときはMCPを無効化しましょう
-
+<div style="display: flex; justify-content: center;">
+必要がないときはMCPを無効化しましょう
+</div>
 ---
 
 ## ツール呼び出し - tools/call
@@ -182,9 +186,7 @@ example.comを開く場合
     "arguments": {
       "url": "https://example.com"
     }
-  },
-  "jsonrpc": "2.0",
-  "id": 123
+  }
 }
 ```
 
@@ -200,18 +202,22 @@ example.comを開いた場合
 		"content": [{
 				"type": "text",
 				"text": "### Ran Playwright code
-              ### Page state"
+              ...
+              ### Page state
+              ..."
     }]
 	},
-	"jsonrpc": "2.0",
-	"id": 123
 }
 ```
 ---
 
 ## Playwright MCPの渡す情報
 
+---
+
 ### ツール一覧 - tools/list
+
+<div style="margin-top: 4em;">
 
 MCPは下記の流れでツール一覧を返す
 
@@ -220,10 +226,14 @@ MCPは下記の流れでツール一覧を返す
 3. 取得したツールをjsonに変換
 4. 変換したツール一覧をLLMに返す
 
+</div>
+
 
 ---
 
 ### ツール一覧 - tools/list
+
+<div style="margin-top: 3em;">
 
 ```typescript browser/browserServerBackend.ts
 export class BrowserServerBackend {
@@ -236,6 +246,8 @@ export class BrowserServerBackend {
 ```
 
 "tools/list"が呼ばれたときには、toolsを変換して配列で返す
+
+</div>
 
 ---
 
@@ -296,8 +308,8 @@ export function toMcpTool(
 }
 ```
 
-toolsをLLM用にjsonへ変換する<br/>
-ZodのスキーマもJSON Schemaに変換している
+1. toolsをLLM用にjsonへ変換する
+2. ZodのスキーマもJSON Schemaに変換している
 
 ---
 
@@ -319,7 +331,7 @@ MCPは下記の流れでツールを呼ぶ
 
 1. LLMから"tools/call"リクエストを受け取る
 2. リクエスト内のツール名と引数を取得する
-3. 登録されているツールの中から名前が一致するツールを取得
+3. 登録されているツールから名前が一致するツールを取得
 4. ツールの実行関数を呼び出し、引数を渡す
 5. ツールの実行結果と補足情報をLLMに返す
 
