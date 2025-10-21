@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2025/10/22"
+					eventLink="https://wnb.connpass.com/event/371722/"
+					eventTitle="Work≠Build Meetup Tokyo feat ryoppippi"
+					slide={[
+						{
+							link: "./playwright-mcp-deep-dive",
+							title: "深堀り! Playwright MCP",
+						},
+					]}
+				/>
+
+				<Section
 					date="2025/08/26"
 					eventLink="https://beenos.connpass.com/event/364554/"
 					eventTitle="個人開発/環境依存LT会"

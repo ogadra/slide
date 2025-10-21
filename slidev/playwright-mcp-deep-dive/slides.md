@@ -1,7 +1,7 @@
 ---
 theme: purplin
-title: 深堀り！Playwright MCP
-info: 深堀り！Playwright MCP
+title: 深堀り! Playwright MCP
+info: 深堀り! Playwright MCP
 colorSchema: 'dark'
 drawings:
   enabled: false
