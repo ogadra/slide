@@ -171,7 +171,7 @@ example.comを開く場合
 
 ---
 
-### レスポンス - 
+### レスポンス - tools/call
 
 example.comを開いた場合
 
@@ -310,7 +310,7 @@ export function toMcpTool(
 
 ---
 
-## tools/listの注意点
+### tools/listの注意点
 
 <div style="margin: 2em 0 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
 約<span style="font-size: 5rem">
