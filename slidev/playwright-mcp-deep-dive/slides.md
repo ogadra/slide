@@ -91,7 +91,7 @@ Playwright MCPからLLMが何を得ているか、<br/>
 ## 目次
 
 - コンテキストエンジニアリングについて
-- MCPサーバーの仕組み
+- MCPの仕組み
   - tools/list
   - ツール呼び出し
 - Playwright MCPの渡す情報
@@ -102,6 +102,14 @@ Playwright MCPからLLMが何を得ているか、<br/>
 
 ## MCPの仕組み
 
+<div style="margin-top: 4.5em;">
+
+1. 初期セットアップ `initialize`
+2. MCPに対してツール一覧を要求 `tools/list`
+3. MCPサーバーは利用可能なツールのリストをLLMに返す
+4. LLMは必要に応じてツールを呼び出す `tools/call`
+
+</div>
 
 ---
 
@@ -127,19 +135,6 @@ sequenceDiagram
 
 ---
 
-### MCPサーバーの仕組み - 詳細
-
-<div style="margin-top: 4.5em;">
-
-1. 初期セットアップ `initialize`
-2. MCPに対してツール一覧を要求 `tools/list`
-3. MCPサーバーは利用可能なツールのリストをLLMに返す
-4. LLMは必要に応じてツールを呼び出す `tools/call`
-
-</div>
-
----
-
 ## ツール一覧 - tools/list
 
 - MCPサーバーがLLMに提供するツールの一覧を返す
@@ -158,23 +153,7 @@ sequenceDiagram
 
 ---
 
-## tools/listの注意点
-
-<div style="margin: 2em 0 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
-約<span style="font-size: 5rem">
-2
-</span>KB
-</div>
-<div style="display: flex; justify-content: center;">
-必要がないときはMCPを無効化しましょう
-</div>
----
-
-## ツール呼び出し - tools/call
-
----
-
-### リクエスト
+### リクエスト - tools/call
 
 example.comを開く場合
 
@@ -192,7 +171,7 @@ example.comを開く場合
 
 ---
 
-### レスポンス
+### レスポンス - 
 
 example.comを開いた場合
 
@@ -212,6 +191,12 @@ example.comを開いた場合
 ---
 
 ## Playwright MCPの渡す情報
+
+
+<div style="margin-top: 4.5em; font-size: 1.5em;">
+実際のPlaywright MCPのソースコードから<br/>
+LLMが受け取る情報の詳細を探ってみましょう
+</div>
 
 ---
 
@@ -325,6 +310,19 @@ export function toMcpTool(
 
 ---
 
+## tools/listの注意点
+
+<div style="margin: 2em 0 1.5em; display: flex; justify-content: center; font-size: 2.5rem !important; line-height: 2em; align-items: baseline;">
+約<span style="font-size: 5rem">
+2
+</span>KB
+</div>
+<div style="display: flex; justify-content: center;">
+必要がないときはMCPを無効化しましょう
+</div>
+
+---
+
 ### ツール呼び出し - tools/call
 
 MCPは下記の流れでツールを呼ぶ
@@ -380,8 +378,6 @@ responseにスナップショット、実行コードを追加
 ### デモ - MCPを人力で使ってみる
 
 https://github.com/ogadra/daien
-
-
 
 
 ---
