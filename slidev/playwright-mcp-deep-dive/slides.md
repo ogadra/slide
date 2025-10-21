@@ -31,8 +31,8 @@ imageOrder: 2
 
 Motto: Done is better than perfect.
 
-Favorite languages: TypeScript, Go
-Contributions: Playwright, playwright-mcp
+Languages: TypeScript, Go <br/>
+Contributions: Playwright MCP
 ---
 
 ## テーマ
@@ -108,7 +108,7 @@ Playwright MCPからLLMが何を得ているか、<br/>
 ### 接続フロー（接続確立）
 
 <div style="display: flex; justify-content: center;">
-  <div style="background: #1e1e1e; padding: 1px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid transparent; background-image: linear-gradient(#1e1e1e, #1e1e1e), linear-gradient(120deg, #00d4ff 0%, #007acc 100%); background-origin: border-box; background-clip: content-box, border-box;">
+  <div style="background: #1e1e1e; padding: 1px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid transparent; background-image: linear-gradient(#1e1e1e, #1e1e1e), linear-gradient(120deg, #4ec9b0 0%, #16825d 100%); background-origin: border-box; background-clip: content-box, border-box;">
 
 ```mermaid {scale: 0.9, theme: 'dark'}
 sequenceDiagram
