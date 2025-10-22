@@ -56,6 +56,9 @@ Contributions: Playwright MCP
 
 </div>
 
+<div style="text-align: right; margin-top: 1em; font-size: 1.25em;">
+https://qiita.com/takuya77088/items/579cce606799e207a2c4
+</div>
 ---
 
 ## コンテキストエンジニアリングとは
@@ -84,7 +87,7 @@ Playwright MCPからLLMが何を得ているか、<br/>
 一緒に深堀りしていきましょう！
 </div>
 
-※ Chrome DebTools MCPにも応用可能です
+※ Chrome DevTools MCPにも応用可能です
 
 ---
 
