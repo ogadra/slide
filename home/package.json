@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@hono/vite-dev-server": "^0.22.0",
+    "@hono/vite-dev-server": "^0.23.0",
     "hono": "^4.10.2"
   },
   "devDependencies": {
