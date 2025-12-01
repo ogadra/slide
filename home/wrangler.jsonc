@@ -11,6 +11,20 @@
   "vars": {
     "ENVIRONMENT": "dev",
   },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SLIDE_SYNC_CONNECTION_SERVER",
+        "class_name": "SlideSyncConnectionServer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": ["SlideSyncConnectionServer"]
+    }
+  ],
   "env": {
     "dev": {
       "vars": {

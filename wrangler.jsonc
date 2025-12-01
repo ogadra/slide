@@ -16,11 +16,28 @@
       "vars": {
         "ENVIRONMENT": "dev",
       },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SLIDE_SYNC_CONNECTION_SERVER",
+            "class_name": "SlideSyncConnectionServer"
+          }
+        ]
+      },
     },
     "prod": {
       "vars": {
         "ENVIRONMENT": "production",
       },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SLIDE_SYNC_CONNECTION_SERVER",
+            "class_name": "SlideSyncConnectionServer"
+          }
+        ]
+      },
     },
   },
+  
 }
