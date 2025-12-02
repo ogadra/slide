@@ -47,6 +47,12 @@
       }
     ]
   },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": ["SlideSyncConnectionServer"]
+    }
+  ],
   "observability": {
     "logs": {
       "enabled": true,
