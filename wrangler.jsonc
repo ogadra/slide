@@ -1,5 +1,6 @@
 {
   "name": "slide",
+  "preview_urls": true,
   "main": "./home/server.ts",
   "compatibility_date": "2024-08-21",
   "workers_dev": false,
