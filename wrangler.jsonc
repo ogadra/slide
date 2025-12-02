@@ -38,6 +38,42 @@
         ]
       },
     },
+    "preview": {
+      "vars": {
+        "ENVIRONMENT": "prev",
+      },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SLIDE_SYNC_CONNECTION_SERVER",
+            "class_name": "SlideSyncConnectionServer"
+          }
+        ]
+      },
+    }
   },
-  
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SLIDE_SYNC_CONNECTION_SERVER",
+        "class_name": "SlideSyncConnectionServer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "SlideSyncConnectionServer"
+      ]
+    }
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
 }
