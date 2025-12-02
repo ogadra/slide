@@ -16,11 +16,43 @@
       "vars": {
         "ENVIRONMENT": "dev",
       },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SLIDE_SYNC_CONNECTION_SERVER",
+            "class_name": "SlideSyncConnectionServer"
+          }
+        ]
+      },
     },
     "prod": {
       "vars": {
-        "ENVIRONMENT": "production",
+        "ENVIRONMENT": "production"
       },
-    },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "SLIDE_SYNC_CONNECTION_SERVER",
+            "class_name": "SlideSyncConnectionServer"
+          }
+        ]
+      },
+    }
   },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SLIDE_SYNC_CONNECTION_SERVER",
+        "class_name": "SlideSyncConnectionServer"
+      }
+    ]
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
 }
