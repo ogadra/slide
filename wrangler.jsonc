@@ -27,20 +27,7 @@
     },
     "prod": {
       "vars": {
-        "ENVIRONMENT": "production",
-      },
-      "durable_objects": {
-        "bindings": [
-          {
-            "name": "SLIDE_SYNC_CONNECTION_SERVER",
-            "class_name": "SlideSyncConnectionServer"
-          }
-        ]
-      },
-    },
-    "preview": {
-      "vars": {
-        "ENVIRONMENT": "prev",
+        "ENVIRONMENT": "production"
       },
       "durable_objects": {
         "bindings": [
@@ -63,9 +50,7 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": [
-        "SlideSyncConnectionServer"
-      ]
+      "new_classes": ["SlideSyncConnectionServer"]
     }
   ],
   "observability": {
