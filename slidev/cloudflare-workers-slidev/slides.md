@@ -4,7 +4,7 @@ title: WorkersでSlidevを120%活かす！
 info: WorkersでSlidevを120%活かす！
 colorSchema: 'dark'
 drawings:
-  enabled: false
+  enabled: true
 transition: slide-left
 mdc: true
 canvasWidth: 960
