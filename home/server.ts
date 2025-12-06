@@ -1,12 +1,16 @@
 import { type Context, Hono } from "hono";
-import { handleWebSocketConnection } from "utils/handleWebSocketConnection";
 import { Index } from "./app/index";
 import { demo } from "./demo";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
+import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
+import { handleLogin, LoginPage } from "./utils/login";
 
 const app = new Hono();
 
 app.route("/demo", demo);
+
+app.get("/login", (c: Context) => LoginPage(c));
+app.post("/login", handleLogin);
 
 app.get("/ws/:slide", handleWebSocketConnection);
 
