@@ -72,10 +72,10 @@ const websocketSync: Sync = {
 		connectWebSocket(onUpdate);
 
 		return (state, updating) => {
-      const ws = getWsInstance();
-			if (!updating && ws?.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify(state));
-      }
+            const ws = getWsInstance();
+            if (!updating && ws?.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(state));
+            }
 		};
 	},
 };
