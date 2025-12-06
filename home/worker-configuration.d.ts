@@ -3,6 +3,8 @@
 declare namespace Cloudflare {
 	interface Env {
 		ENVIRONMENT: "dev" | "production";
+		AUTH_PASSWORD_HASH: string;
+		SESSION_KV: KVNamespace;
 	}
 }
 interface Env extends Cloudflare.Env {}
