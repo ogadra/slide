@@ -12,8 +12,9 @@
 			"demo/**/*.tsx",
 			"server.ts",
 			"durableObjects/*.ts",
-			"!node_modules/**",
-			"!build/**",
+			"utils/*.ts",
+			"!node_modules",
+			"!build",
 		],
 	},
 	"formatter": {

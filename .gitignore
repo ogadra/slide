@@ -3,3 +3,4 @@ dist/*
 .cloudflare
 .wrangler
 home/dist/*
+.dev.vars
