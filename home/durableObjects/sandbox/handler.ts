@@ -24,6 +24,9 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	switch (lang as AllowLanguageType) {
 		case AllowLanguage.bash: {
 			const result = await sandbox.exec(code);
+			// resultの頭の改行を削除
+			result.stdout = result.stdout.replace(/^\n+/, "");
+
 			return Response.json({
 				output: result.stdout,
 				exitCode: result.exitCode,
