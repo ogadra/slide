@@ -36,6 +36,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				output: result.stdout,
 				exitCode: result.exitCode,
 				success: result.success,
+				error: result.stderr || undefined,
 			});
 		}
 		case AllowLanguage.TypeScript:
