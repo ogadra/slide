@@ -27,13 +27,16 @@ const props = defineProps({
 
 const emit = defineEmits(['update:code']);
 
-const internalCode = ref(props.code);
 const highlightedHtml = ref('');
 const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
-const updateHighlight = () => {
-  codeToHtml(internalCode.value, {
+const lineCount = computed(() => {
+  return (highlightedHtml.value.match(/<span class="line"/g) || []).length || 1;
+});
+
+const updateHighlight = (code: string) => {
+  codeToHtml(code, {
     lang: props.lang,
     theme: props.theme,
   })
@@ -41,29 +44,30 @@ const updateHighlight = () => {
       highlightedHtml.value = html;
     })
     .catch(() => {
-      highlightedHtml.value = `<pre><code>${internalCode.value}</code></pre>`;
+      highlightedHtml.value = `<pre><code>${code}</code></pre>`;
     });
 };
 
 watch(
   () => props.code,
   (newCode) => {
-    internalCode.value = newCode;
+    updateHighlight(newCode);
   },
 );
 
 watch(
   isEditing,
   (newValue, oldValue) => {
-    if (oldValue && !newValue) {
-      updateHighlight();
-      emit('update:code', internalCode.value);
+    if (oldValue && !newValue && textareaRef.value) {
+      const code = textareaRef.value.value;
+      updateHighlight(code);
+      emit('update:code', code);
     }
   },
 );
 
 // Initial highlight
-updateHighlight();
+updateHighlight(props.code);
 
 const startEditing = () => {
   if (!props.editable) return;
@@ -74,13 +78,8 @@ const startEditing = () => {
 };
 
 const stopEditing = () => {
-  if (textareaRef.value) {
-    internalCode.value = textareaRef.value.value;
-  }
   isEditing.value = false;
 };
-
-const lineCount = computed(() => internalCode.value.split('\n').length);
 </script>
 
 <template>
@@ -100,7 +99,7 @@ const lineCount = computed(() => internalCode.value.split('\n').length);
         />
         <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
           ref="textareaRef"
-          :value="internalCode"
+          :value="props.code"
           @blur="stopEditing"
           class="code-textarea"
           :spellcheck="false"
