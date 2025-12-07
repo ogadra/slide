@@ -10,7 +10,7 @@ const props = defineProps({
   },
   lang: {
     type: String,
-    default: 'typescript',
+    default: 'TypeScript',
   },
   theme: {
     type: String,
@@ -58,7 +58,7 @@ const lineCount = computed(() => {
 
 const updateHighlight = (code: string) => {
   codeToHtml(code, {
-    lang: props.lang,
+    lang: props.lang.toLowerCase(),
     theme: props.theme,
   })
     .then((html) => {
@@ -78,11 +78,20 @@ watch(
 
 watch(
   isEditing,
-  (newValue, oldValue) => {
+  async (newValue, oldValue) => {
     if (oldValue && !newValue && textareaRef.value) {
       const code = textareaRef.value.value;
       updateHighlight(code);
       emit('update:code', code);
+
+      // TypeScriptの場合は自動保存
+      if (props.lang === 'TypeScript' && props.filename) {
+        await executeCode({
+          lang: 'TypeScript',
+          code,
+          fileName: props.filename,
+        });
+      }
     }
   },
 );
@@ -157,7 +166,12 @@ const handleExecute = async () => {
           :spellcheck="false"
         >{{ props.code }}</textarea></code></pre>
       </div>
-      <button class="execute-btn" @click.stop="handleExecute" :disabled="isExecuting">
+      <button
+        v-if="props.lang === 'bash'"
+        class="execute-btn"
+        @click.stop="handleExecute"
+        :disabled="isExecuting"
+      >
         {{ isExecuting ? '実行中...' : '▶ 実行' }}
       </button>
     </div>

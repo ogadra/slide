@@ -15,7 +15,7 @@ type ExecuteContent = {
   lang: 'bash',
   code: string,
 } | {
-  lang: 'typescript',
+  lang: 'TypeScript',
   code: string,
   fileName: string,
 }

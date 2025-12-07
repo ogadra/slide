@@ -3,7 +3,7 @@ import type { Context } from "hono";
 
 const AllowLanguage = {
 	bash: "bash",
-	TypeScript: "typescript",
+	TypeScript: "TypeScript",
 } as const;
 
 type AllowLanguageType = (typeof AllowLanguage)[keyof typeof AllowLanguage];

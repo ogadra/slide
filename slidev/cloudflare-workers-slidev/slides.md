@@ -17,6 +17,27 @@ canvasWidth: 960
 
 </style>
 
+## コード実行サンプル
+
+<CodeBlock
+  code="console.log('Hello World!');"
+  lang="TypeScript"
+  filename="/workspace/example-1.ts"
+/>
+
+<br/>
+
+<CodeBlock code="npx tsx /workspace/example-1.ts" lang="bash" />
+
+---
+
+<CodeBlock
+  code="npm install -g @hono/cli"
+  lang="bash"
+/>
+
+---
+
 # WorkersでSlidevを120%活かす！
 ## ogadra
 
