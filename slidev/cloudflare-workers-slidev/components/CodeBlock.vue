@@ -239,7 +239,7 @@ const handleExecute = async () => {
   position: relative;
   display: flex;
   font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   overflow-x: auto;
 }
@@ -256,8 +256,8 @@ const handleExecute = async () => {
 }
 
 .line-numbers span {
-  height: 30px;
-  line-height: 30px;
+  height: 18px;
+  line-height: 18px;
 }
 
 
