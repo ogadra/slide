@@ -11,7 +11,18 @@ const getSlideNameFromUrl = () => {
   return match ? match[1] : '';
 };
 
-export const executeCode = async (code: string, lang: string): Promise<ExecutionResult | null> => {
+type ExecuteContent = {
+  lang: 'bash',
+  code: string,
+} | {
+  lang: 'typescript',
+  code: string,
+  fileName: string,
+}
+
+export const executeCode = async (
+  postContent: ExecuteContent
+): Promise<ExecutionResult | null> => {
   const slide = getSlideNameFromUrl();
   if (!slide) return null;
 
@@ -20,7 +31,7 @@ export const executeCode = async (code: string, lang: string): Promise<Execution
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ code, lang }),
+    body: JSON.stringify(postContent),
   });
 
   return response.json();

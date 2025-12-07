@@ -117,7 +117,17 @@ const handleExecute = async () => {
   isExecuting.value = true;
   executionResult.value = null;
   highlightedResultHtml.value = '';
-  const result = await executeCode(getCurrentCode(), props.lang);
+  const executeContent = props.lang === 'bash' ? {
+    lang: 'bash',
+    code: getCurrentCode(),
+  } : {
+    lang: props.lang,
+    code: getCurrentCode(),
+    fileName: props.filename,
+  };
+
+  const result = await executeCode(executeContent);
+
   executionResult.value = result;
   if (result?.output) {
     await updateResultHighlight(result.output);

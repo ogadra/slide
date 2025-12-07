@@ -8,11 +8,16 @@ const AllowLanguage = {
 
 type AllowLanguageType = (typeof AllowLanguage)[keyof typeof AllowLanguage];
 
+const AllowEditableFiles = [
+	"/workspace/example-1.ts",
+	"/workspace/example-2.ts",
+];
+
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const slide = c.req.param("slide");
 	const sandbox = getSandbox(c.env.slide_sandbox, slide);
 
-	const { code, lang } = await c.req.json();
+	const { code, lang, fileName } = await c.req.json();
 
 	if (!code || !lang || !(lang in AllowLanguage)) {
 		return Response.json(
@@ -34,10 +39,18 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 			});
 		}
 		case AllowLanguage.TypeScript:
-			return Response.json(
-				{ error: "TypeScript execution not implemented yet" },
-				{ status: 501 },
-			);
+			// check fileName
+			if (!fileName || !AllowEditableFiles.includes(fileName)) {
+				return Response.json({ error: "File not editable" }, { status: 403 });
+			}
+
+			await sandbox.writeFile(fileName, code);
+
+			return Response.json({
+				output: `File ${fileName} updated successfully.`,
+				exitCode: 0,
+				success: true,
+			});
 		default:
 			return Response.json({ error: "Unsupported language" }, { status: 400 });
 	}
