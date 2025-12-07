@@ -31,11 +31,7 @@ const emit = defineEmits(['update:code']);
 const highlightedHtml = ref('');
 const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
-const executionResult = ref<ExecutionResult | null>({
-  output: "changed 6 packages in 3s",
-  exitCode: 0,
-  success: true,
-});
+const executionResult = ref<ExecutionResult | null>(null);
 const highlightedResultHtml = ref('');
 const isExecuting = ref(false);
 
@@ -93,11 +89,6 @@ watch(
 
 // Initial highlight
 updateHighlight(props.code);
-
-// Mock result highlight (for development)
-if (executionResult.value?.output) {
-  updateResultHighlight(executionResult.value.output);
-}
 
 const startEditing = () => {
   if (!props.editable) return;
