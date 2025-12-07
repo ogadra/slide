@@ -34,7 +34,6 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const executionResult = ref<ExecutionResult | null>(null);
 const highlightedResultHtml = ref('');
 const isExecuting = ref(false);
-const streamingOutput = ref('');
 const currentProcessId = ref<string | null>(null);
 
 const updateResultHighlight = async (output: string) => {
@@ -130,9 +129,12 @@ const getCurrentCode = () => {
 
 const handleExecute = async () => {
   isExecuting.value = true;
-  executionResult.value = null;
+  executionResult.value = {
+    output: '',
+    exitCode: 0,
+    success: true,
+  };
   highlightedResultHtml.value = '';
-  streamingOutput.value = '';
   currentProcessId.value = null;
 
   const executeContent = props.lang === 'bash' ? {
@@ -146,7 +148,7 @@ const handleExecute = async () => {
 
   const result = await executeCode(executeContent, {
     onChunk: (chunk) => {
-      streamingOutput.value += chunk;
+      executionResult.value!.output += chunk;
     },
     onProcessId: (id) => {
       currentProcessId.value = id;
@@ -166,15 +168,14 @@ const handleKill = async () => {
     await killProcess(currentProcessId.value);
     currentProcessId.value = null;
     isExecuting.value = false;
-    // 中断時点の出力を結果として保存
-    executionResult.value = {
-      output: streamingOutput.value,
-      exitCode: -1,
-      success: false,
-      error: 'Process killed',
-    };
-    if (streamingOutput.value) {
-      await updateResultHighlight(streamingOutput.value);
+    // 中断時点の出力を保持しつつステータスを更新
+    if (executionResult.value) {
+      executionResult.value.exitCode = -1;
+      executionResult.value.success = false;
+      executionResult.value.error = 'Process killed';
+      if (executionResult.value.output) {
+        await updateResultHighlight(executionResult.value.output);
+      }
     }
   }
 };
@@ -219,17 +220,11 @@ const handleKill = async () => {
         </button>
       </div>
     </div>
-    <div v-if="isExecuting" class="execution-result streaming">
+    <div v-if="executionResult" class="execution-result" :class="{ streaming: isExecuting, success: !isExecuting && executionResult.success, error: !isExecuting && !executionResult.success }">
       <div class="result-header">
-        <span class="result-status">実行中...</span>
+        <span class="result-status">{{ isExecuting ? '実行中...' : `${executionResult.success ? '✓' : '✗'} Exit: ${executionResult.exitCode}` }}</span>
       </div>
-      <pre class="result-output">{{ streamingOutput }}</pre>
-    </div>
-    <div v-else-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
-      <div class="result-header">
-        <span class="result-status">{{ executionResult.success ? '✓' : '✗' }} Exit: {{ executionResult.exitCode }}</span>
-      </div>
-      <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
+      <div v-if="!isExecuting && highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
       <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
     </div>
   </div>
