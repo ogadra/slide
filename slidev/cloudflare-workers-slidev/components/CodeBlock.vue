@@ -25,8 +25,6 @@ const props = defineProps({
   },
 });
 
-const isShell = computed(() => ['shell', 'bash', 'sh', 'zsh'].includes(props.lang));
-
 const emit = defineEmits(['update:code']);
 
 const internalCode = ref(props.code);
@@ -93,9 +91,6 @@ const lineCount = computed(() => internalCode.value.split('\n').length);
       <div class="line-numbers">
         <span v-for="n in lineCount" :key="n">{{ n }}</span>
       </div>
-      <div v-if="isShell" class="shell-prompt">
-        <span v-for="n in lineCount" :key="n">$</span>
-      </div>
       <div class="code-content">
         <div
           v-if="!isEditing"
@@ -151,22 +146,10 @@ const lineCount = computed(() => internalCode.value.split('\n').length);
 }
 
 .line-numbers span {
-  height: 1.5em;
+  height: 30px;
+  line-height: 30px;
 }
 
-.shell-prompt {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 8px;
-  color: #858585;
-  font-size: 14px;
-  line-height: 1.5;
-  user-select: none;
-}
-
-.shell-prompt span {
-  height: 1.5em;
-}
 
 .code-content {
   flex: 1;
