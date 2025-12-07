@@ -1,6 +1,7 @@
 import { type Context, Hono } from "hono";
 import { Index } from "./app/index";
 import { demo } from "./demo";
+import { handleSandboxRequest } from "./durableObjects/sandbox/handler";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
 import { handleLogin, LoginPage } from "./utils/login";
@@ -34,6 +35,9 @@ app.on("GET", ["*"], async (c: Context) => {
 	return c.env.ASSETS.fetch(c.req.url);
 });
 
+app.post("/sandbox/:slide", handleSandboxRequest);
+
 export default app;
 
+export { Sandbox as SlideSandbox } from "@cloudflare/sandbox";
 export { SlideSyncConnectionServer } from "./durableObjects/slideSyncConnectionServer";

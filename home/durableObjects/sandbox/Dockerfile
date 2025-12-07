@@ -1,0 +1,3 @@
+FROM docker.io/cloudflare/sandbox:0.6.3
+
+EXPOSE 8080
