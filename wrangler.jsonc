@@ -58,7 +58,7 @@
 			"containers": [
 				{
 					"class_name": "SlideSandbox",
-					"name": "SLIDE_SANDBOX",
+					"name": "slide_sandbox",
 					"image": "./home/durableObjects/sandbox/Dockerfile",
 					"instance_type": "lite",
 					"max_instances": 1
@@ -70,7 +70,7 @@
 						"name": "SLIDE_SYNC_CONNECTION_SERVER",
 						"class_name": "SlideSyncConnectionServer"
 					}, {
-						"name": "SLIDE_SANDBOX",
+						"name": "slide_sandbox",
 						"class_name": "SlideSandbox"
 					}
 				]

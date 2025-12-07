@@ -10,7 +10,7 @@ type AllowLanguageType = (typeof AllowLanguage)[keyof typeof AllowLanguage];
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const slide = c.req.param("slide");
-	const sandbox = getSandbox(c.env.SLIDE_SANDBOX, slide);
+	const sandbox = getSandbox(c.env.slide_sandbox, slide);
 
 	const { code, lang } = await c.req.json();
 
