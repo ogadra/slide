@@ -31,8 +31,24 @@ const emit = defineEmits(['update:code']);
 const highlightedHtml = ref('');
 const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
-const executionResult = ref<ExecutionResult | null>(null);
+const executionResult = ref<ExecutionResult | null>({
+  output: "changed 6 packages in 3s",
+  exitCode: 0,
+  success: true,
+});
+const highlightedResultHtml = ref('');
 const isExecuting = ref(false);
+
+const updateResultHighlight = async (output: string) => {
+  try {
+    highlightedResultHtml.value = await codeToHtml(output, {
+      lang: 'bash',
+      theme: props.theme,
+    });
+  } catch {
+    highlightedResultHtml.value = `<pre><code>${output}</code></pre>`;
+  }
+};
 
 const getCodeFromHtml = () => {
   const codeContent = document.createElement('div');
@@ -78,6 +94,11 @@ watch(
 // Initial highlight
 updateHighlight(props.code);
 
+// Mock result highlight (for development)
+if (executionResult.value?.output) {
+  updateResultHighlight(executionResult.value.output);
+}
+
 const startEditing = () => {
   if (!props.editable) return;
   isEditing.value = true;
@@ -104,8 +125,12 @@ const getCurrentCode = () => {
 const handleExecute = async () => {
   isExecuting.value = true;
   executionResult.value = null;
+  highlightedResultHtml.value = '';
   const result = await executeCode(getCurrentCode(), props.lang);
   executionResult.value = result;
+  if (result?.output) {
+    await updateResultHighlight(result.output);
+  }
   isExecuting.value = false;
 };
 </script>
@@ -142,7 +167,8 @@ const handleExecute = async () => {
       <div class="result-header">
         <span class="result-status">{{ executionResult.success ? '✓' : '✗' }} Exit: {{ executionResult.exitCode }}</span>
       </div>
-      <pre class="result-output">{{ executionResult.output || executionResult.error }}</pre>
+      <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
+      <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
     </div>
   </div>
 </template>
@@ -294,7 +320,7 @@ const handleExecute = async () => {
 }
 
 .result-status {
-  font-size: 12px;
+  font-size: 16px;
   color: #ccc;
 }
 
@@ -316,4 +342,14 @@ const handleExecute = async () => {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+div :deep(pre) {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+
 </style>
