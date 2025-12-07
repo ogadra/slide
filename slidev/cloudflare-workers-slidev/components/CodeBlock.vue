@@ -101,6 +101,7 @@ const stopEditing = () => {
           ref="textareaRef"
           :value="props.code"
           @blur="stopEditing"
+          @keydown.escape="textareaRef?.blur()"
           class="code-textarea"
           :spellcheck="false"
         /></code></pre>
