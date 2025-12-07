@@ -47,6 +47,21 @@
 					"new_classes": [
 						"SlideSyncConnectionServer"
 					]
+				},
+				{
+					"tag": "v2",
+					"new_sqlite_classes": [
+						"SlideSandbox"
+					]
+				}
+			],
+			"containers": [
+				{
+					"class_name": "SlideSandbox",
+					"name": "SLIDE_SANDBOX",
+					"image": "./home/durableObjects/sandbox/Dockerfile",
+					"instance_type": "lite",
+					"max_instances": 1
 				}
 			],
 			"durable_objects": {
@@ -54,6 +69,9 @@
 					{
 						"name": "SLIDE_SYNC_CONNECTION_SERVER",
 						"class_name": "SlideSyncConnectionServer"
+					}, {
+						"name": "SLIDE_SANDBOX",
+						"class_name": "SlideSandbox"
 					}
 				]
 			},
