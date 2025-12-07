@@ -103,6 +103,7 @@ const handleExecute = () => {
       <button class="execute-btn" @click="handleExecute">実行</button>
     </div>
     <div class="code-block" @click="startEditing">
+      <span class="lang">{{ props.lang }}</span>
       <div class="line-numbers">
         <span v-for="n in lineCount" :key="n">{{ n }}</span>
       </div>
@@ -142,6 +143,16 @@ const handleExecute = () => {
   border-bottom: 1px solid #444;
 }
 
+.lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  background: #333;
+  color: #ccc;
+  font-size: 14px;
+}
+
 .filename {
   color: #ccc;
   font-size: 12px;
@@ -162,6 +173,7 @@ const handleExecute = () => {
 }
 
 .code-block {
+  position: relative;
   display: flex;
   font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
   font-size: 14px;
