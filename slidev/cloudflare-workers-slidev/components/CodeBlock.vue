@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { codeToHtml } from 'shiki';
+import { executeCode } from '../composables/useCodeExecution';
 
 const props = defineProps({
   code: {
@@ -80,12 +81,26 @@ const startEditing = () => {
 const stopEditing = () => {
   isEditing.value = false;
 };
+
+const getCurrentCode = () => {
+  if (textareaRef.value) {
+    return textareaRef.value.value;
+  }
+  const tmp = document.createElement('div');
+  tmp.innerHTML = highlightedHtml.value;
+  return tmp.textContent || '';
+};
+
+const handleExecute = () => {
+  executeCode(getCurrentCode());
+};
 </script>
 
 <template>
   <div class="code-block-wrapper">
-    <div v-if="filename" class="filename-bar">
-      {{ filename }}
+    <div class="toolbar">
+      <span v-if="filename" class="filename">{{ filename }}</span>
+      <button class="execute-btn" @click="handleExecute">実行</button>
     </div>
     <div class="code-block" @click="startEditing">
       <div class="line-numbers">
@@ -118,12 +133,32 @@ const stopEditing = () => {
   background: #1e1e1e;
 }
 
-.filename-bar {
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 8px 16px;
   background: #333;
+  border-bottom: 1px solid #444;
+}
+
+.filename {
   color: #ccc;
   font-size: 12px;
-  border-bottom: 1px solid #444;
+}
+
+.execute-btn {
+  padding: 4px 12px;
+  background: #4a9eff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.execute-btn:hover {
+  background: #3a8eef;
 }
 
 .code-block {
