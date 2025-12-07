@@ -12,48 +12,6 @@
 	"vars": {
 		"ENVIRONMENT": "production",
 	},
-	"env": {
-		"dev": {
-			"vars": {
-				"ENVIRONMENT": "dev",
-			},
-			"durable_objects": {
-				"bindings": [
-					{
-						"name": "SLIDE_SYNC_CONNECTION_SERVER",
-						"class_name": "SlideSyncConnectionServer"
-					}
-				]
-			},
-		},
-		"prod": {
-			"vars": {
-				"ENVIRONMENT": "production"
-			},
-			"durable_objects": {
-				"bindings": [
-					{
-						"name": "SLIDE_SYNC_CONNECTION_SERVER",
-						"class_name": "SlideSyncConnectionServer"
-					}
-				]
-			},
-      "kv_namespaces": [
-        {
-          "binding": "SESSION_KV",
-          "id": "fe32a237fcfc4891b42e61ddf74718db"
-        }
-      ],
-		}
-	},
-	"durable_objects": {
-		"bindings": [
-			{
-				"name": "SLIDE_SYNC_CONNECTION_SERVER",
-				"class_name": "SlideSyncConnectionServer"
-			}
-		]
-	},
 	"migrations": [
 		{
 			"tag": "v1",
@@ -62,6 +20,51 @@
 			]
 		}
 	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "SLIDE_SYNC_CONNECTION_SERVER",
+				"class_name": "SlideSyncConnectionServer"
+			}
+		]
+	},
+	"kv_namespaces": [
+		{
+			"binding": "SESSION_KV", // Auth session storage
+			"id": "fe32a237fcfc4891b42e61ddf74718db"
+		}
+	],
+	"env": {
+		"dev": {
+			"preview_urls": false,
+			"workers_dev": true,
+			"vars": {
+				"ENVIRONMENT": "dev",
+			},
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_classes": [
+						"SlideSyncConnectionServer"
+					]
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SLIDE_SYNC_CONNECTION_SERVER",
+						"class_name": "SlideSyncConnectionServer"
+					}
+				]
+			},
+			"kv_namespaces": [
+				{
+					"binding": "SESSION_KV", // Auth session storage
+					"id": "fe32a237fcfc4891b42e61ddf74718db"
+				}
+			]
+		}
+	},
 	"observability": {
 		"logs": {
 			"enabled": true,
@@ -70,10 +73,4 @@
 			"persist": true
 		}
 	},
-	"kv_namespaces": [
-		{
-			"binding": "SESSION_KV",
-			"id": "fe32a237fcfc4891b42e61ddf74718db"
-		}
-	]
 }

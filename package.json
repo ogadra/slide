@@ -11,7 +11,9 @@
   "scripts": {
     "build": "npm run -ws build",
     "dev": "wrangler dev --ip 0.0.0.0 --env dev",
-    "start": "wrangler dev --ip 0.0.0.0 --env prod"
+    "start": "wrangler dev --ip 0.0.0.0 --env dev",
+    "deploy:prd": "wrangler deploy",
+    "deploy:dev": "wrangler deploy --env dev"
   },
   "private": true,
   "devDependencies": {
