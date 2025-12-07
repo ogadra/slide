@@ -5,7 +5,6 @@ import {
   connectionStatus,
   getWsInstance,
 } from '../setup/connectionState';
-import { connectWebSocket } from '../setup/main';
 
 const changeConnectionStatus = () => {
   switch (connectionStatus.value) {
@@ -14,15 +13,15 @@ const changeConnectionStatus = () => {
       changeConnectionState(ConnectionStatusEnum.Disconnected);
       break;
 
-    case ConnectionStatusEnum.Disconnected: 
+    case ConnectionStatusEnum.Disconnected: {
       const ws = getWsInstance();
       if (ws && ws.readyState === WebSocket.OPEN) {
         changeConnectionState(ConnectionStatusEnum.Connected);
       } else {
         changeConnectionState(ConnectionStatusEnum.Connecting);
-        connectWebSocket();
       }
       break;
+    }
   }
 };
 

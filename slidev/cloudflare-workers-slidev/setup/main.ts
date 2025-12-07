@@ -32,7 +32,6 @@ export function connectWebSocket(onUpdate: (data: Partial<object>) => void): voi
 
 	ws.onmessage = (event) => {
 		try {
-      console.log(39, connectionStatus.value);
 			if (connectionStatus.value === ConnectionStatusEnum.Connected) {
 				const data = JSON.parse(event.data);
 				onUpdate(data);
