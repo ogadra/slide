@@ -239,25 +239,28 @@ const handleExecute = async () => {
   position: relative;
   display: flex;
   font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.25;
   overflow-x: auto;
 }
 
 .line-numbers {
   display: flex;
   flex-direction: column;
-  padding: 16px 12px;
+  padding: 12px;
   background: #0d0d0d;
   color: #666;
   text-align: right;
   user-select: none;
   border-right: 1px solid #222;
+  font-size: 12px;
+  line-height: 1.25;
 }
 
 .line-numbers span {
-  height: 18px;
-  line-height: 18px;
+  display: block;
+  height: 20px;
+  line-height: 20px;
 }
 
 
@@ -268,7 +271,7 @@ const handleExecute = async () => {
 }
 
 .highlighted-code {
-  padding: 16px;
+  padding: 12px;
   cursor: text;
 }
 
@@ -287,7 +290,7 @@ const handleExecute = async () => {
 
 .edit-pre {
   margin: 0;
-  padding: 16px !important;
+  padding: 12px !important;
   background: transparent !important;
 }
 
@@ -308,8 +311,8 @@ const handleExecute = async () => {
   resize: none;
   overflow: hidden;
   font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
-  font-size: 1em;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.25;
   field-sizing: content;
 }
 
