@@ -32,6 +32,12 @@ const highlightedHtml = ref('');
 const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
+const getCodeFromHtml = () => {
+  const codeContent = document.createElement('div');
+  codeContent.innerHTML = highlightedHtml.value;
+  return codeContent.textContent || '';
+};
+
 const lineCount = computed(() => {
   return (highlightedHtml.value.match(/<span class="line"/g) || []).length || 1;
 });
@@ -73,8 +79,12 @@ updateHighlight(props.code);
 const startEditing = () => {
   if (!props.editable) return;
   isEditing.value = true;
+  const codeContent = getCodeFromHtml();
   setTimeout(() => {
-    textareaRef.value?.focus();
+    if (textareaRef.value) {
+      textareaRef.value.focus();
+      textareaRef.value.value = codeContent;
+    }
   }, 0);
 };
 
@@ -86,9 +96,7 @@ const getCurrentCode = () => {
   if (textareaRef.value) {
     return textareaRef.value.value;
   }
-  const tmp = document.createElement('div');
-  tmp.innerHTML = highlightedHtml.value;
-  return tmp.textContent || '';
+  return getCodeFromHtml();
 };
 
 const handleExecute = () => {
@@ -115,12 +123,11 @@ const handleExecute = () => {
         />
         <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
           ref="textareaRef"
-          :value="props.code"
           @blur="stopEditing"
           @keydown.escape="textareaRef?.blur()"
           class="code-textarea"
           :spellcheck="false"
-        /></code></pre>
+        >{{ props.code }}</textarea></code></pre>
       </div>
     </div>
   </div>
