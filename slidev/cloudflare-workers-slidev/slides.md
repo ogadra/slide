@@ -19,17 +19,24 @@ canvasWidth: 960
 
 ## コード実行サンプル
 
+<ScrollableContent maxHeight="380px">
+
 <CodeBlock
-  code="console.log('Hello World!');"
+  code="import { Hono } from 'hono'
+const app = new Hono()
+app.get('/', (c) => c.text('Hello World'))
+export default app"
   lang="TypeScript"
   filename="/workspace/example-1.ts"
 />
 
-<br/>
+<CodeBlock code="hono request -P / /workspace/example-1.ts" lang="bash" />
 
-<CodeBlock code="npx tsx /workspace/example-1.ts" lang="bash" />
+</ScrollableContent>
 
 ---
+
+## hono/cliのインストール
 
 <CodeBlock
   code="npm install -g @hono/cli"
@@ -38,6 +45,18 @@ canvasWidth: 960
 
 ---
 
+## 
+
+<CodeBlock
+  code="console.log('Hello World!');"
+  lang="TypeScript"
+  filename="/workspace/example-1.ts"
+/>
+
+<CodeBlock code="npx tsx /workspace/example-1.ts" lang="bash" />
+
+
+---
 # WorkersでSlidevを120%活かす！
 ## ogadra
 
