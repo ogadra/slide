@@ -1,12 +1,14 @@
 import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 
-const AllowLanguage = {
+const AllowExecuteType = {
 	bash: "bash",
 	TypeScript: "TypeScript",
+	kill: "kill",
 } as const;
 
-type AllowLanguageType = (typeof AllowLanguage)[keyof typeof AllowLanguage];
+type AllowLanguageType =
+	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
 
 const AllowEditableFiles = [
 	"/workspace/example-1.ts",
@@ -19,25 +21,24 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 
 	const { code, lang, fileName } = await c.req.json();
 
-	if (!code || !lang || !(lang in AllowLanguage)) {
-		return Response.json(
-			{ error: "Invalid code or language" },
-			{ status: 400 },
-		);
+	if (!lang || !(lang in AllowExecuteType)) {
+		return Response.json({ error: "Invalid ExecuteType" }, { status: 400 });
 	}
 
 	switch (lang as AllowLanguageType) {
-		case AllowLanguage.bash: {
-			const stream = await sandbox.execStream(code);
+		case AllowExecuteType.bash: {
+			const process = await sandbox.startProcess(code);
+			const stream = await sandbox.streamProcessLogs(process.id);
 
 			return new Response(stream, {
 				headers: {
 					"Content-Type": "text/event-stream",
 					"Cache-Control": "no-cache",
+					"Process-Id": process.id,
 				},
 			});
 		}
-		case AllowLanguage.TypeScript:
+		case AllowExecuteType.TypeScript:
 			// check fileName
 			if (!fileName || !AllowEditableFiles.includes(fileName)) {
 				return Response.json({ error: "File not editable" }, { status: 403 });
@@ -50,6 +51,14 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				exitCode: 0,
 				success: true,
 			});
+		case AllowExecuteType.kill: {
+			const { processId } = await c.req.json();
+			if (!processId) {
+				return Response.json({ error: "Process ID required" }, { status: 400 });
+			}
+			const result = await sandbox.killProcess(processId);
+			return Response.json(result);
+		}
 		default:
 			return Response.json({ error: "Unsupported language" }, { status: 400 });
 	}

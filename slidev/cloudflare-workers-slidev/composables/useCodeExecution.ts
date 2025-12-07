@@ -24,6 +24,7 @@ export const executeCode = async (
   postContent: ExecuteContent,
   callbacks?: {
     onChunk: (chunk: string) => void;
+    onProcessId: (id: string) => void;
   }
 ): Promise<ExecutionResult | null> => {
   const slide = getSlideNameFromUrl();
@@ -41,6 +42,11 @@ export const executeCode = async (
 
   // Handle EventStream response
   if (contentType.includes('text/event-stream')) {
+    const processId = response.headers.get('Process-Id');
+    if (processId) {
+      callbacks?.onProcessId(processId);
+    }
+
     const reader = response.body?.getReader();
     if (!reader) return null;
 
@@ -90,4 +96,15 @@ export const executeCode = async (
 
   // Handle JSON response (for TypeScript save, etc.)
   return response.json();
+};
+
+export const killProcess = async (processId: string): Promise<void> => {
+  const slide = getSlideNameFromUrl();
+  if (!slide) return;
+
+  await fetch(`/sandbox/${slide}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lang: 'kill', code: '', processId }),
+  });
 };

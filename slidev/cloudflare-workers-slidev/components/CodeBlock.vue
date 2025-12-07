@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { codeToHtml } from 'shiki';
-import { executeCode, type ExecutionResult } from '../composables/useCodeExecution';
+import { executeCode, killProcess, type ExecutionResult } from '../composables/useCodeExecution';
 
 const props = defineProps({
   code: {
@@ -35,6 +35,7 @@ const executionResult = ref<ExecutionResult | null>(null);
 const highlightedResultHtml = ref('');
 const isExecuting = ref(false);
 const streamingOutput = ref('');
+const currentProcessId = ref<string | null>(null);
 
 const updateResultHighlight = async (output: string) => {
   try {
@@ -132,6 +133,7 @@ const handleExecute = async () => {
   executionResult.value = null;
   highlightedResultHtml.value = '';
   streamingOutput.value = '';
+  currentProcessId.value = null;
 
   const executeContent = props.lang === 'bash' ? {
     lang: 'bash',
@@ -146,6 +148,9 @@ const handleExecute = async () => {
     onChunk: (chunk) => {
       streamingOutput.value += chunk;
     },
+    onProcessId: (id) => {
+      currentProcessId.value = id;
+    },
   });
 
   executionResult.value = result;
@@ -153,6 +158,25 @@ const handleExecute = async () => {
     await updateResultHighlight(result.output);
   }
   isExecuting.value = false;
+  currentProcessId.value = null;
+};
+
+const handleKill = async () => {
+  if (currentProcessId.value) {
+    await killProcess(currentProcessId.value);
+    currentProcessId.value = null;
+    isExecuting.value = false;
+    // 中断時点の出力を結果として保存
+    executionResult.value = {
+      output: streamingOutput.value,
+      exitCode: -1,
+      success: false,
+      error: 'Process killed',
+    };
+    if (streamingOutput.value) {
+      await updateResultHighlight(streamingOutput.value);
+    }
+  }
 };
 </script>
 
@@ -180,12 +204,18 @@ const handleExecute = async () => {
           >{{ props.code }}</textarea></code></pre>
         </div>
         <button
-          v-if="props.lang === 'bash'"
+          v-if="props.lang === 'bash' && !isExecuting"
           class="execute-btn"
           @click.stop="handleExecute"
-          :disabled="isExecuting"
         >
-          {{ isExecuting ? '実行中...' : '実行' }}
+          ▶ 実行
+        </button>
+        <button
+          v-if="props.lang === 'bash' && isExecuting"
+          class="execute-btn stop-btn"
+          @click.stop="handleKill"
+        >
+          ⏹ 停止
         </button>
       </div>
     </div>
@@ -251,6 +281,14 @@ const handleExecute = async () => {
 .execute-btn:disabled {
   background: #666;
   cursor: not-allowed;
+}
+
+.execute-btn.stop-btn {
+  background: #e55;
+}
+
+.execute-btn.stop-btn:hover {
+  background: #d44;
 }
 
 .code-block {
