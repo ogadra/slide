@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { codeToHtml } from 'shiki';
-import { executeCode } from '../composables/useCodeExecution';
+import { executeCode, type ExecutionResult } from '../composables/useCodeExecution';
 
 const props = defineProps({
   code: {
@@ -31,6 +31,8 @@ const emit = defineEmits(['update:code']);
 const highlightedHtml = ref('');
 const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
+const executionResult = ref<ExecutionResult | null>(null);
+const isExecuting = ref(false);
 
 const getCodeFromHtml = () => {
   const codeContent = document.createElement('div');
@@ -99,8 +101,12 @@ const getCurrentCode = () => {
   return getCodeFromHtml();
 };
 
-const handleExecute = () => {
-  executeCode(getCurrentCode(), props.lang);
+const handleExecute = async () => {
+  isExecuting.value = true;
+  executionResult.value = null;
+  const result = await executeCode(getCurrentCode(), props.lang);
+  executionResult.value = result;
+  isExecuting.value = false;
 };
 </script>
 
@@ -108,7 +114,9 @@ const handleExecute = () => {
   <div class="code-block-wrapper">
     <div class="toolbar">
       <span v-if="filename" class="filename">{{ filename }}</span>
-      <button class="execute-btn" @click="handleExecute">実行</button>
+      <button class="execute-btn" @click="handleExecute" :disabled="isExecuting">
+        {{ isExecuting ? '実行中...' : '実行' }}
+      </button>
     </div>
     <div class="code-block" @click="startEditing">
       <span class="lang">{{ props.lang }}</span>
@@ -129,6 +137,12 @@ const handleExecute = () => {
           :spellcheck="false"
         >{{ props.code }}</textarea></code></pre>
       </div>
+    </div>
+    <div v-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
+      <div class="result-header">
+        <span class="result-status">{{ executionResult.success ? '✓' : '✗' }} Exit: {{ executionResult.exitCode }}</span>
+      </div>
+      <pre class="result-output">{{ executionResult.output || executionResult.error }}</pre>
     </div>
   </div>
 </template>
@@ -255,5 +269,51 @@ const handleExecute = () => {
   font-size: 1em;
   line-height: 1.5;
   field-sizing: content;
+}
+
+.execution-result {
+  margin-top: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+
+.execution-result.success {
+  border-color: #4a9;
+}
+
+.execution-result.error {
+  border-color: #e55;
+}
+
+.result-header {
+  padding: 8px 16px;
+  background: #252525;
+  border-bottom: 1px solid #333;
+}
+
+.result-status {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.execution-result.success .result-status {
+  color: #4a9;
+}
+
+.execution-result.error .result-status {
+  color: #e55;
+}
+
+.result-output {
+  margin: 0;
+  padding: 16px;
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #d4d4d4;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 </style>

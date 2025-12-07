@@ -1,12 +1,19 @@
+export type ExecutionResult = {
+  output: string;
+  exitCode: number;
+  success: boolean;
+  error?: string;
+};
+
 const getSlideNameFromUrl = () => {
   const path = window.location.pathname;
   const match = path.match(/^\/([^/]+)/);
   return match ? match[1] : '';
 };
 
-export const executeCode = async (code: string, lang: string) => {
+export const executeCode = async (code: string, lang: string): Promise<ExecutionResult | null> => {
   const slide = getSlideNameFromUrl();
-  if (!slide) return;
+  if (!slide) return null;
 
   const response = await fetch(`/sandbox/${slide}`, {
     method: 'POST',
@@ -16,5 +23,5 @@ export const executeCode = async (code: string, lang: string) => {
     body: JSON.stringify({ code, lang }),
   });
 
-  console.log('Execute response:', await response.json());
+  return response.json();
 };
