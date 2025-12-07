@@ -146,34 +146,36 @@ const handleExecute = async () => {
 </script>
 
 <template>
-  <div class="code-block-wrapper">
-    <div class="code-block" @click="startEditing">
-      <span class="lang">{{ props.lang }}</span>
-      <div class="line-numbers">
-        <span v-for="n in lineCount" :key="n">{{ n }}</span>
+  <div class="code-block-container">
+    <div class="code-block-wrapper">
+      <div class="code-block" @click="startEditing">
+        <span class="lang">{{ props.lang }}</span>
+        <div class="line-numbers">
+          <span v-for="n in lineCount" :key="n">{{ n }}</span>
+        </div>
+        <div class="code-content">
+          <div
+            v-if="!isEditing"
+            class="highlighted-code"
+            v-html="highlightedHtml"
+          />
+          <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
+            ref="textareaRef"
+            @blur="stopEditing"
+            @keydown.escape="textareaRef?.blur()"
+            class="code-textarea"
+            :spellcheck="false"
+          >{{ props.code }}</textarea></code></pre>
+        </div>
+        <button
+          v-if="props.lang === 'bash'"
+          class="execute-btn"
+          @click.stop="handleExecute"
+          :disabled="isExecuting"
+        >
+          {{ isExecuting ? '実行中...' : '▶ 実行' }}
+        </button>
       </div>
-      <div class="code-content">
-        <div
-          v-if="!isEditing"
-          class="highlighted-code"
-          v-html="highlightedHtml"
-        />
-        <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
-          ref="textareaRef"
-          @blur="stopEditing"
-          @keydown.escape="textareaRef?.blur()"
-          class="code-textarea"
-          :spellcheck="false"
-        >{{ props.code }}</textarea></code></pre>
-      </div>
-      <button
-        v-if="props.lang === 'bash'"
-        class="execute-btn"
-        @click.stop="handleExecute"
-        :disabled="isExecuting"
-      >
-        {{ isExecuting ? '実行中...' : '▶ 実行' }}
-      </button>
     </div>
     <div v-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
       <div class="result-header">
@@ -186,12 +188,15 @@ const handleExecute = async () => {
 </template>
 
 <style scoped>
+.code-block-container {
+  margin-bottom: 16px;
+}
+
 .code-block-wrapper {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
   background: #121212;
-  margin-bottom: 24px;
 }
 
 .lang {
@@ -309,7 +314,7 @@ const handleExecute = async () => {
 }
 
 .execution-result {
-  margin-top: 32px;
+  margin-top: 16px;
   border-radius: 8px;
   overflow: hidden;
   background: #1a1a1a;
