@@ -4,7 +4,7 @@ const getSlideNameFromUrl = () => {
   return match ? match[1] : '';
 };
 
-export const executeCode = async (code: string) => {
+export const executeCode = async (code: string, lang: string) => {
   const slide = getSlideNameFromUrl();
   if (!slide) return;
 
@@ -13,7 +13,7 @@ export const executeCode = async (code: string) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ code }),
+    body: JSON.stringify({ code, lang }),
   });
 
   console.log('Execute response:', await response.json());

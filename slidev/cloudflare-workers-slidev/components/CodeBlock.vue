@@ -92,7 +92,7 @@ const getCurrentCode = () => {
 };
 
 const handleExecute = () => {
-  executeCode(getCurrentCode());
+  executeCode(getCurrentCode(), props.lang);
 };
 </script>
 
