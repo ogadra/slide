@@ -29,7 +29,7 @@ const emit = defineEmits(['update:code']);
 
 const internalCode = ref(props.code);
 const highlightedHtml = ref('');
-const isEditing = ref(true);
+const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
 const updateHighlight = () => {
@@ -53,13 +53,17 @@ watch(
 );
 
 watch(
-  internalCode,
-  () => {
-    updateHighlight();
-    emit('update:code', internalCode.value);
+  isEditing,
+  (newValue, oldValue) => {
+    if (oldValue && !newValue) {
+      updateHighlight();
+      emit('update:code', internalCode.value);
+    }
   },
-  { immediate: true },
 );
+
+// Initial highlight
+updateHighlight();
 
 const startEditing = () => {
   if (!props.editable) return;
@@ -70,13 +74,10 @@ const startEditing = () => {
 };
 
 const stopEditing = () => {
+  if (textareaRef.value) {
+    internalCode.value = textareaRef.value.value;
+  }
   isEditing.value = false;
-};
-
-const handleInput = (event: Event) => {
-  const target = event.target as HTMLTextAreaElement | null;
-  if (!target) return;
-  internalCode.value = target.value;
 };
 
 const lineCount = computed(() => internalCode.value.split('\n').length);
@@ -100,7 +101,6 @@ const lineCount = computed(() => internalCode.value.split('\n').length);
         <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
           ref="textareaRef"
           :value="internalCode"
-          @input="handleInput"
           @blur="stopEditing"
           class="code-textarea"
           :spellcheck="false"
