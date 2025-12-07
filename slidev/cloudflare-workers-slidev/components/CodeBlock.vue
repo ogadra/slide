@@ -137,12 +137,6 @@ const handleExecute = async () => {
 
 <template>
   <div class="code-block-wrapper">
-    <div class="toolbar">
-      <span v-if="filename" class="filename">{{ filename }}</span>
-      <button class="execute-btn" @click="handleExecute" :disabled="isExecuting">
-        {{ isExecuting ? '実行中...' : '実行' }}
-      </button>
-    </div>
     <div class="code-block" @click="startEditing">
       <span class="lang">{{ props.lang }}</span>
       <div class="line-numbers">
@@ -162,6 +156,9 @@ const handleExecute = async () => {
           :spellcheck="false"
         >{{ props.code }}</textarea></code></pre>
       </div>
+      <button class="execute-btn" @click.stop="handleExecute" :disabled="isExecuting">
+        {{ isExecuting ? '実行中...' : '▶ 実行' }}
+      </button>
     </div>
     <div v-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
       <div class="result-header">
@@ -181,15 +178,6 @@ const handleExecute = async () => {
   background: #1e1e1e;
 }
 
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  background: #333;
-  border-bottom: 1px solid #444;
-}
-
 .lang {
   position: absolute;
   top: 0;
@@ -200,23 +188,30 @@ const handleExecute = async () => {
   font-size: 14px;
 }
 
-.filename {
-  color: #ccc;
-  font-size: 12px;
-}
-
 .execute-btn {
-  padding: 4px 12px;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  padding: 6px 16px;
   background: #4a9eff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
+  transition: opacity 0.2s, background 0.2s;
 }
 
 .execute-btn:hover {
   background: #3a8eef;
+  opacity: 1;
+}
+
+.execute-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
 }
 
 .code-block {
@@ -298,7 +293,7 @@ const handleExecute = async () => {
 }
 
 .execution-result {
-  margin-top: 8px;
+  margin-top: 32px;
   border-radius: 8px;
   overflow: hidden;
   background: #1a1a1a;
