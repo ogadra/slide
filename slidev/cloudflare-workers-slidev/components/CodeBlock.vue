@@ -3,6 +3,15 @@ import { ref, computed, watch } from 'vue';
 import { codeToHtml } from 'shiki';
 import { executeCode, killProcess, type ExecutionResult } from '../composables/useCodeExecution';
 
+const ExecutionStatus = {
+  idle: 'idle',
+  executing: 'executing',
+  interrupted: 'interrupted',
+  completed: 'completed',
+} as const;
+
+type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus];
+
 const props = defineProps({
   code: {
     type: String,
@@ -33,7 +42,7 @@ const isEditing = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const executionResult = ref<ExecutionResult | null>(null);
 const highlightedResultHtml = ref('');
-const isExecuting = ref(false);
+const executionStatus = ref<ExecutionStatus>(ExecutionStatus.idle);
 const currentProcessId = ref<string | null>(null);
 
 const updateResultHighlight = async (output: string) => {
@@ -128,7 +137,7 @@ const getCurrentCode = () => {
 };
 
 const handleExecute = async () => {
-  isExecuting.value = true;
+  executionStatus.value = ExecutionStatus.executing;
   executionResult.value = {
     output: '',
     exitCode: 0,
@@ -160,7 +169,7 @@ const handleExecute = async () => {
   if (result?.output) {
     await updateResultHighlight(result.output);
   }
-  isExecuting.value = false;
+  executionStatus.value = ExecutionStatus.completed;
   currentProcessId.value = null;
 };
 
@@ -168,10 +177,9 @@ const handleKill = async () => {
   if (currentProcessId.value) {
     await killProcess(currentProcessId.value);
     currentProcessId.value = null;
-    isExecuting.value = false;
+    executionStatus.value = ExecutionStatus.interrupted;
     // 中断時点の出力を保持しつつステータスを更新
     if (executionResult.value) {
-      executionResult.value.exitCode = -1;
       executionResult.value.success = false;
       executionResult.value.error = 'Process killed';
       if (executionResult.value.output) {
@@ -206,14 +214,14 @@ const handleKill = async () => {
           >{{ props.code }}</textarea></code></pre>
         </div>
         <button
-          v-if="props.lang === 'bash' && !isExecuting"
+          v-if="props.lang === 'bash' && executionStatus !== ExecutionStatus.executing"
           class="execute-btn"
           @click.stop="handleExecute"
         >
           ▶ 実行
         </button>
         <button
-          v-if="props.lang === 'bash' && isExecuting"
+          v-if="props.lang === 'bash' && executionStatus === ExecutionStatus.executing"
           class="execute-btn stop-btn"
           @click.stop="handleKill"
         >
@@ -221,9 +229,9 @@ const handleKill = async () => {
         </button>
       </div>
     </div>
-    <div v-if="executionResult" class="execution-result" :class="{ streaming: isExecuting, success: !isExecuting && executionResult.success, error: !isExecuting && !executionResult.success }">
+    <div v-if="executionResult" class="execution-result" :class="{ streaming: executionStatus === ExecutionStatus.executing, success: executionStatus === ExecutionStatus.completed && executionResult.success, error: executionStatus !== ExecutionStatus.executing && !executionResult.success }">
       <div class="result-header">
-        <span class="result-status">{{ isExecuting ? '実行中...' : `${executionResult.success ? '✓' : '✗'} Exit: ${executionResult.exitCode}` }}</span>
+        <span class="result-status">{{ executionStatus === ExecutionStatus.executing ? '実行中...' : executionStatus === ExecutionStatus.interrupted ? 'Interrupted' : `${executionResult.success ? '✓' : '✗'} Exit: ${executionResult.exitCode}` }}</span>
       </div>
       <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
       <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
