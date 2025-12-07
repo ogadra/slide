@@ -190,7 +190,8 @@ const handleExecute = async () => {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  background: #1e1e1e;
+  background: #121212;
+  margin-bottom: 24px;
 }
 
 .lang {
@@ -242,11 +243,11 @@ const handleExecute = async () => {
   display: flex;
   flex-direction: column;
   padding: 16px 12px;
-  background: #252525;
-  color: #858585;
+  background: #0d0d0d;
+  color: #666;
   text-align: right;
   user-select: none;
-  border-right: 1px solid #333;
+  border-right: 1px solid #222;
 }
 
 .line-numbers span {
