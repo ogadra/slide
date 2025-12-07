@@ -148,7 +148,8 @@ const handleExecute = async () => {
 
   const result = await executeCode(executeContent, {
     onChunk: (chunk) => {
-      executionResult.value!.output += chunk;
+      executionResult.value.output += chunk;
+      updateResultHighlight(executionResult.value.output);
     },
     onProcessId: (id) => {
       currentProcessId.value = id;
@@ -224,7 +225,7 @@ const handleKill = async () => {
       <div class="result-header">
         <span class="result-status">{{ isExecuting ? '実行中...' : `${executionResult.success ? '✓' : '✗'} Exit: ${executionResult.exitCode}` }}</span>
       </div>
-      <div v-if="!isExecuting && highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
+      <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
       <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
     </div>
   </div>
