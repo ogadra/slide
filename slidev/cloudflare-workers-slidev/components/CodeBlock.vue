@@ -1,16 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { codeToHtml } from 'shiki';
-import { executeCode, killProcess, type ExecutionResult } from '../composables/useCodeExecution';
-
-const ExecutionStatus = {
-  idle: 'idle',
-  executing: 'executing',
-  interrupted: 'interrupted',
-  completed: 'completed',
-} as const;
-
-type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus];
+import { executeCode, killProcess, ExecutionStatus, type ExecutionResult } from '../composables/useCodeExecution';
+import { useCodeHighlight } from '../composables/useCodeHighlight';
+import { useCodeEditor } from '../composables/useCodeEditor';
 
 const props = defineProps({
   code: {
@@ -37,56 +29,50 @@ const props = defineProps({
 
 const emit = defineEmits(['update:code']);
 
-const highlightedHtml = ref('');
-const isEditing = ref(false);
-const textareaRef = ref<HTMLTextAreaElement | null>(null);
+// Composables
+const {
+  highlightedHtml,
+  highlightedResultHtml,
+  updateHighlight,
+  updateResultHighlight,
+  resetResultHighlight,
+} = useCodeHighlight(props.theme);
+
+const {
+  isEditing,
+  textareaRef,
+  lineCount,
+  textareaHeight,
+  getCurrentCode,
+  startEditing: startEditingBase,
+  stopEditing,
+} = useCodeEditor(highlightedHtml);
+
+// Execution state
 const executionResult = ref<ExecutionResult | null>(null);
-const highlightedResultHtml = ref('');
 const executionStatus = ref<ExecutionStatus>(ExecutionStatus.idle);
 const currentProcessId = ref<string | null>(null);
 
-const updateResultHighlight = async (output: string) => {
-  try {
-    highlightedResultHtml.value = await codeToHtml(output, {
-      lang: 'bash',
-      theme: props.theme,
-    });
-  } catch {
-    highlightedResultHtml.value = `<pre><code>${output}</code></pre>`;
-  }
-};
+// Computed for template simplification
+const isExecuting = computed(() => executionStatus.value === ExecutionStatus.executing);
 
-const getCodeFromHtml = () => {
-  const codeContent = document.createElement('div');
-  codeContent.innerHTML = highlightedHtml.value;
-  return codeContent.textContent || '';
-};
-
-const lineCount = computed(() => {
-  return (highlightedHtml.value.match(/<span class="line"/g) || []).length || 1;
+const resultStatusText = computed(() => {
+  if (executionStatus.value === ExecutionStatus.executing) return '実行中...';
+  if (executionStatus.value === ExecutionStatus.interrupted) return 'Interrupted';
+  return `${executionResult.value?.success ? '✓' : '✗'} Exit: ${executionResult.value?.exitCode}`;
 });
 
-const textareaHeight = computed(() => {
-  return `${lineCount.value * 20}px`;
-});
+const resultClass = computed(() => ({
+  streaming: executionStatus.value === ExecutionStatus.executing,
+  success: executionStatus.value === ExecutionStatus.completed && executionResult.value?.success,
+  error: executionStatus.value !== ExecutionStatus.executing && !executionResult.value?.success,
+}));
 
-const updateHighlight = (code: string) => {
-  codeToHtml(code, {
-    lang: props.lang.toLowerCase(),
-    theme: props.theme,
-  })
-    .then((html) => {
-      highlightedHtml.value = html;
-    })
-    .catch(() => {
-      highlightedHtml.value = `<pre><code>${code}</code></pre>`;
-    });
-};
-
+// Watchers
 watch(
   () => props.code,
   (newCode) => {
-    updateHighlight(newCode);
+    updateHighlight(newCode, props.lang);
   },
 );
 
@@ -95,7 +81,7 @@ watch(
   async (newValue, oldValue) => {
     if (oldValue && !newValue && textareaRef.value) {
       const code = textareaRef.value.value;
-      updateHighlight(code);
+      updateHighlight(code, props.lang);
       emit('update:code', code);
 
       // TypeScriptの場合は自動保存
@@ -111,29 +97,11 @@ watch(
 );
 
 // Initial highlight
-updateHighlight(props.code);
+updateHighlight(props.code, props.lang);
 
+// Methods
 const startEditing = () => {
-  if (!props.editable) return;
-  isEditing.value = true;
-  const codeContent = getCodeFromHtml();
-  setTimeout(() => {
-    if (textareaRef.value) {
-      textareaRef.value.focus();
-      textareaRef.value.value = codeContent;
-    }
-  }, 0);
-};
-
-const stopEditing = () => {
-  isEditing.value = false;
-};
-
-const getCurrentCode = () => {
-  if (textareaRef.value) {
-    return textareaRef.value.value;
-  }
-  return getCodeFromHtml();
+  startEditingBase(props.editable);
 };
 
 const handleExecute = async () => {
@@ -143,7 +111,7 @@ const handleExecute = async () => {
     exitCode: 0,
     success: true,
   };
-  highlightedResultHtml.value = '';
+  resetResultHighlight();
   currentProcessId.value = null;
 
   const executeContent = props.lang === 'bash' ? {
@@ -157,8 +125,8 @@ const handleExecute = async () => {
 
   const result = await executeCode(executeContent, {
     onChunk: (chunk) => {
-      executionResult.value.output += chunk;
-      updateResultHighlight(executionResult.value.output);
+      executionResult.value!.output += chunk;
+      updateResultHighlight(executionResult.value!.output);
     },
     onProcessId: (id) => {
       currentProcessId.value = id;
@@ -214,14 +182,14 @@ const handleKill = async () => {
           >{{ props.code }}</textarea></code></pre>
         </div>
         <button
-          v-if="props.lang === 'bash' && executionStatus !== ExecutionStatus.executing"
+          v-if="props.lang === 'bash' && !isExecuting"
           class="execute-btn"
           @click.stop="handleExecute"
         >
           ▶ 実行
         </button>
         <button
-          v-if="props.lang === 'bash' && executionStatus === ExecutionStatus.executing"
+          v-if="props.lang === 'bash' && isExecuting"
           class="execute-btn stop-btn"
           @click.stop="handleKill"
         >
@@ -229,9 +197,9 @@ const handleKill = async () => {
         </button>
       </div>
     </div>
-    <div v-if="executionResult" class="execution-result" :class="{ streaming: executionStatus === ExecutionStatus.executing, success: executionStatus === ExecutionStatus.completed && executionResult.success, error: executionStatus !== ExecutionStatus.executing && !executionResult.success }">
+    <div v-if="executionResult" class="execution-result" :class="resultClass">
       <div class="result-header">
-        <span class="result-status">{{ executionStatus === ExecutionStatus.executing ? '実行中...' : executionStatus === ExecutionStatus.interrupted ? 'Interrupted' : `${executionResult.success ? '✓' : '✗'} Exit: ${executionResult.exitCode}` }}</span>
+        <span class="result-status">{{ resultStatusText }}</span>
       </div>
       <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
       <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
@@ -433,5 +401,4 @@ div :deep(pre) {
   box-shadow: none !important;
   overflow: visible;
 }
-
 </style>

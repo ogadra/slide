@@ -1,3 +1,12 @@
+export const ExecutionStatus = {
+  idle: 'idle',
+  executing: 'executing',
+  interrupted: 'interrupted',
+  completed: 'completed',
+} as const;
+
+export type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus];
+
 export type ExecutionResult = {
   output: string;
   exitCode: number;
