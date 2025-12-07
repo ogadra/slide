@@ -56,6 +56,10 @@ const lineCount = computed(() => {
   return (highlightedHtml.value.match(/<span class="line"/g) || []).length || 1;
 });
 
+const textareaHeight = computed(() => {
+  return `${lineCount.value * 20}px`;
+});
+
 const updateHighlight = (code: string) => {
   codeToHtml(code, {
     lang: props.lang.toLowerCase(),
@@ -165,6 +169,7 @@ const handleExecute = async () => {
             @keydown.escape="textareaRef?.blur()"
             class="code-textarea"
             :spellcheck="false"
+            :style="{ height: textareaHeight }"
           >{{ props.code }}</textarea></code></pre>
         </div>
         <button
@@ -312,8 +317,7 @@ const handleExecute = async () => {
   overflow: hidden;
   font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
   font-size: 16px;
-  line-height: 1.25;
-  field-sizing: content;
+  line-height: 20px;
 }
 
 .execution-result {
