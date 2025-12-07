@@ -22,7 +22,9 @@ type ExecuteContent = {
 
 export const executeCode = async (
   postContent: ExecuteContent,
-  onChunk?: (chunk: string) => void
+  callbacks?: {
+    onChunk: (chunk: string) => void;
+  }
 ): Promise<ExecutionResult | null> => {
   const slide = getSlideNameFromUrl();
   if (!slide) return null;
@@ -55,29 +57,25 @@ export const executeCode = async (
       const lines = text.split('\n');
 
       for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = line.slice(6);
-
-          try {
-            const parsed = JSON.parse(data);
-            switch (parsed.type) {
-              case 'stdout':
-              case 'stderr':
-                if (parsed.data && parsed.data !== '\n') {
-                  output += parsed.data;
-                  onChunk?.(parsed.data);
-                }
-                break;
-              case 'complete':
-                exitCode = parsed.exitCode ?? 0;
-                break;
-              case 'error':
-                error = parsed.error || parsed.data || 'Unknown error';
-                break;
+        if (!line) continue;
+        const data = line.replace(/^data: /, '');
+        const parsed = JSON.parse(data);
+        switch (parsed.type) {
+          case 'start':
+            break;
+          case 'stdout':
+          case 'stderr':
+            if (parsed.data && parsed.data !== '\n') {
+              output += parsed.data;
+              callbacks?.onChunk(parsed.data);
             }
-          } catch {
-            // Not JSON, skip
-          }
+            break;
+          case 'complete':
+            exitCode = parsed.exitCode ?? 0;
+            break;
+          case 'error':
+            error = parsed.error || parsed.data || 'Unknown error';
+            break;
         }
       }
     }

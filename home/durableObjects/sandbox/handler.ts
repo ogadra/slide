@@ -28,15 +28,13 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 
 	switch (lang as AllowLanguageType) {
 		case AllowLanguage.bash: {
-			const result = await sandbox.exec(code);
-			// resultの頭の改行を削除
-			result.stdout = result.stdout.replace(/^\n+/, "");
+			const stream = await sandbox.execStream(code);
 
-			return Response.json({
-				output: result.stdout,
-				exitCode: result.exitCode,
-				success: result.success,
-				error: result.stderr || undefined,
+			return new Response(stream, {
+				headers: {
+					"Content-Type": "text/event-stream",
+					"Cache-Control": "no-cache",
+				},
 			});
 		}
 		case AllowLanguage.TypeScript:

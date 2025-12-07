@@ -34,6 +34,7 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const executionResult = ref<ExecutionResult | null>(null);
 const highlightedResultHtml = ref('');
 const isExecuting = ref(false);
+const streamingOutput = ref('');
 
 const updateResultHighlight = async (output: string) => {
   try {
@@ -130,6 +131,8 @@ const handleExecute = async () => {
   isExecuting.value = true;
   executionResult.value = null;
   highlightedResultHtml.value = '';
+  streamingOutput.value = '';
+
   const executeContent = props.lang === 'bash' ? {
     lang: 'bash',
     code: getCurrentCode(),
@@ -139,7 +142,11 @@ const handleExecute = async () => {
     fileName: props.filename,
   };
 
-  const result = await executeCode(executeContent);
+  const result = await executeCode(executeContent, {
+    onChunk: (chunk) => {
+      streamingOutput.value += chunk;
+    },
+  });
 
   executionResult.value = result;
   if (result?.output) {
@@ -178,11 +185,17 @@ const handleExecute = async () => {
           @click.stop="handleExecute"
           :disabled="isExecuting"
         >
-          {{ isExecuting ? '実行中...' : '▶ 実行' }}
+          {{ isExecuting ? '実行中...' : '実行' }}
         </button>
       </div>
     </div>
-    <div v-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
+    <div v-if="isExecuting" class="execution-result streaming">
+      <div class="result-header">
+        <span class="result-status">実行中...</span>
+      </div>
+      <pre class="result-output">{{ streamingOutput }}</pre>
+    </div>
+    <div v-else-if="executionResult" class="execution-result" :class="{ success: executionResult.success, error: !executionResult.success }">
       <div class="result-header">
         <span class="result-status">{{ executionResult.success ? '✓' : '✗' }} Exit: {{ executionResult.exitCode }}</span>
       </div>
@@ -334,6 +347,10 @@ const handleExecute = async () => {
 
 .execution-result.error {
   border-color: #e55;
+}
+
+.execution-result.streaming {
+  border-color: #4a9eff;
 }
 
 .result-header {
