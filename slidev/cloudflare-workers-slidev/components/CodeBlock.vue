@@ -22,7 +22,6 @@ const props = defineProps({
   },
   filename: {
     type: String,
-    default: '',
   },
 });
 
@@ -154,7 +153,23 @@ const handleKill = async () => {
   <div class="code-block-container">
     <div class="code-block-wrapper">
       <div class="code-block" @click="startEditing">
-        <span class="lang">{{ props.lang }}</span>
+        <div class="top-bar">
+          <button
+            v-if="props.lang === 'bash' && !isExecuting"
+            class="execute-btn"
+            @click.stop="handleExecute"
+          >
+            ▶ 実行
+          </button>
+          <button
+            v-if="props.lang === 'bash' && isExecuting"
+            class="execute-btn stop-btn"
+            @click.stop="handleKill"
+          >
+            ⏹ 停止
+          </button>
+          <span class="lang">{{ props.filename ?? props.lang }}</span>
+        </div>
         <div class="line-numbers">
           <span v-for="n in lineCount" :key="n">{{ n }}</span>
         </div>
@@ -173,20 +188,6 @@ const handleKill = async () => {
             :style="{ height: textareaHeight }"
           >{{ props.code }}</textarea></code></pre>
         </div>
-        <button
-          v-if="props.lang === 'bash' && !isExecuting"
-          class="execute-btn"
-          @click.stop="handleExecute"
-        >
-          ▶ 実行
-        </button>
-        <button
-          v-if="props.lang === 'bash' && isExecuting"
-          class="execute-btn stop-btn"
-          @click.stop="handleKill"
-        >
-          ⏹ 停止
-        </button>
       </div>
     </div>
     <div v-if="executionResult" class="execution-result" :class="resultClass">
@@ -211,35 +212,35 @@ const handleKill = async () => {
   background: #121212;
 }
 
-.lang {
+.top-bar {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  z-index: 10;
+}
+
+.lang {
   padding: 4px 8px;
   background: #333;
-  color: #ccc;
+  color: #aaa;
   font-size: 14px;
 }
 
 .execute-btn {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  padding: 6px 16px;
-  background: #4a9eff;
-  color: #fff;
+  padding: 4px 12px;
+  background: #2a2a2a;
+  color: #4a9eff;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  opacity: 0.9;
-  transition: opacity 0.2s, background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .execute-btn:hover {
-  background: #3a8eef;
-  opacity: 1;
+  background: #3a3a3a;
+  color: #6ab4ff;
 }
 
 .execute-btn:disabled {
@@ -248,11 +249,13 @@ const handleKill = async () => {
 }
 
 .execute-btn.stop-btn {
-  background: #e55;
+  background: #2a2a2a;
+  color: #e55;
 }
 
 .execute-btn.stop-btn:hover {
-  background: #d44;
+  background: #3a3a3a;
+  color: #ff6b6b;
 }
 
 .code-block {
