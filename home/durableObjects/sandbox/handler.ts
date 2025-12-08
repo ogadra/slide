@@ -5,6 +5,7 @@ const AllowExecuteType = {
 	bash: "bash",
 	TypeScript: "TypeScript",
 	kill: "kill",
+	start: "start",
 } as const;
 
 type AllowExecuteType =
@@ -38,7 +39,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				},
 			});
 		}
-		case AllowExecuteType.TypeScript:
+		case AllowExecuteType.TypeScript: {
 			// check fileName
 			if (!fileName || !AllowEditableFiles.includes(fileName)) {
 				return Response.json({ error: "File not editable" }, { status: 403 });
@@ -51,6 +52,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				exitCode: 0,
 				success: true,
 			});
+		}
 		case AllowExecuteType.kill: {
 			const { processId } = await c.req.json();
 			if (!processId) {
@@ -58,6 +60,15 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 			}
 			const result = await sandbox.killProcess(processId);
 			return Response.json(result);
+		}
+		case AllowExecuteType.start: {
+			const hostname = new URL(c.req.url).hostname;
+			const exposed = await sandbox.exposePort(7070, { hostname });
+			return Response.json({
+				url: exposed.url,
+				exitCode: 0,
+				success: true,
+			});
 		}
 		default:
 			return Response.json({ error: "Unsupported language" }, { status: 400 });
