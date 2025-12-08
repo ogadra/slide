@@ -1,4 +1,4 @@
-import { getSandbox } from "@cloudflare/sandbox";
+import { getSandbox, proxyToSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 
 const AllowExecuteType = {
@@ -17,6 +17,11 @@ const AllowEditableFiles = [
 ];
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
+	const proxyResponse = await proxyToSandbox(c.req.raw, c.env);
+	if (proxyResponse) {
+		return proxyResponse;
+	}
+
 	const slide = c.req.param("slide");
 	const sandbox = getSandbox(c.env.slide_sandbox, slide);
 

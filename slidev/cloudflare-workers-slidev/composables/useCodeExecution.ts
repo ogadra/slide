@@ -125,3 +125,22 @@ export const killProcess = async (processId: string): Promise<void> => {
     body: JSON.stringify({ execType: 'kill', code: '', processId }),
   });
 };
+
+export interface StartSandboxResult {
+  url: string;
+  exitCode: number;
+  success: boolean;
+}
+
+export const startSandbox = async (): Promise<StartSandboxResult | null> => {
+  const slide = getSlideNameFromUrl();
+  if (!slide) return null;
+
+  const response = await fetch(`/sandbox/${slide}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ execType: 'start' }),
+  });
+
+  return response.json();
+};

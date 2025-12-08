@@ -1,5 +1,6 @@
 import { addSyncMethod } from "@slidev/client";
 import { defineAppSetup } from "@slidev/types";
+import { startSandbox } from "../composables/useCodeExecution";
 import {
 	ConnectionStatusEnum,
 	changeConnectionState,
@@ -81,4 +82,7 @@ const websocketSync: Sync = {
 
 export default defineAppSetup(() => {
 	addSyncMethod(websocketSync);
+
+	// スライド読み込み時にサンドボックスを起動
+	startSandbox();
 });
