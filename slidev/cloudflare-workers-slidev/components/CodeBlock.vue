@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { executeCode, killProcess, ExecutionStatus, type ExecutionResult } from '../composables/useCodeExecution';
+import { executeBash, saveTypeScript, killProcess, ExecutionStatus, type ExecutionResult } from '../composables/useCodeExecution';
 import { useCodeHighlight } from '../composables/useCodeHighlight';
 import { useCodeEditor } from '../composables/useCodeEditor';
 
@@ -86,7 +86,7 @@ watch(
 
       // TypeScriptの場合は自動保存
       if (props.lang === 'TypeScript' && props.filename) {
-        await executeCode({
+        await saveTypeScript({
           lang: 'TypeScript',
           code,
           fileName: props.filename,
@@ -114,24 +114,18 @@ const handleExecute = async () => {
   resetResultHighlight();
   currentProcessId.value = null;
 
-  const executeContent = props.lang === 'bash' ? {
-    lang: 'bash',
-    code: getCurrentCode(),
-  } : {
-    lang: props.lang,
-    code: getCurrentCode(),
-    fileName: props.filename,
-  };
-
-  const result = await executeCode(executeContent, {
-    onChunk: (chunk) => {
-      executionResult.value!.output += chunk;
-      updateResultHighlight(executionResult.value!.output);
-    },
-    onProcessId: (id) => {
-      currentProcessId.value = id;
-    },
-  });
+  const result = await executeBash(
+    { lang: 'bash', code: getCurrentCode() },
+    {
+      onChunk: (chunk) => {
+        executionResult.value!.output += chunk;
+        updateResultHighlight(executionResult.value!.output);
+      },
+      onProcessId: (id) => {
+        currentProcessId.value = id;
+      },
+    }
+  );
 
   executionResult.value = result;
   if (result?.output) {
