@@ -86,6 +86,7 @@ export const executeCode = async (
             }
             break;
           case 'complete':
+          case 'exit':
             exitCode = parsed.exitCode ?? 0;
             break;
           case 'error':
