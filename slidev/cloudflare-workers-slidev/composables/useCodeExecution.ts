@@ -136,11 +136,27 @@ export const startSandbox = async (): Promise<StartSandboxResult | null> => {
   const slide = getSlideNameFromUrl();
   if (!slide) return null;
 
-  const response = await fetch(`/sandbox/${slide}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ execType: 'start' }),
-  });
+  try {
+    const response = await fetch(`/sandbox/${slide}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ execType: 'start' }),
+    });
 
-  return response.json();
+    if (!response.ok) {
+      console.error('startSandbox failed:', response.status, response.statusText);
+      return null;
+    }
+
+    const text = await response.text();
+    if (!text) {
+      console.error('startSandbox: empty response');
+      return null;
+    }
+
+    return JSON.parse(text);
+  } catch (error) {
+    console.error('startSandbox error:', error);
+    return null;
+  }
 };
