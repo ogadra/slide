@@ -16,6 +16,8 @@ const AllowEditableFiles = [
 	"/workspace/example-2.ts",
 ];
 
+const EXPORT_PORT = 7070;
+
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const proxyResponse = await proxyToSandbox(c.req.raw, c.env);
 	if (proxyResponse) {
@@ -68,7 +70,19 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 		}
 		case AllowExecuteType.start: {
 			const hostname = new URL(c.req.url).hostname;
-			const exposed = await sandbox.exposePort(7070, { hostname });
+			const exposes = await sandbox.getExposedPorts(hostname);
+
+			for (const expose of exposes) {
+				if (expose.port === EXPORT_PORT) {
+					return Response.json({
+						url: expose.url,
+						exitCode: 0,
+						success: true,
+					});
+				}
+			}
+
+			const exposed = await sandbox.exposePort(EXPORT_PORT, { hostname });
 			return Response.json({
 				url: exposed.url,
 				exitCode: 0,
