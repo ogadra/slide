@@ -7,7 +7,7 @@ const AllowExecuteType = {
 	kill: "kill",
 } as const;
 
-type AllowLanguageType =
+type AllowExecuteType =
 	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
 
 const AllowEditableFiles = [
@@ -19,13 +19,13 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const slide = c.req.param("slide");
 	const sandbox = getSandbox(c.env.slide_sandbox, slide);
 
-	const { code, lang, fileName } = await c.req.json();
+	const { code, execType, fileName } = await c.req.json();
 
-	if (!lang || !(lang in AllowExecuteType)) {
+	if (!execType || !(execType in AllowExecuteType)) {
 		return Response.json({ error: "Invalid ExecuteType" }, { status: 400 });
 	}
 
-	switch (lang as AllowLanguageType) {
+	switch (execType as AllowExecuteType) {
 		case AllowExecuteType.bash: {
 			const process = await sandbox.startProcess(code);
 			const stream = await sandbox.streamProcessLogs(process.id);

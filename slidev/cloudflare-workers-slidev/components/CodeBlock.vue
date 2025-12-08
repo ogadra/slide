@@ -11,7 +11,6 @@ const props = defineProps({
   },
   lang: {
     type: String,
-    default: 'TypeScript',
   },
   theme: {
     type: String,
@@ -87,7 +86,6 @@ watch(
       // TypeScriptの場合は自動保存
       if (props.lang === 'TypeScript' && props.filename) {
         await saveTypeScript({
-          lang: 'TypeScript',
           code,
           fileName: props.filename,
         });
@@ -115,7 +113,7 @@ const handleExecute = async () => {
   currentProcessId.value = null;
 
   const result = await executeBash(
-    { lang: 'bash', code: getCurrentCode() },
+    getCurrentCode(),
     {
       onChunk: (chunk) => {
         executionResult.value!.output += chunk;

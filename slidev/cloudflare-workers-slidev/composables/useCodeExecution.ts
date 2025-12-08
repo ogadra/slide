@@ -7,7 +7,7 @@ export const ExecutionStatus = {
 
 export type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus];
 
-export type ExecutionResult = {
+export interface ExecutionResult {
   output: string;
   exitCode: number;
   success: boolean;
@@ -20,24 +20,18 @@ const getSlideNameFromUrl = () => {
   return match ? match[1] : '';
 };
 
-type BashContent = {
-  lang: 'bash';
-  code: string;
-};
-
-type TypeScriptContent = {
-  lang: 'TypeScript';
+interface TypeScriptContent {
   code: string;
   fileName: string;
 };
 
-type BashCallbacks = {
+interface BashCallbacks {
   onChunk: (chunk: string) => void;
   onProcessId: (id: string) => void;
 };
 
 export const executeBash = async (
-  content: BashContent,
+  code: string,
   callbacks: BashCallbacks
 ): Promise<ExecutionResult | null> => {
   const slide = getSlideNameFromUrl();
@@ -46,7 +40,7 @@ export const executeBash = async (
   const response = await fetch(`/sandbox/${slide}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(content),
+    body: JSON.stringify({ code, execType: 'bash' }),
   });
 
   const processId = response.headers.get('Process-Id');
@@ -112,7 +106,10 @@ export const saveTypeScript = async (
   const response = await fetch(`/sandbox/${slide}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(content),
+    body: JSON.stringify({
+      execType: 'TypeScript',
+      ...content,
+    }),
   });
 
   return response.json();
@@ -125,6 +122,6 @@ export const killProcess = async (processId: string): Promise<void> => {
   await fetch(`/sandbox/${slide}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ lang: 'kill', code: '', processId }),
+    body: JSON.stringify({ execType: 'kill', code: '', processId }),
   });
 };

@@ -19,7 +19,7 @@ export const useCodeHighlight = (theme: string) => {
   const updateResultHighlight = async (output: string) => {
     try {
       highlightedResultHtml.value = await codeToHtml(output, {
-        lang: 'bash',
+        execType: 'bash',
         theme,
       });
     } catch {
