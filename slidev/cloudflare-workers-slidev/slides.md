@@ -19,6 +19,69 @@ canvasWidth: 960
 
 ## コード実行サンプル
 
+<SplitView leftWidth="500px">
+  <ScrollableContent maxHeight="400px">
+
+  <CodeBlock
+    code="npm install -g @hono/cli"
+    lang="bash"
+    maxWidth="500px"
+  />
+
+  <CodeBlock
+    code="import { Hono } from 'hono'
+const app = new Hono()
+app.get('/', (c) => c.text('Hello World'))
+export default {
+  port: 7070,
+  host: '0.0.0.0',
+  fetch: app.fetch,
+}"
+    lang="TypeScript"
+    filename="example-1.ts"
+    maxWidth="500px"
+  />
+    <CodeBlock
+      code='lsof -ti:7070 | xargs kill -9'
+      lang="bash"
+      maxWidth="500px"
+    />
+    <CodeBlock
+      code='hono serve example-1.ts'
+      lang="bash"
+      maxWidth="500px"
+    />
+  </ScrollableContent>
+</SplitView>
+
+---
+
+<ScrollableContent maxHeight="380px">
+
+
+<CodeBlock
+  code="import { Hono } from 'hono'
+const app = new Hono()
+app.get('/', (c) => c.text('Hello World'))
+export default {
+  port: 7070,
+  host: '0.0.0.0',
+  fetch: app.fetch,
+}"
+  lang="TypeScript"
+  filename="/workspace/example-1.ts"
+/>
+
+<CodeBlock code='hono serve example-1.ts' lang="bash" />
+
+</ScrollableContent>
+
+
+---
+
+
+## コード実行サンプル
+
 <ScrollableContent maxHeight="380px">
 
 <CodeBlock
@@ -57,6 +120,7 @@ export default app"
 
 
 ---
+
 # WorkersでSlidevを120%活かす！
 ## ogadra
 

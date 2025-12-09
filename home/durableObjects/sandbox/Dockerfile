@@ -7,5 +7,6 @@ WORKDIR /workspace
 
 COPY src/ /workspace/
 RUN npm install
+RUN npm install -g @hono/cli
 
 EXPOSE 7070

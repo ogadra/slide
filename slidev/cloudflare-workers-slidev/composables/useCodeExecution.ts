@@ -37,36 +37,27 @@ export const executeBash = async (
   const slide = getSlideNameFromUrl();
   if (!slide) return null;
 
+  // 1. POSTでコマンド実行、processIdを取得
   const response = await fetch(`/sandbox/${slide}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ code, execType: 'bash' }),
   });
 
-  const processId = response.headers.get('Process-Id');
-  if (processId) {
-    callbacks.onProcessId(processId);
-  }
+  const { processId } = await response.json();
+  if (!processId) return null;
 
-  const reader = response.body?.getReader();
-  if (!reader) return null;
+  callbacks.onProcessId(processId);
 
-  const decoder = new TextDecoder();
-  let output = '';
-  let exitCode = 0;
-  let error = '';
+  // 2. EventSourceでストリーム接続
+  return new Promise((resolve) => {
+    const eventSource = new EventSource(`/sandbox/${slide}/stream?processId=${processId}`);
+    let output = '';
+    let exitCode = 0;
+    let error = '';
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-
-    const text = decoder.decode(value, { stream: true });
-    const lines = text.split('\n');
-
-    for (const line of lines) {
-      if (!line) continue;
-      const data = line.replace(/^data: /, '');
-      const parsed = JSON.parse(data);
+    eventSource.onmessage = (event) => {
+      const parsed = JSON.parse(event.data);
       switch (parsed.type) {
         case 'start':
         case 'process_info':
@@ -81,20 +72,20 @@ export const executeBash = async (
         case 'complete':
         case 'exit':
           exitCode = parsed.exitCode ?? 0;
+          eventSource.close();
+          resolve({ output, exitCode, success: exitCode === 0 && !error, error: error || undefined });
           break;
         case 'error':
           error = parsed.error || parsed.data || 'Unknown error';
           break;
       }
-    }
-  }
+    };
 
-  return {
-    output,
-    exitCode,
-    success: exitCode === 0 && !error,
-    error: error || undefined,
-  };
+    eventSource.onerror = () => {
+      eventSource.close();
+      resolve({ output, exitCode, success: false, error: error || 'Connection error' });
+    };
+  });
 };
 
 export const saveTypeScript = async (

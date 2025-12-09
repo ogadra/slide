@@ -15,6 +15,28 @@ const AllowEditableFiles = ["example-1.ts", "example-2.ts"];
 
 const EXPORT_PORT = 7070;
 
+export const handleSandboxStreamRequest = async (
+	c: Context,
+): Promise<Response> => {
+	const slide = c.req.param("slide");
+	const processId = c.req.query("processId");
+
+	if (!processId) {
+		return Response.json({ error: "processId required" }, { status: 400 });
+	}
+
+	const sandbox = getSandbox(c.env.Sandbox, slide);
+	const stream = await sandbox.streamProcessLogs(processId);
+
+	return new Response(stream, {
+		headers: {
+			"Content-Type": "text/event-stream",
+			"Cache-Control": "no-cache",
+			Connection: "keep-alive",
+		},
+	});
+};
+
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const slide = c.req.param("slide");
 
@@ -29,15 +51,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	switch (execType as AllowExecuteType) {
 		case AllowExecuteType.bash: {
 			const process = await sandbox.startProcess(code);
-			const stream = await sandbox.streamProcessLogs(process.id);
-
-			return new Response(stream, {
-				headers: {
-					"Content-Type": "text/event-stream",
-					"Cache-Control": "no-cache",
-					"Process-Id": process.id,
-				},
-			});
+			return Response.json({ processId: process.id });
 		}
 		case AllowExecuteType.TypeScript: {
 			// check fileName

@@ -2,7 +2,10 @@ import { proxyToSandbox, type SandboxEnv } from "@cloudflare/sandbox";
 import { type Context, Hono } from "hono";
 import { Index } from "./app/index";
 import { demo } from "./demo";
-import { handleSandboxRequest } from "./durableObjects/sandbox/handler";
+import {
+	handleSandboxRequest,
+	handleSandboxStreamRequest,
+} from "./durableObjects/sandbox/handler";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
 import { handleLogin, LoginPage } from "./utils/login";
@@ -31,6 +34,9 @@ app.post("/login", handleLogin);
 
 app.get("/ws/:slide", handleWebSocketConnection);
 
+app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
+app.post("/sandbox/:slide", handleSandboxRequest);
+
 app.on("GET", ["/assets/*"], async (c: Context) => {
 	return c.env.ASSETS.fetch(c.req.url);
 });
@@ -50,8 +56,6 @@ app.on("GET", ["/"], async (c: Context) => {
 app.on("GET", ["*"], async (c: Context) => {
 	return c.env.ASSETS.fetch(c.req.url);
 });
-
-app.post("/sandbox/:slide", handleSandboxRequest);
 
 export default app;
 
