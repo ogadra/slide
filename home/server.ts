@@ -1,5 +1,7 @@
 import { proxyToSandbox, type SandboxEnv } from "@cloudflare/sandbox";
 import { type Context, Hono } from "hono";
+import { getCookie, setCookie } from "hono/cookie";
+import { nanoid } from "nanoid";
 import { Index } from "./app/index";
 import { demo } from "./demo";
 import {
@@ -33,6 +35,18 @@ app.get("/login", (c: Context) => LoginPage(c));
 app.post("/login", handleLogin);
 
 app.get("/ws/:slide", handleWebSocketConnection);
+
+app.use("/sandbox/*", async (c, next) => {
+	const nanoId = getCookie(c, "nanoId");
+	if (!nanoId) {
+		setCookie(c, "nanoId", nanoid(), {
+			httpOnly: true,
+			path: "/",
+		});
+	}
+
+	await next();
+});
 
 app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
 app.post("/sandbox/:slide", handleSandboxRequest);
