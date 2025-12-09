@@ -108,7 +108,10 @@
 					"binding": "IP_LOG",
 					"id": "6a421abbb9b646638579fa375c46bc4b"
 				}
-			]
+			],
+			"ai": {
+				"binding": "AI"
+			}
 		}
 	},
 	"observability": {

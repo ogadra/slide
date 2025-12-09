@@ -2,6 +2,7 @@ import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 import { getCookie } from "hono/cookie";
 import { ipLogger } from "../../utils/ipLogger";
+import { judge } from "./llmJudge";
 
 const AllowExecuteType = {
 	bash: "bash",
@@ -10,12 +11,44 @@ const AllowExecuteType = {
 	start: "start",
 } as const;
 
-type AllowExecuteType =
+export type AllowExecuteType =
 	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
 
 const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
 const EXPORT_PORT = 7070;
+
+const AllowCommands = {
+	bash: [
+		"npm install -g @hono/cli",
+		"hono request -P / example-1/index.ts",
+		"hono serve example-2/index.ts",
+		"lsof -ti:7070 | xargs kill -9",
+		`hono serve example-2/index.ts \
+  --use "logger()"`,
+	],
+	TypeScript: [
+		`import { Hono } from 'hono'
+const app = new Hono()
+app.get('/', (c) => c.text('Hello World!'))
+export default app`,
+
+		`import { Hono } from 'hono';
+import { Page } from './page';
+const app = new Hono<{
+  Variables: { count: number; };
+}>();
+let counter = 0;
+app.get('/', (c) => {
+  counter++;
+  c.set('count', counter);
+  return Page(c);
+});
+export default app;`,
+	],
+	kill: [""],
+	start: [""],
+};
 
 export const handleSandboxStreamRequest = async (
 	c: Context,
@@ -52,6 +85,17 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	}
 
 	await ipLogger(c.env.IP_LOG, c.req.raw, `sandbox:${execType}`, content);
+
+	if (code && execType in AllowExecuteType) {
+		const allowedCommands = AllowCommands[execType as AllowExecuteType];
+		if (allowedCommands && !allowedCommands.includes(code)) {
+			const result = await judge(c, execType as AllowExecuteType, code);
+			if (!result.result) {
+				return c.json({ error: result.reason }, { status: 403 });
+			}
+		} else {
+		}
+	}
 
 	switch (execType as AllowExecuteType) {
 		case AllowExecuteType.bash: {
