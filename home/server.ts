@@ -1,3 +1,4 @@
+import { proxyToSandbox, type SandboxEnv } from "@cloudflare/sandbox";
 import { type Context, Hono } from "hono";
 import { Index } from "./app/index";
 import { demo } from "./demo";
@@ -6,7 +7,22 @@ import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
 import { handleLogin, LoginPage } from "./utils/login";
 
-const app = new Hono();
+type BindingsEnv = {
+	Sandbox: DurableObjectNamespace;
+};
+
+const app = new Hono<{ Bindings: BindingsEnv }>();
+
+app.use("*", async (c, next) => {
+	const proxyResponse = await proxyToSandbox(
+		c.req.raw,
+		c.env as unknown as SandboxEnv,
+	);
+	if (proxyResponse) {
+		return proxyResponse;
+	}
+	await next();
+});
 
 app.route("/demo", demo);
 
@@ -39,5 +55,5 @@ app.post("/sandbox/:slide", handleSandboxRequest);
 
 export default app;
 
-export { Sandbox as SlideSandbox } from "@cloudflare/sandbox";
+export { Sandbox } from "@cloudflare/sandbox";
 export { SlideSyncConnectionServer } from "./durableObjects/slideSyncConnectionServer";

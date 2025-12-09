@@ -41,6 +41,15 @@
 			"vars": {
 				"ENVIRONMENT": "dev",
 			},
+			"routes": [
+				{
+					"pattern": "*.slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				}, {
+					"pattern": "slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				}
+			],
 			"migrations": [
 				{
 					"tag": "v1",
@@ -53,12 +62,21 @@
 					"new_sqlite_classes": [
 						"SlideSandbox"
 					]
+				},
+				{
+					"tag": "v3",
+					"new_sqlite_classes": [
+						"Sandbox"
+					],
+					"deleted_classes": [
+						"SlideSandbox"
+					]
 				}
 			],
 			"containers": [
 				{
-					"class_name": "SlideSandbox",
-					"name": "slide_sandbox",
+					"class_name": "Sandbox",
+					"name": "sandbox",
 					"image": "./home/durableObjects/sandbox/Dockerfile",
 					"instance_type": "lite",
 					"max_instances": 1
@@ -70,8 +88,8 @@
 						"name": "SLIDE_SYNC_CONNECTION_SERVER",
 						"class_name": "SlideSyncConnectionServer"
 					}, {
-						"name": "slide_sandbox",
-						"class_name": "SlideSandbox"
+						"name": "Sandbox",
+						"class_name": "Sandbox"
 					}
 				]
 			},

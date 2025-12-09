@@ -1,4 +1,4 @@
-import { getSandbox, proxyToSandbox } from "@cloudflare/sandbox";
+import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 
 const AllowExecuteType = {
@@ -11,21 +11,14 @@ const AllowExecuteType = {
 type AllowExecuteType =
 	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
 
-const AllowEditableFiles = [
-	"/workspace/example-1.ts",
-	"/workspace/example-2.ts",
-];
+const AllowEditableFiles = ["example-1.ts", "example-2.ts"];
 
 const EXPORT_PORT = 7070;
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
-	const proxyResponse = await proxyToSandbox(c.req.raw, c.env);
-	if (proxyResponse) {
-		return proxyResponse;
-	}
-
 	const slide = c.req.param("slide");
-	const sandbox = getSandbox(c.env.slide_sandbox, slide);
+
+	const sandbox = getSandbox(c.env.Sandbox, slide);
 
 	const { code, execType, fileName } = await c.req.json();
 
