@@ -123,6 +123,7 @@ const retrySandbox = async () => {
   width: 100%;
   border: none;
   background: white;
+  color-scheme: light;
 }
 
 .loading {
