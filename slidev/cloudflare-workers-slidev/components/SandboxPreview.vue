@@ -85,10 +85,12 @@ const retrySandbox = async () => {
   padding: 4px 8px;
   background: #2a2a3e;
   border-bottom: 1px solid #3a3a4e;
+  min-width: 0;
 }
 
 .url-display {
   flex: 1;
+  min-width: 0;
   font-size: 12px;
   color: #888;
   overflow: hidden;

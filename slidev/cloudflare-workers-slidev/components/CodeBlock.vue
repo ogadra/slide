@@ -23,6 +23,10 @@ const props = defineProps({
   filename: {
     type: String,
   },
+  maxWidth: {
+    type: String,
+    default: '100%',
+  },
 });
 
 const emit = defineEmits(['update:code']);
@@ -150,7 +154,7 @@ const handleKill = async () => {
 </script>
 
 <template>
-  <div class="code-block-container">
+  <div class="code-block-container" :style="{ maxWidth: props.maxWidth }">
     <div class="code-block-wrapper">
       <div class="code-block" @click="startEditing">
         <div class="top-bar">
@@ -203,6 +207,7 @@ const handleKill = async () => {
 <style scoped>
 .code-block-container {
   margin-bottom: 16px;
+  overflow-x: auto;
 }
 
 .code-block-wrapper {
