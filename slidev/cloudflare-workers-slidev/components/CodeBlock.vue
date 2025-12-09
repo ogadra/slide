@@ -186,6 +186,7 @@ const handleKill = async () => {
           <pre v-else class="edit-pre shiki shiki-themes vitesse-dark vitesse-light slidev-code"><code class="edit-code"><textarea
             ref="textareaRef"
             @blur="stopEditing"
+            @click.stop
             @keydown.escape="textareaRef?.blur()"
             class="code-textarea"
             :spellcheck="false"

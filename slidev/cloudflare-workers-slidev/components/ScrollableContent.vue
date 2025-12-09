@@ -17,4 +17,7 @@ const props = defineProps({
 .scrollable-content {
   overflow-y: auto;
 }
+.scrollable-content > *:last-child {
+  margin-bottom: 100px;
+}
 </style>
