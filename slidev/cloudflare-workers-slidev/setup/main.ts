@@ -81,13 +81,14 @@ const websocketSync: Sync = {
 	},
 };
 
-export default defineAppSetup(async() => {
+export default defineAppSetup(() => {
 	addSyncMethod(websocketSync);
 
 	// スライド読み込み時にサンドボックスを起動
 	const { setSandboxUrl } = useSandboxUrl();
-	const res = await startSandbox();
-	if (res?.url) {
-		setSandboxUrl(res.url);
-	}
+	startSandbox().then((res) => {
+		if (res?.url) {
+			setSandboxUrl(res.url);
+		}
+	});
 });
