@@ -39,7 +39,7 @@ app.get("/ws/:slide", handleWebSocketConnection);
 app.use("/sandbox/*", async (c, next) => {
 	const nanoId = getCookie(c, "nanoId");
 	if (!nanoId) {
-		setCookie(c, "nanoId", nanoid(), {
+		setCookie(c, "nanoId", nanoid().toLowerCase(), {
 			httpOnly: true,
 			path: "/",
 		});

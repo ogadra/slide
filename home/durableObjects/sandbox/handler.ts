@@ -1,5 +1,6 @@
 import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
+import { getCookie } from "hono/cookie";
 
 const AllowExecuteType = {
 	bash: "bash",
@@ -18,14 +19,14 @@ const EXPORT_PORT = 7070;
 export const handleSandboxStreamRequest = async (
 	c: Context,
 ): Promise<Response> => {
-	const slide = c.req.param("slide");
 	const processId = c.req.query("processId");
 
 	if (!processId) {
 		return c.json({ error: "processId required" }, { status: 400 });
 	}
+	const nanoId = getCookie(c, "nanoId");
 
-	const sandbox = getSandbox(c.env.Sandbox, slide);
+	const sandbox = getSandbox(c.env.Sandbox, `${nanoId}`);
 	const streamProcess = await sandbox.streamProcessLogs(processId);
 
 	return new Response(streamProcess, {
@@ -38,9 +39,9 @@ export const handleSandboxStreamRequest = async (
 };
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
-	const slide = c.req.param("slide");
+	const nanoId = getCookie(c, "nanoId");
 
-	const sandbox = getSandbox(c.env.Sandbox, slide);
+	const sandbox = getSandbox(c.env.Sandbox, `${nanoId}`);
 
 	const { code, execType, fileName } = await c.req.json();
 
