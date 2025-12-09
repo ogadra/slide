@@ -8,6 +8,11 @@ html {
   100% { background-position: -100% 0; }
 }
 
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
 @keyframes glow {
   0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
   50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
@@ -19,9 +24,8 @@ html {
 }
 
 h1 {
-  line-height: 1.2 !important;
-  padding-top: 0;
-  font-size: 5rem !important;
+  line-height: 1 !important;
+  font-size: 3.5rem !important;
   background: linear-gradient(120deg, #007acc 0%, #00d4ff 97%, #007acc 100%);
   background-size: 300% 100%;
   background-clip: text;
@@ -33,7 +37,7 @@ h1 {
 
 h2 {
   font-size: 1.75rem !important;
-  margin: 1.5rem 0 !important;
+  margin: 1.5rem 0 1rem !important;
   padding-bottom: 1rem !important;
   border-bottom: 5px solid transparent;
   background-image: linear-gradient(90deg,#4ec9b0 0%,#16825d 100%);
@@ -175,3 +179,30 @@ li {
   transition: all 0.2s ease;
 }
 
+.slidev-layout {
+  padding-top: 0 !important;
+}
+
+/* 本文中央配置用スタイル */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 350px;
+}
+
+.center-content p {
+  font-size: 2.25rem !important;
+}
+
+.center-content ul,
+.center-content ol {
+  display: inline-block;
+  text-align: left;
+}
+
+.center-content li {
+  font-size: 2.25rem !important;
+}
