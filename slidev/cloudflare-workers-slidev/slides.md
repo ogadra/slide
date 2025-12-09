@@ -359,11 +359,20 @@ app.get("/sandbox/:slide/stream", async(c: Context) => {
 
 ## 苦労したこと
 
-workersのカスタムドメイン`example.com`に対して`*.example.com/*`のRoute設定が必要
+<p style="font-size: 1.2em !important; margin-bottom: 1.5rem;">
+workersのカスタムドメイン<code>example.com</code>に対して<code>*.example.com/*</code>のRoute設定が必要
+</p>
 
-- カスタムドメインが必要
-  - *.workers.devのサブドメイン不可
-- サブドメインでやる場合は「Advanced Certificate Manager」プラン（月額10ドル）
+<div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem;">
+  <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid #94a3b8; border-radius: 8px; padding: 1.2rem 1.5rem; width: 380px;">
+    <p style="font-size: 1.1em !important; color: #94a3b8; margin-bottom: 0.5rem; font-weight: bold;">カスタムドメインが必要</p>
+    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">*.workers.devのサブドメイン不可</p>
+  </div>
+  <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid #fbbf24; border-radius: 8px; padding: 1.2rem 1.5rem; width: 380px;">
+    <p style="font-size: 1.1em !important; color: #fbbf24; margin-bottom: 0.5rem; font-weight: bold;">サブドメインでやる場合</p>
+    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">「Advanced Certificate Manager」<br/>月額10ドル</p>
+  </div>
+</div>
 
 ---
 layout: image-x
