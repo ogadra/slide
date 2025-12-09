@@ -14,6 +14,7 @@ import { handleLogin, LoginPage } from "./utils/login";
 
 type BindingsEnv = {
 	Sandbox: DurableObjectNamespace;
+	IP_LOG: KVNamespace;
 };
 
 const app = new Hono<{ Bindings: BindingsEnv }>();

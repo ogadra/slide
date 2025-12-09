@@ -1,6 +1,7 @@
 import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 import { getCookie } from "hono/cookie";
+import { ipLogger } from "../../utils/ipLogger";
 
 const AllowExecuteType = {
 	bash: "bash",
@@ -43,11 +44,14 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 
 	const sandbox = getSandbox(c.env.Sandbox, `${nanoId}`);
 
-	const { code, execType, fileName } = await c.req.json();
+	const content = await c.req.json();
+	const { code, execType, fileName } = content;
 
 	if (!execType || !(execType in AllowExecuteType)) {
 		return c.json({ error: "Invalid ExecuteType" }, { status: 400 });
 	}
+
+	await ipLogger(c.env.IP_LOG, c.req.raw, `sandbox:${execType}`, content);
 
 	switch (execType as AllowExecuteType) {
 		case AllowExecuteType.bash: {
