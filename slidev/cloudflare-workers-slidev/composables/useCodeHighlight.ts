@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { codeToHtml } from 'shiki';
+import { ansiToHtml } from '../utils/ansiToHtml';
 
 export const useCodeHighlight = (theme: string) => {
   const highlightedHtml = ref('');
@@ -16,15 +17,8 @@ export const useCodeHighlight = (theme: string) => {
     }
   };
 
-  const updateResultHighlight = async (output: string) => {
-    try {
-      highlightedResultHtml.value = await codeToHtml(output, {
-        execType: 'bash',
-        theme,
-      });
-    } catch {
-      highlightedResultHtml.value = `<pre><code>${output}</code></pre>`;
-    }
+  const updateResultHighlight = (output: string) => {
+    highlightedResultHtml.value = ansiToHtml(output);
   };
 
   const resetResultHighlight = () => {

@@ -130,7 +130,7 @@ const handleExecute = async () => {
 
   executionResult.value = result;
   if (result?.output) {
-    await updateResultHighlight(result.output);
+    updateResultHighlight(result.output);
   }
   executionStatus.value = ExecutionStatus.completed;
   currentProcessId.value = null;
@@ -146,7 +146,7 @@ const handleKill = async () => {
       executionResult.value.success = false;
       executionResult.value.error = 'Process killed';
       if (executionResult.value.output) {
-        await updateResultHighlight(executionResult.value.output);
+        updateResultHighlight(executionResult.value.output);
       }
     }
   }
