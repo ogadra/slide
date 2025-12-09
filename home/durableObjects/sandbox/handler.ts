@@ -11,7 +11,7 @@ const AllowExecuteType = {
 type AllowExecuteType =
 	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
 
-const AllowEditableFiles = ["example-1.ts", "example-2.ts"];
+const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
 const EXPORT_PORT = 7070;
 
