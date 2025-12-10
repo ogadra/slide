@@ -26,6 +26,16 @@
 			]
 		}
 	],
+	"routes": [
+		{
+			"pattern": "*.slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		},
+		{
+			"pattern": "slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		}
+	],
 	"containers": [
 		{
 			"class_name": "Sandbox",
