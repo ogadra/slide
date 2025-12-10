@@ -18,6 +18,21 @@
 			"new_classes": [
 				"SlideSyncConnectionServer"
 			]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": [
+				"Sandbox"
+			]
+		}
+	],
+	"containers": [
+		{
+			"class_name": "Sandbox",
+			"name": "sandbox-prd",
+			"image": "./home/durableObjects/sandbox/Dockerfile",
+			"instance_type": "lite",
+			"max_instances": 50
 		}
 	],
 	"durable_objects": {
@@ -25,6 +40,10 @@
 			{
 				"name": "SLIDE_SYNC_CONNECTION_SERVER",
 				"class_name": "SlideSyncConnectionServer"
+			},
+			{
+				"name": "Sandbox",
+				"class_name": "Sandbox"
 			}
 		]
 	},
@@ -38,6 +57,9 @@
 			"id": "980bf28266914afabf49e7ec179c95f4"
 		}
 	],
+	"ai": {
+		"binding": "AI"
+	},
 	"env": {
 		"dev": {
 			"preview_urls": false,
