@@ -320,15 +320,21 @@ app.post("/sandbox", async(c: Context, env: Env) => {
 
 ```ts{6,7}
 app.post("/sandbox/:slide", async(c: Context, env: Env) => {
-  const slide = c.req.param("slide");
   const { code } = await c.req.json();
 
-  const sandbox = getSandbox(env.Sandbox, slide);
+  const sandbox = getSandbox(env.Sandbox, c.get("randomId"));
   const process = await sandbox.startProcess(code);
   return Response.json({ processId: process.id });
 });
 
 ```
+
+---
+
+## これによって
+
+アクセスしたユーザーごとにコンテナが立ち上がる！
+
 
 ---
 
