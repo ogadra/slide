@@ -316,9 +316,9 @@ app.post("/sandbox", async(c: Context, env: Env) => {
 
 ## 今回のデモだとこんな感じ
 
-コマンド実行時にはプロセスIDを返却
+ランダムID毎にコンテナを立ち上げる
 
-```ts{6,7}
+```ts{4}
 app.post("/sandbox/:slide", async(c: Context, env: Env) => {
   const { code } = await c.req.json();
 
