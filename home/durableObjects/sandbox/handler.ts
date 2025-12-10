@@ -4,15 +4,14 @@ import { getCookie } from "hono/cookie";
 import { ipLogger } from "../../utils/ipLogger";
 import { judge } from "./llmJudge";
 
-const AllowExecuteType = {
+export const AllowExecute = {
 	bash: "bash",
 	TypeScript: "TypeScript",
 	kill: "kill",
 	start: "start",
 } as const;
 
-export type AllowExecuteType =
-	(typeof AllowExecuteType)[keyof typeof AllowExecuteType];
+export type AllowExecuteType = (typeof AllowExecute)[keyof typeof AllowExecute];
 
 const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
@@ -80,13 +79,13 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const content = await c.req.json();
 	const { code, execType, fileName } = content;
 
-	if (!execType || !(execType in AllowExecuteType)) {
+	if (!execType || !(execType in AllowExecute)) {
 		return c.json({ error: "Invalid ExecuteType" }, { status: 400 });
 	}
 
 	await ipLogger(c.env.IP_LOG, c.req.raw, `sandbox:${execType}`, content);
 
-	if (code && execType in AllowExecuteType) {
+	if (code && execType in AllowExecute) {
 		const allowedCommands = AllowCommands[execType as AllowExecuteType];
 		if (allowedCommands && !allowedCommands.includes(code)) {
 			const result = await judge(c, execType as AllowExecuteType, code);
@@ -98,11 +97,11 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	}
 
 	switch (execType as AllowExecuteType) {
-		case AllowExecuteType.bash: {
+		case AllowExecute.bash: {
 			const process = await sandbox.startProcess(code);
 			return c.json({ processId: process.id });
 		}
-		case AllowExecuteType.TypeScript: {
+		case AllowExecute.TypeScript: {
 			// check fileName
 			if (!fileName || !AllowEditableFiles.includes(fileName)) {
 				return c.json({ error: "File not editable" }, { status: 403 });
@@ -116,7 +115,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				success: true,
 			});
 		}
-		case AllowExecuteType.kill: {
+		case AllowExecute.kill: {
 			const { processId } = await c.req.json();
 			if (!processId) {
 				return c.json({ error: "Process ID required" }, { status: 400 });
@@ -124,7 +123,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 			const result = await sandbox.killProcess(processId);
 			return c.json(result);
 		}
-		case AllowExecuteType.start: {
+		case AllowExecute.start: {
 			const hostname = new URL(c.req.url).hostname;
 			const exposes = await sandbox.getExposedPorts(hostname);
 
