@@ -22,6 +22,17 @@ canvasWidth: 960
 
 ---
 
+## 全員読み込んでください
+
+<div class="center-content">
+  
+![slide.ogadra.comへのリンクを示したQR画像](./imgs/qr.png)
+
+</div>
+
+
+---
+
 ## 我々はなぜ登壇するのか
 
 <div class="center-content">
@@ -91,12 +102,6 @@ canvasWidth: 960
 今日は全員の挙手を目標とします
 
 </div>
-
----
-
-## QR
-
-<!-- QR -->
 
 
 ---
