@@ -18,6 +18,31 @@
 			"new_classes": [
 				"SlideSyncConnectionServer"
 			]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": [
+				"Sandbox"
+			]
+		}
+	],
+	"routes": [
+		{
+			"pattern": "*.slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		},
+		{
+			"pattern": "slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		}
+	],
+	"containers": [
+		{
+			"class_name": "Sandbox",
+			"name": "sandbox-prd",
+			"image": "./home/durableObjects/sandbox/Dockerfile",
+			"instance_type": "lite",
+			"max_instances": 50
 		}
 	],
 	"durable_objects": {
@@ -25,6 +50,10 @@
 			{
 				"name": "SLIDE_SYNC_CONNECTION_SERVER",
 				"class_name": "SlideSyncConnectionServer"
+			},
+			{
+				"name": "Sandbox",
+				"class_name": "Sandbox"
 			}
 		]
 	},
@@ -32,8 +61,15 @@
 		{
 			"binding": "SESSION_KV", // Auth session storage
 			"id": "fe32a237fcfc4891b42e61ddf74718db"
+		},
+		{
+			"binding": "IP_LOG",
+			"id": "980bf28266914afabf49e7ec179c95f4"
 		}
 	],
+	"ai": {
+		"binding": "AI"
+	},
 	"env": {
 		"dev": {
 			"preview_urls": false,
@@ -41,12 +77,46 @@
 			"vars": {
 				"ENVIRONMENT": "dev",
 			},
+			"routes": [
+				{
+					"pattern": "*.slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				},
+				{
+					"pattern": "slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				}
+			],
 			"migrations": [
 				{
 					"tag": "v1",
 					"new_classes": [
 						"SlideSyncConnectionServer"
 					]
+				},
+				{
+					"tag": "v2",
+					"new_sqlite_classes": [
+						"SlideSandbox"
+					]
+				},
+				{
+					"tag": "v3",
+					"new_sqlite_classes": [
+						"Sandbox"
+					],
+					"deleted_classes": [
+						"SlideSandbox"
+					]
+				}
+			],
+			"containers": [
+				{
+					"class_name": "Sandbox",
+					"name": "sandbox",
+					"image": "./home/durableObjects/sandbox/Dockerfile",
+					"instance_type": "lite",
+					"max_instances": 1
 				}
 			],
 			"durable_objects": {
@@ -54,6 +124,10 @@
 					{
 						"name": "SLIDE_SYNC_CONNECTION_SERVER",
 						"class_name": "SlideSyncConnectionServer"
+					},
+					{
+						"name": "Sandbox",
+						"class_name": "Sandbox"
 					}
 				]
 			},
@@ -61,8 +135,15 @@
 				{
 					"binding": "SESSION_KV", // Auth session storage
 					"id": "fe32a237fcfc4891b42e61ddf74718db"
+				},
+				{
+					"binding": "IP_LOG",
+					"id": "6a421abbb9b646638579fa375c46bc4b"
 				}
-			]
+			],
+			"ai": {
+				"binding": "AI"
+			}
 		}
 	},
 	"observability": {

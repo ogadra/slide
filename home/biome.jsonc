@@ -11,7 +11,7 @@
 			"app/**/*.tsx",
 			"demo/**/*.tsx",
 			"server.ts",
-			"durableObjects/*.ts",
+			"durableObjects/**/*.ts",
 			"utils/*.ts",
 			"!node_modules",
 			"!build",

@@ -1,5 +1,7 @@
 import { addSyncMethod } from "@slidev/client";
 import { defineAppSetup } from "@slidev/types";
+import { startSandbox } from "../composables/useCodeExecution";
+import { useSandboxUrl } from "../composables/useSandboxUrl";
 import {
 	ConnectionStatusEnum,
 	changeConnectionState,
@@ -32,7 +34,6 @@ export function connectWebSocket(onUpdate: (data: Partial<object>) => void): voi
 
 	ws.onmessage = (event) => {
 		try {
-      console.log(39, connectionStatus.value);
 			if (connectionStatus.value === ConnectionStatusEnum.Connected) {
 				const data = JSON.parse(event.data);
 				onUpdate(data);
@@ -82,4 +83,12 @@ const websocketSync: Sync = {
 
 export default defineAppSetup(() => {
 	addSyncMethod(websocketSync);
+
+	// スライド読み込み時にサンドボックスを起動
+	const { setSandboxUrl } = useSandboxUrl();
+	startSandbox().then((res) => {
+		if (res?.url) {
+			setSandboxUrl(res.url);
+		}
+	});
 });

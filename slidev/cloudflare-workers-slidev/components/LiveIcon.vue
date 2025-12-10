@@ -5,7 +5,6 @@ import {
   connectionStatus,
   getWsInstance,
 } from '../setup/connectionState';
-import { connectWebSocket } from '../setup/main';
 
 const changeConnectionStatus = () => {
   switch (connectionStatus.value) {
@@ -14,15 +13,15 @@ const changeConnectionStatus = () => {
       changeConnectionState(ConnectionStatusEnum.Disconnected);
       break;
 
-    case ConnectionStatusEnum.Disconnected: 
+    case ConnectionStatusEnum.Disconnected: {
       const ws = getWsInstance();
       if (ws && ws.readyState === WebSocket.OPEN) {
         changeConnectionState(ConnectionStatusEnum.Connected);
       } else {
         changeConnectionState(ConnectionStatusEnum.Connecting);
-        connectWebSocket();
       }
       break;
+    }
   }
 };
 
@@ -32,23 +31,31 @@ const changeConnectionStatus = () => {
   <div class="fixed top-4 right-4 z-50">
     <button
       @click="changeConnectionStatus"
-      class="flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300"
+      class="relative flex items-center w-20 h-8 px-2 rounded-full transition-colors duration-300"
       :class="{
-        'bg-red-600 text-white shadow-lg shadow-red-500/50': connectionStatus === ConnectionStatusEnum.Connected,
-        'bg-yellow-600 text-white shadow-lg shadow-yellow-500/50': connectionStatus === ConnectionStatusEnum.Connecting,
-        'bg-gray-700 text-gray-300 hover:bg-gray-600': connectionStatus === ConnectionStatusEnum.Disconnected
+        'bg-red-600 shadow-lg shadow-red-500/50': connectionStatus === ConnectionStatusEnum.Connected,
+        'bg-yellow-600 shadow-lg shadow-yellow-500/50': connectionStatus === ConnectionStatusEnum.Connecting,
+        'bg-gray-700 hover:bg-gray-600': connectionStatus === ConnectionStatusEnum.Disconnected
       }"
     >
       <span
-        class="w-2.5 h-2.5 rounded-full"
+        class="absolute w-3 h-3 rounded-full transition-all duration-300 ease-in-out"
         :class="{
-          'bg-white animate-pulse': connectionStatus === ConnectionStatusEnum.Connected,
-          'bg-yellow-200 animate-ping': connectionStatus === ConnectionStatusEnum.Connecting,
-          'bg-gray-500': connectionStatus === ConnectionStatusEnum.Disconnected
+          'bg-white animate-pulse left-[calc(100%-1rem)]': connectionStatus === ConnectionStatusEnum.Connected,
+          'bg-yellow-200 animate-ping left-1/2 -translate-x-1/2': connectionStatus === ConnectionStatusEnum.Connecting,
+          'bg-gray-500 left-2': connectionStatus === ConnectionStatusEnum.Disconnected
         }"
       />
-      <span class="text-sm font-semibold uppercase tracking-wide">
-        {{ connectionStatus === ConnectionStatusEnum.Connected ? 'Live' : connectionStatus === ConnectionStatusEnum.Connecting ? 'Connecting' : 'Off' }}
+      <span
+        class="w-full text-center text-xs font-semibold uppercase tracking-wide"
+        :class="{
+          'text-white': connectionStatus === ConnectionStatusEnum.Connected || connectionStatus === ConnectionStatusEnum.Connecting,
+          'text-gray-300': connectionStatus === ConnectionStatusEnum.Disconnected
+        }"
+      >
+        <template v-if="connectionStatus === ConnectionStatusEnum.Connected">Live</template>
+        <template v-else-if="connectionStatus === ConnectionStatusEnum.Connecting"><span class="text-[11.5px]">Connecting</span></template>
+        <template v-else>Off</template>
       </span>
     </button>
   </div>
