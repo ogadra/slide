@@ -54,7 +54,7 @@ const Body = () => {
 					slide={[
 						{
 							link: "./cloudflare-workers-slidev",
-							title: "workersでSlidevを120%活かす！",
+							title: "実行可能なスライドを作る",
 						},
 					]}
 				/>

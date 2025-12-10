@@ -1,7 +1,7 @@
 ---
 theme: purplin
-title: WorkersでSlidevを120%活かす！
-info: WorkersでSlidevを120%活かす！
+title: 実行可能なスライドを作る
+info: 実行可能なスライドを作る
 colorSchema: 'dark'
 drawings:
   enabled: true
@@ -200,7 +200,8 @@ export default app;"
 
 実行コマンド `hono serve`
 
-<CodeBlock code='hono serve example-2/index.ts' lang="bash" />
+<CodeBlock code='hono serve example-2/index.ts \
+  --use "logger()"' lang="bash" />
 
 実行を強制終了するコマンド
 
@@ -209,11 +210,6 @@ export default app;"
   lang="bash"
   maxWidth="500px"
 />
-
-ログも出せます
-
-<CodeBlock code='hono serve example-2/index.ts \
-  --use "logger()"' lang="bash" />
 
 </ScrollableContent>
 </SplitView>
