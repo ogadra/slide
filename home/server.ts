@@ -17,7 +17,9 @@ type BindingsEnv = {
 	IP_LOG: KVNamespace;
 };
 
-const app = new Hono<{ Bindings: BindingsEnv }>();
+const app = new Hono<{ Bindings: BindingsEnv, Variables: {
+	nanoId: string;
+} }>();
 
 app.use("*", async (c, next) => {
 	const proxyResponse = await proxyToSandbox(
@@ -38,13 +40,15 @@ app.post("/login", handleLogin);
 app.get("/ws/:slide", handleWebSocketConnection);
 
 app.use("/sandbox/*", async (c, next) => {
-	const nanoId = getCookie(c, "nanoId");
-	if (!nanoId) {
-		setCookie(c, "nanoId", nanoid().toLowerCase(), {
+	const isNanoIdExist = getCookie(c, "nanoId");
+	const nanoId = isNanoIdExist ?? nanoid().toLowerCase();
+	if (!isNanoIdExist) {
+		setCookie(c, "nanoId", nanoId, {
 			httpOnly: true,
 			path: "/",
 		});
 	}
+	c.set("nanoId", nanoId);
 
 	await next();
 });

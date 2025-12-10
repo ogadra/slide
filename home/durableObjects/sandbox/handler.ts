@@ -57,9 +57,9 @@ export const handleSandboxStreamRequest = async (
 	if (!processId) {
 		return c.json({ error: "processId required" }, { status: 400 });
 	}
-	const nanoId = getCookie(c, "nanoId");
+	const nanoId = c.get("nanoId");
 
-	const sandbox = getSandbox(c.env.Sandbox, `${nanoId}`);
+	const sandbox = getSandbox(c.env.Sandbox, nanoId);
 	const streamProcess = await sandbox.streamProcessLogs(processId);
 
 	return new Response(streamProcess, {
@@ -72,9 +72,9 @@ export const handleSandboxStreamRequest = async (
 };
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
-	const nanoId = getCookie(c, "nanoId");
+	const nanoId = c.get("nanoId");
 
-	const sandbox = getSandbox(c.env.Sandbox, `${nanoId}`);
+	const sandbox = getSandbox(c.env.Sandbox, nanoId);
 
 	const content = await c.req.json();
 	const { code, execType, fileName } = content;
