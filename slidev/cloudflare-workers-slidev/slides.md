@@ -335,6 +335,53 @@ app.post("/sandbox/:slide", async(c: Context, env: Env) => {
 
 アクセスしたユーザーごとにコンテナが立ち上がる！
 
+<div class="flex justify-center items-center mt-6">
+  <div class="flex items-center gap-6">
+    <!-- Users -->
+    <div class="flex flex-col items-center">
+      <div class="flex flex-col gap-3">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-400 bg-blue-400/20 flex items-center justify-center text-blue-400 font-bold text-lg">A</div>
+        <div class="w-12 h-12 rounded-full border-2 border-blue-400 bg-blue-400/20 flex items-center justify-center text-blue-400 font-bold text-lg">B</div>
+        <div class="w-12 h-12 rounded-full border-2 border-blue-400 bg-blue-400/20 flex items-center justify-center text-blue-400 font-bold text-lg">C</div>
+      </div>
+      <span class="text-blue-400 text-sm font-bold mt-2">Users</span>
+    </div>
+    <!-- Users -> Worker 矢印 -->
+    <div class="flex flex-col gap-3">
+      <div class="border-t-2 border-dashed border-blue-400 w-14 rotate-12"></div>
+      <div class="border-t-2 border-dashed border-blue-400 w-14"></div>
+      <div class="border-t-2 border-dashed border-blue-400 w-14 -rotate-12"></div>
+    </div>
+    <!-- Worker -->
+    <div class="flex flex-col items-center">
+      <div class="w-24 h-20 rounded-lg border-2 border-orange-400 bg-orange-400/20 flex items-center justify-center">
+        <img src="./imgs/worker.svg" class="w-10 h-10" style="filter: invert(67%) sepia(89%) saturate(1015%) hue-rotate(346deg) brightness(101%) contrast(97%);" />
+      </div>
+      <span class="text-orange-400 text-sm font-bold mt-2">Worker</span>
+    </div>
+    <!-- Worker -> Container 矢印 -->
+    <div class="flex flex-col gap-3">
+      <div class="border-t-2 border-dashed border-green-400 w-14 -rotate-12"></div>
+      <div class="border-t-2 border-dashed border-green-400 w-14"></div>
+      <div class="border-t-2 border-dashed border-green-400 w-14 rotate-12"></div>
+    </div>
+    <!-- Containers -->
+    <div class="flex flex-col items-center">
+      <div class="flex flex-col gap-3">
+        <div class="w-24 h-12 rounded border-2 border-green-400 bg-green-400/20 flex items-center justify-center">
+          <img src="./imgs/container.svg" class="w-6 h-6" style="filter: invert(77%) sepia(47%) saturate(497%) hue-rotate(87deg) brightness(93%) contrast(92%);" />
+        </div>
+        <div class="w-24 h-12 rounded border-2 border-green-400 bg-green-400/20 flex items-center justify-center">
+          <img src="./imgs/container.svg" class="w-6 h-6" style="filter: invert(77%) sepia(47%) saturate(497%) hue-rotate(87deg) brightness(93%) contrast(92%);" />
+        </div>
+        <div class="w-24 h-12 rounded border-2 border-green-400 bg-green-400/20 flex items-center justify-center">
+          <img src="./imgs/container.svg" class="w-6 h-6" style="filter: invert(77%) sepia(47%) saturate(497%) hue-rotate(87deg) brightness(93%) contrast(92%);" />
+        </div>
+      </div>
+      <span class="text-green-400 text-sm font-bold mt-2">Containers</span>
+    </div>
+  </div>
+</div>
 
 ---
 
