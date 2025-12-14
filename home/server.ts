@@ -17,9 +17,12 @@ type BindingsEnv = {
 	IP_LOG: KVNamespace;
 };
 
-const app = new Hono<{ Bindings: BindingsEnv, Variables: {
-	nanoId: string;
-} }>();
+const app = new Hono<{
+	Bindings: BindingsEnv;
+	Variables: {
+		nanoId: string;
+	};
+}>();
 
 app.use("*", async (c, next) => {
 	const proxyResponse = await proxyToSandbox(
@@ -78,5 +81,5 @@ app.on("GET", ["*"], async (c: Context) => {
 
 export default app;
 
-export { Sandbox } from "@cloudflare/sandbox";
+export { SandboxMock } from "./durableObjects/sandbox/mockedHandler";
 export { SlideSyncConnectionServer } from "./durableObjects/slideSyncConnectionServer";

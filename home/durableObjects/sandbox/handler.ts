@@ -1,8 +1,8 @@
 import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
-import { getCookie } from "hono/cookie";
 import { ipLogger } from "../../utils/ipLogger";
 import { judge } from "./llmJudge";
+import { mockedHandler, mockedStreamHandler } from "./mockedHandler";
 
 export const AllowExecute = {
 	bash: "bash",
@@ -16,6 +16,7 @@ export type AllowExecuteType = (typeof AllowExecute)[keyof typeof AllowExecute];
 const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
 const EXPORT_PORT = 7070;
+const IS_MOCKED = true;
 
 const AllowCommands = {
 	bash: [
@@ -59,6 +60,10 @@ export const handleSandboxStreamRequest = async (
 	}
 	const nanoId = c.get("nanoId");
 
+	if (IS_MOCKED) {
+		return mockedStreamHandler(c, nanoId, processId);
+	}
+
 	const sandbox = getSandbox(c.env.Sandbox, nanoId);
 	const streamProcess = await sandbox.streamProcessLogs(processId);
 
@@ -73,6 +78,10 @@ export const handleSandboxStreamRequest = async (
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const nanoId = c.get("nanoId");
+
+	if (IS_MOCKED) {
+		return mockedHandler(c, nanoId);
+	}
 
 	const sandbox = getSandbox(c.env.Sandbox, nanoId);
 
