@@ -22,17 +22,6 @@ canvasWidth: 960
 
 ---
 
-## 全員読み込んでください
-
-<div class="center-content">
-  
-![slide.ogadra.comへのリンクを示したQR画像](./imgs/qr.png)
-
-</div>
-
-
----
-
 ## 我々はなぜ登壇するのか
 
 <div class="center-content">
@@ -113,9 +102,8 @@ npmでインストールできます！
 <CodeBlock
   code="npm install -g @hono/cli"
   lang="bash"
+  :editable="false"
 />
-
-※ インストールに1分ほどかかることがあります
 
 ---
 
@@ -161,14 +149,12 @@ npmでインストールできます！
 
 ソースコード
 
-<CodeBlock
-  code="import { Hono } from 'hono'
+```ts
+import { Hono } from 'hono'
 const app = new Hono()
 app.get('/', (c) => c.text('Hello World!'))
-export default app"
-  lang="TypeScript"
-  filename="example-1/index.ts"
-/>
+export default app
+```
 
 実行コマンド `hono request`
 
@@ -186,8 +172,8 @@ export default app"
 
 ソースコード
 
-<CodeBlock
-  code="import { Hono } from 'hono';
+```ts
+import { Hono } from 'hono';
 import { Page } from './page';
 const app = new Hono<{
   Variables: { count: number; };
@@ -201,12 +187,16 @@ app.get('/', (c) => {
 export default app;"
   lang="TypeScript"
   filename="example-2/index.ts"
-/>
+```
 
 実行コマンド `hono serve`
 
-<CodeBlock code='hono serve example-2/index.ts \
-  --use "logger()"' lang="bash" />
+<CodeBlock
+  code='hono serve example-2/index.ts \
+    --use "logger()"'
+  lang="bash"
+  :editable="false"
+/>
 
 実行を強制終了するコマンド
 
