@@ -26,6 +26,7 @@ const selectResponse = async (
 	const command = atob(processId);
 	switch (command) {
 		case allowCommands.installHonoCli:
+			await stub.installHonoCli();
 			return getMockedResponses(processId, honoInstallResponse);
 		case allowCommands.requestExample:
 			if (!(await stub.getInstalledHonoCli())) {
@@ -40,11 +41,13 @@ const selectResponse = async (
 				// TODO: Display Error Response for port already in use
 				return getMockedResponses(processId, honoUninstalledErrorResponse);
 			}
+			await stub.startServer();
 			return getPersistentResponse(processId);
 		case allowCommands.killServer:
 			if (!(await stub.getServerStarted())) {
 				return getMockedResponses(processId, killNothingResponse);
 			}
+			await stub.stopServer();
 			return getMockedResponses(processId, killResponse);
 	}
 	return getMockedResponses(processId, []);
@@ -90,31 +93,22 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 
 	const { code, execType, processId } = await c.req.json();
-	switch (code) {
-		case allowCommands.installHonoCli:
-			await stub.installHonoCli();
-			break;
-		case allowCommands.requestExample:
-			break;
-		case allowCommands.startServer:
-			await stub.startServer();
-			break;
-		case allowCommands.killServer:
-			await stub.stopServer();
-			break;
-		default:
-			if (
-				execType === "kill" &&
-				atob(processId) === allowCommands.startServer
-			) {
-				await stub.stopServer();
-				break;
-			}
-			return c.json(
-				{ error: "Custom Commands are not allowed." },
-				{ status: 400 },
-			);
+
+	// killコマンドの処理（startServerプロセスの停止）
+	if (execType === "kill" && atob(processId) === allowCommands.startServer) {
+		await stub.stopServer();
+		return c.json({ processId: btoa(code) });
 	}
+
+	// 許可されたコマンドかチェック
+	const isAllowedCommand = Object.values(allowCommands).includes(code);
+	if (!isAllowedCommand) {
+		return c.json(
+			{ error: "Custom Commands are not allowed." },
+			{ status: 400 },
+		);
+	}
+
 	return c.json({ processId: btoa(code) });
 };
 
