@@ -24,6 +24,18 @@ const app = new Hono<{
 	};
 }>();
 
+// 7070-{anything}-{nanoId}.hostName からのアクセスをハンドリング
+app.use("*", async (c, next) => {
+	const host = c.req.header("host") ?? "";
+	const match = host.match(/^7070-.+-([a-z0-9_-]{21})\./);
+	if (match && c.req.method === "GET") {
+		const nanoId = match[1];
+		c.set("nanoId", nanoId);
+		return handleSandboxAccessRequest(c);
+	}
+	await next();
+});
+
 app.route("/demo", demo);
 
 app.get("/login", (c: Context) => LoginPage(c));
