@@ -118,3 +118,15 @@ export const killResponse: ResponsiveMockedResponse[] = [
 		data: "Process completed with exit code 0",
 	},
 ];
+
+export const alreadyStartedServerResponse: ResponsiveMockedResponse[] = [
+	{
+		type: "stderr",
+		data: "node:events:502\n      throw er; // Unhandled 'error' event\n      ^\n\nError: listen EADDRINUSE: address already in use :::7070\n    at Server.setupListenHandle [as _listen2] (node:net:1908:16)\n    at listenInCluster (node:net:1965:12)\n    at Server.listen (node:net:2067:7)\n    at serve (file:///usr/local/lib/node_modules/@hono/cli/node_modules/@hono/node-server/dist/index.mjs:572:10)\n    at Command.<anonymous> (file:///usr/local/lib/node_modules/@hono/cli/dist/cli.js:569:7)\nEmitted 'error' event on Server instance at:\n    at emitErrorNT (node:net:1944:8)\n    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {\n  code: 'EADDRINUSE',\n  errno: -98,\n  syscall: 'listen',\n  address: '::',\n  port: 7070\n}\n\nNode.js v20.19.6\n",
+	},
+	{
+		type: "exit",
+		exitCode: 1,
+		data: "Process failed with exit code 1",
+	},
+];

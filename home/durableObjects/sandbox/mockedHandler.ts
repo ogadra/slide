@@ -2,6 +2,7 @@ import { DurableObject } from "cloudflare:workers";
 import type { Context } from "hono";
 import { streamSSE } from "hono/streaming";
 import {
+	alreadyStartedServerResponse,
 	getMockedResponses,
 	getPersistentResponse,
 	honoInstallResponse,
@@ -37,9 +38,8 @@ const selectResponse = async (
 			if (!(await stub.getInstalledHonoCli())) {
 				return getMockedResponses(processId, honoUninstalledErrorResponse);
 			}
-			if (!(await stub.getServerStarted())) {
-				// TODO: Display Error Response for port already in use
-				return getMockedResponses(processId, honoUninstalledErrorResponse);
+			if (await stub.getServerStarted()) {
+				return getMockedResponses(processId, alreadyStartedServerResponse);
 			}
 			await stub.startServer();
 			return getPersistentResponse(processId);
@@ -99,7 +99,6 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 		await stub.stopServer();
 		return c.json({ processId: btoa(code) });
 	}
-
 	// 許可されたコマンドかチェック
 	const isAllowedCommand = Object.values(allowCommands).includes(code);
 	if (!isAllowedCommand) {
