@@ -13,6 +13,7 @@ import {
 	type MockedResponse,
 	type SelectResponseResult,
 } from "./mock/response";
+import { Page } from "./src/example-2/page";
 
 const allowCommands = {
 	installHonoCli: "npm install -g @hono/cli",
@@ -92,8 +93,8 @@ export const mockedAccessHandler = async (c: Context, nanoId: string) => {
 	}
 
 	const accessCount = await stub.honoServerAccess();
-
-	return c.json({ accessCount });
+	c.set("count", accessCount);
+	return Page(c);
 };
 
 export const mockedHandler = async (c: Context, nanoId: string) => {
@@ -206,7 +207,7 @@ export class SandboxMock extends DurableObject {
 			!this.demoState.isStartedServer ||
 			this.demoState.accessCount === undefined
 		)
-			return undefined;
+			throw new Error("Server is not started");
 
 		this.demoState.accessCount += 1;
 
