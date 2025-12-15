@@ -37,6 +37,7 @@ const selectResponse = async (
 				return getMockedResponses(processId, honoUninstalledErrorResponse);
 			}
 			if (!(await stub.getServerStarted())) {
+				// TODO: Display Error Response for port already in use
 				return getMockedResponses(processId, honoUninstalledErrorResponse);
 			}
 			return getPersistentResponse(processId);
@@ -88,7 +89,7 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 
-	const { code } = await c.req.json();
+	const { code, execType, processId } = await c.req.json();
 	switch (code) {
 		case allowCommands.installHonoCli:
 			await stub.installHonoCli();
@@ -102,6 +103,13 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 			await stub.stopServer();
 			break;
 		default:
+			if (
+				execType === "kill" &&
+				atob(processId) === allowCommands.startServer
+			) {
+				await stub.stopServer();
+				break;
+			}
 			return c.json(
 				{ error: "Custom Commands are not allowed." },
 				{ status: 400 },
