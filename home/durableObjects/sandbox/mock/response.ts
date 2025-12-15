@@ -9,7 +9,7 @@ type ResponsiveMockedResponse =
 			data: string;
 	  };
 
-type MockedResponse =
+export type MockedResponse =
 	| {
 			type: "process_info";
 			command: string;
@@ -28,22 +28,35 @@ type MockedResponse =
 			processId: string;
 	  };
 
+export type SelectResponseResult =
+	| { type: "immediate"; responses: MockedResponse[] }
+	| { type: "persistent"; processId: string };
+
 export const getMockedResponses = (
 	processId: string,
 	responses: ResponsiveMockedResponse[],
-): MockedResponse[] => {
-	return [
-		{
-			type: "process_info",
-			command: atob(processId),
-			status: "running",
-			processId,
-		},
-		...responses.map((response) => ({
-			...response,
-			processId,
-		})),
-	];
+): SelectResponseResult => {
+	return {
+		type: "immediate",
+		responses: [
+			{
+				type: "process_info",
+				command: atob(processId),
+				status: "running",
+				processId,
+			},
+			...responses.map((response) => ({
+				...response,
+				processId,
+			})),
+		],
+	};
+};
+
+export const getPersistentResponse = (
+	processId: string,
+): SelectResponseResult => {
+	return { type: "persistent", processId };
 };
 
 export const honoInstallResponse: ResponsiveMockedResponse[] = [

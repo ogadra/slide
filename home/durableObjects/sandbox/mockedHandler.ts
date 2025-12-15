@@ -3,11 +3,13 @@ import type { Context } from "hono";
 import { streamSSE } from "hono/streaming";
 import {
 	getMockedResponses,
+	getPersistentResponse,
 	honoInstallResponse,
 	honoRequestResponse,
 	honoUninstalledErrorResponse,
 	killNothingResponse,
 	killResponse,
+	type SelectResponseResult,
 } from "./mock/response";
 
 const allowCommands = {
@@ -17,7 +19,10 @@ const allowCommands = {
 	killServer: "lsof -ti:7070 | xargs kill -9",
 };
 
-const selectResponse = async (processId: string, stub: SandboxMock) => {
+const selectResponse = async (
+	processId: string,
+	stub: SandboxMock,
+): Promise<SelectResponseResult> => {
 	const command = atob(processId);
 	switch (command) {
 		case allowCommands.installHonoCli:
@@ -31,15 +36,17 @@ const selectResponse = async (processId: string, stub: SandboxMock) => {
 			if (!(await stub.getInstalledHonoCli())) {
 				return getMockedResponses(processId, honoUninstalledErrorResponse);
 			}
-			// TODO: add more responses for starting server
-			return getMockedResponses(processId, []);
+			if (!(await stub.getServerStarted())) {
+				return getMockedResponses(processId, honoUninstalledErrorResponse);
+			}
+			return getPersistentResponse(processId);
 		case allowCommands.killServer:
 			if (!(await stub.getServerStarted())) {
 				return getMockedResponses(processId, killNothingResponse);
 			}
 			return getMockedResponses(processId, killResponse);
 	}
-	return [];
+	return getMockedResponses(processId, []);
 };
 
 export const mockedStreamHandler = async (
@@ -49,18 +56,23 @@ export const mockedStreamHandler = async (
 ): Promise<Response> => {
 	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
-	const responses = await selectResponse(processId, stub);
+	const result = await selectResponse(processId, stub);
 
-	return streamSSE(c, async (stream) => {
-		await stream.writeSSE({ data: JSON.stringify(responses[0]) });
-		await new Promise((resolve) =>
-			setTimeout(resolve, Math.random() * 1000 + 500),
-		);
-		for (let i = 1; i < responses.length; i++) {
-			await stream.writeSSE({ data: JSON.stringify(responses[i]) });
-		}
-		await stream.close();
-	});
+	if (result.type === "immediate") {
+		return streamSSE(c, async (stream) => {
+			await stream.writeSSE({ data: JSON.stringify(result.responses[0]) });
+			await new Promise((resolve) =>
+				setTimeout(resolve, Math.random() * 1000 + 500),
+			);
+			for (let i = 1; i < result.responses.length; i++) {
+				await stream.writeSSE({ data: JSON.stringify(result.responses[i]) });
+			}
+			await stream.close();
+		});
+	}
+
+	// persistent: DOのfetchを使ってSSEレスポンスを返す
+	return stub.handleStream(processId);
 };
 
 export const mockedHandler = async (c: Context, nanoId: string) => {
@@ -89,6 +101,11 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 	return c.json({ processId: btoa(code) });
 };
 
+type ServerLogSubscriber = {
+	processId: string;
+	writer: WritableStreamDefaultWriter;
+};
+
 interface DemoState {
 	isInstalledHonoCli: boolean;
 	isStartedServer: boolean;
@@ -97,6 +114,7 @@ interface DemoState {
 
 export class SandboxMock extends DurableObject {
 	private demoState: DemoState;
+	private serverLogSubscriber: ServerLogSubscriber | null = null;
 
 	constructor(
 		public state: DurableObjectState,
@@ -108,6 +126,30 @@ export class SandboxMock extends DurableObject {
 			isStartedServer: false,
 			accessCount: null,
 		};
+	}
+
+	handleStream(processId: string): Response {
+		const { readable, writable } = new TransformStream();
+		const writer = writable.getWriter();
+
+		this.serverLogSubscriber = { processId, writer };
+
+		// 初期レスポンスを非同期で送信
+		const processInfo = {
+			type: "process_info",
+			command: atob(processId),
+			status: "running",
+			processId,
+		};
+		this.pushServerLog(processInfo);
+
+		return new Response(readable, {
+			headers: {
+				"Content-Type": "text/event-stream",
+				"Cache-Control": "no-cache",
+				Connection: "keep-alive",
+			},
+		});
 	}
 
 	async installHonoCli(): Promise<void> {
@@ -122,6 +164,7 @@ export class SandboxMock extends DurableObject {
 	async stopServer(): Promise<void> {
 		this.demoState.isStartedServer = false;
 		this.demoState.accessCount = null;
+		await this.closeServerLogs();
 	}
 
 	async getInstalledHonoCli(): Promise<boolean> {
@@ -130,5 +173,31 @@ export class SandboxMock extends DurableObject {
 
 	async getServerStarted(): Promise<boolean> {
 		return this.demoState.isStartedServer;
+	}
+
+	async pushServerLog(data: unknown): Promise<void> {
+		if (!this.serverLogSubscriber) return;
+
+		const { writer } = this.serverLogSubscriber;
+		try {
+			const message = `data: ${JSON.stringify(data)}\n\n`;
+			const encoder = new TextEncoder();
+			await writer.write(encoder.encode(message));
+		} catch {
+			// クライアント切断時
+			this.serverLogSubscriber = null;
+		}
+	}
+
+	async closeServerLogs(): Promise<void> {
+		if (!this.serverLogSubscriber) return;
+
+		const { writer } = this.serverLogSubscriber;
+		try {
+			await writer.close();
+		} catch {
+			// already closed
+		}
+		this.serverLogSubscriber = null;
 	}
 }
