@@ -2,7 +2,11 @@ import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 import { ipLogger } from "../../utils/ipLogger";
 import { judge } from "./llmJudge";
-import { mockedHandler, mockedStreamHandler } from "./mockedHandler";
+import {
+	mockedHandler,
+	mockedPushHandler,
+	mockedStreamHandler,
+} from "./mockedHandler";
 
 export const AllowExecute = {
 	bash: "bash",
@@ -48,6 +52,13 @@ export default app;`,
 	],
 	kill: [""],
 	start: [""],
+};
+
+export const handleSandboxPushRequest = async (
+	c: Context,
+): Promise<Response> => {
+	const nanoId = c.get("nanoId");
+	return mockedPushHandler(c, nanoId);
 };
 
 export const handleSandboxStreamRequest = async (

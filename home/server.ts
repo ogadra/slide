@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { Index } from "./app/index";
 import { demo } from "./demo";
 import {
+	handleSandboxPushRequest,
 	handleSandboxRequest,
 	handleSandboxStreamRequest,
 } from "./durableObjects/sandbox/handler";
@@ -57,6 +58,7 @@ app.use("/sandbox/*", async (c, next) => {
 });
 
 app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
+app.post("/sandbox/:slide/push", handleSandboxPushRequest);
 app.post("/sandbox/:slide", handleSandboxRequest);
 
 app.on("GET", ["/assets/*"], async (c: Context) => {

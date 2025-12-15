@@ -75,6 +75,15 @@ export const mockedStreamHandler = async (
 	return stub.handleStream(processId);
 };
 
+export const mockedPushHandler = async (c: Context, nanoId: string) => {
+	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
+	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
+
+	await stub.simulateServerAccess();
+
+	return c.json({ success: true });
+};
+
 export const mockedHandler = async (c: Context, nanoId: string) => {
 	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
@@ -143,6 +152,14 @@ export class SandboxMock extends DurableObject {
 		};
 		this.pushServerLog(processInfo);
 
+		setTimeout(() => {
+			this.pushServerLog({
+				type: "stdout",
+				data: "Listening on http://localhost:7070\n",
+				processId,
+			});
+		}, Math.random() * 1000);
+
 		return new Response(readable, {
 			headers: {
 				"Content-Type": "text/event-stream",
@@ -173,6 +190,32 @@ export class SandboxMock extends DurableObject {
 
 	async getServerStarted(): Promise<boolean> {
 		return this.demoState.isStartedServer;
+	}
+
+	async simulateServerAccess(): Promise<void> {
+		if (!this.serverLogSubscriber || !this.demoState.isStartedServer) return;
+
+		const { processId } = this.serverLogSubscriber;
+		const timestamp = new Date().toISOString();
+		const responseTimeMs = Math.floor(Math.random() * 5) + 1;
+
+		// リクエスト受信ログ
+		await this.pushServerLog({
+			type: "stdout",
+			data: "<-- GET /\n",
+			processId,
+			timestamp,
+		});
+
+		// レスポンス送信ログ（少し遅延）
+		setTimeout(async () => {
+			await this.pushServerLog({
+				type: "stdout",
+				data: `--> GET / \x1b[32m200\x1b[0m ${responseTimeMs}ms\n`,
+				processId,
+				timestamp: new Date().toISOString(),
+			});
+		}, responseTimeMs);
 	}
 
 	async pushServerLog(data: unknown): Promise<void> {
