@@ -3,8 +3,8 @@ import type { Context } from "hono";
 import { ipLogger } from "../../utils/ipLogger";
 import { judge } from "./llmJudge";
 import {
+	mockedAccessHandler,
 	mockedHandler,
-	mockedPushHandler,
 	mockedStreamHandler,
 } from "./mockedHandler";
 
@@ -54,11 +54,11 @@ export default app;`,
 	start: [""],
 };
 
-export const handleSandboxPushRequest = async (
+export const handleSandboxAccessRequest = async (
 	c: Context,
 ): Promise<Response> => {
 	const nanoId = c.get("nanoId");
-	return mockedPushHandler(c, nanoId);
+	return mockedAccessHandler(c, nanoId);
 };
 
 export const handleSandboxStreamRequest = async (

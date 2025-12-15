@@ -1,11 +1,10 @@
-import { proxyToSandbox, type SandboxEnv } from "@cloudflare/sandbox";
 import { type Context, Hono } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
 import { nanoid } from "nanoid";
 import { Index } from "./app/index";
 import { demo } from "./demo";
 import {
-	handleSandboxPushRequest,
+	handleSandboxAccessRequest,
 	handleSandboxRequest,
 	handleSandboxStreamRequest,
 } from "./durableObjects/sandbox/handler";
@@ -24,17 +23,6 @@ const app = new Hono<{
 		nanoId: string;
 	};
 }>();
-
-app.use("*", async (c, next) => {
-	const proxyResponse = await proxyToSandbox(
-		c.req.raw,
-		c.env as unknown as SandboxEnv,
-	);
-	if (proxyResponse) {
-		return proxyResponse;
-	}
-	await next();
-});
 
 app.route("/demo", demo);
 
@@ -58,7 +46,7 @@ app.use("/sandbox/*", async (c, next) => {
 });
 
 app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
-app.post("/sandbox/:slide/push", handleSandboxPushRequest);
+app.get("/sandbox/:slide/push", handleSandboxAccessRequest);
 app.post("/sandbox/:slide", handleSandboxRequest);
 
 app.on("GET", ["/assets/*"], async (c: Context) => {

@@ -10,6 +10,7 @@ import {
 	honoUninstalledErrorResponse,
 	killNothingResponse,
 	killResponse,
+	type MockedResponse,
 	type SelectResponseResult,
 } from "./mock/response";
 
@@ -79,13 +80,20 @@ export const mockedStreamHandler = async (
 	return stub.handleStream(processId);
 };
 
-export const mockedPushHandler = async (c: Context, nanoId: string) => {
+export const mockedAccessHandler = async (c: Context, nanoId: string) => {
 	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 
-	await stub.simulateServerAccess();
+	if (!(await stub.getServerStarted())) {
+		return c.text(
+			"Error proxying request to container: The container is not listening in the TCP address 10.0.0.1:7070",
+			{ status: 403 },
+		);
+	}
 
-	return c.json({ success: true });
+	const accessCount = await stub.honoServerAccess();
+
+	return c.json({ accessCount });
 };
 
 export const mockedHandler = async (c: Context, nanoId: string) => {
@@ -119,7 +127,7 @@ type ServerLogSubscriber = {
 interface DemoState {
 	isInstalledHonoCli: boolean;
 	isStartedServer: boolean;
-	accessCount: number | null;
+	accessCount: number | undefined;
 }
 
 export class SandboxMock extends DurableObject {
@@ -134,7 +142,7 @@ export class SandboxMock extends DurableObject {
 		this.demoState = {
 			isInstalledHonoCli: false,
 			isStartedServer: false,
-			accessCount: null,
+			accessCount: undefined,
 		};
 	}
 
@@ -145,7 +153,7 @@ export class SandboxMock extends DurableObject {
 		this.serverLogSubscriber = { processId, writer };
 
 		// 初期レスポンスを非同期で送信
-		const processInfo = {
+		const processInfo: MockedResponse = {
 			type: "process_info",
 			command: atob(processId),
 			status: "running",
@@ -181,7 +189,7 @@ export class SandboxMock extends DurableObject {
 
 	async stopServer(): Promise<void> {
 		this.demoState.isStartedServer = false;
-		this.demoState.accessCount = null;
+		this.demoState.accessCount = undefined;
 		await this.closeServerLogs();
 	}
 
@@ -193,33 +201,38 @@ export class SandboxMock extends DurableObject {
 		return this.demoState.isStartedServer;
 	}
 
-	async simulateServerAccess(): Promise<void> {
-		if (!this.serverLogSubscriber || !this.demoState.isStartedServer) return;
+	async honoServerAccess(): Promise<number | undefined> {
+		if (
+			!this.demoState.isStartedServer ||
+			this.demoState.accessCount === undefined
+		)
+			return undefined;
+
+		this.demoState.accessCount += 1;
+
+		if (!this.serverLogSubscriber) return this.demoState.accessCount;
 
 		const { processId } = this.serverLogSubscriber;
-		const timestamp = new Date().toISOString();
-		const responseTimeMs = Math.floor(Math.random() * 5) + 1;
+		const responseTimeMs = Math.floor(Math.random() * 100) + 10;
 
-		// リクエスト受信ログ
 		await this.pushServerLog({
 			type: "stdout",
 			data: "<-- GET /\n",
 			processId,
-			timestamp,
 		});
 
-		// レスポンス送信ログ（少し遅延）
-		setTimeout(async () => {
-			await this.pushServerLog({
-				type: "stdout",
-				data: `--> GET / \x1b[32m200\x1b[0m ${responseTimeMs}ms\n`,
-				processId,
-				timestamp: new Date().toISOString(),
-			});
-		}, responseTimeMs);
+		await new Promise((resolve) => setTimeout(resolve, responseTimeMs));
+
+		await this.pushServerLog({
+			type: "stdout",
+			data: `--> GET / \x1b[32m200\x1b[0m ${responseTimeMs}ms\n`,
+			processId,
+		});
+
+		return this.demoState.accessCount;
 	}
 
-	async pushServerLog(data: unknown): Promise<void> {
+	async pushServerLog(data: MockedResponse): Promise<void> {
 		if (!this.serverLogSubscriber) return;
 
 		const { writer } = this.serverLogSubscriber;
