@@ -95,18 +95,6 @@ canvasWidth: 960
 
 ---
 
-## hono/cliのインストール
-
-npmでインストールできます！
-
-<CodeBlock
-  code="npm install -g @hono/cli"
-  lang="bash"
-  :editable="false"
-/>
-
----
-
 ## Hono CLIとは
 
 <div>
@@ -141,6 +129,19 @@ npmでインストールできます！
 </div>
 
 ---
+
+## hono/cliのインストール
+
+npmでインストールできます！
+
+<CodeBlock
+  code="npm install -g @hono/cli"
+  lang="bash"
+  :editable="false"
+/>
+
+---
+
 
 ## hono request
 
@@ -249,19 +250,15 @@ Done is better than perfect.
 
 ## というわけで
 
-<div class="center-content">
+<p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.7em !important; font-weight: bold; margin: 0; white-space: nowrap;"><span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.5) 60%);">「実行可能なスライド」</span>を作ってきました</p>
 
-<p style="font-size: 1.7em !important; font-weight: bold;">
-  <span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.5) 60%);">「実行可能なスライド」</span>を作ってきました
-</p>
-
-</div>
+<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> 現在動いているコマンドはモックです</p>
 
 ---
 
 ## 技術スタック
 
-<div style="display: flex; gap: 1rem; justify-content: center; align-items: stretch; margin-top: 4.5rem;">
+<div style="display: flex; gap: 1rem; justify-content: center; align-items: stretch; margin-top: 3rem;">
   <div style="background: rgba(251, 146, 60, 0.15); border: 1px solid #fb923c; border-radius: 8px; padding: 1.5rem 1rem; width: 260px; text-align: center;">
     <p style="font-size: 1.2em !important; color: #fb923c; margin-bottom: 0.5rem; font-weight: bold;">Cloudflare Workers</p>
     <p style="font-size: 1em !important; color: #ccc; margin: 0;">ルーティング</p>
@@ -276,6 +273,7 @@ Done is better than perfect.
   </div>
 </div>
 
+<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem; white-space: nowrap;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> 現在はモックのため、Sandbox SDKを使用していません</p>
 
 ---
 
