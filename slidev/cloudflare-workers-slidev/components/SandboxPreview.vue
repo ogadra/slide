@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { startSandbox } from '../composables/useCodeExecution';
 import { useSandboxUrl } from '../composables/useSandboxUrl';
+import MockedRibbon from './MockedRibbon.vue';
 
 const { sandboxUrl, setSandboxUrl } = useSandboxUrl();
 const iframeKey = ref(0);
@@ -44,6 +45,7 @@ const retrySandbox = async () => {
         class="preview-iframe"
         sandbox="allow-scripts allow-same-origin allow-forms"
       />
+      <MockedRibbon />
     </div>
     <div v-else class="loading">
       <span>{{ isRetrying ? 'Connecting...' : 'Disconnected' }}</span>
@@ -72,6 +74,7 @@ const retrySandbox = async () => {
 }
 
 .iframe-container {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;

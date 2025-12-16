@@ -24,6 +24,14 @@
 			"new_sqlite_classes": [
 				"Sandbox"
 			]
+		}, {
+			"tag": "v3",
+			"new_classes": [
+				"SandboxMock"
+			],
+			"deleted_classes": [
+				"Sandbox"
+			]
 		}
 	],
 	"routes": [
@@ -36,15 +44,6 @@
 			"zone_name": "ogadra.com"
 		}
 	],
-	"containers": [
-		{
-			"class_name": "Sandbox",
-			"name": "sandbox-prd",
-			"image": "./home/durableObjects/sandbox/Dockerfile",
-			"instance_type": "lite",
-			"max_instances": 50
-		}
-	],
 	"durable_objects": {
 		"bindings": [
 			{
@@ -52,8 +51,8 @@
 				"class_name": "SlideSyncConnectionServer"
 			},
 			{
-				"name": "Sandbox",
-				"class_name": "Sandbox"
+				"name": "SANDBOX_MOCK",
+				"class_name": "SandboxMock"
 			}
 		]
 	},
@@ -67,9 +66,6 @@
 			"id": "980bf28266914afabf49e7ec179c95f4"
 		}
 	],
-	"ai": {
-		"binding": "AI"
-	},
 	"env": {
 		"dev": {
 			"preview_urls": false,
@@ -108,15 +104,15 @@
 					"deleted_classes": [
 						"SlideSandbox"
 					]
-				}
-			],
-			"containers": [
+				},
 				{
-					"class_name": "Sandbox",
-					"name": "sandbox",
-					"image": "./home/durableObjects/sandbox/Dockerfile",
-					"instance_type": "lite",
-					"max_instances": 1
+					"tag": "v4",
+					"new_classes": [
+						"SandboxMock"
+					],
+					"deleted_classes": [
+						"Sandbox"
+					]
 				}
 			],
 			"durable_objects": {
@@ -126,8 +122,8 @@
 						"class_name": "SlideSyncConnectionServer"
 					},
 					{
-						"name": "Sandbox",
-						"class_name": "Sandbox"
+						"name": "SANDBOX_MOCK",
+						"class_name": "SandboxMock"
 					}
 				]
 			},
@@ -140,10 +136,7 @@
 					"binding": "IP_LOG",
 					"id": "6a421abbb9b646638579fa375c46bc4b"
 				}
-			],
-			"ai": {
-				"binding": "AI"
-			}
+			]
 		}
 	},
 	"observability": {
