@@ -58,7 +58,6 @@ app.use("/sandbox/*", async (c, next) => {
 });
 
 app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
-app.get("/sandbox/:slide/push", handleSandboxAccessRequest);
 app.post("/sandbox/:slide", handleSandboxRequest);
 
 app.on("GET", ["/assets/*"], async (c: Context) => {
