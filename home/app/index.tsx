@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2025/12/10"
+					eventLink="https://cfm-cts.connpass.com/event/374413/"
+					eventTitle="Cloudflare Meet-up Tokyo Vol.9"
+					slide={[
+						{
+							link: "./cloudflare-workers-slidev",
+							title: "実行可能なスライドを作る",
+						},
+					]}
+				/>
+
+				<Section
 					date="2025/10/22"
 					eventLink="https://wnb.connpass.com/event/371722/"
 					eventTitle="Work≠Build Meetup Tokyo feat ryoppippi"

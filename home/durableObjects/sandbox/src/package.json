@@ -1,0 +1,8 @@
+{
+	"name": "sandbox-workspace",
+	"private": true,
+	"dependencies": {
+		"hono": "^4.10.7",
+		"tsx": "^4.21.0"
+	}
+}

@@ -1,64 +1,157 @@
 {
-  "name": "slide",
-  "main": "./home/server.ts",
-  "compatibility_date": "2024-08-21",
-  "workers_dev": false,
-  "assets": {
-    "directory": "./dist/",
-    "binding": "ASSETS",
-    "run_worker_first": true,
-  },
-  "vars": {
-    "ENVIRONMENT": "production",
-  },
-  "env": {
-    "dev": {
-      "vars": {
-        "ENVIRONMENT": "dev",
-      },
-      "durable_objects": {
-        "bindings": [
-          {
-            "name": "SLIDE_SYNC_CONNECTION_SERVER",
-            "class_name": "SlideSyncConnectionServer"
-          }
-        ]
-      },
-    },
-    "prod": {
-      "vars": {
-        "ENVIRONMENT": "production"
-      },
-      "durable_objects": {
-        "bindings": [
-          {
-            "name": "SLIDE_SYNC_CONNECTION_SERVER",
-            "class_name": "SlideSyncConnectionServer"
-          }
-        ]
-      },
-    }
-  },
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "SLIDE_SYNC_CONNECTION_SERVER",
-        "class_name": "SlideSyncConnectionServer"
-      }
-    ]
-  },
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_classes": ["SlideSyncConnectionServer"]
-    }
-  ],
-  "observability": {
-    "logs": {
-      "enabled": true,
-      "head_sampling_rate": 1,
-      "invocation_logs": true,
-      "persist": true
-    }
-  }
+	"name": "slide",
+	"preview_urls": true,
+	"main": "./home/server.ts",
+	"compatibility_date": "2024-08-21",
+	"workers_dev": false,
+	"assets": {
+		"directory": "./dist/",
+		"binding": "ASSETS",
+		"run_worker_first": true,
+	},
+	"vars": {
+		"ENVIRONMENT": "production",
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_classes": [
+				"SlideSyncConnectionServer"
+			]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": [
+				"Sandbox"
+			]
+		}
+	],
+	"routes": [
+		{
+			"pattern": "*.slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		},
+		{
+			"pattern": "slide.ogadra.com/*",
+			"zone_name": "ogadra.com"
+		}
+	],
+	"containers": [
+		{
+			"class_name": "Sandbox",
+			"name": "sandbox-prd",
+			"image": "./home/durableObjects/sandbox/Dockerfile",
+			"instance_type": "lite",
+			"max_instances": 50
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "SLIDE_SYNC_CONNECTION_SERVER",
+				"class_name": "SlideSyncConnectionServer"
+			},
+			{
+				"name": "Sandbox",
+				"class_name": "Sandbox"
+			}
+		]
+	},
+	"kv_namespaces": [
+		{
+			"binding": "SESSION_KV", // Auth session storage
+			"id": "fe32a237fcfc4891b42e61ddf74718db"
+		},
+		{
+			"binding": "IP_LOG",
+			"id": "980bf28266914afabf49e7ec179c95f4"
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"env": {
+		"dev": {
+			"preview_urls": false,
+			"workers_dev": true,
+			"vars": {
+				"ENVIRONMENT": "dev",
+			},
+			"routes": [
+				{
+					"pattern": "*.slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				},
+				{
+					"pattern": "slide-dev.ogadra.com/*",
+					"zone_name": "ogadra.com"
+				}
+			],
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_classes": [
+						"SlideSyncConnectionServer"
+					]
+				},
+				{
+					"tag": "v2",
+					"new_sqlite_classes": [
+						"SlideSandbox"
+					]
+				},
+				{
+					"tag": "v3",
+					"new_sqlite_classes": [
+						"Sandbox"
+					],
+					"deleted_classes": [
+						"SlideSandbox"
+					]
+				}
+			],
+			"containers": [
+				{
+					"class_name": "Sandbox",
+					"name": "sandbox",
+					"image": "./home/durableObjects/sandbox/Dockerfile",
+					"instance_type": "lite",
+					"max_instances": 1
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SLIDE_SYNC_CONNECTION_SERVER",
+						"class_name": "SlideSyncConnectionServer"
+					},
+					{
+						"name": "Sandbox",
+						"class_name": "Sandbox"
+					}
+				]
+			},
+			"kv_namespaces": [
+				{
+					"binding": "SESSION_KV", // Auth session storage
+					"id": "fe32a237fcfc4891b42e61ddf74718db"
+				},
+				{
+					"binding": "IP_LOG",
+					"id": "6a421abbb9b646638579fa375c46bc4b"
+				}
+			],
+			"ai": {
+				"binding": "AI"
+			}
+		}
+	},
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+			"invocation_logs": true,
+			"persist": true
+		}
+	},
 }

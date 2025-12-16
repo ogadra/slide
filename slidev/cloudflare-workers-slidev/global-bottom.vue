@@ -1,0 +1,4 @@
+<template>
+  <LiveIcon />
+  <Footer />
+</template>
