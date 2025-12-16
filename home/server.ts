@@ -1,33 +1,37 @@
-import { proxyToSandbox, type SandboxEnv } from "@cloudflare/sandbox";
 import { type Context, Hono } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
-import { nanoid } from "nanoid";
 import { Index } from "./app/index";
 import { demo } from "./demo";
 import {
+	handleSandboxAccessRequest,
 	handleSandboxRequest,
 	handleSandboxStreamRequest,
 } from "./durableObjects/sandbox/handler";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
 import { handleLogin, LoginPage } from "./utils/login";
+import { randomString } from "./utils/randomString";
 
 type BindingsEnv = {
 	Sandbox: DurableObjectNamespace;
 	IP_LOG: KVNamespace;
 };
 
-const app = new Hono<{ Bindings: BindingsEnv, Variables: {
-	nanoId: string;
-} }>();
+const app = new Hono<{
+	Bindings: BindingsEnv;
+	Variables: {
+		sessionId: string;
+	};
+}>();
 
+// 7070-{anything}-{sessionId}.hostName からのアクセスをハンドリング
 app.use("*", async (c, next) => {
-	const proxyResponse = await proxyToSandbox(
-		c.req.raw,
-		c.env as unknown as SandboxEnv,
-	);
-	if (proxyResponse) {
-		return proxyResponse;
+	const host = c.req.header("host") ?? "";
+	const match = host.match(/^7070-.+-([a-z0-9_-]{21})\./);
+	if (match && c.req.method === "GET") {
+		const sessionId = match[1];
+		c.set("sessionId", sessionId);
+		return handleSandboxAccessRequest(c);
 	}
 	await next();
 });
@@ -40,15 +44,15 @@ app.post("/login", handleLogin);
 app.get("/ws/:slide", handleWebSocketConnection);
 
 app.use("/sandbox/*", async (c, next) => {
-	const isNanoIdExist = getCookie(c, "nanoId");
-	const nanoId = isNanoIdExist ?? nanoid().toLowerCase();
-	if (!isNanoIdExist) {
-		setCookie(c, "nanoId", nanoId, {
+	const existingSessionId = getCookie(c, "sessionId");
+	const sessionId = existingSessionId ?? randomString();
+	if (!existingSessionId) {
+		setCookie(c, "sessionId", sessionId, {
 			httpOnly: true,
 			path: "/",
 		});
 	}
-	c.set("nanoId", nanoId);
+	c.set("sessionId", sessionId);
 
 	await next();
 });
@@ -78,5 +82,5 @@ app.on("GET", ["*"], async (c: Context) => {
 
 export default app;
 
-export { Sandbox } from "@cloudflare/sandbox";
+export { SandboxMock } from "./durableObjects/sandbox/mock/SandboxMock";
 export { SlideSyncConnectionServer } from "./durableObjects/slideSyncConnectionServer";

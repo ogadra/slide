@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import { executeBash, saveTypeScript, killProcess, ExecutionStatus, type ExecutionResult } from '../composables/useCodeExecution';
 import { useCodeHighlight } from '../composables/useCodeHighlight';
 import { useCodeEditor } from '../composables/useCodeEditor';
+import MockedRibbon from './MockedRibbon.vue';
 
 const props = defineProps({
   code: {
@@ -201,6 +202,7 @@ const handleKill = async () => {
       </div>
       <div v-if="highlightedResultHtml" class="result-output" v-html="highlightedResultHtml" />
       <pre v-else class="result-output">{{ executionResult.output || executionResult.error }}</pre>
+      <MockedRibbon />
     </div>
   </div>
 </template>
@@ -345,6 +347,7 @@ const handleKill = async () => {
 }
 
 .execution-result {
+  position: relative;
   margin-top: 16px;
   border-radius: 8px;
   overflow: hidden;
