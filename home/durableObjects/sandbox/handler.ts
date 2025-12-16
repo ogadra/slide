@@ -1,58 +1,20 @@
 import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 import { ipLogger } from "../../utils/ipLogger";
+import { AllowCommands } from "./constants/allowCommands";
 import { judge } from "./llmJudge";
 import {
 	mockedAccessHandler,
 	mockedHandler,
 	mockedStreamHandler,
 } from "./mockedHandler";
-
-export const AllowExecute = {
-	bash: "bash",
-	TypeScript: "TypeScript",
-	kill: "kill",
-	start: "start",
-} as const;
-
-export type AllowExecuteType = (typeof AllowExecute)[keyof typeof AllowExecute];
+import { AllowExecute, type AllowExecuteType } from "./types/sandbox";
+export { AllowExecute, type AllowExecuteType };
 
 const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
 const EXPORT_PORT = 7070;
 const IS_MOCKED = true;
-
-const AllowCommands = {
-	bash: [
-		"npm install -g @hono/cli",
-		"hono request -P / example-1/index.ts",
-		"hono serve example-2/index.ts",
-		"lsof -ti:7070 | xargs kill -9",
-		`hono serve example-2/index.ts \
-  --use "logger()"`,
-	],
-	TypeScript: [
-		`import { Hono } from 'hono'
-const app = new Hono()
-app.get('/', (c) => c.text('Hello World!'))
-export default app`,
-
-		`import { Hono } from 'hono';
-import { Page } from './page';
-const app = new Hono<{
-  Variables: { count: number; };
-}>();
-let counter = 0;
-app.get('/', (c) => {
-  counter++;
-  c.set('count', counter);
-  return Page(c);
-});
-export default app;`,
-	],
-	kill: [""],
-	start: [""],
-};
 
 export const handleSandboxAccessRequest = async (
 	c: Context,
@@ -97,7 +59,11 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	const sandbox = getSandbox(c.env.Sandbox, sessionId);
 
 	const content = await c.req.json();
-	const { code, execType, fileName } = content;
+	const { code, execType, fileName } = content as {
+		code: string;
+		execType: AllowExecuteType;
+		fileName?: string;
+	};
 
 	if (!execType || !(execType in AllowExecute)) {
 		return c.json({ error: "Invalid ExecuteType" }, { status: 400 });
@@ -106,9 +72,9 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 	await ipLogger(c.env.IP_LOG, c.req.raw, `sandbox:${execType}`, content);
 
 	if (code && execType in AllowExecute) {
-		const allowedCommands = AllowCommands[execType as AllowExecuteType];
+		const allowedCommands = AllowCommands[execType];
 		if (allowedCommands && !allowedCommands.includes(code)) {
-			const result = await judge(c, execType as AllowExecuteType, code);
+			const result = await judge(c, execType, code);
 			if (!result.result) {
 				return c.json({ error: result.reason }, { status: 403 });
 			}
