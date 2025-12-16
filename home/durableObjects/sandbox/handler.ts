@@ -7,7 +7,7 @@ import {
 	mockedAccessHandler,
 	mockedHandler,
 	mockedStreamHandler,
-} from "./mockedHandler";
+} from "./mock/handlers";
 import { AllowExecute, type AllowExecuteType } from "./types/sandbox";
 export { AllowExecute, type AllowExecuteType };
 
