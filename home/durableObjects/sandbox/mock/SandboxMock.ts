@@ -1,9 +1,8 @@
 import { DurableObject } from "cloudflare:workers";
-import type { DemoState, ServerLogSubscriber } from "../types/sandbox";
+import type { ServerLogSubscriber } from "../types/sandbox";
 import type { MockedResponse } from "./response";
 
 export class SandboxMock extends DurableObject {
-	private demoState: DemoState;
 	private serverLogSubscriber: ServerLogSubscriber | null = null;
 
 	constructor(
@@ -11,11 +10,12 @@ export class SandboxMock extends DurableObject {
 		public env: Env,
 	) {
 		super(state, env);
-		this.demoState = {
-			isInstalledHonoCli: false,
-			isStartedServer: false,
-			accessCount: undefined,
-		};
+		if (!this.ctx.storage.get("isInitialized")) {
+			this.ctx.storage.put("isInitialized", true);
+			this.ctx.storage.put("isInstalledHonoCli", false);
+			this.ctx.storage.put("isStartedServer", false);
+			this.ctx.storage.put("accessCount", undefined);
+		}
 	}
 
 	handleStream(processId: string): Response {
@@ -51,38 +51,39 @@ export class SandboxMock extends DurableObject {
 	}
 
 	async installHonoCli(): Promise<void> {
-		this.demoState.isInstalledHonoCli = true;
+		this.ctx.storage.put("isInstalledHonoCli", true);
 	}
 
 	async startServer(): Promise<void> {
-		this.demoState.isStartedServer = true;
-		this.demoState.accessCount = 0;
+		this.ctx.storage.put("isStartedServer", true);
+		this.ctx.storage.put("accessCount", 0);
 	}
 
 	async stopServer(): Promise<void> {
-		this.demoState.isStartedServer = false;
-		this.demoState.accessCount = undefined;
+		this.ctx.storage.put("isStartedServer", false);
+		this.ctx.storage.put("accessCount", undefined);
 		await this.closeServerLogs();
 	}
 
 	async getInstalledHonoCli(): Promise<boolean> {
-		return this.demoState.isInstalledHonoCli;
+		return (await this.ctx.storage.get("isInstalledHonoCli")) as boolean;
 	}
 
 	async getServerStarted(): Promise<boolean> {
-		return this.demoState.isStartedServer;
+		return (await this.ctx.storage.get("isStartedServer")) as boolean;
 	}
 
 	async honoServerAccess(): Promise<number | undefined> {
 		if (
-			!this.demoState.isStartedServer ||
-			this.demoState.accessCount === undefined
+			!this.ctx.storage.get("isStartedServer") ||
+			this.ctx.storage.get("accessCount") === undefined
 		)
 			throw new Error("Server is not started");
 
-		this.demoState.accessCount += 1;
+		const before = (await this.ctx.storage.get("accessCount")) as number;
+		this.ctx.storage.put("accessCount", before + 1);
 
-		if (!this.serverLogSubscriber) return this.demoState.accessCount;
+		if (!this.serverLogSubscriber) return this.ctx.storage.get("accessCount");
 
 		const { processId } = this.serverLogSubscriber;
 		const responseTimeMs = Math.floor(Math.random() * 10) + 1;
@@ -101,7 +102,7 @@ export class SandboxMock extends DurableObject {
 			processId,
 		});
 
-		return this.demoState.accessCount;
+		return this.ctx.storage.get("accessCount");
 	}
 
 	async pushServerLog(data: MockedResponse): Promise<void> {

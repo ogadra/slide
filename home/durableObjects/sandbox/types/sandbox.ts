@@ -1,12 +1,3 @@
-// Sandbox関連の型定義
-
-// DemoStateの状態を表すインターフェース
-export interface DemoState {
-	isInstalledHonoCli: boolean;
-	isStartedServer: boolean;
-	accessCount: number | undefined;
-}
-
 // サーバーログのサブスクライバー
 export interface ServerLogSubscriber {
 	processId: string;
