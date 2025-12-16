@@ -1,6 +1,7 @@
 import { DurableObject } from "cloudflare:workers";
 import type { Context } from "hono";
 import { streamSSE } from "hono/streaming";
+import { customAlphabet } from "nanoid";
 import {
 	alreadyStartedServerResponse,
 	getMockedResponses,
@@ -108,6 +109,21 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 		await stub.stopServer();
 		return c.json({ processId: btoa(code) });
 	}
+
+	if (execType === "start") {
+		const hostname = new URL(c.req.url).hostname;
+		const randomPart = customAlphabet(
+			"abcdefghijklmnopqrstuvwxyz0123456789",
+			21,
+		)();
+
+		return c.json({
+			url: `https://7070-${randomPart}-${nanoId}.${hostname}`,
+			exitCode: 0,
+			success: true,
+		});
+	}
+
 	// 許可されたコマンドかチェック
 	const isAllowedCommand = Object.values(allowCommands).includes(code);
 	if (!isAllowedCommand) {
@@ -214,7 +230,7 @@ export class SandboxMock extends DurableObject {
 		if (!this.serverLogSubscriber) return this.demoState.accessCount;
 
 		const { processId } = this.serverLogSubscriber;
-		const responseTimeMs = Math.floor(Math.random() * 100) + 10;
+		const responseTimeMs = Math.floor(Math.random() * 10) + 1;
 
 		await this.pushServerLog({
 			type: "stdout",
