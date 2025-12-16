@@ -23,7 +23,7 @@ export const mockedStreamHandler = async (
 		return streamSSE(c, async (stream) => {
 			await stream.writeSSE({ data: JSON.stringify(result.responses[0]) });
 			await new Promise((resolve) =>
-				setTimeout(resolve, Math.random() * 1000 + 500),
+				setTimeout(resolve, Math.random() * 500 + 500),
 			);
 			for (let i = 1; i < result.responses.length; i++) {
 				await stream.writeSSE({ data: JSON.stringify(result.responses[i]) });
