@@ -13,10 +13,10 @@ export type AllowCommandKey = keyof typeof AllowCommandStrings;
 // handler.ts用の配列形式
 export const AllowCommands: Record<string, string[]> = {
 	bash: [
-		AllowCommandStrings.installHonoCli,
-		AllowCommandStrings.requestExample,
+		"npm install -g @hono/cli",
+		"hono request -P / example-1/index.ts",
 		"hono serve example-2/index.ts",
-		AllowCommandStrings.killServer,
+		"lsof -ti:7070 | xargs kill -9",
 		`hono serve example-2/index.ts \
   --use "logger()"`,
 	],
