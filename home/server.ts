@@ -82,5 +82,5 @@ app.on("GET", ["*"], async (c: Context) => {
 
 export default app;
 
-export { SandboxMock } from "./durableObjects/sandbox/mockedHandler";
+export { SandboxMock } from "./durableObjects/sandbox/mock/SandboxMock";
 export { SlideSyncConnectionServer } from "./durableObjects/slideSyncConnectionServer";
