@@ -1,7 +1,7 @@
 import { DurableObject } from "cloudflare:workers";
 import type { Context } from "hono";
 import { streamSSE } from "hono/streaming";
-import { customAlphabet } from "nanoid";
+import { randomString } from "../../utils/randomString";
 import {
 	alreadyStartedServerResponse,
 	getMockedResponses,
@@ -58,10 +58,10 @@ const selectResponse = async (
 
 export const mockedStreamHandler = async (
 	c: Context,
-	nanoId: string,
+	sessionId: string,
 	processId: string,
 ): Promise<Response> => {
-	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
+	const id = c.env.SANDBOX_MOCK.idFromName(sessionId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 	const result = await selectResponse(processId, stub);
 
@@ -82,8 +82,8 @@ export const mockedStreamHandler = async (
 	return stub.handleStream(processId);
 };
 
-export const mockedAccessHandler = async (c: Context, nanoId: string) => {
-	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
+export const mockedAccessHandler = async (c: Context, sessionId: string) => {
+	const id = c.env.SANDBOX_MOCK.idFromName(sessionId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 
 	if (!(await stub.getServerStarted())) {
@@ -98,8 +98,8 @@ export const mockedAccessHandler = async (c: Context, nanoId: string) => {
 	return Page(c);
 };
 
-export const mockedHandler = async (c: Context, nanoId: string) => {
-	const id = c.env.SANDBOX_MOCK.idFromName(nanoId);
+export const mockedHandler = async (c: Context, sessionId: string) => {
+	const id = c.env.SANDBOX_MOCK.idFromName(sessionId);
 	const stub: SandboxMock = c.env.SANDBOX_MOCK.get(id);
 
 	const { code, execType, processId } = await c.req.json();
@@ -112,13 +112,9 @@ export const mockedHandler = async (c: Context, nanoId: string) => {
 
 	if (execType === "start") {
 		const hostname = new URL(c.req.url).hostname;
-		const randomPart = customAlphabet(
-			"abcdefghijklmnopqrstuvwxyz0123456789",
-			21,
-		)();
 
 		return c.json({
-			url: `https://7070-${randomPart}-${nanoId}.${hostname}`,
+			url: `https://7070-${randomString()}-${sessionId}.${hostname}`,
 			exitCode: 0,
 			success: true,
 		});

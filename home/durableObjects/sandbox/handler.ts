@@ -57,8 +57,8 @@ export default app;`,
 export const handleSandboxAccessRequest = async (
 	c: Context,
 ): Promise<Response> => {
-	const nanoId = c.get("nanoId");
-	return mockedAccessHandler(c, nanoId);
+	const sessionId = c.get("sessionId");
+	return mockedAccessHandler(c, sessionId);
 };
 
 export const handleSandboxStreamRequest = async (
@@ -69,13 +69,13 @@ export const handleSandboxStreamRequest = async (
 	if (!processId) {
 		return c.json({ error: "processId required" }, { status: 400 });
 	}
-	const nanoId = c.get("nanoId");
+	const sessionId = c.get("sessionId");
 
 	if (IS_MOCKED) {
-		return mockedStreamHandler(c, nanoId, processId);
+		return mockedStreamHandler(c, sessionId, processId);
 	}
 
-	const sandbox = getSandbox(c.env.Sandbox, nanoId);
+	const sandbox = getSandbox(c.env.Sandbox, sessionId);
 	const streamProcess = await sandbox.streamProcessLogs(processId);
 
 	return new Response(streamProcess, {
@@ -88,13 +88,13 @@ export const handleSandboxStreamRequest = async (
 };
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
-	const nanoId = c.get("nanoId");
+	const sessionId = c.get("sessionId");
 
 	if (IS_MOCKED) {
-		return mockedHandler(c, nanoId);
+		return mockedHandler(c, sessionId);
 	}
 
-	const sandbox = getSandbox(c.env.Sandbox, nanoId);
+	const sandbox = getSandbox(c.env.Sandbox, sessionId);
 
 	const content = await c.req.json();
 	const { code, execType, fileName } = content;
