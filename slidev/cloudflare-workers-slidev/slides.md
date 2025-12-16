@@ -158,7 +158,11 @@ export default app
 
 実行コマンド `hono request`
 
-<CodeBlock code="hono request -P / example-1/index.ts" lang="bash" />
+<CodeBlock
+  code="hono request -P / example-1/index.ts"
+  lang="bash"
+  :editable="false"
+/>
 
 </ScrollableContent>
 
@@ -175,15 +179,19 @@ export default app
 ```ts
 import { Hono } from 'hono';
 import { Page } from './page';
+
 const app = new Hono<{
   Variables: { count: number; };
 }>();
+
 let counter = 0;
+
 app.get('/', (c) => {
   counter++;
   c.set('count', counter);
   return Page(c);
 });
+
 export default app;"
   lang="TypeScript"
   filename="example-2/index.ts"
@@ -204,6 +212,7 @@ export default app;"
   code='lsof -ti:7070 | xargs kill -9'
   lang="bash"
   maxWidth="500px"
+  :editable="false"
 />
 
 </ScrollableContent>
