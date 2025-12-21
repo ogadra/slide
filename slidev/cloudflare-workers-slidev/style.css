@@ -33,6 +33,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   animation: shimmer 3.5s cubic-bezier(0, 0.8, 0.4, 1) infinite;
   text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  white-space: pre-line;
 }
 
 h2 {
@@ -79,6 +80,7 @@ h3::before {
 p {
   font-size: 1.4rem !important;
   line-height: 1.5 !important;
+  white-space: pre-line;
 }
 
 ol {

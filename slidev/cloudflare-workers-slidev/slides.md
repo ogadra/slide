@@ -12,8 +12,7 @@ canvasWidth: 960
 
 <div style="height: 100px"/>
 
-# 実行可能な
-# スライドを作る
+<h1>{{ $t('title.withBreak') }}</h1>
 
 <div style="height: 30px" />
 
@@ -22,61 +21,56 @@ canvasWidth: 960
 
 ---
 
-## 我々はなぜ登壇するのか
+<h2>{{ $t('slide2.title') }}</h2>
 
 <div class="center-content">
 
-知見・経験を共有したいから
+{{ $t('slide2.body1') }}
 
 </div>
 
 ---
 
-## 知見の共有「だけ」で満足？
+<h2>{{ $t('slide3.title') }}</h2>
 
 <div class="center-content">
 
-聞いて終わる話は「忘れられる」
-
-=> 実際に「手を動かして」もらいたい
+{{ $t('slide3.body1') }}
 
 </div>
 
 ---
 
-## そんなこと、できるの？
+<h2>{{ $t('slide4.title') }}</h2>
 
 <div class="center-content">
 
-- PCを持参 -> 環境構築？
-- LTは5分しかない
+- {{ $t('slide4.body1') }}
+- {{ $t('slide4.body2') }}
 
 </div>
 
 ---
 
-## だから「実行可能な」スライドを作る
+<h2>{{ $t('slide5.title') }}</h2>
 
 <div class="center-content">
 
-登壇中に全員が「試せる」環境を
-
-スライドに「埋め込む」
+{{ $t('slide5.body1') }}
 
 </div>
 
 ---
 
 <div style="display: flex; align-items: center; justify-content: center; height: 100%; min-height: 500px;">
-<p style="font-size: 10em !important; font-weight: bold; background: linear-gradient(90deg, #f87171, #fb923c, #fbbf24, #4ade80, #60a5fa, #818cf8, #c084fc, #f87171); background-size: 400% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 3s linear infinite;">デモLT</p>
+<p style="font-size: 10em !important; font-weight: bold; background: linear-gradient(90deg, #f87171, #fb923c, #fbbf24, #4ade80, #60a5fa, #818cf8, #c084fc, #f87171); background-size: 400% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 3s linear infinite; white-space: nowrap;">{{ $t('slide6.body1') }}</p>
 </div>
 
 ---
 
 <div style="height: 100px"/>
 
-# 5分後。
-# あなたはHono CLI経験者
+<h1>{{ $t('slide7.title') }}</h1>
 
 <div style="height: 50px"/>
 
@@ -84,23 +78,23 @@ canvasWidth: 960
 
 ---
 
-## Hono CLI触ったことのある方、挙手！
+<h2>{{ $t('slide8.title') }}</h2>
 
 <div class="center-content">
 
-今日は全員の挙手を目標とします
+{{ $t('slide8.body1') }}
 
 </div>
 
 
 ---
 
-## Hono CLIとは
+<h2>{{ $t('slide9.title') }}</h2>
 
 <div>
   <img
     src="./imgs/hono-cli-zenn.png"
-    alt="Hono CLI 爆誕というzennのサイトのスクリーンショット"
+    :alt="$t('slide9.alt')"
     class="w-120 mx-auto my-2"
   />
   </div>
@@ -111,28 +105,28 @@ canvasWidth: 960
 
 ---
 
-## Hono CLIとは
+<h2>{{ $t('slide10.title') }}</h2>
 
-<p style="font-size: 2em !important; margin-bottom: 0.5rem; width: 100%; text-align: center; margin: 20px auto;"><span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.6) 60%); font-weight: bold;">人間</span>と<span style="background: linear-gradient(transparent 60%, rgba(96, 165, 250, 0.6) 60%); font-weight: bold;">AI</span>のためのCLI</p>
+<p style="font-size: 2em !important; margin-bottom: 0.5rem; width: 100%; text-align: center; margin: 20px auto;">{{ $t('slide10.body1') }}<span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.6) 60%); font-weight: bold;">{{ $t('slide10.human') }}</span>{{ $t('slide10.and') }}<span style="background: linear-gradient(transparent 60%, rgba(96, 165, 250, 0.6) 60%); font-weight: bold;">{{ $t('slide10.ai') }}</span>{{ $t('slide10.body2') }}</p>
 
 <div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 0.5rem;text-align: center;">
   <div style="background: rgba(74, 222, 128, 0.15); border: 1px solid #4ade80; border-radius: 8px; padding: 0.5rem 1rem 3rem 1rem; width: 450px;">
-    <p style="font-size: 2em !important; color: #4ade80; margin-bottom: 0.5rem; border-bottom: 2px solid #4ade80; padding-bottom: 0.3rem;">人間</p>
-    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">動作確認する</p>
-    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">最適化する</p>
+    <p style="font-size: 2em !important; color: #4ade80; margin-bottom: 0.5rem; border-bottom: 2px solid #4ade80; padding-bottom: 0.3rem;">{{ $t('slide10.human') }}</p>
+    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">{{ $t('slide10.humanTask1') }}</p>
+    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">{{ $t('slide10.humanTask2') }}</p>
   </div>
   <div style="background: rgba(96, 165, 250, 0.15); border: 1px solid #60a5fa; border-radius: 8px; padding: 0.5rem 1rem 3rem 1rem; width: 450px;">
-    <p style="font-size: 2em !important; color: #60a5fa; margin-bottom: 0.5rem; border-bottom: 2px solid #60a5fa; padding-bottom: 0.3rem;">AI</p>
-    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">ドキュメントを読む</p>
-    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">動作確認する</p>
+    <p style="font-size: 2em !important; color: #60a5fa; margin-bottom: 0.5rem; border-bottom: 2px solid #60a5fa; padding-bottom: 0.3rem;">{{ $t('slide10.ai') }}</p>
+    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">{{ $t('slide10.aiTask1') }}</p>
+    <p style="font-size: 1.5em !important; line-height: 1.5 !important; margin: 0;">{{ $t('slide10.aiTask2') }}</p>
   </div>
 </div>
 
 ---
 
-## hono/cliのインストール
+<h2>{{ $t('slide11.title') }}</h2>
 
-npmでインストールできます！
+{{ $t('slide11.body1') }}
 
 <CodeBlock
   code="npm install -g @hono/cli"
@@ -148,7 +142,7 @@ npmでインストールできます！
 <ScrollableContent maxHeight="380px">
 
 
-ソースコード
+{{ $t('slide12.body1') }}
 
 ```ts
 import { Hono } from 'hono'
@@ -157,7 +151,7 @@ app.get('/', (c) => c.text('Hello World!'))
 export default app
 ```
 
-実行コマンド `hono request`
+{{ $t('slide12.body2') }} `hono request`
 
 <CodeBlock
   code="hono request -P / example-1/index.ts"
@@ -175,7 +169,7 @@ export default app
 <SplitView leftWidth="500px">
 <ScrollableContent maxHeight="380px">
 
-ソースコード
+{{ $t('slide13.body1') }}
 
 ```ts
 import { Hono } from 'hono';
@@ -198,7 +192,7 @@ export default app;"
   filename="example-2/index.ts"
 ```
 
-実行コマンド `hono serve`
+{{ $t('slide13.body2') }} `hono serve`
 
 <CodeBlock
   code='hono serve example-2/index.ts \
@@ -207,7 +201,7 @@ export default app;"
   :editable="false"
 />
 
-実行を強制終了するコマンド
+{{ $t('slide13.body3') }}
 
 <CodeBlock
   code='lsof -ti:7070 | xargs kill -9'
@@ -222,11 +216,11 @@ export default app;"
 
 ---
 
-## Hono CLI触ったことのある方、挙手！
+<h2>{{ $t('slide14.title') }}</h2>
 
 <div class="center-content">
 
-ね、簡単でしょ？
+{{ $t('slide14.body1') }}
 
 </div>
 
@@ -248,41 +242,41 @@ Done is better than perfect.
 
 ---
 
-## というわけで
+<h2>{{ $t('slide16.title') }}</h2>
 
-<p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.7em !important; font-weight: bold; margin: 0; white-space: nowrap;"><span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.5) 60%);">「実行可能なスライド」</span>を作ってきました</p>
+<p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.7em !important; font-weight: bold; margin: 0; white-space: nowrap;">{{ $t('slide16.body1') }}<span style="background: linear-gradient(transparent 60%, rgba(74, 222, 128, 0.5) 60%);">{{ $t('slide16.highlight') }}</span>{{ $t('slide16.body2') }}</p>
 
-<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> 現在動いているコマンドはモックです</p>
+<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> {{ $t('slide16.note') }}</p>
 
 ---
 
-## 技術スタック
+<h2>{{ $t('slide17.title') }}</h2>
 
 <div style="display: flex; gap: 1rem; justify-content: center; align-items: stretch; margin-top: 3rem;">
   <div style="background: rgba(251, 146, 60, 0.15); border: 1px solid #fb923c; border-radius: 8px; padding: 1.5rem 1rem; width: 260px; text-align: center;">
     <p style="font-size: 1.2em !important; color: #fb923c; margin-bottom: 0.5rem; font-weight: bold;">Cloudflare Workers</p>
-    <p style="font-size: 1em !important; color: #ccc; margin: 0;">ルーティング</p>
+    <p style="font-size: 1em !important; color: #ccc; margin: 0;">{{ $t('slide17.cfDesc') }}</p>
   </div>
   <div style="background: rgba(96, 165, 250, 0.15); border: 1px solid #60a5fa; border-radius: 8px; padding: 1.5rem 1rem; width: 260px; text-align: center;">
     <p style="font-size: 1.2em !important; color: #60a5fa; margin-bottom: 0.5rem; font-weight: bold;">Durable Objects</p>
-    <p style="font-size: 1em !important; color: #ccc; margin: 0;">スライド同期<br/>コンテナ保存</p>
+    <p style="font-size: 1em !important; color: #ccc; margin: 0;">{{ $t('slide17.doDesc') }}</p>
   </div>
   <div style="background: rgba(74, 222, 128, 0.15); border: 1px solid #4ade80; border-radius: 8px; padding: 1.5rem 1rem; width: 260px; text-align: center;">
     <p style="font-size: 1.2em !important; color: #4ade80; margin-bottom: 0.5rem; font-weight: bold;">Sandbox SDK</p>
-    <p style="font-size: 1em !important; color: #ccc; margin: 0;">コンテナでの<br/>コマンド実行</p>
+    <p style="font-size: 1em !important; color: #ccc; margin: 0;">{{ $t('slide17.sandboxDesc') }}</p>
   </div>
 </div>
 
-<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem; white-space: nowrap;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> 現在はモックのため、Sandbox SDKを使用していません</p>
+<p style="position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); font-size: 0.85em !important; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 0.75rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.6rem; white-space: nowrap;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; border: 2px solid #fbbf24; border-radius: 50%; font-size: 0.9em; font-weight: bold;">!</span> {{ $t('slide17.note') }}</p>
 
 ---
 
-## Sandbox SDKとは
+<h2>{{ $t('slide18.title') }}</h2>
 
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 320px; text-align: center;">
 
-<p style="font-size: 1.8em !important; margin-bottom: 1rem;">Cloudflare上のSandbox環境</p>
-<p style="font-size: 1.5em !important; color: #ccc; margin-bottom: 2rem;">Dockerコンテナ内で<span style="border-bottom: 2px solid #4ade80;">任意コマンド</span>を実行できる</p>
+<p style="font-size: 1.8em !important; margin-bottom: 1rem;">{{ $t('slide18.body1') }}</p>
+<p style="font-size: 1.5em !important; color: #ccc; margin-bottom: 2rem;">{{ $t('slide18.body2') }}<span style="border-bottom: 2px solid #4ade80;">{{ $t('slide18.body3') }}</span>{{ $t('slide18.body4') }}</p>
 <a style="font-size: 1.1rem !important; color: #888;" href="https://sandbox.cloudflare.com/">https://sandbox.cloudflare.com/</a>
 
 </div>
@@ -290,9 +284,9 @@ Done is better than perfect.
 
 ---
 
-## 例
+<h2>{{ $t('slide19.title') }}</h2>
 
-DockerにあるPythonのバージョンを確認する
+{{ $t('slide19.body1') }}
 
 ```ts{4}
 app.post("/sandbox", async(c: Context, env: Env) => {
@@ -307,13 +301,13 @@ app.post("/sandbox", async(c: Context, env: Env) => {
 });
 
 ```
-任意コードを1行で実行できる
+{{ $t('slide19.body2') }}
 
 ---
 
-## 今回のデモだとこんな感じ
+<h2>{{ $t('slide20.title') }}</h2>
 
-ランダムID毎にコンテナを立ち上げる
+{{ $t('slide20.body1') }}
 
 ```ts{4}
 app.post("/sandbox/:slide", async(c: Context, env: Env) => {
@@ -328,9 +322,9 @@ app.post("/sandbox/:slide", async(c: Context, env: Env) => {
 
 ---
 
-## これによって
+<h2>{{ $t('slide21.title') }}</h2>
 
-アクセスしたユーザーごとにコンテナが立ち上がる！
+{{ $t('slide21.body1') }}
 
 <div class="flex justify-center items-center mt-6">
   <div class="flex items-center gap-6">
@@ -382,9 +376,9 @@ app.post("/sandbox/:slide", async(c: Context, env: Env) => {
 
 ---
 
-## 今回のデモだとこんな感じ
+<h2>{{ $t('slide22.title') }}</h2>
 
-GetリクエストでStream返却
+{{ $t('slide22.body1') }}
 
 ```ts{6-13}
 app.get("/sandbox/:slide/stream", async(c: Context) => {
@@ -406,20 +400,18 @@ app.get("/sandbox/:slide/stream", async(c: Context) => {
 
 ---
 
-## 苦労したこと
+<h2>{{ $t('slide23.title') }}</h2>
 
-<p style="font-size: 1.2em !important; margin-bottom: 1.5rem;">
-workersのカスタムドメイン<code>example.com</code>に対して<code>*.example.com/*</code>のRoute設定が必要
-</p>
+<p style="font-size: 1.2em !important; margin-bottom: 1.5rem;">{{ $t('slide23.body1') }}<code>example.com</code>{{ $t('slide23.body2') }}<code>*.example.com/*</code>{{ $t('slide23.body3') }}</p>
 
 <div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem;">
   <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid #94a3b8; border-radius: 8px; padding: 1.2rem 1.5rem; width: 380px;">
-    <p style="font-size: 1.1em !important; color: #94a3b8; margin-bottom: 0.5rem; font-weight: bold;">カスタムドメインが必要</p>
-    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">*.workers.devのサブドメイン不可</p>
+    <p style="font-size: 1.1em !important; color: #94a3b8; margin-bottom: 0.5rem; font-weight: bold;">{{ $t('slide23.card1Title') }}</p>
+    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">{{ $t('slide23.card1Desc') }}</p>
   </div>
   <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid #fbbf24; border-radius: 8px; padding: 1.2rem 1.5rem; width: 380px;">
-    <p style="font-size: 1.1em !important; color: #fbbf24; margin-bottom: 0.5rem; font-weight: bold;">サブドメインでやる場合</p>
-    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">「Advanced Certificate Manager」<br/>月額10ドル</p>
+    <p style="font-size: 1.1em !important; color: #fbbf24; margin-bottom: 0.5rem; font-weight: bold;">{{ $t('slide23.card2Title') }}</p>
+    <p style="font-size: 0.95em !important; color: #aaa; margin: 0;">{{ $t('slide23.card2Desc') }}</p>
   </div>
 </div>
 
@@ -437,4 +429,3 @@ Done is better than perfect.
 - GitHub: [ogadra](https://github.com/ogadra)
 
 <PoweredBySlidev mt-10 />
-
