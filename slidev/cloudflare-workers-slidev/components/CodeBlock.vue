@@ -60,7 +60,7 @@ const currentProcessId = ref<string | null>(null);
 const isExecuting = computed(() => executionStatus.value === ExecutionStatus.executing);
 
 const resultStatusText = computed(() => {
-  if (executionStatus.value === ExecutionStatus.executing) return '実行中...';
+  if (executionStatus.value === ExecutionStatus.executing) return 'Running...';
   if (executionStatus.value === ExecutionStatus.interrupted) return 'Interrupted';
   return `${executionResult.value?.success ? '✓' : '✗'} Exit: ${executionResult.value?.exitCode}`;
 });
@@ -164,14 +164,14 @@ const handleKill = async () => {
             class="execute-btn"
             @click.stop="handleExecute"
           >
-            ▶ 実行
+            ▶ {{ $t('codeBlock.execute') }}
           </button>
           <button
             v-if="props.lang === 'bash' && isExecuting"
             class="execute-btn stop-btn"
             @click.stop="handleKill"
           >
-            ⏹ 停止
+            ⏹ {{ $t('codeBlock.stop') }}
           </button>
           <span class="lang">{{ props.filename ?? props.lang }}</span>
         </div>

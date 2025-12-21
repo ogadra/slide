@@ -9,6 +9,8 @@ import {
 	getWsInstance,
 	setWsInstance,
 } from "./connectionState";
+import { detectLocaleFromBrowser } from "./detectLocaleFromBrowser";
+import { i18n, normalizeLocale, setLocale } from "./i18n";
 
 // パスから最初のセグメント（スライド名）を取得して /ws/[slide-name] 形式にする
 // 例: /cloudflare-workers-slidev/1 -> /ws/cloudflare-workers-slidev
@@ -81,7 +83,7 @@ const websocketSync: Sync = {
 	},
 };
 
-export default defineAppSetup(() => {
+export default defineAppSetup(({ app, router }) => {
 	addSyncMethod(websocketSync);
 
 	// スライド読み込み時にサンドボックスを起動
@@ -90,5 +92,44 @@ export default defineAppSetup(() => {
 		if (res?.url) {
 			setSandboxUrl(res.url);
 		}
+	});
+
+	// i18n設定
+	app.use(i18n);
+
+	const readQueryLocale = () =>
+		normalizeLocale(
+			(router.currentRoute.value.query as Record<string, unknown>).lang,
+		);
+	const readStoredLocale = () => normalizeLocale(localStorage.getItem("lang"));
+
+	const boot = () => {
+		const q = (router.currentRoute.value.query as Record<string, unknown>).lang;
+		const initial = q
+			? readQueryLocale()
+			: localStorage.getItem("lang")
+				? readStoredLocale()
+				: detectLocaleFromBrowser();
+		setLocale(initial);
+		localStorage.setItem("lang", initial);
+	};
+
+	boot();
+
+	router.afterEach(() => {
+		const q = (router.currentRoute.value.query as Record<string, unknown>).lang;
+		if (!q) return;
+		const next = readQueryLocale();
+		setLocale(next);
+		localStorage.setItem("lang", next);
+	});
+
+	window.addEventListener("languagechange", () => {
+		const q = (router.currentRoute.value.query as Record<string, unknown>).lang;
+		const hasStored = !!localStorage.getItem("lang");
+		if (q || hasStored) return;
+		const next = detectLocaleFromBrowser();
+		setLocale(next);
+		localStorage.setItem("lang", next);
 	});
 });
