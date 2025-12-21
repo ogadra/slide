@@ -60,7 +60,7 @@ const currentProcessId = ref<string | null>(null);
 const isExecuting = computed(() => executionStatus.value === ExecutionStatus.executing);
 
 const resultStatusText = computed(() => {
-  if (executionStatus.value === ExecutionStatus.executing) return 'Executing...';
+  if (executionStatus.value === ExecutionStatus.executing) return 'Running...';
   if (executionStatus.value === ExecutionStatus.interrupted) return 'Interrupted';
   return `${executionResult.value?.success ? '✓' : '✗'} Exit: ${executionResult.value?.exitCode}`;
 });

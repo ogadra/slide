@@ -124,75 +124,75 @@ const messages = {
 	},
 	en: {
 		title: {
-			main: "Creating Executable Slides",
-			withBreak: "Creating\nExecutable Slides",
+			main: "Building Executable Slides",
+			withBreak: "Building\nExecutable Slides",
 		},
 		slide2: {
 			title: "Why Do We Present?",
-			body1: "To share knowledge and experiences.",
+			body1: "To share what we've learned\n and what we've built.",
 		},
 		slide3: {
 			title: "Satisfied with just sharing knowledge?",
-			body1: "Talks that end with listening are \"forgotten\".\nWant people to actually \"get hands-on\".",
+			body1: "Talks that stop at listening get \"forgotten\".\nI want you to actually \"get hands-on\".",
 		},
 		slide4: {
 			title: "Is that even possible?",
-			body1: "Bring your PC -> Setup environment?",
-			body2: "LT is only 5 minutes.",
+			body1: "Bring your laptop... then setup the environment?",
+			body2: "Lightning talk is only 5 minutes.",
 		},
 		slide5: {
 			title: "So let's create \"executable\" slides.",
-			body1: "\"Embed\" a \"try it\" environment\nthat everyone can use right in the slides while presenting.",
+			body1: "\"Embed\" a \"try it now\" environment in the slides\n—so everyone can run it during the talk.",
 		},
 		slide6: {
 			body1: "Demo LT",
 		},
 		slide7: {
-			title: "5 minutes later,\nYou are now a Hono CLI user.",
+			title: "5 minutes later,\nYou've now used\nHono CLI.",
 		},
 		slide8: {
-			title: "Raise your hand if you've used Hono CLI!",
-			body1: "Today's goal is\nfor everyone to raise their hand.",
+			title: "Raise your hand if you've ever used Hono CLI!",
+			body1: "Today's goal: Everyone raises their hand by the end.",
 		},
 		slide9: {
 			title: "What is Hono CLI?",
-			alt: "Screenshot of Zenn article about Hono CLI 爆誕",
+			alt: "Screenshot of Zenn article \"Hono CLI 爆誕\"",
 		},
 		slide10: {
 			title: "What is Hono CLI?",
-			body1: "CLI for ",
+			body1: "A CLI for ",
 			human: "Humans",
 			and: " and ",
 			ai: "AI",
-			body2: "",
-			humanTask1: "Verify operation",
+			body2: ".",
+			humanTask1: "Verify it works",
 			humanTask2: "Optimize",
-			aiTask1: "Read documentation",
-			aiTask2: "Verify operation",
+			aiTask1: "Read the docs",
+			aiTask2: "Verify it works",
 		},
 		slide11: {
 			title: "Installing hono/cli",
-			body1: "You can install it with npm!",
+			body1: "Install it with npm.",
 		},
 		slide12: {
 			body1: "Source Code",
-			body2: "Execute command",
+			body2: "Run command",
 		},
 		slide13: {
 			body1: "Source Code",
-			body2: "Execute command",
-			body3: "Force kill command",
+			body2: "Run command",
+			body3: "Command to force-stop",
 		},
 		slide14: {
 			title: "Raise your hand if you've used Hono CLI!",
-			body1: "See? It's easy, right?",
+			body1: "See? Easy.",
 		},
 		slide16: {
 			title: "So",
-			body1: "I've created ",
+			body1: "I built ",
 			highlight: "\"Executable Slides\"",
 			body2: ".",
-			note: "The running commands are currently mocked.",
+			note: "Commands are mocked in this demo.",
 		},
 		slide17: {
 			title: "Tech Stack",
@@ -211,33 +211,33 @@ const messages = {
 		slide19: {
 			title: "Example",
 			body1: "Check Python version in Docker.",
-			body2: "Execute any code in one line.",
+			body2: "Execute any command in one line.",
 		},
 		slide20: {
 			title: "In this demo",
-			body1: "Start a container per random ID.",
+			body1: "Spin up a container per random ID.",
 		},
 		slide21: {
 			title: "With this",
-			body1: "A container is started for each user!",
+			body1: "Each visitor gets their own container.",
 		},
 		slide22: {
 			title: "In this demo",
-			body1: "Return Stream with GET request.",
+			body1: "Return a stream from a GET request.",
 		},
 		slide23: {
 			title: "Struggles",
-			body1: "For workers custom domain ",
-			body2: ", \n",
-			body3: " route settings required.",
+			body1: "Custom domain ",
+			body2: " requires\n",
+			body3: " route settings.",
 			card1Title: "Custom domain required",
-			card1Desc: "*.workers.dev subdomain not allowed.",
-			card2Title: "If using subdomain",
-			card2Desc: "\"Advanced Certificate Manager\"\n$10/month",
+			card1Desc: "You can't use a *.workers.dev subdomain.",
+			card2Title: "If you want to use a subdomain",
+			card2Desc: "\"Advanced Certificate Manager\"\n—$10/month",
 		},
 		codeBlock: {
-			execute: "execute",
-			stop: "stop"
+			execute: "Run",
+			stop: "Stop"
 		}
 	},
 };
