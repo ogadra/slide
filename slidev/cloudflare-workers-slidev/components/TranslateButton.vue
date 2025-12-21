@@ -13,8 +13,8 @@ const toggleLocale = () => {
 	localStorage.setItem("lang", next);
 };
 
-const displayText = computed(() =>
-	currentLocale.value === "ja" ? "日本語 → English" : "English → 日本語"
+const titleText = computed(() =>
+	currentLocale.value === "ja" ? "Switch to English" : "日本語に切り替え"
 );
 </script>
 
@@ -22,9 +22,9 @@ const displayText = computed(() =>
   <button
     class="translate-btn"
     @click="toggleLocale"
-    :title="currentLocale === 'ja' ? 'Switch to English' : '日本語に切り替え'"
+    :title="titleText"
   >
-    <span class="label">{{ displayText }}</span>
+    <span class="label">{{ titleText }}</span>
   </button>
 </template>
 
