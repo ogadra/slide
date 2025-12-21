@@ -117,6 +117,10 @@ const messages = {
 			card2Title: "サブドメインでやる場合",
 			card2Desc: "「Advanced Certificate Manager」\n月額10ドル",
 		},
+		codeBlock:{
+			execute: "実行",
+			stop: "停止",
+		},
 	},
 	en: {
 		title: {
@@ -231,6 +235,10 @@ const messages = {
 			card2Title: "If using subdomain",
 			card2Desc: "\"Advanced Certificate Manager\"\n$10/month",
 		},
+		codeBlock: {
+			execute: "execute",
+			stop: "stop"
+		}
 	},
 };
 
@@ -254,3 +262,4 @@ export const normalizeLocale = (
 export const setLocale = (locale: SupportedLocale): void => {
 	i18n.global.locale.value = locale;
 };
+
