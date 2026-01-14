@@ -1,8 +1,8 @@
 {
 	"name": "slide",
-	"preview_urls": true,
 	"main": "./home/server.ts",
 	"compatibility_date": "2024-08-21",
+	"preview_urls": false,
 	"workers_dev": false,
 	"assets": {
 		"directory": "./dist/",
@@ -69,7 +69,7 @@
 	"env": {
 		"dev": {
 			"preview_urls": false,
-			"workers_dev": true,
+			"workers_dev": false,
 			"vars": {
 				"ENVIRONMENT": "dev",
 			},
