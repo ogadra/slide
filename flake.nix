@@ -26,6 +26,37 @@
             google-chrome
           ];
 
+          # Playwright requires these libraries
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [
+            nspr
+            nss
+            atk
+            cups
+            libdrm
+            gtk3
+            pango
+            cairo
+            xorg.libX11
+            xorg.libXcomposite
+            xorg.libXdamage
+            xorg.libXext
+            xorg.libXfixes
+            xorg.libXrandr
+            xorg.libxcb
+            mesa
+            mesa.drivers
+            libgbm
+            libGL
+            expat
+            alsa-lib
+            at-spi2-atk
+            at-spi2-core
+            glib
+            dbus
+            libxkbcommon
+            systemd
+          ]);
+
           shellHook = ''
             echo "Slide development environment loaded"
             echo "Node.js: $(node --version)"
