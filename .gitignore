@@ -4,3 +4,4 @@ dist/*
 .wrangler
 home/dist/*
 .dev.vars
+.direnv
