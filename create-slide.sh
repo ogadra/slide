@@ -78,14 +78,12 @@ mdc: true
 canvasWidth: 960
 ---
 
-<style>
-.slidev-layout {
-  padding-top: 0 !important;
-}
-
-</style>
+<div style="height: 100px"/>
 
 # $SLIDE_NAME_JA
+
+<div style="height: 30px" />
+
 ## ogadra
 
 ---
@@ -94,13 +92,9 @@ image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb98590
 imageOrder: 2
 ---
 
-# ogadra
+## Thank you for listening!
 
-Motto: Done is better than perfect.
-
-Favorite languages: TypeScript, Go
-
----
+Done is better than perfect.
 
 - Twitter: [@const_myself](https://twitter.com/const_myself)
 - GitHub: [ogadra](https://github.com/ogadra)
@@ -153,40 +147,95 @@ html {
   font-size: 125%;
 }
 
+/* キーフレームアニメーション */
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
+}
+
+@keyframes shimmer-h2 {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
 h1 {
-  line-height: 1.0 !important;
-  padding-top: 0;
-  font-size: 2rem !important;
+  line-height: 1 !important;
+  font-size: 3.5rem !important;
+  background: linear-gradient(120deg, #007acc 0%, #00d4ff 97%, #007acc 100%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3.5s cubic-bezier(0, 0.8, 0.4, 1) infinite;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  white-space: pre-line;
 }
 
 h2 {
-  font-size: 3rem !important;
-  line-height: 1.25 !important;
-  font-size: 2.25rem !important;
-  padding-top: 1.5rem;
+  font-size: 1.75rem !important;
+  margin: 1.5rem 0 1rem !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 5px solid transparent;
+  background-image: linear-gradient(90deg,#4ec9b0 0%,#16825d 100%);
+  background-size: 100% 5px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  position: relative;
+  transition: all 0.3s ease;
+  color: #4ec9b0;
+  text-shadow: 0 0 8px rgba(78, 201, 176, 0.4);
 }
+
+
 
 h3 {
   opacity: 1 !important;
   font-size: 1.5rem !important;
-  line-height: 2 !important;
-  padding-top: 1rem !important;
+  line-height: 1.5 !important;
+  padding: 0.75rem 0 !important;
   margin-bottom: 1rem !important;
-  border-bottom: 3px solid #4299e1;
+  padding-left: 1rem !important;
+  border-left: 3px solid #4ec9b0;
+  color: #7dd3c0;
+  position: relative;
+}
+
+h3::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(180deg, #4ec9b0, #16825d);
+  border-radius: 2px;
 }
 
 p {
-  font-size: 1.25rem !important;
+  font-size: 1.4rem !important;
   line-height: 1.5 !important;
+  white-space: pre-line;
+}
+
+ol {
+  list-style-type: decimal !important;
+  padding-left: 2rem !important;
 }
 
 li {
   font-size: 1.4rem !important;
-  line-height: 2 !important;
-}
-
-code {
-  font-size: 1rem !important;
+  line-height: 1.75 !important;
 }
 
 .text-09675 * {
@@ -201,6 +250,109 @@ img {
   margin: 0 auto;
 }
 
+blockquote {
+  display: block;
+  position: relative;
+  font-style: italic;
+  color: #d1d5db;
+  border-left: 4px solid transparent;
+  background-image:
+    linear-gradient(135deg, rgba(78, 201, 176, 0.08), rgba(22, 130, 93, 0.05)),
+    linear-gradient(90deg, #10af8f, #16825d);
+  background-origin: border-box;
+  padding: 0.625rem 2rem !important;
+  margin: 1.1rem 0;
+  border-radius: 0 8px 8px 0;
+  box-shadow:
+    0 4px 16px rgba(78, 201, 176, 0.25),
+    0 0 30px rgba(78, 201, 176, 0.2);
+  transition: all 0.3s ease;
+}
+
+blockquote p {
+  font-size: 1.5rem !important;
+  line-height: 1.6 !important;
+  margin: 0;
+}
+
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: 0;
+  left: 0.5rem;
+  font-size: 4rem;
+  background: linear-gradient(225deg, #10af8f, #16825d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+  width: 2rem;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
+}
+
+blockquote::after {
+  content: '"';
+  position: absolute;
+  bottom: -1.5rem;
+  right: 0.5rem;
+  font-size: 4rem;
+  background: linear-gradient(45deg, #10af8f, #16825d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+  line-height: 1;
+  width: 2rem;
+  text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
+}
+
+/* コードブロックの装飾 */
+pre {
+  position: relative;
+  background: rgba(18, 18, 18, 1) !important;
+  border: 1px solid rgba(78, 201, 176, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+
+/* リストアイテムにアクセント */
+li {
+  font-size: 1.4rem !important;
+  line-height: 1.75 !important;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.slidev-layout {
+  padding-top: 0 !important;
+}
+
+/* 本文中央配置用スタイル */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 350px;
+}
+
+.center-content p {
+  font-size: 2.25rem !important;
+}
+
+.center-content ul,
+.center-content ol {
+  display: inline-block;
+  text-align: left;
+}
+
+.center-content li {
+  font-size: 2.25rem !important;
+}
 EOF
 
 # Create uno.config.ts
