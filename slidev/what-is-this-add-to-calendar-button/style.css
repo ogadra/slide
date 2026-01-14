@@ -183,6 +183,7 @@ li {
 
 .slidev-layout {
   padding-top: 0 !important;
+  height: 100% !important;
 }
 
 /* 本文中央配置用スタイル */
@@ -192,7 +193,8 @@ li {
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 350px;
+  height: 100%;
+  padding-top: 1.75rem;
 }
 
 .center-content p {
