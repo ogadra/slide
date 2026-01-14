@@ -93,14 +93,6 @@ li {
   line-height: 1.75 !important;
 }
 
-.text-09675 * {
-  font-size: 0.9675rem !important;
-}
-
-.text-094 * {
-  font-size: 0.94rem !important;
-}
-
 img {
   margin: 0 auto;
 }
@@ -172,6 +164,10 @@ pre {
   transition: all 0.3s ease;
 }
 
+pre code {
+  font-size: 1.1rem !important;
+}
+
 
 /* リストアイテムにアクセント */
 li {
@@ -209,4 +205,66 @@ li {
 
 .center-content li {
   font-size: 2.25rem !important;
+}
+
+/* headingありの場合の中央配置 */
+/* h2: font-size 1.75rem + margin-top 1.5rem + margin-bottom 1rem + padding-bottom 1rem = 5.25rem */
+/* margin-bottom 1rem分上に調整 */
+.center-content-with-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: calc(100% - 5.25rem);
+  margin-top: -1rem;
+}
+
+.center-content-with-heading p {
+  font-size: 2.25rem !important;
+}
+
+.center-content-with-heading ul,
+.center-content-with-heading ol {
+  display: inline-block;
+  text-align: left;
+}
+
+.center-content-with-heading li {
+  font-size: 2.25rem !important;
+}
+
+/* カレンダー追加ボタン */
+.calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: none !important;
+  color: #fff;
+  text-decoration: none !important;
+  font-size: 1.25rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.calendar-btn:hover {
+  color: #fff !important;
+}
+
+.calendar-btn-apple {
+  background: #050505;
+}
+
+.calendar-btn-apple:hover {
+  background: #222;
+}
+
+.calendar-btn-google {
+  background: #1a73e8;
+}
+
+.calendar-btn-google:hover {
+  background: #4285f4;
 }
