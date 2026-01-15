@@ -248,13 +248,12 @@ li {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
   height: calc(100% - 5.25rem);
   margin-top: -1rem;
 }
 
 .center-content-with-heading p {
-  font-size: 2.25rem !important;
+  font-size: 2rem !important;
 }
 
 .center-content-with-heading ul,
@@ -264,7 +263,7 @@ li {
 }
 
 .center-content-with-heading li {
-  font-size: 2.25rem !important;
+  font-size: 2rem !important;
 }
 
 /* カレンダー追加ボタン */

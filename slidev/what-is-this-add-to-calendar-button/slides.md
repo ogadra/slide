@@ -59,7 +59,41 @@ fonts:
 
 ---
 
-## **Mokuroku** - 登壇予定照会サービス
+<div class="center-content">
+
+<p style="font-size: 6.75rem !important; font-weight: bold;">どうやって？</p>
+
+</div>
+
+---
+
+## これ皆さん登録してますか？
+
+<div class="center-content-with-heading">
+
+<img src="/imgs/connpass_ical_connect.png" alt="connpassの利用設定ページ。「Googleカレンダーと連携する」ボタンが見える。" class="w-120" style="margin-top: 1rem;" />
+
+<div style="margin-top: 0.25rem;">
+  <a href="https://connpass.com/settings" target="_blank" style="color: #4ec9b0;">
+    https://connpass.com/settings
+  </a>
+</div>
+
+
+</div>
+
+
+---
+
+<div class="center-content">
+
+<p style="font-size: 5rem !important; font-weight: bold;">同じボタンを作る</p>
+
+</div>
+
+---
+
+## **Mokuroku** - おがどらの登壇予定照会サービス
 
 <div class="center-content-with-heading">
 
@@ -117,15 +151,15 @@ fonts:
 
 <div class="center-content-with-heading">
 
-RFC 5545 で定められた URI スキーム
+カレンダーの購読を目的としたURIスキーム
 
-カレンダーの購読に使用する
+データ形式はRFC 5545 で定められている
 
 </div>
 
 ---
 
-## What is RFC 5545 ?
+## RFC 5545 とはなにか？
 
 <div class="center-content-with-heading">
 
@@ -138,9 +172,9 @@ Internet Calendaring and Scheduling Core Object Specification
 
 ---
 
-## webcal:// で取得できる情報例
+## RFC 5545 に則ったデータ例
 
-```text
+```text {*|1,11|4|5,10|6-9}
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Yokohama-North//connpass Schedule//EN
