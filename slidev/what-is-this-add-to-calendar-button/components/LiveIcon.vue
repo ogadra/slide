@@ -31,7 +31,7 @@ const changeConnectionStatus = () => {
   <div class="fixed top-4 right-4 z-50">
     <button
       @click="changeConnectionStatus"
-      class="relative flex items-center w-20 h-8 px-2 rounded-full transition-colors duration-300"
+      class="relative flex items-center w-24 h-8 px-2 rounded-full transition-colors duration-300"
       :class="{
         'bg-red-600 shadow-lg shadow-red-500/50': connectionStatus === ConnectionStatusEnum.Connected,
         'bg-yellow-600 shadow-lg shadow-yellow-500/50': connectionStatus === ConnectionStatusEnum.Connecting,
