@@ -299,7 +299,7 @@ RFC 5545 で定義されている予定の状態
 
 <div class="center-content-with-heading">
 
-- **webcal://** で始まるURLスキーマ
+- **webcal://** で始まるURIスキーマ
   - iCalendar形式の文字列を返却する
 - 形式は **RFC 5545** で標準化
   - アプリによって実装はまちまち
