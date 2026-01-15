@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/01/15"
+					eventLink="https://yokohama-north.connpass.com/event/377972/"
+					eventTitle="Yokohama North Meetup #12「LT新年会2026」"
+					slide={[
+						{
+							link: "./what-is-this-add-to-calendar-button",
+							title: "「カレンダーに追加」ボタンって何者？",
+						},
+					]}
+				/>
+
+				<Section
 					date="2025/12/10"
 					eventLink="https://cfm-cts.connpass.com/event/374413/"
 					eventTitle="Cloudflare Meet-up Tokyo Vol.9"

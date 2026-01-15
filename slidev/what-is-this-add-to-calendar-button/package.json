@@ -1,0 +1,15 @@
+{
+  "name": "what-is-this-add-to-calendar-button",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/what-is-this-add-to-calendar-button",
+    "build:slidev": "slidev build --base /what-is-this-add-to-calendar-button/ --out ../../dist/what-is-this-add-to-calendar-button",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
