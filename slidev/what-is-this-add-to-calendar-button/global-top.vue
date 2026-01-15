@@ -1,3 +1,3 @@
 <template>
-  <LiveIcon />
+  <!--<LiveIcon />-->
 </template>
