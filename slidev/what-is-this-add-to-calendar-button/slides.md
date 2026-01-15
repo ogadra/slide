@@ -127,10 +127,14 @@ RFC 5545 で定められた URI スキーム
 
 ## What is RFC 5545 ?
 
+<div class="center-content-with-heading">
+
 Internet Calendaring and Scheduling Core Object Specification
 
 - 2009年に策定
 - カレンダーデータの交換形式を定義
+
+</div>
 
 ---
 
@@ -181,6 +185,16 @@ END:VCALENDAR
 
 ---
 
+## 面白いプロパティを発見
+
+<div class="center-content-with-heading">
+
+**STATUS**
+
+</div>
+
+---
+
 ## STATUS プロパティ
 
 <div class="center-content-with-heading">
@@ -195,15 +209,50 @@ RFC 5545 で定義されている予定の状態
 
 ---
 
-## まとめ
+## AppleとGoogleカレンダーで表示が異なる！
 
-- 「カレンダーに追加」= **webcal:// + .ics**
-- .ics は **RFC 5545** で標準化されている
-- でも **STATUS は無視される**
-
-**仕様と実装は別物**
+<div style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start; margin-top: 1rem;">
+  <div style="display: flex; gap: 2rem;">
+    <div style="text-align: center;">
+      <img src="/imgs/apple_calendar_cancelled_event.png" alt="Apple Calendarのスクリーンショット。イベント「キャンセルイベント3」に取り消し線が付けられている。" style="height: 350px;" />
+      <p style="font-size: 1rem !important; margin-top: 0.5rem;">Apple Calendar</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="/imgs/google_calendar_cancelled_event.png" alt="Google Calendarのスクリーンショット。イベント「キャンセルイベント3」に取り消し線が付けられていない。" style="height: 350px;" />
+      <p style="font-size: 1rem !important; margin-top: 0.5rem;">Google Calendar</p>
+    </div>
+  </div>
+  <div style="text-align: left; font-size: 1.2rem !important; max-width: 280px; padding-top: 1rem;">
+    <p style="font-size: 1.2rem !important; line-height: 1.6 !important;">Apple Calendarは <code>STATUS:CANCELLED</code> のイベントに取り消し線を表示しており、キャンセルであることが明示的になっているが、Google Calendarでは表示されていない。</p>
+  </div>
+</div>
 
 ---
+
+## STATUSの実態
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100% - 5.25rem); margin-top: -1rem;">
+
+- `TENTATIVE` と `CONFIRMED` は表示上の違いなし
+- Apple Calendarは `CANCELLED` を表示できる
+  - 自分で作成した予定でもキャンセル操作は不可
+
+  -> 表示専用
+
+</div>
+
+---
+
+## 「カレンダーに追加」ボタンとは
+
+<div class="center-content-with-heading">
+
+- **webcal://** で始まるURLスキーマ
+  - iCalendar形式の文字列を返却する
+- 形式は **RFC 5545** で標準化
+  - アプリによって実装はまちまち
+
+</div>
 
 ---
 layout: image-x
