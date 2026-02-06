@@ -22,7 +22,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.3.11",
     "@cloudflare/sandbox": "^0.6.7",
-    "@cloudflare/workers-types": "^4.20260118.0",
+    "@cloudflare/workers-types": "^4.20260131.0",
     "typescript": "^5.8.3"
   }
 }
