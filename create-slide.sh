@@ -38,14 +38,14 @@ if [ -d "$SLIDE_DIR" ]; then
 fi
 
 # Create directory structure
-echo -e "${GREEN}Creating slide directory: $SLIDE_DIR${NC}"
+echo -e "${GREEN}Creating slide...${NC}"
 mkdir -p "$SLIDE_DIR"
 mkdir -p "$SLIDE_DIR/components"
 mkdir -p "$SLIDE_DIR/slides-export"
 mkdir -p "$SLIDE_DIR/imgs"
+mkdir -p "$SLIDE_DIR/setup"
 
 # Create package.json
-echo -e "${GREEN}Creating package.json...${NC}"
 cat > "$SLIDE_DIR/package.json" <<EOF
 {
   "name": "$SLIDE_NAME_EN",
@@ -65,7 +65,6 @@ cat > "$SLIDE_DIR/package.json" <<EOF
 EOF
 
 # Create slides.md
-echo -e "${GREEN}Creating slides.md...${NC}"
 cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
@@ -123,7 +122,6 @@ Done is better than perfect.
 EOF
 
 # Create components/Footer.vue
-echo -e "${GREEN}Creating components/Footer.vue...${NC}"
 cat > "$SLIDE_DIR/components/Footer.vue" <<EOF
 <style scoped>
 div {
@@ -152,15 +150,125 @@ div {
 EOF
 
 # Create global-bottom.vue
-echo -e "${GREEN}Creating global-bottom.vue...${NC}"
 cat > "$SLIDE_DIR/global-bottom.vue" <<'EOF'
 <template>
   <Footer />
 </template>
 EOF
 
+# Create global-top.vue
+cat > "$SLIDE_DIR/global-top.vue" <<'EOF'
+<template>
+  <LiveIcon />
+</template>
+EOF
+
+# Create setup/connectionState.ts
+cat > "$SLIDE_DIR/setup/connectionState.ts" <<'EOF'
+import { ref } from "vue";
+
+export const ConnectionStatusEnum = {
+	Connected: "Connected",
+	Connecting: "Connecting",
+	Disconnected: "Disconnected",
+};
+
+export const connectionStatus = ref<ConnectionState>(
+	ConnectionStatusEnum.Connecting,
+);
+
+type ConnectionState =
+	(typeof ConnectionStatusEnum)[keyof typeof ConnectionStatusEnum];
+
+// WebSocketインスタンスへの参照
+let wsInstance: WebSocket | null = null;
+
+export const setWsInstance = (ws: WebSocket | null) => {
+	wsInstance = ws;
+};
+
+export const getWsInstance = () => wsInstance;
+
+export const changeConnectionState = (newState: ConnectionState) => {
+	connectionStatus.value = newState;
+};
+EOF
+
+# Create components/LiveIcon.vue
+cat > "$SLIDE_DIR/components/LiveIcon.vue" <<'EOF'
+<script setup lang="ts">
+import {
+  ConnectionStatusEnum,
+  changeConnectionState,
+  connectionStatus,
+  getWsInstance,
+} from '../setup/connectionState';
+
+const changeConnectionStatus = () => {
+  switch (connectionStatus.value) {
+    case ConnectionStatusEnum.Connected:
+    case ConnectionStatusEnum.Connecting:
+      changeConnectionState(ConnectionStatusEnum.Disconnected);
+      break;
+
+    case ConnectionStatusEnum.Disconnected: {
+      const ws = getWsInstance();
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        changeConnectionState(ConnectionStatusEnum.Connected);
+      } else {
+        changeConnectionState(ConnectionStatusEnum.Connecting);
+      }
+      break;
+    }
+  }
+};
+
+</script>
+
+<template>
+  <div class="fixed top-4 right-4 z-50">
+    <button
+      @click="changeConnectionStatus"
+      class="relative flex items-center w-24 h-8 px-2 rounded-full transition-colors duration-300"
+      :class="{
+        'bg-red-600 shadow-lg shadow-red-500/50': connectionStatus === ConnectionStatusEnum.Connected,
+        'bg-yellow-600 shadow-lg shadow-yellow-500/50': connectionStatus === ConnectionStatusEnum.Connecting,
+        'bg-gray-700 hover:bg-gray-600': connectionStatus === ConnectionStatusEnum.Disconnected
+      }"
+    >
+      <span
+        class="absolute w-3 h-3 rounded-full transition-all duration-300 ease-in-out"
+        :class="{
+          'bg-white animate-pulse left-[calc(100%-1rem)]': connectionStatus === ConnectionStatusEnum.Connected,
+          'bg-yellow-200 animate-ping left-1/2 -translate-x-1/2': connectionStatus === ConnectionStatusEnum.Connecting,
+          'bg-gray-500 left-2': connectionStatus === ConnectionStatusEnum.Disconnected
+        }"
+      />
+      <span
+        class="w-full text-center text-xs font-semibold uppercase tracking-wide"
+        :class="{
+          'text-white': connectionStatus === ConnectionStatusEnum.Connected || connectionStatus === ConnectionStatusEnum.Connecting,
+          'text-gray-300': connectionStatus === ConnectionStatusEnum.Disconnected
+        }"
+      >
+        <template v-if="connectionStatus === ConnectionStatusEnum.Connected">Live</template>
+        <template v-else-if="connectionStatus === ConnectionStatusEnum.Connecting"><span class="text-[11.5px]">Connecting</span></template>
+        <template v-else>Off</template>
+      </span>
+    </button>
+  </div>
+</template>
+
+<style scoped>
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+</style>
+EOF
+
 # Create style.css
-echo -e "${GREEN}Creating style.css...${NC}"
 cat > "$SLIDE_DIR/style.css" <<'EOF'
 html {
   font-size: 125%;
@@ -375,7 +483,6 @@ li {
 EOF
 
 # Create uno.config.ts
-echo -e "${GREEN}Creating uno.config.ts...${NC}"
 cat > "$SLIDE_DIR/uno.config.ts" <<'EOF'
 import { resolve } from 'path'
 import { defineConfig } from 'vite-plugin-windicss'
@@ -405,6 +512,9 @@ export default defineConfig({
   },
 })
 EOF
+
+# Create qr.png (empty)
+touch "$SLIDE_DIR/imgs/qr.png"
 
 # Install dependencies
 echo -e "${GREEN}Installing dependencies...${NC}"
