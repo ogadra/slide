@@ -1,0 +1,15 @@
+{
+  "name": "lambda-as-an-ecs-alternative",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "npm run build:slidev && npm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/lambda-as-an-ecs-alternative",
+    "build:slidev": "slidev build --base /lambda-as-an-ecs-alternative/ --out ../../dist/lambda-as-an-ecs-alternative",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
