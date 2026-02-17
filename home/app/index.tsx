@@ -48,6 +48,16 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/02/18"
+					slide={[
+						{
+							link: "./lambda-as-an-ecs-alternative",
+							title: "LambdaをECSと思い込む技術",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/01/15"
 					eventLink="https://yokohama-north.connpass.com/event/377972/"
 					eventTitle="Yokohama North Meetup #12「LT新年会2026」"

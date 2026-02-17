@@ -8,7 +8,7 @@ class HeadHandler {
     this.title = title;
   }
 
-  element(element:any) {
+  element(element: any) {
     element.append(
       `  <meta property="og:image" content="${this.content}" />\n`,
       { html: true }
@@ -23,7 +23,7 @@ class HeadHandler {
       `  <meta property="twitter:image" content="${this.content}" />\n`,
       { html: true }
     )
-    
+
     element.append(
       `  <meta property="og:title" content="${this.title}" />\n`,
       { html: true }
@@ -37,7 +37,7 @@ class HeadHandler {
       { html: true }
     )
   }
-  text(text:any) {
+  text(text: any) {
     const regex = / - Slidev$/;
     if (regex.test(text.text)) {
       const title = text.text.replace(regex, "");
