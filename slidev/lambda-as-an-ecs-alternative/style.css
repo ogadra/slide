@@ -172,6 +172,9 @@ pre {
   transition: all 0.3s ease;
 }
 
+pre code {
+  font-size: 0.625rem !important;
+}
 
 /* リストアイテムにアクセント */
 li {
