@@ -364,13 +364,21 @@ pre code {
 
 ---
 
-## 3. VPC内に作成してEIPをアタッチする
+## まとめ
 
 <div class="center-content">
 
-NAT Gateway / NAT Instanceよりお安く済みます！
+1. **aws-lambda-adapter**でコンテナをそのまま動かす
+2. **Terraform**でECSと同じように管理する
+3. **EIP**をアタッチして外部通信を確保する
 
 </div>
+
+<style>
+li {
+  font-size: 1.8rem !important;
+}
+</style>
 
 ---
 layout: image-x
