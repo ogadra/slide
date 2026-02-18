@@ -278,6 +278,18 @@ pre code {
 
 <div class="center-content">
 
+VPC LambdaにはパブリックIPが割り当てられない
+
+-> そのままではインターネットへ出られない
+
+</div>
+
+---
+
+## 3. VPC内に作成してEIPをアタッチする
+
+<div class="center-content">
+
 VPC Lambdaが外部通信するためには
 
 NAT Gateway / NAT Instanceが必要だと
@@ -312,17 +324,31 @@ p {
 
 <div class="center-content">
 
-ECSタスクにPublic IPを割り当てる代替手段
+LambdaのENIにEIPをアタッチすれば外部通信できる
 
-裏技的なハックだが、コストを抑えつつ外部ネットワークと通信できるようになる
+裏技的だが、NAT Gateway / NAT Instanceより安い
 
 </div>
+
+<style>
+p {
+  font-size: 1.7rem !important;
+}
+</style>
 
 ---
 
 ## 3. VPC内に作成してEIPをアタッチする
 
-AWSコマンドでアタッチできます
+EIPをTerraformで定義する
+
+```terraform
+resource "aws_eip" "lambda" {
+  domain = "vpc"
+}
+```
+
+ENIへのアタッチは`local_exec`等でAWS CLIを実行する
 
 ```shell
 aws ec2 associate-address \
@@ -330,12 +356,9 @@ aws ec2 associate-address \
   --network-interface-id eni-xxxxxxxxxxxxxxxxx
 ```
 
-IaC化は`null_resource`等でよしなに。
-
-
 <style>
 pre code {
-  font-size: 1.4rem !important;
+  font-size: 1rem !important;
 }
 </style>
 
