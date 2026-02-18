@@ -10,18 +10,17 @@ mdc: true
 canvasWidth: 960
 ---
 
-<div style="height: 100px"/>
-
 # LambdaをECSと思い込む技術
 
-<div style="height: 30px" />
+<div style="height: 1rem" />
 
 ## ogadra
 
 ---
 
-<div style="position: absolute; top: 50%; left: 30%; transform: translate(-50%, -50%);">
-  <img src="/imgs/qr.png" alt="このスライドのQRコード" style="width: 350px;" />
+<div style="position: absolute; top: 50%; left: 25%; transform: translate(-50%, -50%); text-align: center;">
+  <img src="./imgs/qr.png" alt="このスライドのQRコード" style="width: 300px;" />
+  <p style="font-size: 1rem !important; color: #4ec9b0; margin-top: 0.5rem;">slide.ogadra.com</p>
 </div>
 
 <div style="position: absolute; top: 50%; right: 5%; transform: translateY(-50%); text-align: center;">
@@ -58,17 +57,32 @@ canvasWidth: 960
 
 ## 思い込む方法
 
+<div class="center-content">
+
 1. aws-lambda-adapterを使う
 2. Terraformで管理する
 3. Elastic IPをアタッチする
 
+</div>
+
+<style>
+li {
+  font-size: 2.5rem !important;
+}
+</style>
 ---
 
 ## 1. aws-lambda-adapterを使う
 
-コンテナイメージをほとんどそのままLambdaにデプロイできる
+<div class="center-content">
+
+コンテナイメージを
+
+ほとんどそのままLambdaにデプロイできる
 
 開発環境とのDockerfile差分は1行だけ
+
+</div>
 
 ---
 
@@ -93,9 +107,18 @@ COPY --from=builder /build/.next/standalone ./
 CMD ["node", "server.js"]
 ```
 
+<style>
+pre code {
+  font-size: 0.63rem !important;
+  line-height: 1.5 !important;
+}
+</style>
+
 ---
 
 ## 1. aws-lambda-adapter
+
+<div class="center-content">
 
 Lambda特有のイベントを変換 -> アプリをそのまま動かせる
 
@@ -103,9 +126,19 @@ Lambda特有のイベントを変換 -> アプリをそのまま動かせる
 
 <small>https://aws.amazon.com/jp/builders-flash/202301/lambda-web-adapter</small>
 
+</div>
+
+<style>
+p {
+  font-size: 1.5rem !important;
+}
+</style>
+
 ---
 
 ## IaCツール、何使う？
+
+<div class="center-content">
 
 1. AWS SAM
 2. Terraform ( + Lambroll)
@@ -113,15 +146,27 @@ Lambda特有のイベントを変換 -> アプリをそのまま動かせる
 4. その他
 5. IaC化？なにそれ？美味しいの？
 
+</div>
+
+<style>
+li {
+  font-size: 2rem !important;
+}
+</style>
+
 ---
 
 ## 2. Terraformで作成する
 
+<div class="center-content">
+
 Terraformをおすすめする理由
 
 - 既存リソースのImportがしやすい
-- コンテナイメージを変更しない、インフラのみの変更が手軽
+- インフラのみの変更が手軽
 - ECSはTerraformで管理しているでしょ？
+
+</div>
 
 ---
 
@@ -151,10 +196,29 @@ pre code {
 Terraformの場合以下の方法があります
 
 - lambrollを使う
+  
   - ecspresso代替
 - `null_resource`を活用する
 
-（他にあったら教えてください！）
+
+<small>（他にあったら教えてください！）</small>
+
+<style>
+li {
+  font-size: 2rem !important;
+  line-height: 1 !important;
+}
+li li {
+  font-size: 2rem !important;
+  line-height: 1 !important;
+}
+p {
+  font-size: 2rem !important;
+}
+small {
+  font-size: 1.2rem !important;
+}
+</style>
 
 ---
 
@@ -183,22 +247,34 @@ resource "null_resource" "deploy" {
 
 <style>
 pre code {
-  font-size: 0.675rem !important;
+  font-size: 0.6rem !important;
+  line-height: 1.5 !important;
 }
 </style>
-
 
 ---
 
 ## 2. Terraformで作成する
 
+<div class="center-content">
+
 - インフラのみの変更のとき、Dockerコンテナをビルドしない
   - SAMだと常にビルドされる
 - モノレポでインフラとアプリを管理したいならnull_resourceがおすすめ
 
+</div>
+
+<style>
+.center-content li {
+  font-size: 1.22rem !important;
+}
+</style>
+
 ---
 
 ## 3. VPC内に作成してEIPをアタッチする
+
+<div class="center-content">
 
 VPC Lambdaが外部通信するためには
 
@@ -206,23 +282,39 @@ NAT Gateway / NAT Instanceが必要だと
 
 思い込んでいませんか？
 
+</div>
+
 ---
 
 ## 3. VPC内に作成してEIPをアタッチする
+
+<div class="center-content">
 
 ECSだったら「パブリックIP」をオンにすればよいですよね？
 
-<img src="./imgs/ecs-public-ip.png" alt="ECSの設定画面。パブリックIPの設定項目があることを強調している。" width="400px">
+<img src="./imgs/ecs-public-ip.png" alt="ECSの設定画面。パブリックIPの設定項目があることを強調している。" width="350px">
 
 それと同じことがLambdaで出来ます
+
+</div>
+
+<style>
+p {
+  font-size: 1.4rem !important;
+}
+</style>
 
 ---
 
 ## 3. VPC内に作成してEIPをアタッチする
+
+<div class="center-content">
 
 ECSタスクにPublic IPを割り当てる代替手段
 
 裏技的なハックだが、コストを抑えつつ外部ネットワークと通信できるようになる
+
+</div>
 
 ---
 
@@ -249,7 +341,11 @@ pre code {
 
 ## 3. VPC内に作成してEIPをアタッチする
 
+<div class="center-content">
+
 NAT Gateway / NAT Instanceよりお安く済みます！
+
+</div>
 
 ---
 layout: image-x

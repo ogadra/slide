@@ -170,10 +170,11 @@ pre {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  overflow-x: auto;
 }
 
 pre code {
-  font-size: 0.625rem !important;
+  font-size: 0.85rem !important;
 }
 
 /* リストアイテムにアクセント */
@@ -199,7 +200,7 @@ li {
 }
 
 .center-content p {
-  font-size: 2.25rem !important;
+  font-size: 1.75rem !important;
 }
 
 .center-content ul,
@@ -209,5 +210,41 @@ li {
 }
 
 .center-content li {
-  font-size: 2.25rem !important;
+  font-size: 1.75rem !important;
+}
+
+/* タイトルスライド - 垂直中央に寄せる */
+.slidev-layout.cover {
+  place-content: center;
+  padding-top: 1.5rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.title-slide h1 {
+  margin-bottom: 1.5rem !important;
+}
+
+.title-slide h2 {
+  font-size: 1.5rem !important;
+  background-image: none;
+  padding-bottom: 0.5rem !important;
+  border-bottom: 3px solid #4ec9b0;
+  display: inline-block;
+}
+
+/* 出典リンク */
+small {
+  display: block;
+  font-size: 0.75rem !important;
+  color: #888;
+  margin-top: 0.25rem;
+}
+
+small a {
+  color: #6bb8a8;
+  text-decoration: none;
+}
+
+small a:hover {
+  text-decoration: underline;
 }
