@@ -160,7 +160,9 @@ li {
 
 <div class="center-content">
 
-Terraformをおすすめする理由
+<span style="font-size: 2.5rem;">
+  Terraformをおすすめする理由
+</span>
 
 - 既存リソースのImportがしやすい
 - インフラのみの変更が手軽
@@ -258,15 +260,15 @@ pre code {
 
 <div class="center-content">
 
-- インフラのみの変更のとき、Dockerコンテナをビルドしない
+- インフラ変更時、コンテナをビルドしない
   - SAMだと常にビルドされる
-- モノレポでインフラとアプリを管理したいならnull_resourceがおすすめ
+- モノレポ管理なら`null_resource`がおすすめ
 
 </div>
 
 <style>
 .center-content li {
-  font-size: 1.22rem !important;
+  font-size: 1.5rem !important;
 }
 </style>
 
