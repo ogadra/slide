@@ -17,7 +17,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.23.1",
+    "@cloudflare/vite-plugin": "^1.25.2",
     "@slidev/cli": "^52.11.5",
     "@slidev/client": "^52.11.5",
     "playwright-chromium": "^1.58.2",
