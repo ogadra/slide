@@ -3,6 +3,8 @@ import { rewriter, HeadHandler } from "./htmlRewriter";
 
 const titles = (path: string): string => {
   switch (path) {
+    case "lambda-as-an-ecs-alternative":
+      return "LambdaをECSと思い込む技術";
     case "cloudflare-fullstack-application":
       return "CloudflareだけでWebアプリを作成してみた";
     case "ja-using-conform-in-remix":
