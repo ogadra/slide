@@ -18,25 +18,6 @@ canvasWidth: 960
 
 ---
 
-<div style="position: absolute; top: 50%; left: 25%; transform: translate(-50%, -50%); text-align: center;">
-  <img src="./imgs/qr.png" alt="このスライドのQRコード" style="width: 300px;" />
-  <p style="font-size: 1rem !important; color: #4ec9b0; margin-top: 0.5rem;">slide.ogadra.com</p>
-</div>
-
-<div style="position: absolute; top: 50%; right: 5%; transform: translateY(-50%); text-align: center;">
-  <p style="font-size: 1.75rem !important; color: #ff6b6b; font-weight: bold;">写真撮影はご遠慮ください</p>
-  <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #aaa;">発表者は顔出しNGのため</p>
-</div>
-
-<div style="position: absolute; right: 4rem; top: 3rem;">
-  <div style="display: flex; flex-direction: column; align-items: flex-end;">
-    <span style="font-size: 1.5rem; transform: rotate(-45deg); margin-bottom: 0.25rem;">→</span>
-    <span style="font-size: 0.9rem; color: #4ec9b0;">タップでスライド同期をオフにできます</span>
-  </div>
-</div>
-
----
-
 ## ECS高い！Lambda使う！
 
 作成したアプリケーション
@@ -70,6 +51,14 @@ li {
   font-size: 2.5rem !important;
 }
 </style>
+
+---
+
+<div class="section-divider">
+  <span class="section-number gradient-1">1</span>
+  <span class="section-title">aws-lambda-adapterを使う</span>
+</div>
+
 ---
 
 ## 1. aws-lambda-adapterを使う
@@ -136,7 +125,14 @@ p {
 
 ---
 
-## IaCツール、何使う？
+<div class="section-divider">
+  <span class="section-number gradient-2">2</span>
+  <span class="section-title">Terraformで管理する</span>
+</div>
+
+---
+
+## IaCツール、何使ってる？
 
 <div class="center-content">
 
@@ -160,7 +156,7 @@ li {
 
 <div class="center-content">
 
-<span style="font-size: 2.5rem;">
+<span style="font-size: 2.5rem; margin-bottom: 3rem;">
   Terraformをおすすめする理由
 </span>
 
@@ -174,22 +170,11 @@ li {
 
 ## 2. Terraformで作成する
 
+<div class="center-content">
+
 Dockerイメージを管理/更新できるんですか…？
 
-CDKの場合以下
-
-```ts
-new DockerImageFunction(this, 'App', {
-  // Dockerfileがあるディレクトリ
-  code: DockerImageCode.fromImageAsset('./app'),
-});
-```
-
-<style>
-pre code {
-  font-size: 1.35rem !important;
-}
-</style>
+</div>
 
 ---
 
@@ -198,7 +183,7 @@ pre code {
 Terraformの場合以下の方法があります
 
 - lambrollを使う
-  
+
   - ecspresso代替
 - `null_resource`を活用する
 
@@ -219,6 +204,29 @@ p {
 }
 small {
   font-size: 1.2rem !important;
+}
+</style>
+
+---
+
+## 2. Terraformで作成する
+
+CDKの場合
+
+```ts
+new DockerImageFunction(this, 'App', {
+  // Dockerfileがあるディレクトリ
+  code: DockerImageCode.fromImageAsset('./app'),
+});
+```
+
+<style>
+
+p {
+  font-size: 2rem !important;
+}
+pre code {
+  font-size: 1.35rem !important;
 }
 </style>
 
@@ -271,6 +279,13 @@ pre code {
   font-size: 1.5rem !important;
 }
 </style>
+
+---
+
+<div class="section-divider">
+  <span class="section-number gradient-3">3</span>
+  <span class="section-title">VPC内に作成してEIPをアタッチする</span>
+</div>
 
 ---
 
@@ -381,6 +396,17 @@ li {
 </style>
 
 ---
+
+## 当日の登壇ページについて
+
+全てAWSリソースで作成していました。
+
+Lambdaは5つ使ってます！探してみてね
+
+https://github.com/ogadra/20260220-lambda-demo
+
+
+---
 layout: image-x
 image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
 imageOrder: 2
@@ -394,4 +420,3 @@ Done is better than perfect.
 - GitHub: [ogadra](https://github.com/ogadra)
 
 <PoweredBySlidev mt-10 />
-

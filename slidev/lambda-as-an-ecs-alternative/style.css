@@ -2,23 +2,7 @@ html {
   font-size: 125%;
 }
 
-/* キーフレームアニメーション */
 @keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
-}
-
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 400% 50%; }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
-}
-
-@keyframes shimmer-h2 {
   0% { background-position: 100% 0; }
   100% { background-position: -100% 0; }
 }
@@ -91,14 +75,6 @@ ol {
 li {
   font-size: 1.4rem !important;
   line-height: 1.75 !important;
-}
-
-.text-09675 * {
-  font-size: 0.9675rem !important;
-}
-
-.text-094 * {
-  font-size: 0.94rem !important;
 }
 
 img {
@@ -220,16 +196,46 @@ li {
   padding-bottom: 3rem !important;
 }
 
-.title-slide h1 {
-  margin-bottom: 1.5rem !important;
+/* セクション区切りスライド */
+.section-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  padding-top: 4.5rem;
 }
 
-.title-slide h2 {
-  font-size: 1.5rem !important;
-  background-image: none;
-  padding-bottom: 0.5rem !important;
-  border-bottom: 3px solid #4ec9b0;
-  display: inline-block;
+.section-divider .section-number {
+  font-size: 8rem;
+  font-weight: 900;
+  line-height: 1.1;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.section-divider .gradient-1 {
+  background-image: linear-gradient(135deg, #ff6b6b, #feca57) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.section-divider .gradient-2 {
+  background-image: linear-gradient(135deg, #48dbfb, #0abde3) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.section-divider .gradient-3 {
+  background-image: linear-gradient(135deg, #ff9ff3, #f368e0) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.section-divider .section-title {
+  font-size: 2.49rem;
+  font-weight: bold;
+  color: #4ec9b0;
+  margin-top: 3rem;
 }
 
 /* 出典リンク */
