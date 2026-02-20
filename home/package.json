@@ -16,7 +16,7 @@
   "dependencies": {
     "@hono/vite-dev-server": "^0.24.1",
     "bcrypt-ts": "^8.0.1",
-    "hono": "^4.11.3",
+    "hono": "^4.12.0",
     "nanoid": "^5.1.6"
   },
   "devDependencies": {
