@@ -343,6 +343,8 @@ LambdaのENIにEIPをアタッチすれば外部通信できる
 
 裏技的だが、NAT Gateway / NAT Instanceより安い
 
+※ 裏技なので自己責任でお願いします
+
 </div>
 
 <style>
