@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@hono/vite-dev-server": "^0.24.1",
+    "@hono/vite-dev-server": "^0.25.1",
     "bcrypt-ts": "^8.0.1",
     "hono": "^4.12.8",
     "nanoid": "^5.1.6"
