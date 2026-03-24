@@ -23,7 +23,7 @@
     "playwright-chromium": "^1.58.2",
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^5.9.2",
-    "unocss": "^66.6.0",
+    "unocss": "^66.6.7",
     "vite": "^7.3.0",
     "vue": "^3.5.30",
     "wrangler": "^4.68.1"
