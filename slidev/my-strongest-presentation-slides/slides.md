@@ -69,10 +69,7 @@ canvasWidth: 960
 
 ## デモ
 
-<DemoTerminal
-  suggestedCommand='echo "hello from $(hostname)"'
-  caption="← 全員違う hostname になるはず"
-/>
+<DemoTerminal suggestedCommand='echo "hello from $(hostname)"' />
 
 ---
 
@@ -196,8 +193,8 @@ R --> B : レスポンス
 ## デモ
 
 <div style="display: flex; gap: 1rem;">
-  <DemoTerminal suggestedCommand="pwd" :rows="4" style="flex: 1;" />
-  <DemoTerminal suggestedCommand="cd /tmp" :rows="4" style="flex: 1;" />
+  <DemoTerminal suggestedCommand="pwd" style="flex: 1;" />
+  <DemoTerminal suggestedCommand="cd /tmp" style="flex: 1;" />
 </div>
 
 <p style="text-align: center; margin-top: 0.5rem; color: #ff6b6b; font-size: 1.1rem !important;">← cd した結果が引き継がれているはず</p>
