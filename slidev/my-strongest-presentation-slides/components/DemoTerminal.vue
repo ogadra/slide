@@ -1,29 +1,36 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
-import * as monaco from 'monaco-editor'
 import { useBunshinSession } from '../composables/useBunshinSession'
 import { useBunshinExecute, type SseEvent } from '../composables/useBunshinExecute'
 import Terminal from './Terminal.vue'
 
-const props = withDefaults(defineProps<{
-  suggestedCommand?: string
-  caption?: string
-  rows?: number
-}>(), {
-  rows: 8,
-})
+const props = defineProps<{
+  suggestedCommand: string
+}>()
+
+const FONT_SIZE = 16
 
 const { sessionReady, sessionError } = useBunshinSession()
 const { execute, isExecuting } = useBunshinExecute()
 
 const editorContainer = ref<HTMLDivElement>()
 const terminalRef = ref<InstanceType<typeof Terminal>>()
-let editor: monaco.editor.IStandaloneCodeEditor | null = null
+const errorMessage = ref<string | null>(null)
+let editor: any = null
 
 onMounted(async () => {
   await nextTick()
   const el = editorContainer.value
   if (!el) return
+
+  const monaco = await import('monaco-editor')
+
+  if (!window.MonacoEnvironment) {
+    const EditorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker')
+    window.MonacoEnvironment = {
+      getWorker: () => new EditorWorker.default(),
+    }
+  }
 
   editor = monaco.editor.create(el, {
     value: props.suggestedCommand ?? '',
@@ -33,7 +40,7 @@ onMounted(async () => {
     lineNumbers: 'off',
     glyphMargin: false,
     folding: false,
-    lineDecorationsWidth: 0,
+    lineDecorationsWidth: 19,
     lineNumbersMinChars: 0,
     scrollBeyondLastLine: false,
     scrollbar: {
@@ -42,11 +49,12 @@ onMounted(async () => {
       handleMouseWheel: false,
     },
     overviewRulerLanes: 0,
+    overviewRulerBorder: false,
     renderLineHighlight: 'none',
     wordWrap: 'on',
-    fontSize: 14,
+    fontSize: FONT_SIZE,
     fontFamily: 'Fira Code, monospace',
-    padding: { top: 6, bottom: 6 },
+    padding: { top: 19, bottom: 19 },
     automaticLayout: true,
   })
 
@@ -69,44 +77,46 @@ async function handleExecute() {
   const command = editor.getValue().trim()
   if (!command) return
 
+  errorMessage.value = null
   terminalRef.value?.write(`\x1b[38;5;243m$ ${command}\x1b[0m\r\n`)
 
-  await execute(command, (event: SseEvent) => {
-    switch (event.type) {
-      case 'stdout':
-        terminalRef.value?.write(event.data)
-        break
-      case 'stderr':
-        terminalRef.value?.write(`\x1b[38;5;252m${event.data}\x1b[0m`)
-        break
-      case 'complete':
-        if (event.exitCode !== 0) {
-          terminalRef.value?.writeln(`\x1b[31mexit code: ${event.exitCode}\x1b[0m`)
-        }
-        break
-    }
-  })
+  try {
+    await execute(command, (event: SseEvent) => {
+      switch (event.type) {
+        case 'stdout':
+          terminalRef.value?.write(event.data)
+          break
+        case 'stderr':
+          terminalRef.value?.write(`\x1b[38;5;252m${event.data}\x1b[0m`)
+          break
+        case 'complete':
+          if (event.exitCode !== 0) {
+            terminalRef.value?.writeln(`\x1b[31mexit code: ${event.exitCode}\x1b[0m`)
+          }
+          break
+      }
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error'
+    errorMessage.value = message
+  }
 }
 </script>
 
 <template>
   <div class="demo-terminal-container">
-    <div v-if="!sessionReady" class="connecting">
-      <span v-if="sessionError" class="error">{{ sessionError }}</span>
-      <span v-else>Connecting to container...</span>
-    </div>
-    <template v-else>
+    <div class="input-row">
       <div ref="editorContainer" class="monaco-editor-container" />
       <button
         class="run-button"
-        :disabled="isExecuting"
+        :disabled="isExecuting || !sessionReady"
         @click="handleExecute"
       >
-        {{ isExecuting ? '⏳ 実行中...' : '▶ 実行' }}
+        {{ !sessionReady ? '接続中...' : isExecuting ? '実行中...' : '実行' }}
       </button>
-      <Terminal ref="terminalRef" :rows="rows" :font-size="14" />
-    </template>
-    <p v-if="caption" class="caption">{{ caption }}</p>
+    </div>
+    <Terminal ref="terminalRef" :font-size="FONT_SIZE" />
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -114,6 +124,7 @@ async function handleExecute() {
 .demo-terminal-container {
   max-width: 850px;
   margin: 0.5rem auto 0;
+  min-width: 0;
 }
 
 .connecting {
@@ -127,23 +138,37 @@ async function handleExecute() {
   color: #ff6b6b;
 }
 
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+  margin-bottom: 0.4rem;
+}
+
 .monaco-editor-container {
-  height: 32px;
+  flex: 1;
+  height: 60px;
+  min-width: 0;
   border: 1px solid rgba(78, 201, 176, 0.3);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .run-button {
-  display: block;
-  margin: 0.4rem 0;
-  padding: 0.3rem 1.2rem;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+.run-button {
+  padding: 0.5rem 1.5rem;
   background: #16825d;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
   transition: background 0.2s;
 }
 
@@ -154,6 +179,14 @@ async function handleExecute() {
 .run-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.error-message {
+  text-align: center;
+  margin-top: 0.4rem;
+  color: #ff6b6b;
+  font-size: 0.95rem !important;
+  font-weight: bold;
 }
 
 .caption {
