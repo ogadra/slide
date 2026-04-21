@@ -111,13 +111,6 @@ echo "hello from $(hostname)"
 
 ---
 
-## AWS Architecture
-
-
-<img src="/imgs/bunshin_architecture.png" alt="アーキテクチャ図" style="max-height: 375px;" />
-
----
-
 ## なぜ 1人1コンテナなのか
 
 <div style="height: 5px" />
@@ -134,6 +127,12 @@ echo "hello from $(hostname)"
 
 ---
 
+## AWS Architecture
+
+
+<img src="/imgs/bunshin_architecture.png" alt="アーキテクチャ図" style="max-height: 375px;" />
+
+---
 
 ## 初回アクセス
 
@@ -191,49 +190,34 @@ R --> B : レスポンス
 @enduml
 ```
 
-<!-- ---
-
-## 構成のポイント
-
-<div style="height: 10px" />
-
-- DynamoDBの**条件付き更新**で同時リクエストの競合を防止
-  - `attribute_exists(idleBucket)` が成立する場合のみ割り当て成功
-- アイドルRunnerを**4バケットに分散**してGSIホットパーティションを回避
-- Runnerの**ヘルスチェック**で死んだRunnerを検知→別Runnerに透過的に再割り当て -->
-
 ---
 
-## Runner: しくみ概要
+## デモ
 
-<div style="height: 10px" />
+<div style="height: 20px" />
 
+<div style="display: flex; justify-content: center; align-items: center; gap: 3rem;">
+  <div style="text-align: left;">
+    <p style="font-size: 1.2rem !important; color: #aaa;">以下のコマンドを順番に入力してみてください</p>
+    <div style="margin-top: 1rem;">
 
-1. リクエスト受信
-2. コマンドバリデーション（ホワイトリスト / LLM）
-3. persistent bash で実行
-4. マーカーで出力境界を検出
-5. SSE でリアルタイムストリーム
-6. 実行結果を監査ログに記録
+```bash
+cd /tmp
+```
 
----
+```bash
+pwd
+```
 
-## Runner: コマンドバリデーション
+  </div>
+  </div>
+</div>
 
-<div style="height: 5px" />
-
-<div class="text-094">
-
-| 層 | 判定方法 | 例 |
-|---|---|---|
-| ホワイトリスト | 完全一致 | 基本的なコマンドや、スライド内で使うことが分かっているコマンド |
-| プレフィックス + メタ文字検査 | 先頭一致 & `;｜&` 等がない | `nix run nixpkgs#cowsay ...` |
-| LLM | Claudeで判定 | それ以外すべて |
-
+<div style="margin-top: 1.5rem; text-align: center;">
+  <p style="font-size: 1.1rem !important; color: #ff6b6b;">← cd した結果が引き継がれているはず</p>
 </div>
 
 ---
-
 
 ## Runner: Persistent bash
 
@@ -248,14 +232,42 @@ R --> B : レスポンス
 
 ---
 
-## なぜ PTY にしなかったのか
+## デモ
 
-|  | PTY | stdinパイプ |
+<div style="height: 20px" />
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 3rem;">
+  <div style="text-align: left;">
+    <p style="font-size: 1.2rem !important; color: #aaa;">以下のコマンドを入力してみてください</p>
+    <div style="margin-top: 1rem;">
+
+```bash
+rm -rf /
+```
+
+  </div>
+  </div>
+</div>
+
+<div style="margin-top: 1.5rem; text-align: center;">
+  <p style="font-size: 1.1rem !important; color: #ff6b6b;">← 今度は弾かれるはず</p>
+</div>
+
+---
+
+## Runner: コマンドバリデーション
+
+<div style="height: 5px" />
+
+<div class="text-094">
+
+| 層 | 判定方法 | 例 |
 |---|---|---|
-| TUI（`top`, `fzf` 等） | 可 | 不可 |
-| インタラクティブ操作（Ctrl+C、`vi`等） | 可 | 不可 |
-| 端末情報取得（sl等の描画に必要） | 可 | 不可 |
-| バリデーション / ログ | **不可** | **可** |
+| ホワイトリスト | 完全一致 | 基本的なコマンド <br/> スライド内で使うことが分かっているコマンド |
+| プレフィックス + <br/> メタ文字検査 | 先頭一致 & <br/> `;｜&` 等がない | `nix run nixpkgs#cowsay ...` |
+| LLM | Claudeで判定 | それ以外すべて |
+
+</div>
 
 ---
 
@@ -280,6 +292,17 @@ R --> B : レスポンス
 
 `CloudFront-Viewer-Address` ヘッダで **IP + ポート** を記録
 
+
+---
+
+## なぜ PTY にしなかったのか
+
+|  | PTY | stdinパイプ |
+|---|---|---|
+| TUI（`top`, `fzf` 等） | <span style="color: #4ec9b0;">可</span> | <span style="color: #ff6b6b;">不可</span> |
+| インタラクティブ操作（Ctrl+C、`vi`等） | <span style="color: #4ec9b0;">可</span> | <span style="color: #ff6b6b;">不可</span> |
+| 端末情報取得（sl等の描画に必要） | <span style="color: #4ec9b0;">可</span> | <span style="color: #ff6b6b;">不可</span> |
+| バリデーション / ログ | <span style="color: #ff6b6b;">**不可**</span> | <span style="color: #4ec9b0;">**可**</span> |
 
 ---
 
