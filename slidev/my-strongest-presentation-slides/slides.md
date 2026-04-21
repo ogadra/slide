@@ -118,138 +118,178 @@ echo "hello from $(hostname)"
 
 ---
 
-
-## NGINX auth_request で1人1コンテナ
+## なぜ 1人1コンテナなのか
 
 <div style="height: 5px" />
 
-### 初回アクセス
+<div class="text-094">
 
-```
-Browser → NGINX → auth_request → Broker
-                                   ├─ アイドルRunnerを割り当て
-                                   └─ runner_id cookie を発行
-         NGINX ─────────────────────→ Runner（プロキシ）
-```
+| 観点 | 理由 |
+|---|---|
+| セキュリティ | プロセス・ファイルシステム・環境変数がコンテナ単位で完全分離 |
+| ライフサイクル | タスク終了 = セッション終了 → リソース即回収 |
+| コスト | 短時間利用のため、大量に立ち上げても低コスト |
 
-### 2回目以降
+</div>
 
-```
-Browser（cookie付き）→ NGINX → auth_request → Broker
-                                               └─ 「まだ生きてる？」確認
-              NGINX ─────────────────────────────→ 同じRunnerへ
+---
+
+
+## 初回アクセス
+
+```plantuml
+@startuml
+skinparam backgroundColor transparent
+skinparam sequenceMessageAlign center
+skinparam defaultFontColor white
+skinparam ArrowColor white
+skinparam SequenceLifeLineBorderColor white
+skinparam ParticipantBorderColor white
+skinparam ParticipantFontColor white
+skinparam ParticipantBackgroundColor transparent
+
+participant Browser as B
+participant NGINX as N
+participant Broker as Br
+participant Runner as R
+
+B -> N : リクエスト
+N -> Br : auth_request
+Br -> Br : Runnerの割り当て
+Br --> N : RunnerのIP + cookie
+N -> R : プロキシ
+R --> B : レスポンス
+@enduml
 ```
 
 ---
+
+## 2回目以降
+
+```plantuml
+@startuml
+skinparam backgroundColor transparent
+skinparam sequenceMessageAlign center
+skinparam defaultFontColor white
+skinparam ArrowColor white
+skinparam SequenceLifeLineBorderColor white
+skinparam ParticipantBorderColor white
+skinparam ParticipantFontColor white
+skinparam ParticipantBackgroundColor transparent
+
+participant Browser as B
+participant NGINX as N
+participant Broker as Br
+participant Runner as R
+
+B -[#4ec9b0]> N : <color:#4ec9b0>リクエスト + cookie</color>
+N -> Br : auth_request
+Br -[#4ec9b0]> Br : <color:#4ec9b0>Runner特定</color>
+Br --[#4ec9b0]> N : <color:#4ec9b0>RunnerのIP</color>
+N -> R : プロキシ
+R --> B : レスポンス
+@enduml
+```
+
+<!-- ---
 
 ## 構成のポイント
 
 <div style="height: 10px" />
 
-- **Broker** は判定だけ。実トラフィックは流れない
-- **Runner** は自分のセッションだけ知っていればいい
-- Runnerは起動時にBrokerへ**自己登録**、停止時にderegister
+- DynamoDBの**条件付き更新**で同時リクエストの競合を防止
+  - `attribute_exists(idleBucket)` が成立する場合のみ割り当て成功
+- アイドルRunnerを**4バケットに分散**してGSIホットパーティションを回避
+- Runnerの**ヘルスチェック**で死んだRunnerを検知→別Runnerに透過的に再割り当て -->
+
+---
+
+## Runner: しくみ概要
 
 <div style="height: 10px" />
 
-<div style="text-align: center;">
-  <!-- <img src="/imgs/architecture.png" alt="アーキテクチャ図" style="max-height: 250px;" /> -->
+
+1. リクエスト受信
+2. コマンドバリデーション（ホワイトリスト / LLM）
+3. persistent bash で実行
+4. マーカーで出力境界を検出
+5. SSE でリアルタイムストリーム
+6. 実行結果を監査ログに記録
+
+---
+
+## Runner: コマンドバリデーション
+
+<div style="height: 5px" />
+
+<div class="text-094">
+
+| 層 | 判定方法 | 例 |
+|---|---|---|
+| ホワイトリスト | 完全一致 | 基本的なコマンドや、スライド内で使うことが分かっているコマンド |
+| プレフィックス + メタ文字検査 | 先頭一致 & `;｜&` 等がない | `nix run nixpkgs#cowsay ...` |
+| LLM | Claudeで判定 | それ以外すべて |
+
 </div>
 
 ---
 
+
 ## Runner: Persistent bash
 
-<div style="height: 10px" />
+<div style="height: 30px" />
 
-- 1リクエスト=1プロセスだと `cd` や `export` が引き継がれない
-- → bashプロセスを**保持**し、コマンドを流し込む
-
-<div style="height: 5px" />
-
-```
-POST /api/session   → bashプロセス起動
-POST /api/execute   → コマンド実行
-```
-
-<div style="height: 5px" />
-
-- ブラウザのタブごとに独立したセッション（session_id cookie）
+- 1リクエスト=1プロセス
+  - ->`cd` や `export` が引き継がれない
+- bashプロセスを**保持**し、コマンドを流し込む
+  - `POST /api/session` -> bashプロセス起動
+  - `POST /api/execute` -> コマンド実行
+- ブラウザのタブごとに独立したセッション
 
 ---
 
-## なぜ tty にしなかったのか
+## なぜ PTY にしなかったのか
 
-<div style="height: 10px" />
-
-王道: **xterm.js + WebSocket + PTY**
-
-<div style="height: 5px" />
-
-- 要件は「登壇者が示したコマンドを参加者が実行する」だけ
-- PTYは自由度が高すぎる → **コマンドバリデーションが不可能**
-- **コマンド単位の POST + SSE** にすることで実行前に検査可能
-
-<div style="height: 10px" />
-
-> tab補完やインタラクティブ操作は捨てる。
-> そのかわり**安全でシンプル**
+|  | PTY | stdinパイプ |
+|---|---|---|
+| TUI（`top`, `fzf` 等） | 可 | 不可 |
+| インタラクティブ操作（Ctrl+C、`vi`等） | 可 | 不可 |
+| 端末情報取得（sl等の描画に必要） | 可 | 不可 |
+| バリデーション / ログ | **不可** | **可** |
 
 ---
 
-## Runner: コマンドバリデーション（2層）
+## Runner: 監査ログ
 
-<div style="height: 10px" />
+不特定多数にシェル環境を提供する 
 
-### ホワイトリスト
+-> **プロバイダ責任制限法**に則った、発信者情報の記録が必要
 
-`ls`, `pwd`, `date` など安全なコマンドは**即実行**
+- 時刻
+- IPアドレス
+- ポート番号
+- コマンド内容
 
-### LLMバリデーション
-
-それ以外は **AWS Bedrock** に問い合わせて意図レベルで危険か判定
-
-<div style="height: 10px" />
-
-- 拒否時は **403 Forbidden**
-- ホワイトリストで**低レイテンシ**、LLMで**ゼロデイ的な抜け穴を防止**
+※ curlとかで爆破予告されたら困るので
 
 ---
 
-## Runner: SSEの出力設計
+## Runner: 監査ログ
 
-<div style="height: 10px" />
+全コマンド実行について記録
 
-| イベント | 内容 |
-|---|---|
-| `stdout` | リアルタイムストリーム |
-| `stderr` | コマンド完了時にまとめて送信 |
-| `complete` | exitCode付きで終了を通知 |
+`CloudFront-Viewer-Address` ヘッダで **IP + ポート** を記録
 
-<div style="height: 10px" />
-
-- 終了検知は **markerベース**
-- bashの `$?` をマーカー行に埋め込んで検出
 
 ---
 
 ## まとめ
-
-<div style="height: 20px" />
 
 <div class="center-content">
 
 1. **マネージドの限界を見極める**
 2. **LLMの力を借りて気合の自作**
 
-</div>
-
-<div style="height: 10px" />
-
-<div style="text-align: center;">
-  <p style="font-size: 1rem !important; color: #4ec9b0;">
-    リポジトリ: github.com/ogadra/20260327-cli-demo
-  </p>
 </div>
 
 ---
