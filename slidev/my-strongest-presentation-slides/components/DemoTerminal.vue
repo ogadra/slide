@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type * as Monaco from 'monaco-editor'
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import { useBunshinSession } from '../composables/useBunshinSession'
 import { useBunshinExecute, SseEventType, type SseEvent } from '../composables/useBunshinExecute'
@@ -16,7 +17,7 @@ const { execute, isExecuting } = useBunshinExecute()
 const editorContainer = ref<HTMLDivElement>()
 const terminalRef = ref<InstanceType<typeof Terminal>>()
 const errorMessage = ref<string | null>(null)
-let editor: any = null
+let editor: Monaco.editor.IStandaloneCodeEditor | null = null
 
 onMounted(async () => {
   await nextTick()
