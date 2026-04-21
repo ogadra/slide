@@ -7,7 +7,7 @@ let creating = false
 
 const MAX_DELAY_MS = 8000
 
-async function tryCreateSession(delay: number): Promise<void> {
+const tryCreateSession = async (delay: number): Promise<void> => {
   try {
     const res = await fetch('/bunshin/session', {
       method: 'POST',
@@ -29,7 +29,7 @@ async function tryCreateSession(delay: number): Promise<void> {
   }
 }
 
-function destroySession(): void {
+const destroySession = (): void => {
   void fetch('/bunshin/session', {
     method: 'DELETE',
     credentials: 'include',
@@ -42,7 +42,7 @@ function destroySession(): void {
   creating = false
 }
 
-export function useBunshinSession() {
+export const useBunshinSession = () => {
   onMounted(() => {
     refCount++
     if (!creating && !sessionReady.value) {
