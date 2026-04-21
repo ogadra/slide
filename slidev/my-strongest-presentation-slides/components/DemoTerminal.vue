@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import { useBunshinSession } from '../composables/useBunshinSession'
-import { useBunshinExecute, type SseEvent } from '../composables/useBunshinExecute'
+import { useBunshinExecute, SseEventType, type SseEvent } from '../composables/useBunshinExecute'
 import Terminal from './Terminal.vue'
 
 const props = defineProps<{
@@ -71,7 +71,7 @@ onUnmounted(() => {
   editor = null
 })
 
-async function handleExecute() {
+const handleExecute = async () => {
   if (!sessionReady.value || isExecuting.value || !editor) return
 
   const command = editor.getValue().trim()
@@ -83,13 +83,13 @@ async function handleExecute() {
   try {
     await execute(command, (event: SseEvent) => {
       switch (event.type) {
-        case 'stdout':
+        case SseEventType.STDOUT:
           terminalRef.value?.write(event.data)
           break
-        case 'stderr':
+        case SseEventType.STDERR:
           terminalRef.value?.write(`\x1b[38;5;252m${event.data}\x1b[0m`)
           break
-        case 'complete':
+        case SseEventType.COMPLETE:
           if (event.exitCode !== 0) {
             terminalRef.value?.writeln(`\x1b[31mexit code: ${event.exitCode}\x1b[0m`)
           }
@@ -125,17 +125,6 @@ async function handleExecute() {
   max-width: 850px;
   margin: 0.5rem auto 0;
   min-width: 0;
-}
-
-.connecting {
-  text-align: center;
-  color: #888;
-  padding: 2rem 0;
-  font-size: 1.1rem;
-}
-
-.connecting .error {
-  color: #ff6b6b;
 }
 
 .input-row {
@@ -189,10 +178,4 @@ async function handleExecute() {
   font-weight: bold;
 }
 
-.caption {
-  text-align: center;
-  margin-top: 0.4rem;
-  color: #ff6b6b;
-  font-size: 1.1rem !important;
-}
 </style>
