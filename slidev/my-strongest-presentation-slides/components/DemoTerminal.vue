@@ -127,17 +127,6 @@ async function handleExecute() {
   min-width: 0;
 }
 
-.connecting {
-  text-align: center;
-  color: #888;
-  padding: 2rem 0;
-  font-size: 1.1rem;
-}
-
-.connecting .error {
-  color: #ff6b6b;
-}
-
 .input-row {
   display: flex;
   gap: 0.5rem;
@@ -189,10 +178,4 @@ async function handleExecute() {
   font-weight: bold;
 }
 
-.caption {
-  text-align: center;
-  margin-top: 0.4rem;
-  color: #ff6b6b;
-  font-size: 1.1rem !important;
-}
 </style>

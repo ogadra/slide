@@ -197,8 +197,6 @@ R --> B : レスポンス
   <DemoTerminal suggestedCommand="cd /tmp" style="flex: 1;" />
 </div>
 
-<p style="text-align: center; margin-top: 0.5rem; color: #ff6b6b; font-size: 1.1rem !important;">← cd した結果が引き継がれているはず</p>
-
 ---
 
 ## Runner: Persistent bash
@@ -216,10 +214,7 @@ R --> B : レスポンス
 
 ## デモ
 
-<DemoTerminal
-  suggestedCommand="rm -rf /"
-  caption="← 今度は弾かれるはず"
-/>
+<DemoTerminal suggestedCommand="rm -rf /" />
 
 ---
 
