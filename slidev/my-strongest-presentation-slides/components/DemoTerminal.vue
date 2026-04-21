@@ -9,7 +9,7 @@ const props = defineProps<{
   suggestedCommand: string
 }>()
 
-const FONT_SIZE = 16
+const FONT_SIZE = 14
 
 const { sessionReady, sessionError } = useBunshinSession()
 const { execute, isExecuting } = useBunshinExecute()
