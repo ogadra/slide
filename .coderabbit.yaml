@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ja-JP"
+early_access: true
+
+reviews:
+  profile: "assertive"
+  high_level_summary: true
+  poem: true
+  request_changes_workflow: true
+  review_status: true
+  collapse_walkthrough: true
+  auto_apply_labels: false
+  auto_review:
+    enabled: true
+    drafts: false
+    auto_incremental_review: false
+    auto_pause_after_reviewed_commits: 0
+  path_filters:
+    - "!**/*.lock"
