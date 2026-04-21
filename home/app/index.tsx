@@ -48,6 +48,16 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/04/22"
+					slide={[
+						{
+							link: "./my-strongest-presentation-slides",
+							title: "俺の考えた最強の登壇資料",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/02/18"
 					slide={[
 						{
