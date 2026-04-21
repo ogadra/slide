@@ -117,7 +117,14 @@ const handleExecute = async () => {
       </button>
     </div>
     <Terminal ref="terminalRef" :font-size="FONT_SIZE" />
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <Teleport to="body">
+      <div v-if="errorMessage" class="demo-error-overlay" @click="errorMessage = null">
+        <div class="demo-error-content" @click.stop>
+          <p class="demo-error-message">{{ errorMessage }}</p>
+          <button class="demo-error-close" @click="errorMessage = null">閉じる</button>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -171,12 +178,51 @@ const handleExecute = async () => {
   cursor: not-allowed;
 }
 
-.error-message {
-  text-align: center;
-  margin-top: 0.4rem;
-  color: #ff6b6b;
-  font-size: 0.95rem !important;
-  font-weight: bold;
+
+</style>
+
+<style>
+.demo-error-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
+.demo-error-content {
+  background: #1e1e1e;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+}
+
+.demo-error-message {
+  color: #ff6b6b;
+  font-size: 1.1rem !important;
+  font-weight: bold;
+  margin: 0 0 1.5rem;
+}
+
+.demo-error-close {
+  padding: 0.5rem 2rem;
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.demo-error-close:hover {
+  background: #444;
+}
 </style>
