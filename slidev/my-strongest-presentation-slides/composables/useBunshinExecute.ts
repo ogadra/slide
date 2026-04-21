@@ -5,14 +5,14 @@ export type SseEvent =
   | { type: 'stderr'; data: string }
   | { type: 'complete'; exitCode: number }
 
-export function useBunshinExecute() {
+export const useBunshinExecute = () => {
   const isExecuting = ref(false)
 
-  async function execute(
+  const execute = async (
     command: string,
     onEvent: (event: SseEvent) => void,
     signal?: AbortSignal,
-  ): Promise<void> {
+  ): Promise<void> => {
     isExecuting.value = true
     try {
       const res = await fetch('/bunshin/execute', {
