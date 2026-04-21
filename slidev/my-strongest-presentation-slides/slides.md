@@ -69,26 +69,7 @@ canvasWidth: 960
 
 ## デモ
 
-<div style="height: 20px" />
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 3rem;">
-  <div style="text-align: center;">
-  </div>
-  <div style="text-align: left;">
-    <p style="font-size: 1.2rem !important; color: #aaa;">以下のコマンドを入力してみてください</p>
-    <div style="margin-top: 1rem;">
-
-```bash
-echo "hello from $(hostname)"
-```
-
-  </div>
-  </div>
-</div>
-
-<div style="margin-top: 1.5rem; text-align: center;">
-  <p style="font-size: 1.1rem !important; color: #ff6b6b;">← 全員違う hostname になるはず</p>
-</div>
+<DemoTerminal suggestedCommand='echo "hello from $(hostname)"' />
 
 ---
 
@@ -211,27 +192,9 @@ R --> B : レスポンス
 
 ## デモ
 
-<div style="height: 20px" />
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 3rem;">
-  <div style="text-align: left;">
-    <p style="font-size: 1.2rem !important; color: #aaa;">以下のコマンドを順番に入力してみてください</p>
-    <div style="margin-top: 1rem;">
-
-```bash
-cd /tmp
-```
-
-```bash
-pwd
-```
-
-  </div>
-  </div>
-</div>
-
-<div style="margin-top: 1.5rem; text-align: center;">
-  <p style="font-size: 1.1rem !important; color: #ff6b6b;">← cd した結果が引き継がれているはず</p>
+<div style="display: flex; gap: 1rem;">
+  <DemoTerminal suggestedCommand="pwd" style="flex: 1;" />
+  <DemoTerminal suggestedCommand="cd /tmp" style="flex: 1;" />
 </div>
 
 ---
@@ -251,24 +214,7 @@ pwd
 
 ## デモ
 
-<div style="height: 20px" />
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 3rem;">
-  <div style="text-align: left;">
-    <p style="font-size: 1.2rem !important; color: #aaa;">以下のコマンドを入力してみてください</p>
-    <div style="margin-top: 1rem;">
-
-```bash
-rm -rf /
-```
-
-  </div>
-  </div>
-</div>
-
-<div style="margin-top: 1.5rem; text-align: center;">
-  <p style="font-size: 1.1rem !important; color: #ff6b6b;">← 今度は弾かれるはず</p>
-</div>
+<DemoTerminal suggestedCommand="rm -rf /" />
 
 ---
 
