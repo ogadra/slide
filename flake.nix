@@ -16,7 +16,7 @@
       in
       {
         packages.chrome-devtools-mcp = pkgs.writeShellScriptBin "chrome-devtools-mcp" ''
-          exec ${pkgs.pnpm}/bin/pnpm dlx chrome-devtools-mcp@latest -e ${pkgs.google-chrome}/bin/google-chrome-stable "$@"
+          exec ${pkgs.nodejs_24}/bin/npx -y chrome-devtools-mcp --isolated -e ${pkgs.google-chrome}/bin/google-chrome-stable "$@"
         '';
 
         devShells.default = pkgs.mkShell {

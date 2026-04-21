@@ -4,6 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "author": "ogadra",
+  "dependencies": {
+    "@xterm/xterm": "^5.5.0",
+    "@xterm/addon-fit": "^0.10.0"
+  },
   "scripts": {
     "build": "npm run build:slidev && npm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/my-strongest-presentation-slides",
