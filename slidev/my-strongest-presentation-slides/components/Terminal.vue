@@ -78,7 +78,7 @@ defineExpose({ write, writeln, clear })
   border: 1px solid rgba(78, 201, 176, 0.15);
   border-radius: 8px;
   overflow: hidden;
-  pointer-events: none;
+  user-select: none;
   box-sizing: border-box;
   background: #121212;
   padding: 4px;
