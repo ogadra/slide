@@ -1,9 +1,15 @@
 import { ref } from 'vue'
 
+export const SseEventType = {
+  STDOUT: 'stdout',
+  STDERR: 'stderr',
+  COMPLETE: 'complete',
+} as const
+
 export type SseEvent =
-  | { type: 'stdout'; data: string }
-  | { type: 'stderr'; data: string }
-  | { type: 'complete'; exitCode: number }
+  | { type: typeof SseEventType.STDOUT; data: string }
+  | { type: typeof SseEventType.STDERR; data: string }
+  | { type: typeof SseEventType.COMPLETE; exitCode: number }
 
 export const useBunshinExecute = () => {
   const isExecuting = ref(false)
