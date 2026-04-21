@@ -4,13 +4,9 @@ import { Terminal as XTerm } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
 import '@xterm/xterm/css/xterm.css'
 
-const props = withDefaults(defineProps<{
-  rows?: number
-  fontSize?: number
-}>(), {
-  rows: 8,
-  fontSize: 14,
-})
+const props = defineProps<{
+  fontSize: number
+}>()
 
 const containerRef = ref<HTMLDivElement>()
 let xterm: XTerm | null = null
@@ -24,7 +20,7 @@ onMounted(() => {
   xterm = new XTerm({
     convertEol: true,
     fontSize: props.fontSize,
-    rows: props.rows,
+    rows: 16,
     theme: {
       background: '#121212',
       foreground: '#D4D4D4',
@@ -82,6 +78,7 @@ defineExpose({ write, writeln, clear })
   border: 1px solid rgba(78, 201, 176, 0.15);
   border-radius: 8px;
   overflow: hidden;
+  pointer-events: none;
   box-sizing: border-box;
   background: #121212;
   padding: 4px;

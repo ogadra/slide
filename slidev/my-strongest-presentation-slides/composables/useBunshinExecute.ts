@@ -22,7 +22,11 @@ export function useBunshinExecute() {
         body: JSON.stringify({ command }),
         signal,
       })
-      if (!res.ok) throw new Error(`Failed to execute: ${res.status}`)
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        const message = body?.error ?? `Failed to execute: ${res.status}`
+        throw new Error(message)
+      }
       if (!res.body) throw new Error('No response body')
 
       const reader = res.body.getReader()
