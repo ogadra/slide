@@ -199,13 +199,11 @@ R --> B : レスポンス
 
 ---
 
-## Runner: Persistent bash
+## Runner: exec.Cmd + stdinパイプ
 
 <div style="height: 30px" />
 
-- 1リクエスト=1プロセス
-  - ->`cd` や `export` が引き継がれない
-- bashプロセスを**保持**し、コマンドを流し込む
+- `exec.Cmd`でbashプロセスを起動し、stdinにコマンドを流し込む
   - `POST /api/session` -> bashプロセス起動
   - `POST /api/execute` -> コマンド実行
 - ブラウザのタブごとに独立したセッション
@@ -249,15 +247,6 @@ R --> B : レスポンス
 
 ---
 
-## Runner: 監査ログ
-
-全コマンド実行について記録
-
-`CloudFront-Viewer-Address` ヘッダで **IP + ポート** を記録
-
-
----
-
 ## なぜ PTY にしなかったのか
 
 |  | PTY | stdinパイプ |
@@ -273,8 +262,7 @@ R --> B : レスポンス
 
 <div class="center-content">
 
-1. **マネージドの限界を見極める**
-2. **LLMの力を借りて気合の自作**
+**LLMがオーバーエンジニアリングを可能にする**
 
 </div>
 
