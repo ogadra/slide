@@ -48,7 +48,21 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/04/22"
+					eventLink="https://sai-kyo.connpass.com/event/386639/"
+					eventTitle="埼京.dev #3【俺の考えた最強の◯◯】"
+					slide={[
+						{
+							link: "./my-strongest-presentation-slides",
+							title: "俺の考えた最強の登壇資料",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/02/18"
+					eventLink="https://findy.connpass.com/event/383708/"
+					eventTitle="TECH BATON in 東京 〜今 Lambdaどうやって使ってる？ 〜"
 					slide={[
 						{
 							link: "./lambda-as-an-ecs-alternative",

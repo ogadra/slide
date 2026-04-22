@@ -42,6 +42,11 @@
 		{
 			"pattern": "slide.ogadra.com/*",
 			"zone_name": "ogadra.com"
+		},
+		{
+			"pattern": "slide.ogadra.com",
+			"zone_name": "ogadra.com",
+			"custom_domain": true
 		}
 	],
 	"durable_objects": {

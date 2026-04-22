@@ -1,0 +1,89 @@
+import { addSyncMethod } from "@slidev/client";
+import { defineAppSetup } from "@slidev/types";
+import {
+	ConnectionStatusEnum,
+	changeConnectionState,
+	connectionStatus,
+	getWsInstance,
+	setWsInstance,
+} from "./connectionState";
+
+const slideName = window.location.pathname.split("/")[1] || "";
+const SYNC_SERVER = `${window.location.origin.replace(/^http/, "ws")}/ws/${slideName}`;
+
+let reconnectTimer: number | null = null;
+
+const connectWebSocket = (onUpdate: (data: Partial<object>) => void): void => {
+	if (reconnectTimer) {
+		clearTimeout(reconnectTimer);
+		reconnectTimer = null;
+	}
+
+	const current = getWsInstance();
+	if (current && current.readyState !== WebSocket.CLOSED) {
+		current.onclose = null;
+		current.close();
+	}
+
+	const ws = new WebSocket(SYNC_SERVER);
+	setWsInstance(ws);
+
+	ws.onopen = () => {
+		changeConnectionState(ConnectionStatusEnum.Connected);
+	};
+
+	ws.onmessage = (event) => {
+		try {
+			if (connectionStatus.value === ConnectionStatusEnum.Connected) {
+				const data = JSON.parse(event.data);
+				onUpdate(data);
+			}
+		} catch (e) {
+			console.error("Failed to parse sync message", e);
+		}
+	};
+
+	ws.onclose = () => {
+		if (getWsInstance() !== ws) {
+			return;
+		}
+
+		if (connectionStatus.value === ConnectionStatusEnum.Disconnected) {
+			return;
+		}
+
+		changeConnectionState(ConnectionStatusEnum.Connecting);
+		reconnectTimer = setTimeout(() => {
+			reconnectTimer = null;
+			connectWebSocket(onUpdate);
+		}, 3000) as unknown as number;
+	};
+};
+
+interface Sync {
+	init: <State extends object>(
+		channelKey: string,
+		onUpdate: (data: Partial<State>) => void,
+		state: State,
+		persist?: boolean,
+	) => ((state: State, updating?: boolean) => void) | undefined;
+}
+
+const websocketSync: Sync = {
+	init(_channelKey, onUpdate, _state, persist) {
+		if (persist) return undefined;
+
+		connectWebSocket(onUpdate);
+
+		return (state, updating) => {
+			const ws = getWsInstance();
+			if (!updating && ws?.readyState === WebSocket.OPEN) {
+				ws.send(JSON.stringify(state));
+			}
+		};
+	},
+};
+
+export default defineAppSetup(() => {
+	addSyncMethod(websocketSync);
+});

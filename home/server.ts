@@ -1,6 +1,7 @@
 import { type Context, Hono } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
 import { Index } from "./app/index";
+import { proxyToBunshin } from "./bunshin/proxy";
 import { demo } from "./demo";
 import {
 	handleSandboxAccessRequest,
@@ -59,6 +60,8 @@ app.use("/sandbox/*", async (c, next) => {
 
 app.get("/sandbox/:slide/stream", handleSandboxStreamRequest);
 app.post("/sandbox/:slide", handleSandboxRequest);
+
+app.all("/bunshin/:endpoint", proxyToBunshin);
 
 app.on("GET", ["/assets/*"], async (c: Context) => {
 	return c.env.ASSETS.fetch(c.req.url);
