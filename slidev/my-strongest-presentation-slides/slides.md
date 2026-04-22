@@ -29,13 +29,6 @@ canvasWidth: 960
   <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #aaa;">発表者は顔出しNGのため</p>
 </div>
 
-<div style="position: absolute; right: 4rem; top: 3rem;">
-  <div style="display: flex; flex-direction: column; align-items: flex-end;">
-    <span style="font-size: 1.5rem; transform: rotate(-45deg); margin-bottom: 0.25rem;">→</span>
-    <span style="font-size: 0.9rem; color: #4ec9b0;">タップでスライド同期をオフにできます</span>
-  </div>
-</div>
-
 ---
 
 ## この発表について
