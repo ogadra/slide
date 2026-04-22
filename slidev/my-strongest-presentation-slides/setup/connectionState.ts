@@ -6,12 +6,12 @@ export const ConnectionStatusEnum = {
 	Disconnected: "Disconnected",
 };
 
+type ConnectionState =
+	(typeof ConnectionStatusEnum)[keyof typeof ConnectionStatusEnum];
+
 export const connectionStatus = ref<ConnectionState>(
 	ConnectionStatusEnum.Connecting,
 );
-
-type ConnectionState =
-	(typeof ConnectionStatusEnum)[keyof typeof ConnectionStatusEnum];
 
 // WebSocketインスタンスへの参照
 let wsInstance: WebSocket | null = null;

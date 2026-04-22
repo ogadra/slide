@@ -46,7 +46,7 @@ canvasWidth: 960
 
 <a href="https://github.com/ogadra/20260327-cli-demo" target="_blank" style="text-decoration: none; color: inherit;">
   <div style="border: 1px solid #444; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 0 auto;">
-    <img src="/imgs/20260327-cli-demo-ogp.png" style="width: 100%;" />
+    <img src="/imgs/20260327-cli-demo-ogp.png" alt="20260327-cli-demo のOGP画像" style="width: 100%;" />
     <div style="padding: 8px 12px; font-size: 0.85rem; color: #aaa;">github.com/ogadra/20260327-cli-demo</div>
   </div>
 </a>

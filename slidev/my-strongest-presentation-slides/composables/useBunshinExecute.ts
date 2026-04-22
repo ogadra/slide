@@ -1,5 +1,7 @@
 import { ref } from 'vue'
 
+const isExecuting = ref(false)
+
 export const SseEventType = {
   STDOUT: 'stdout',
   STDERR: 'stderr',
@@ -12,8 +14,6 @@ export type SseEvent =
   | { type: typeof SseEventType.COMPLETE; exitCode: number }
 
 export const useBunshinExecute = () => {
-  const isExecuting = ref(false)
-
   const execute = async (
     command: string,
     onEvent: (event: SseEvent) => void,

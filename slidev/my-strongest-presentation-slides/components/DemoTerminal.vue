@@ -110,10 +110,10 @@ const handleExecute = async () => {
       <div ref="editorContainer" class="monaco-editor-container" />
       <button
         class="run-button"
-        :disabled="isExecuting || !sessionReady"
+        :disabled="isExecuting || !sessionReady || !!sessionError"
         @click="handleExecute"
       >
-        {{ !sessionReady ? '接続中...' : isExecuting ? '実行中...' : '実行' }}
+        {{ sessionError ? '接続失敗' : !sessionReady ? '接続中...' : isExecuting ? '実行中...' : '実行' }}
       </button>
     </div>
     <Terminal ref="terminalRef" :font-size="FONT_SIZE" />

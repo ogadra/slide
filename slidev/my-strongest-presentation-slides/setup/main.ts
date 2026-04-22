@@ -19,6 +19,12 @@ const connectWebSocket = (onUpdate: (data: Partial<object>) => void): void => {
 		reconnectTimer = null;
 	}
 
+	const current = getWsInstance();
+	if (current && current.readyState !== WebSocket.CLOSED) {
+		current.onclose = null;
+		current.close();
+	}
+
 	const ws = new WebSocket(SYNC_SERVER);
 	setWsInstance(ws);
 
@@ -38,6 +44,10 @@ const connectWebSocket = (onUpdate: (data: Partial<object>) => void): void => {
 	};
 
 	ws.onclose = () => {
+		if (getWsInstance() !== ws) {
+			return;
+		}
+
 		if (connectionStatus.value === ConnectionStatusEnum.Disconnected) {
 			return;
 		}

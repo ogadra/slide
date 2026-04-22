@@ -9,9 +9,17 @@ import {
 const changeConnectionStatus = () => {
   switch (connectionStatus.value) {
     case ConnectionStatusEnum.Connected:
-    case ConnectionStatusEnum.Connecting:
+    case ConnectionStatusEnum.Connecting: {
+      const ws = getWsInstance();
+      if (ws) {
+        ws.onclose = null;
+        ws.onopen = null;
+        ws.onmessage = null;
+        ws.close();
+      }
       changeConnectionState(ConnectionStatusEnum.Disconnected);
       break;
+    }
 
     case ConnectionStatusEnum.Disconnected: {
       const ws = getWsInstance();
@@ -65,6 +73,10 @@ const changeConnectionStatus = () => {
 button {
   cursor: pointer;
   border: none;
-  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid #4ec9b0;
+  outline-offset: 2px;
 }
 </style>
