@@ -61,7 +61,7 @@ canvasWidth: 960
 
 <div class="center-content">
 
-聴衆が**その場で体験できる**登壇資料
+聴衆の手元で**動く**登壇資料
 
 </div>
 
