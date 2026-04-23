@@ -223,8 +223,9 @@ R --> B : レスポンス
 
 <div class="center-content">
 
-**LLMがオーバーエンジニアリングを可能にする**
-
+<p style="font-size: 2.15rem !important">
+<b>LLMがオーバーエンジニアリングを可能に</b>
+</p>
 </div>
 
 ---
