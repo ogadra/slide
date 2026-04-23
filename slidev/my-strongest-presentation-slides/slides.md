@@ -20,17 +20,6 @@ canvasWidth: 960
 
 ---
 
-<div style="position: absolute; top: 50%; left: 30%; transform: translate(-50%, -50%);">
-  <img src="/imgs/qr.png" alt="このスライドのQRコード" style="width: 350px;" />
-</div>
-
-<div style="position: absolute; top: 50%; right: 5%; transform: translateY(-50%); text-align: center;">
-  <p style="font-size: 1.75rem !important; color: #ff6b6b; font-weight: bold;">写真撮影はご遠慮ください</p>
-  <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #aaa;">発表者は顔出しNGのため</p>
-</div>
-
----
-
 ## この発表について
 
 <div class="center-content">
@@ -60,13 +49,7 @@ canvasWidth: 960
 
 ---
 
-## デモ
-
-<DemoTerminal suggestedCommand="ip -4 -o addr show eth1 | awk '{print $4}'" />
-
----
-
-## 何が起きているのか
+## 何をやったのか
 
 <div style="height: 10px" />
 
@@ -74,7 +57,7 @@ canvasWidth: 960
 
 1人1コンテナを割り当て
 
-ブラウザ経由でコマンドを実行している
+ブラウザ経由でコマンドを実行した
 
 </div>
 
@@ -183,15 +166,6 @@ R --> B : レスポンス
 
 ---
 
-## デモ
-
-<div style="display: flex; gap: 1rem;">
-  <DemoTerminal suggestedCommand="pwd" style="flex: 1;" />
-  <DemoTerminal suggestedCommand="cd /tmp" style="flex: 1;" />
-</div>
-
----
-
 ## Runner: exec.Cmd + stdinパイプ
 
 <div style="height: 30px" />
@@ -200,12 +174,6 @@ R --> B : レスポンス
   - `POST /api/session` -> bashプロセス起動
   - `POST /api/execute` -> コマンド実行
 - ブラウザのタブごとに独立したセッション
-
----
-
-## デモ
-
-<DemoTerminal suggestedCommand="rm -rf /" />
 
 ---
 
