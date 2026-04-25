@@ -15,12 +15,12 @@ class HeadHandler {
     )
 
     element.append(
-      `  <meta property="twitter:card" content="summary_large_image" />\n`,
+      `  <meta name="twitter:card" content="summary_large_image" />\n`,
       { html: true }
     )
 
     element.append(
-      `  <meta property="twitter:image" content="${this.content}" />\n`,
+      `  <meta name="twitter:image" content="${this.content}" />\n`,
       { html: true }
     )
 
@@ -29,11 +29,11 @@ class HeadHandler {
       { html: true }
     )
     element.append(
-      `  <meta property="twitter:title" content="${this.title}" />\n`,
+      `  <meta name="twitter:title" content="${this.title}" />\n`,
       { html: true }
     )
     element.append(
-      `  <meta property="twitter:text:title" content="${this.title}" />\n`,
+      `  <meta name="twitter:text:title" content="${this.title}" />\n`,
       { html: true }
     )
   }
