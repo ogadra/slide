@@ -1,5 +1,5 @@
 import { type Context } from "hono";
-import { rewriter, HeadHandler } from "./htmlRewriter";
+import { HeadHandler } from "./htmlRewriter";
 
 const titles = (path: string): string => {
   switch (path) {
@@ -44,7 +44,7 @@ export const HTMLRewriterHandler = async (c: Context, num: number) =>{
   const html = await c.env.ASSETS.fetch(urlPrefix);
   const title = titles(c.req.param("slide"));
 
-  return rewriter
+  return new HTMLRewriter()
     .on(
       "head",
       new HeadHandler(`${urlPrefix}/slides-export/${num}.png`, title)

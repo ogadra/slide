@@ -1,5 +1,3 @@
-const rewriter = new HTMLRewriter();
-
 class HeadHandler {
   content: string;
   title: string;
@@ -49,4 +47,4 @@ class HeadHandler {
   }
 }
 
-export { rewriter, HeadHandler }
+export { HeadHandler }
