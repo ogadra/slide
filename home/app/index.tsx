@@ -18,7 +18,7 @@ const Header = () => (
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>ogadra's slides</title>
-		<link rel="stylesheet" cross-origin href="./style.css" />
+		<link rel="stylesheet" cross-origin href="./assets/style.css" />
 		<meta
 			property="og:image"
 			content="https://media.ogadra.com/misskey/drive/4250e8ad-7d0a-4c81-af5b-0a6c649e8110.png"
