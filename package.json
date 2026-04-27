@@ -29,6 +29,6 @@
     "wrangler": "^4.85.0"
   },
   "dependencies": {
-    "vue-i18n": "^11.3.0"
+    "vue-i18n": "^11.4.0"
   }
 }
