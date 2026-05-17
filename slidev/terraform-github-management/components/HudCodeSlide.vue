@@ -1,16 +1,11 @@
 <script setup lang="ts">
+import { hudToneClass } from '../utils/hudTone'
+
 defineProps<{
   resource: string
   fileNote?: string
   commands?: { cmd: string; result: string; tone?: 'default' | 'green' | 'red' | 'orange' }[]
 }>()
-
-const resultClass = (tone?: string) => {
-  if (tone === 'green') return 'hud-green'
-  if (tone === 'red') return 'hud-red'
-  if (tone === 'orange') return 'hud-orange'
-  return ''
-}
 </script>
 
 <template>
@@ -30,7 +25,7 @@ const resultClass = (tone?: string) => {
         <div class="cmd-list">
           <div v-for="(c, i) in commands" :key="i" class="cmd-row">
             <span class="font-mono">{{ c.cmd }}</span>
-            <span :class="resultClass(c.tone)">{{ c.result }}</span>
+            <span :class="hudToneClass(c.tone)">{{ c.result }}</span>
           </div>
         </div>
       </HudPanel>

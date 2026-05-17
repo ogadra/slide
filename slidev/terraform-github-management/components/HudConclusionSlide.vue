@@ -19,7 +19,7 @@ defineProps<{
 
       <HudPanel label="[ NEXT ACTION ]" panel-class="col-span-12 row-span-2 p-4 flex items-center">
         <div class="next">
-          <div v-for="(a, i) in actions" :key="i" v-html="`<span class='hud-orange'>▸</span> ` + a" />
+          <div v-for="(a, i) in actions" :key="i"><span class="hud-orange">▸</span> <span v-html="a" /></div>
         </div>
       </HudPanel>
     </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNav } from '@slidev/client'
+import { hudToneClass } from './utils/hudTone'
 
 const { currentSlideNo, total } = useNav()
 
@@ -14,13 +15,6 @@ const topStatus: { text: string; tone?: 'green' | 'red' | 'orange' }[] = [
 
 const chapterNo = computed(() => currentSlideNo.value.toString().padStart(2, '0'))
 const totalNo = computed(() => total.value.toString().padStart(2, '0'))
-
-const toneClass = (tone?: string) => {
-  if (tone === 'green') return 'hud-green'
-  if (tone === 'red') return 'hud-red'
-  if (tone === 'orange') return 'hud-orange'
-  return ''
-}
 </script>
 
 <template>
@@ -31,7 +25,7 @@ const toneClass = (tone?: string) => {
     <div class="hud-corner br" />
 
     <div class="hud-statusbar top">
-      <span v-for="(item, i) in topStatus" :key="i" :class="toneClass(item.tone)">{{ item.text }}</span>
+      <span v-for="(item, i) in topStatus" :key="i" :class="hudToneClass(item.tone)">{{ item.text }}</span>
     </div>
 
     <div class="hud-chapter">

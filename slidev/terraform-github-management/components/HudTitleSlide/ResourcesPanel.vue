@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// 装飾文字列なのでmd側からは渡さない
-type Tone = 'default' | 'green' | 'red' | 'orange'
+import { type HudTone, hudToneClass } from '../../utils/hudTone'
 
-const resources: { name: string; status: string; tone: Tone }[] = [
+// 装飾文字列なのでmd側からは渡さない
+const resources: { name: string; status: string; tone: HudTone }[] = [
   { name: 'github_repository', status: 'READY', tone: 'green' },
   { name: 'github_branch_protection', status: 'READY', tone: 'green' },
   { name: 'github_team', status: 'READY', tone: 'green' },
@@ -11,20 +11,14 @@ const resources: { name: string; status: string; tone: Tone }[] = [
   { name: 'github_membership', status: 'SYNC', tone: 'orange' },
 ]
 
-const dotClass = (tone: Tone) => {
-  if (tone === 'green') return 'hud-green'
-  if (tone === 'red') return 'hud-red'
-  if (tone === 'orange') return 'hud-orange'
-  return ''
-}
-const valueClass = (tone: Tone) => (tone === 'green' ? '' : dotClass(tone))
+const valueClass = (tone: HudTone) => (tone === 'green' ? '' : hudToneClass(tone))
 </script>
 
 <template>
   <HudPanel label="[ RESOURCES ]" panel-class="col-span-12 row-span-2 p-3">
     <div class="resources-grid">
       <div v-for="(r, i) in resources" :key="i" class="resource-row">
-        <span><span :class="dotClass(r.tone)">●</span> {{ r.name }}</span>
+        <span><span :class="hudToneClass(r.tone)">●</span> {{ r.name }}</span>
         <span :class="valueClass(r.tone)" :style="r.tone === 'green' ? 'opacity: 0.6' : ''">{{ r.status }}</span>
       </div>
     </div>

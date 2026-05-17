@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { hudToneClass } from '../utils/hudTone'
+
 // 装飾文字列はこのコンポーネントの責務
 const words: { jp: string; ascii: string; tone?: 'green' | 'red' | 'orange' }[] = [
   { jp: '路上', ascii: 'STREET', tone: 'orange' },
@@ -6,13 +8,6 @@ const words: { jp: string; ascii: string; tone?: 'green' | 'red' | 'orange' }[] 
   { jp: 'Terra', ascii: 'TERRA', tone: 'green' },
   { jp: 'Terraform', ascii: 'TERRAFORM', tone: 'green' },
 ]
-
-const toneClass = (t?: string) => {
-  if (t === 'green') return 'hud-green'
-  if (t === 'red') return 'hud-red'
-  if (t === 'orange') return 'hud-orange'
-  return ''
-}
 </script>
 
 <template>
@@ -28,7 +23,7 @@ const toneClass = (t?: string) => {
         <div class="words">
           <div v-for="(w, i) in words" :key="i" class="word-row">
             <div class="word-no">{{ String(i + 1).padStart(2, '0') }}</div>
-            <div class="word-jp" :class="toneClass(w.tone)">{{ w.jp }}</div>
+            <div class="word-jp" :class="hudToneClass(w.tone)">{{ w.jp }}</div>
             <div class="word-bang">!</div>
             <div class="word-ascii">{{ w.ascii }}</div>
           </div>
