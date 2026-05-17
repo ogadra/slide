@@ -34,5 +34,5 @@ defineProps<{
 .to-label { font-size: 1rem; font-weight: 700; letter-spacing: 0.4em; color: #0a7a3a; margin-bottom: 0.75rem; }
 .to-text { font-weight: 900; font-size: 3rem; color: #0a7a3a; letter-spacing: 0.02em; line-height: 1.1; }
 .next { font-size: 1.5rem; margin-top: 0.5rem; margin-left: 0.5rem; line-height: 1.8; }
-.next :deep(code) { font-family: 'JetBrains Mono', monospace; color: #0a7a3a; }
+.next :deep(code) { font-family: var(--font-mono); color: #0a7a3a; }
 </style>

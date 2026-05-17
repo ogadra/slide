@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useNav } from '@slidev/client'
-import { hudToneClass } from './utils/hudTone'
+import { type HudTone, hudToneClass } from './utils/hudTone'
 
 const { currentSlideNo, total } = useNav()
 
 // 全スライド共通のヘッダー（装飾。スライドごとに変えない）
-const topStatus: { text: string; tone?: 'green' | 'red' | 'orange' }[] = [
+const topStatus: { text: string; tone?: HudTone }[] = [
   { text: '● REC 2026-05-18T18:00 JST' },
   { text: '▲ STATUS: ONLINE', tone: 'green' },
   { text: 'SIGNAL ████████░ 87%' },
@@ -59,7 +59,7 @@ const totalNo = computed(() => total.value.toString().padStart(2, '0'))
   gap: 0.65rem;
 }
 .hud-chapter-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: 9px;
   letter-spacing: 0.3em;
@@ -73,7 +73,7 @@ const totalNo = computed(() => total.value.toString().padStart(2, '0'))
   color: #1a1a1a;
 }
 .hud-chapter-total {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.3em;
   color: #1a1a1a;

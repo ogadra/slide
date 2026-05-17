@@ -97,13 +97,13 @@ const newTarget = { name: 'GitHub', status: 'ALSO MANAGED' }
   margin-bottom: 0.15rem !important;
 }
 .def-list :deep(.mono) {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   border: 1px solid rgba(26, 26, 26, 0.4);
   padding: 0 0.3em;
   font-size: 0.85rem;
 }
 .def-list code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.95rem;
   border: 1px solid rgba(26, 26, 26, 0.3);
   padding: 0 0.25rem;

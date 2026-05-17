@@ -169,14 +169,10 @@ const codeById: Record<string, string> = {
   font-size: 0.95rem;
   width: 100%;
 }
-.meta-row.signal { justify-content: space-between; }
 .meta-key {
   font-size: 10px;
   letter-spacing: 0.3em;
   opacity: 0.55;
-  font-weight: 700;
-}
-.meta-val {
   font-weight: 700;
 }
 .meta-list {
@@ -187,19 +183,7 @@ const codeById: Record<string, string> = {
   line-height: 1.4;
 }
 .meta-list.mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.9rem;
-}
-.bar {
-  display: inline-block;
-  flex: 1;
-  height: 0.6rem;
-  background: rgba(26, 26, 26, 0.12);
-  position: relative;
-}
-.bar-fill {
-  display: block;
-  height: 100%;
-  background: #0a7a3a;
 }
 </style>

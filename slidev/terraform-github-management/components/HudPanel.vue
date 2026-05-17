@@ -26,7 +26,7 @@ defineProps<{
   padding: 0 6px;
   font-size: 9px;
   letter-spacing: 0.3em;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   color: #1a1a1a;
   z-index: 2;

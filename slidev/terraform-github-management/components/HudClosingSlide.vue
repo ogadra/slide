@@ -5,7 +5,6 @@ defineProps<{
   avatar: string
   profile: { label: string; value: string }[]
   links: { label: string; value: string }[]
-  qrUrl?: string
 }>()
 </script>
 
@@ -101,5 +100,5 @@ defineProps<{
 }
 .link-row { display: flex; gap: 1rem; }
 .link-row .label { opacity: 0.5; width: 7rem; }
-.link-row .value { font-family: 'JetBrains Mono', monospace; font-weight: 900; }
+.link-row .value { font-family: var(--font-mono); font-weight: 900; }
 </style>

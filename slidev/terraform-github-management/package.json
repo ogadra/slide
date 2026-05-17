@@ -8,7 +8,7 @@
     "build": "npm run build:slidev && npm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/terraform-github-management",
     "build:slidev": "slidev build --base /terraform-github-management/ --out ../../dist/terraform-github-management",
-    "dev": "slidev --open --remote",
+    "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"
   }

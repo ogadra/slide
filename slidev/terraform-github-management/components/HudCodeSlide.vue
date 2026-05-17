@@ -2,14 +2,16 @@
 import { computed } from 'vue'
 import { type HudTone, hudToneClass } from '../utils/hudTone'
 
+type ResourceKey = 'github_repository' | 'for_each'
+
 const props = defineProps<{
-  resource: string
+  resource: ResourceKey
   fileNote?: string
 }>()
 
 // 装飾的なFAKEコマンド出力。resourceに応じてコンポーネント側で持つ。
 type Cmd = { cmd: string; result: string; tone?: HudTone }
-const commandsByResource: Record<string, Cmd[]> = {
+const commandsByResource: Record<ResourceKey, Cmd[]> = {
   github_repository: [
     { cmd: '$ terraform fmt', result: 'OK', tone: 'green' },
     { cmd: '$ terraform validate', result: 'OK', tone: 'green' },
@@ -21,7 +23,7 @@ const commandsByResource: Record<string, Cmd[]> = {
     { cmd: '$ terraform apply', result: '3 applied', tone: 'green' },
   ],
 }
-const commands = computed<Cmd[]>(() => commandsByResource[props.resource] ?? [])
+const commands = computed<Cmd[]>(() => commandsByResource[props.resource])
 </script>
 
 <template>

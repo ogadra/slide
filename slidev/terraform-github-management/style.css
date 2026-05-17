@@ -2,10 +2,7 @@
   --ink: #111111;
   --paper: #ffffff;
   --hazard-yellow: #ffd400;
-  /* EVA white-mode palette */
-  --nerv-orange: #ff6b00;
-  --shinji-blue: #1b6fe8;
-  --eva-purple: #5b2e91;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 html {
@@ -136,7 +133,7 @@ a {
   inset: 0;
   background: #ffffff;
   color: #1a1a1a;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 .hud-corner {
@@ -159,7 +156,7 @@ a {
   align-items: center;
   font-size: 10px;
   letter-spacing: 0.2em;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 .hud-green { color: #0a7a3a; }

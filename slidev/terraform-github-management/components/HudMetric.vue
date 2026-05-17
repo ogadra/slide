@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { hudToneClass, hudToneFill } from '../utils/hudTone'
+import { type HudTone, hudToneClass, hudToneFill } from '../utils/hudTone'
 
 defineProps<{
   label: string
   value: string
   percent: number
-  tone?: 'default' | 'green' | 'red' | 'orange'
+  tone?: HudTone
 }>()
 </script>
 
