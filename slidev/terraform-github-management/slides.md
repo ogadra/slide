@@ -119,9 +119,9 @@ resource "github_repository" "repos" {
 <HudBenefitsSlide
   title="BENEFITS / 何が嬉しい？"
   :benefits="[
-    { id: 'B-01', icon: '+', title: '同じ設定を<br/>すぐ作成', code: 'BRANCH PROTECT / etc.', note: 'ブランチ保護、マージ時削除…忘れがちな設定を最初から一括適用' },
-    { id: 'B-02', icon: '!', title: '設定ミスを<br/>静的解析で防止', code: 'TFLINT / VALIDATE', note: '「うっかり Public 化」など事故になりやすい操作を事前に検出' },
-    { id: 'B-03', icon: '↻', title: 'PR で承認<br/>フローが完結', code: 'PULL REQUEST', note: 'リポ作成申請はもう不要。PR を出してレビュー → apply で完了' },
+    { id: 'B-01', title: '同じ設定を<br/>すぐ作成', code: 'BRANCH PROTECT / etc.', before: '画面ポチポチで毎回手作業、設定漏れも起きがち', after: 'コードを使い回し、ブランチ保護まで最初から一括適用' },
+    { id: 'B-02', title: '設定ミスを<br/>静的解析で防止', code: 'TFLINT / VALIDATE', before: 'うっかり Public 化など、事故ってから気付く', after: 'apply 前に lint / validate で危ない設定を検出' },
+    { id: 'B-03', title: 'PRだけで<br/>承認フローが完結', code: 'PULL REQUEST', before: '管理者にリポ作成を申請して、Slackで待つ', after: 'PRを出してレビュー → applyで誰でも作れる' },
   ]"
 />
 
@@ -131,8 +131,8 @@ resource "github_repository" "repos" {
   from-text="LEARN TERRAFORM with CLOUD"
   to-text="LEARN with GitHub"
   :actions="[
-    'みんな触り慣れた GitHub で plan / apply が試せる',
-    'リポ管理の効率化と Terraform 学習が一石二鳥',
+    'みんな触り慣れたGitHubでplan / applyが試せる',
+    'リポジトリ管理の効率化とTerraform学習が一石二鳥',
   ]"
 />
 
