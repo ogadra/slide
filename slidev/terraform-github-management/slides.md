@@ -138,38 +138,19 @@ resource "github_repository" "repos" {
 
 ---
 
-<HudIntroSlide
+<HudClosingSlide
   name="おがどら"
   handle="@const_myself"
-  initial="O"
+  avatar="https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif"
   :profile="[
     { label: 'ROLE', value: 'Web Developer' },
     { label: 'BASE', value: 'Tokyo / Japan' },
     { label: 'TZ', value: 'Asia/Tokyo' },
   ]"
-  about='座右の銘は<br/><span class="motto">Done is better than perfect.</span>'
-  :stats="[
-    { label: 'COMMITS', value: '2,847', percent: 92 },
-    { label: 'PR REVIEWS', value: '481', percent: 67, tone: 'green' },
-    { label: 'SLIDES', value: '015', percent: 45 },
-  ]"
-  :stack="[
-    { name: 'TypeScript', status: 'DAILY', tone: 'green' },
-    { name: 'Remix / React', status: 'DAILY', tone: 'green' },
-    { name: 'Cloudflare', status: 'DAILY', tone: 'green' },
-    { name: 'Hono', status: 'DAILY', tone: 'green' },
-    { name: 'Terraform', status: 'FOCUS', tone: 'orange' },
-    { name: 'Claude Code', status: 'DAILY', tone: 'green' },
-  ]"
-/>
----
-
-<HudOutroSlide
   :links="[
     { label: 'SPEAKER', value: 'おがどら' },
     { label: 'SLIDE', value: 'slide.ogadra.com' },
     { label: 'GITHUB', value: 'github.com/ogadra' },
-    { label: 'TWITTER', value: '@const_myself' },
+    { label: 'TWITTER', value: 'twitter.com/const_myself' },
   ]"
-  qr-url="slide.ogadra.com"
 />
