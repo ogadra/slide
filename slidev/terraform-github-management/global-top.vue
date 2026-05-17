@@ -2,22 +2,17 @@
 import { computed } from 'vue'
 import { useNav } from '@slidev/client'
 
-const { currentSlideNo, total, currentSlideRoute } = useNav()
+const { currentSlideNo, total } = useNav()
 
-const frontmatter = computed<any>(() => {
-  return (currentSlideRoute.value as any)?.meta?.slide?.frontmatter ?? {}
-})
+// 全スライド共通のヘッダー（装飾。スライドごとに変えない）
+const topStatus: { text: string; tone?: 'green' | 'red' | 'orange' }[] = [
+  { text: '● REC 2026-05-18T18:00 JST' },
+  { text: '▲ STATUS: ONLINE', tone: 'green' },
+  { text: 'SIGNAL ████████░ 87%' },
+  { text: '⚠ WARNING', tone: 'red' },
+]
 
-const topStatus = computed<{ text: string; tone?: string }[]>(() => {
-  const fm = frontmatter.value
-  return Array.isArray(fm.topStatus) ? fm.topStatus : []
-})
-
-const chapterNo = computed(() => {
-  const n = currentSlideNo.value
-  return n.toString().padStart(2, '0')
-})
-
+const chapterNo = computed(() => currentSlideNo.value.toString().padStart(2, '0'))
 const totalNo = computed(() => total.value.toString().padStart(2, '0'))
 
 const toneClass = (tone?: string) => {

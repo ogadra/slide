@@ -14,39 +14,14 @@ fonts:
   mono: 'JetBrains Mono'
   weights: '500,700,900'
   provider: google
-topStatus:
-  - { text: '● REC 2026-05-18T18:30 JST' }
-  - { text: '▲ STATUS: ONLINE', tone: 'green' }
-  - { text: 'SIGNAL ████████░ 87%' }
-  - { text: '⚠ WARNING', tone: 'red' }
 ---
 
 <HudTitleSlide
   title='GitHub運用を<br/><span class="hud-green">地盤改良</span>する'
   subtitle='ナンパはダメよ<span class="hud-red">路上LT会</span> - 2026-05-18 (Mon) Tokyo, Japan'
   speaker="おがどら"
-  :meta="['GITHUB × TERRAFORM', 'LT-005', 'DURATION 00:05:00']"
-  :metrics="[
-    { label: 'REPOS', value: '014', percent: 70 },
-    { label: 'BRANCHES', value: '062', percent: 85, tone: 'green' },
-    { label: 'IAC COV', value: '87%', percent: 87, tone: 'green' },
-  ]"
-  :resources="[
-    { name: 'github_repository', status: 'READY', tone: 'green' },
-    { name: 'github_branch_protection', status: 'READY', tone: 'green' },
-    { name: 'github_team', status: 'READY', tone: 'green' },
-    { name: 'github_repository_collaborator', status: 'DRIFT', tone: 'red' },
-    { name: 'github_actions_secret', status: 'READY', tone: 'green' },
-    { name: 'github_membership', status: 'SYNC', tone: 'orange' },
-  ]"
 />
 
----
-topStatus:
-  - { text: 'CHAPTER 02 / IDENTIFY' }
-  - { text: '▲ HANDSHAKE COMPLETE', tone: 'green' }
-  - { text: 'UPTIME: 00:00:42' }
-  - { text: 'SPEAKER PROFILE' }
 ---
 
 <HudIntroSlide
@@ -58,7 +33,7 @@ topStatus:
     { label: 'BASE', value: 'Tokyo / Japan' },
     { label: 'TZ', value: 'Asia/Tokyo' },
   ]"
-  about='座右の銘は<br/><span class="motto">Done is better than perfect.</span><br/><br/>Claude Code Maxプラン契約中<br/>1日198コミット達成歴あり'
+  about='座右の銘は<br/><span class="motto">Done is better than perfect.</span>'
   :stats="[
     { label: 'COMMITS', value: '2,847', percent: 92 },
     { label: 'PR REVIEWS', value: '481', percent: 67, tone: 'green' },
@@ -74,12 +49,6 @@ topStatus:
   ]"
 />
 
----
-topStatus:
-  - { text: '⚠ ALERT LEVEL: HIGH', tone: 'red' }
-  - { text: 'CODE: GROUND-SUBSIDENCE', tone: 'red' }
-  - { text: 'DETECTED 14 REPOS' }
-  - { text: '● RECORDING', tone: 'red' }
 ---
 
 <HudAlertSlide
@@ -108,12 +77,6 @@ topStatus:
 </HudAlertSlide>
 
 ---
-topStatus:
-  - { text: 'CHAPTER 04 / SYMPTOMS' }
-  - { text: 'SCAN MODE: ACTIVE' }
-  - { text: 'FOUND: 4 PATTERNS' }
-  - { text: '▲ ATTENTION', tone: 'orange' }
----
 
 <HudPatternSlide
   title='こんな"あるある"、ありませんか'
@@ -125,12 +88,6 @@ topStatus:
   ]"
 />
 
----
-topStatus:
-  - { text: 'FILE: github.tf' }
-  - { text: '▲ FMT: OK', tone: 'green' }
-  - { text: 'SIZE: 287 bytes' }
-  - { text: 'UTF-8' }
 ---
 
 <HudCodeSlide
@@ -172,12 +129,6 @@ resource "github_repository" "slide" {
 </HudCodeSlide>
 
 ---
-topStatus:
-  - { text: 'CHAPTER 06 / BENEFITS' }
-  - { text: '▲ OUTCOMES', tone: 'green' }
-  - { text: 'SCORE: +28pts' }
-  - { text: 'VERIFIED' }
----
 
 <HudBenefitsSlide
   title="BENEFITS / 何が嬉しい？"
@@ -190,12 +141,6 @@ topStatus:
 />
 
 ---
-topStatus:
-  - { text: 'CHAPTER 07 / CONCLUSION' }
-  - { text: '▲ FINAL DECISION', tone: 'green' }
-  - { text: 'CONFIDENCE: 99%' }
-  - { text: 'EXECUTE', tone: 'green' }
----
 
 <HudConclusionSlide
   from-text="MANUAL OPERATION"
@@ -206,12 +151,6 @@ topStatus:
   ]"
 />
 
----
-topStatus:
-  - { text: '▲ SESSION COMPLETE', tone: 'green' }
-  - { text: 'DURATION: 00:05:00' }
-  - { text: 'THANK YOU' }
-  - { text: '● END OF FILE', tone: 'green' }
 ---
 
 <HudOutroSlide
