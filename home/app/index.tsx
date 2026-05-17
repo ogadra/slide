@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/05/18"
+					eventLink="https://yumemi.connpass.com/event/381395/"
+					eventTitle="ナンパはダメよ路上LT会"
+					slide={[
+						{
+							link: "./terraform-github-management",
+							title: "GitHub運用を地盤改良する",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/04/22"
 					eventLink="https://sai-kyo.connpass.com/event/386639/"
 					eventTitle="埼京.dev #3【俺の考えた最強の◯◯】"

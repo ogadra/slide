@@ -3,6 +3,8 @@ import { HeadHandler } from "./htmlRewriter";
 
 const titles = (path: string): string => {
   switch (path) {
+    case "terraform-github-management":
+      return "GitHub運用を地盤改良する";
     case "my-strongest-presentation-slides":
       return "俺の考えた最強の登壇資料";
     case "lambda-as-an-ecs-alternative":

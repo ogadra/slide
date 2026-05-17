@@ -1,0 +1,186 @@
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --hazard-yellow: #ffd400;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html {
+  font-size: 125%;
+}
+
+html, body, #app {
+  background: var(--paper) !important;
+}
+
+.slidev-layout {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  padding: 3rem 3.5rem !important;
+}
+
+/* --- 見出し --- */
+h1 {
+  font-weight: 900 !important;
+  font-size: 3.5rem !important;
+  line-height: 1.2 !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.02em;
+  margin: 0 0 1.5rem 0 !important;
+}
+
+h2 {
+  font-weight: 900 !important;
+  font-size: 2.4rem !important;
+  line-height: 1.3 !important;
+  color: var(--ink) !important;
+  padding: 0.5rem 1rem !important;
+  border-left: 12px solid var(--hazard-yellow);
+  margin: 0 0 1.5rem 0 !important;
+}
+
+h3 {
+  font-weight: 700 !important;
+  font-size: 1.9rem !important;
+  color: var(--ink) !important;
+}
+
+/* --- 本文 --- */
+p {
+  font-weight: 500 !important;
+  font-size: 1.4rem !important;
+  line-height: 1.7 !important;
+  color: var(--ink) !important;
+}
+
+li {
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.9 !important;
+  color: var(--ink) !important;
+}
+
+strong {
+  background: var(--hazard-yellow);
+  padding: 0 0.25em;
+  font-weight: 900 !important;
+}
+
+/* --- コード（印刷で読める大きさ） --- */
+code {
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+pre, .slidev-code-wrapper, .shiki {
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
+  line-height: 1.6 !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 1.25rem 1.5rem !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+pre code, .shiki code {
+  font-size: 1.4rem !important;
+  background: transparent !important;
+}
+
+/* シンタックスハイライト: Shiki の色をそのまま活かす（カラー印刷前提）*/
+
+/* 非ハイライト行を薄くしない */
+.slidev-code .line:not(.highlighted),
+.shiki .line:not(.highlighted) {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* 行ハイライト: ```hcl {2-4} のような行指定で大事な行を強調 */
+.shiki .line {
+  display: inline-block;
+  width: 100%;
+  padding: 0 0.5rem;
+  margin: 0 -0.5rem;
+  box-sizing: content-box;
+}
+.shiki .line.highlighted {
+  background: rgba(204, 68, 0, 0.18) !important;
+  box-shadow: inset 4px 0 0 #cc4400;
+}
+.shiki .line.highlighted span {
+  font-weight: 900 !important;
+}
+
+
+/* --- リンク --- */
+a {
+  color: var(--ink) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+}
+
+/* ============================================
+   HUD (印刷向け白モード)
+   ============================================ */
+
+.hud-root {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: var(--font-mono);
+}
+
+.hud-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: #1a1a1a;
+}
+.hud-corner.tl { top: 16px; left: 16px; border-left: 3px solid; border-top: 3px solid; }
+.hud-corner.tr { top: 16px; right: 16px; border-right: 3px solid; border-top: 3px solid; }
+.hud-corner.bl { bottom: 16px; left: 16px; border-left: 3px solid; border-bottom: 3px solid; }
+.hud-corner.br { bottom: 16px; right: 16px; border-right: 3px solid; border-bottom: 3px solid; }
+
+.hud-statusbar {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-family: var(--font-mono);
+}
+
+.hud-green { color: #0a7a3a; }
+.hud-red { color: #cc1100; }
+.hud-orange { color: #cc4400; }
+
+.hud-bar {
+  height: 4px;
+  border: 1px solid #1a1a1a;
+  position: relative;
+}
+.hud-bar-fill {
+  height: 100%;
+  background: #1a1a1a;
+}
+
+/* --- 印刷時の調整 --- */
+@media print {
+  html, body, #app, .slidev-layout {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+  }
+  /* フッターは画面用。紙ではインク節約・端切れ回避のため非表示 */
+  .footer-bar {
+    display: none !important;
+  }
+}
