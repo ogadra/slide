@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useNav } from '@slidev/client'
+import { useNav, useSlideContext } from '@slidev/client'
 import { type HudTone, hudToneClass } from './utils/hudTone'
 
-const { currentSlideNo, total } = useNav()
+const nav = useNav()
+const { $slidev } = useSlideContext()
+const currentSlideNo = computed(() => $slidev?.nav?.currentSlideNo ?? nav.currentSlideNo.value)
+const total = computed(() => $slidev?.nav?.total ?? nav.total.value)
 
 // 全スライド共通のヘッダー（装飾。スライドごとに変えない）
 const topStatus: { text: string; tone?: HudTone }[] = [
