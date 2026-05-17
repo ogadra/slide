@@ -15,7 +15,7 @@ defineProps<{
   <HudSlide>
     <div class="wrapper">
       <div class="page-title">{{ title }}</div>
-      <div class="grid">
+      <div class="grid" :class="`cols-${benefits.length}`">
         <HudPanel
           v-for="b in benefits"
           :key="b.id"
@@ -40,23 +40,25 @@ defineProps<{
   height: 100%;
 }
 .page-title {
-  font-family: 'Bodoni Moda', serif;
   font-weight: 900;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-top: 0.5rem;
+  letter-spacing: 0.02em;
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
   flex: 1;
 }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .icon {
-  font-family: 'Bodoni Moda', serif;
   font-weight: 900;
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   color: #0a7a3a;
   margin-top: 1rem;
+  line-height: 1;
 }
 .b-title {
   font-size: 1.5rem;

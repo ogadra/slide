@@ -53,8 +53,8 @@ const dotClass = (tone: string) => {
 
 <style scoped>
 .grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(6, 1fr); gap: 0.5rem; height: 100%; }
-.avatar { width: 140px; height: 140px; border: 2px solid #1a1a1a; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-family: 'Bodoni Moda', serif; font-weight: 900; font-size: 3rem; margin-top: 1rem; }
-.name { font-family: 'Bodoni Moda', serif; font-weight: 900; font-size: 2.25rem; margin-top: 1rem; }
+.avatar { width: 140px; height: 140px; border: 2px solid #1a1a1a; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 3rem; margin-top: 1rem; }
+.name { font-weight: 900; font-size: 2rem; margin-top: 1rem; letter-spacing: 0.02em; }
 .handle { font-size: 10px; letter-spacing: 0.15em; margin-top: 0.5rem; opacity: 0.6; }
 .meta { border-top: 1px solid #1a1a1a; width: 100%; margin-top: 1rem; padding-top: 0.75rem; font-size: 9px; display: flex; flex-direction: column; gap: 0.25rem; }
 .meta > div { display: flex; justify-content: space-between; }

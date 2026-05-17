@@ -72,10 +72,10 @@ const toneClass = (tone?: string) => {
   color: #1a1a1a;
 }
 .hud-chapter-no {
-  font-family: 'Bodoni Moda', serif;
   font-weight: 900;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   line-height: 1;
+  letter-spacing: 0.05em;
   color: #1a1a1a;
 }
 .hud-chapter-total {

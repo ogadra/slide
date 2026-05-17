@@ -36,10 +36,10 @@ defineProps<{
   height: 100%;
 }
 .big {
-  font-family: 'Bodoni Moda', serif;
   font-weight: 900;
-  font-size: 4.5rem;
-  line-height: 0.95;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 .ja {
   font-size: 1.875rem;

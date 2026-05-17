@@ -60,9 +60,9 @@ const resultClass = (tone?: string) => {
   margin-bottom: 1rem;
 }
 .title {
-  font-family: 'Bodoni Moda', serif;
   font-weight: 900;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  letter-spacing: 0.02em;
   margin-right: 0.75rem;
 }
 .title-note {
