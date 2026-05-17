@@ -15,15 +15,15 @@ fonts:
   weights: '500,700,900'
   provider: google
 topStatus:
-  - { text: '● REC 2026-05-18T18:00 JST' }
+  - { text: '● REC 2026-05-18T18:30 JST' }
   - { text: '▲ STATUS: ONLINE', tone: 'green' }
   - { text: 'SIGNAL ████████░ 87%' }
   - { text: '⚠ WARNING', tone: 'red' }
 ---
 
 <HudTitleSlide
-  title='GROUND<br/>IMPROVE<span class="hud-red">MENT</span>'
-  subtitle='GitHub運用を<span class="hud-green">地盤改良</span>する'
+  title='GitHub運用を<br/><span class="hud-green">地盤改良</span>する'
+  subtitle='ナンパはダメよ<span class="hud-red">路上LT会</span> - 2026-05-18 (Mon) Tokyo, Japan'
   speaker="おがどら"
   :meta="['GITHUB × TERRAFORM', 'LT-005', 'DURATION 00:05:00']"
   :metrics="[

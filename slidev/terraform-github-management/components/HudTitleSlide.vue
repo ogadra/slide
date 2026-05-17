@@ -136,7 +136,7 @@ const valueClass = (tone: string) => dotClass(tone)
   font-family: 'Bodoni Moda', serif;
   font-weight: 900;
   font-size: 4.5rem;
-  line-height: 0.95;
+  line-height: 1.35;
 }
 
 .title-footer {
@@ -148,7 +148,7 @@ const valueClass = (tone: string) => dotClass(tone)
   padding-top: 0.5rem;
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .target-panel {
