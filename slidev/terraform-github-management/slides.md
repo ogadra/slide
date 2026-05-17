@@ -116,9 +116,9 @@ resource "github_repository" "repos" {
 <HudBenefitsSlide
   title="BENEFITS / 何が嬉しい？"
   :benefits="[
-    { id: 'B-01', title: '同じ設定を<br/>すぐ作成', code: 'BRANCH PROTECT / etc.', before: '画面ポチポチで毎回手作業、設定漏れも起きがち', after: 'コードを使い回し、ブランチ保護まで最初から一括適用' },
-    { id: 'B-02', title: '設定ミスを<br/>静的解析で防止', code: 'TFLINT / VALIDATE', before: 'うっかり Public 化など、事故ってから気付く', after: 'apply 前に lint / validate で危ない設定を検出' },
-    { id: 'B-03', title: 'PRだけで<br/>承認フローが完結', code: 'PULL REQUEST', before: '管理者にリポ作成を申請して、Slackで待つ', after: 'PRを出してレビュー → applyで誰でも作れる' },
+    { id: 'B-01', title: '同じ設定を<br/>すぐ作成', before: '画面ポチポチで毎回手作業、設定漏れも起きがち', after: 'コードを使い回し、ブランチ保護まで最初から一括適用' },
+    { id: 'B-02', title: '設定ミスを<br/>静的解析で防止', before: 'うっかり Public 化など、事故ってから気付く', after: 'apply 前に lint / validate で危ない設定を検出' },
+    { id: 'B-03', title: 'PRだけで<br/>承認フローが完結', before: '管理者にリポ作成を申請して、Slackで待つ', after: 'PRを出してレビュー → applyで誰でも作れる' },
   ]"
 />
 

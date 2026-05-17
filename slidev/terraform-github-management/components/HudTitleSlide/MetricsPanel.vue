@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // 装飾文字列なのでmd側からは渡さない
+// 値は github.com/ogadra (public 55リポ) と ogadra/GitHub (Terraform管理 7リポ) を反映
 const metrics = [
-  { label: 'REPOS', value: '014', percent: 70 },
-  { label: 'BRANCHES', value: '062', percent: 85, tone: 'green' as const },
-  { label: 'IAC COV', value: '87%', percent: 87, tone: 'green' as const },
+  { label: 'REPOS', value: '055', percent: 55 },
+  { label: 'BRANCHES', value: '007', percent: 100, tone: 'green' as const },
+  { label: 'IAC COV', value: '13%', percent: 13, tone: 'orange' as const },
 ]
 </script>
 

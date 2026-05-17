@@ -4,11 +4,17 @@ defineProps<{
   benefits: {
     id: string
     title: string
-    code: string
     before: string
     after: string
   }[]
 }>()
+
+// 装飾的なメタラベル。id とセットで紐付ける。
+const codeById: Record<string, string> = {
+  'B-01': 'BRANCH PROTECT / etc.',
+  'B-02': 'TFLINT / VALIDATE',
+  'B-03': 'PULL REQUEST',
+}
 </script>
 
 <template>
@@ -32,7 +38,7 @@ defineProps<{
         panel-class="col-span-4 row-span-6 p-3 flex flex-col"
       >
         <div class="b-title" v-html="b.title" />
-        <div class="b-code">{{ b.code }}</div>
+        <div class="b-code">{{ codeById[b.id] }}</div>
         <div class="ba">
           <div class="ba-row before">
             <span class="ba-mark">×</span>
