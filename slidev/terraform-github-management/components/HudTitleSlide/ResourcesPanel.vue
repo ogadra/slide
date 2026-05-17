@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type HudTone, hudToneClass } from '../../utils/hudTone'
 
-// 装飾文字列なのでmd側からは渡さない
 const resources: { name: string; status: string; tone: HudTone }[] = [
   { name: 'github_repository', status: 'READY', tone: 'green' },
   { name: 'github_branch_protection', status: 'READY', tone: 'green' },

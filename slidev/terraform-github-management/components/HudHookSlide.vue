@@ -46,7 +46,7 @@ defineProps<{
   height: 100%;
 }
 .seq-meta {
-  width: 11rem;
+  width: 9rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -62,7 +62,7 @@ defineProps<{
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  padding-left: 1.5rem;
+  padding: 0 1.5rem;
 }
 .word-row {
   display: grid;

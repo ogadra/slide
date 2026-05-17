@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // レーダー画面風のターゲット表示パネル。
-// 中身は装飾なのでこのコンポーネント内で完結。
 </script>
 
 <template>

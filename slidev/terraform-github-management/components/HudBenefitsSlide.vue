@@ -9,7 +9,7 @@ defineProps<{
   }[]
 }>()
 
-// 装飾的なメタラベル。id とセットで紐付ける。
+// メタラベル
 const codeById: Record<string, string> = {
   'B-01': 'BRANCH PROTECT / etc.',
   'B-02': 'TFLINT / VALIDATE',

@@ -207,6 +207,7 @@ const nextTopic = computed(() => slideMeta[currentSlideNo.value]?.topic ?? '—'
   bottom: 24px;
   right: 320px;
   width: 220px;
+  padding: 0 8px;
   font-family: var(--font-mono);
   color: #1a1a1a;
   display: flex;
@@ -230,20 +231,22 @@ const nextTopic = computed(() => slideMeta[currentSlideNo.value]?.topic ?? '—'
 .hud-progress-track {
   position: relative;
   height: 16px;
-  border: 1px solid #1a1a1a;
   background: transparent;
+  --skew: 8px;
+  border: 1px solid #1a1a1a;
+  transform: skewX(-30deg);
 }
 .hud-progress-fill {
   position: absolute;
   inset: 0 auto 0 0;
-  background: #1a1a1a;
+  background: rgba(26, 26, 26, 0.6);
 }
 .hud-progress-mark {
   position: absolute;
-  top: -2px;
-  bottom: -2px;
-  width: 1px;
-  background: #1a1a1a;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dotted #1a1a1a;
   transform: translateX(-50%);
 }
 

@@ -9,7 +9,7 @@ const props = defineProps<{
   fileNote?: string
 }>()
 
-// 装飾的なFAKEコマンド出力。resourceに応じてコンポーネント側で持つ。
+// FAKEコマンド出力
 type Cmd = { cmd: string; result: string; tone?: HudTone }
 const commandsByResource: Record<ResourceKey, Cmd[]> = {
   github_repository: [
@@ -19,6 +19,8 @@ const commandsByResource: Record<ResourceKey, Cmd[]> = {
     { cmd: '$ terraform apply', result: 'applied', tone: 'green' },
   ],
   for_each: [
+    { cmd: '$ terraform fmt', result: 'OK', tone: 'green' },
+    { cmd: '$ terraform validate', result: 'OK', tone: 'green' },
     { cmd: '$ terraform plan', result: '+3 to add', tone: 'orange' },
     { cmd: '$ terraform apply', result: '3 applied', tone: 'green' },
   ],

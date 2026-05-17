@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// 装飾文字列なのでmd側からは渡さない
-// 値は github.com/ogadra (public 55リポ) と ogadra/GitHub (Terraform管理 7リポ) を反映
 const metrics = [
   { label: 'REPOS', value: '055', percent: 55 },
   { label: 'BRANCHES', value: '007', percent: 100, tone: 'green' as const },
