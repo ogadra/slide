@@ -95,6 +95,7 @@ pre, .slidev-code-wrapper, .shiki {
   border: 3px solid var(--ink) !important;
   padding: 1.25rem 1.5rem !important;
   box-shadow: none !important;
+  overflow: hidden !important;
 }
 
 pre code, .shiki code {
@@ -102,10 +103,29 @@ pre code, .shiki code {
   background: transparent !important;
 }
 
-/* シンタックスハイライトを全て黒へ（印刷前提でカラーを潰す） */
-.shiki span {
-  color: var(--ink) !important;
-  background: transparent !important;
+/* シンタックスハイライト: Shiki の色をそのまま活かす（カラー印刷前提）*/
+
+/* 非ハイライト行を薄くしない */
+.slidev-code .line:not(.highlighted),
+.shiki .line:not(.highlighted) {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* 行ハイライト: ```hcl {2-4} のような行指定で大事な行を強調 */
+.shiki .line {
+  display: inline-block;
+  width: 100%;
+  padding: 0 0.5rem;
+  margin: 0 -0.5rem;
+  box-sizing: content-box;
+}
+.shiki .line.highlighted {
+  background: rgba(204, 68, 0, 0.18) !important;
+  box-shadow: inset 4px 0 0 #cc4400;
+}
+.shiki .line.highlighted span {
+  font-weight: 900 !important;
 }
 
 /* --- 工事ストライプ --- */

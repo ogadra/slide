@@ -16,7 +16,7 @@ const resultClass = (tone?: string) => {
 <template>
   <HudSlide>
     <div class="grid">
-      <HudPanel :label="`[ RESOURCE / ${resource} ]`" panel-class="col-span-8 row-span-6 p-4">
+      <HudPanel :label="`[ RESOURCE / ${resource} ]`" panel-class="col-span-8 row-span-6 p-2">
         <div class="title-row">
           <div class="title">RESOURCE</div>
           <div class="title-note">{{ fileNote }}</div>
@@ -35,7 +35,7 @@ const resultClass = (tone?: string) => {
         </div>
       </HudPanel>
 
-      <HudPanel label="[ NOTE ]" panel-class="col-span-4 row-span-3 p-3">
+      <HudPanel label="[ NOTE ]" panel-class="col-span-4 row-span-3 p-2">
         <div class="note">
           <slot name="note" />
         </div>
@@ -74,7 +74,7 @@ const resultClass = (tone?: string) => {
 .code-wrap :deep(pre),
 .code-wrap :deep(.shiki) {
   font-size: 1.5rem !important;
-  line-height: 1.5 !important;
+  line-height: 1.3 !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
@@ -96,7 +96,10 @@ const resultClass = (tone?: string) => {
 
 .note {
   font-size: 1.125rem;
-  margin-top: 1rem;
-  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+.note > * {
+  line-height: 1.5 !important;
 }
 </style>

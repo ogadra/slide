@@ -52,7 +52,7 @@ fonts:
 
 <template #code>
 
-```hcl
+```hcl {5}
 resource "github_repository" "slide" {
   name                   = "slide"
   visibility             = "public"
@@ -67,9 +67,9 @@ resource "github_repository" "slide" {
 
 **▸ これだけ**
 
-設定をコードで宣言。
-`delete_branch_on_merge`
-など忘れがちな設定も
+設定をコードで宣言。<br/>
+`delete_branch_on_merge`<br/>
+など、忘れがちな設定も<br/>
 最初から一括適用。
 
 </template>
@@ -89,15 +89,14 @@ resource "github_repository" "slide" {
 
 <template #code>
 
-```hcl
+```hcl {2,6}
 locals {
-  repos = ["slide", "blog", "playground"]
+  repos = [ "repo1", "repo2", "repo3" ]
 }
 
-resource "github_repository" "site" {
+resource "github_repository" "repos" {
   for_each   = toset(local.repos)
   name       = each.value
-  visibility = "public"
 }
 ```
 
@@ -107,10 +106,9 @@ resource "github_repository" "site" {
 
 **▸ 一括展開**
 
-同じ設定を使い回すなら
-`for_each` で展開。
-新リポも配列に1行追加
-するだけで生える。
+同じ設定を使い回すなら<br/>
+`for_each` で展開。<br/>
+リポジトリ追加・削除も<br/>お手の物。
 
 </template>
 
