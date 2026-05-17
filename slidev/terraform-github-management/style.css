@@ -10,7 +10,6 @@
   --ink: #111111;
   --paper: #ffffff;
   --hazard-yellow: #ffd400;
-  --hazard-black: #111111;
   /* EVA white-mode palette */
   --nerv-orange: #ff6b00;
   --shinji-blue: #1b6fe8;
@@ -128,57 +127,6 @@ pre code, .shiki code {
   font-weight: 900 !important;
 }
 
-/* --- 工事ストライプ --- */
-.hazard-stripe {
-  height: 32px;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--hazard-yellow) 0,
-    var(--hazard-yellow) 20px,
-    var(--hazard-black) 20px,
-    var(--hazard-black) 40px
-  );
-}
-
-.hazard-stripe-thin {
-  height: 16px;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--hazard-yellow) 0,
-    var(--hazard-yellow) 12px,
-    var(--hazard-black) 12px,
-    var(--hazard-black) 24px
-  );
-}
-
-.hazard-stripe-vertical {
-  width: 16px;
-  background: repeating-linear-gradient(
-    45deg,
-    var(--hazard-yellow) 0,
-    var(--hazard-yellow) 12px,
-    var(--hazard-black) 12px,
-    var(--hazard-black) 24px
-  );
-}
-
-/* --- 注意喚起ボックス --- */
-.caution-box {
-  border: 6px solid var(--ink);
-  padding: 2rem 2.5rem;
-  background: var(--paper);
-}
-
-.caution-label {
-  display: inline-block;
-  background: var(--hazard-yellow);
-  color: var(--ink);
-  font-weight: 900;
-  font-size: 1.2rem;
-  padding: 0.25rem 0.75rem;
-  margin-bottom: 1rem;
-  letter-spacing: 0.1em;
-}
 
 /* --- リンク --- */
 a {
@@ -209,26 +157,6 @@ a {
 .hud-corner.tr { top: 16px; right: 16px; border-right: 3px solid; border-top: 3px solid; }
 .hud-corner.bl { bottom: 16px; left: 16px; border-left: 3px solid; border-bottom: 3px solid; }
 .hud-corner.br { bottom: 16px; right: 16px; border-right: 3px solid; border-bottom: 3px solid; }
-
-.hud-panel {
-  border: 1px solid #1a1a1a;
-  position: relative;
-}
-
-.hud-panel-label {
-  position: absolute;
-  top: 0;
-  left: 12px;
-  transform: translateY(-50%);
-  background: #ffffff;
-  padding: 0 6px;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  font-family: "JetBrains Mono", monospace;
-  font-weight: 700;
-  color: #1a1a1a;
-  z-index: 2;
-}
 
 .hud-statusbar {
   position: absolute;

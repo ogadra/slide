@@ -42,12 +42,6 @@ fonts:
 <HudCodeSlide
   resource="github_repository"
   file-note="// 1ファイル / 1リポジトリ"
-  :commands="[
-    { cmd: '$ terraform fmt', result: 'OK', tone: 'green' },
-    { cmd: '$ terraform validate', result: 'OK', tone: 'green' },
-    { cmd: '$ terraform plan', result: '+1 to add', tone: 'orange' },
-    { cmd: '$ terraform apply', result: 'applied', tone: 'green' },
-  ]"
 >
 
 <template #code>
@@ -81,10 +75,6 @@ resource "github_repository" "slide" {
 <HudCodeSlide
   resource="for_each"
   file-note="// 複数リポを一括生成"
-  :commands="[
-    { cmd: '$ terraform plan', result: '+3 to add', tone: 'orange' },
-    { cmd: '$ terraform apply', result: '3 applied', tone: 'green' },
-  ]"
 >
 
 <template #code>
