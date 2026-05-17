@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { hudToneClass } from '../utils/hudTone'
+import { type HudTone, hudToneClass } from '../utils/hudTone'
 
-// 装飾文字列はこのコンポーネントの責務
-const words: { jp: string; ascii: string; tone?: 'green' | 'red' | 'orange' }[] = [
-  { jp: '路上', ascii: 'STREET', tone: 'orange' },
-  { jp: '大地', ascii: 'GROUND' },
-  { jp: 'Terra', ascii: 'TERRA', tone: 'green' },
-  { jp: 'Terraform', ascii: 'TERRAFORM', tone: 'green' },
-]
+defineProps<{
+  words: { jp: string; ascii: string; tone?: HudTone }[]
+}>()
 </script>
 
 <template>

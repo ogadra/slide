@@ -23,7 +23,14 @@ fonts:
 
 ---
 
-<HudHookSlide />
+<HudHookSlide
+  :words="[
+    { jp: '路上', ascii: 'STREET', tone: 'orange' },
+    { jp: '大地', ascii: 'GROUND' },
+    { jp: 'Terra', ascii: 'TERRA', tone: 'green' },
+    { jp: 'Terraform', ascii: 'TERRAFORM', tone: 'green' },
+  ]"
+/>
 
 ---
 
