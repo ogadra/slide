@@ -36,7 +36,7 @@ fonts:
 
 <HudPivotSlide
   question='アプリ開発者の自分には<br/>関係ない？'
-  answer='いいえ、<span class="hud-orange">GitHub</span> も<br/>Terraform で管理できます'
+  answer='いいえ、<span class="hud-orange">GitHub</span>も<br/><span class="hud-orange">Terraform</span>で管理できます'
   :bullets="[
     'IaC = サーバーやサービスの設定を<span class=&quot;hud-green&quot;>コードで書く</span>',
     '「画面ポチポチ」ではなくコードで宣言的に記述',
@@ -104,7 +104,7 @@ resource "github_repository" "repos" {
 **▸ 一括展開**
 
 同じ設定を使い回すなら<br/>
-`for_each` で展開。<br/>
+`for_each`で展開。<br/>
 リポジトリ追加・削除も<br/>お手の物。
 
 </template>
@@ -117,7 +117,7 @@ resource "github_repository" "repos" {
   title="BENEFITS / 何が嬉しい？"
   :benefits="[
     { id: 'B-01', title: '同じ設定を<br/>すぐ作成', before: '画面ポチポチで毎回手作業、設定漏れも起きがち', after: 'コードを使い回し、ブランチ保護まで最初から一括適用' },
-    { id: 'B-02', title: '設定ミスを<br/>静的解析で防止', before: 'うっかり Public 化など、事故ってから気付く', after: 'apply 前に lint / validate で危ない設定を検出' },
+    { id: 'B-02', title: '設定ミスを<br/>静的解析で防止', before: 'うっかりPublic化など、事故ってから気付く', after: 'apply前にlint / validateで危ない設定を検出' },
     { id: 'B-03', title: 'PRだけで<br/>承認フローが完結', before: '管理者にリポ作成を申請して、Slackで待つ', after: 'PRを出してレビュー → applyで誰でも作れる' },
   ]"
 />

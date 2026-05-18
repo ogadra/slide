@@ -21,7 +21,7 @@ const newTarget = { name: 'GitHub', status: 'ALSO MANAGED' }
       <HudPanel label="[ DEFINITION / TERRAFORM ]" panel-class="col-span-5 row-span-3 p-3 flex flex-col justify-center">
         <div class="def-row">
           <span class="def-title">TERRAFORM</span>
-          <span class="def-sub">IaC ツール</span>
+          <span class="def-sub">IaCツール</span>
         </div>
         <ul class="def-list">
           <li v-for="(b, i) in bullets" :key="i"><span class="hud-green">▸</span> <span v-html="b" /></li>
