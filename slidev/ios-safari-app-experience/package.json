@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/ios-safari-app-experience",
     "build:slidev": "slidev build --base /ios-safari-app-experience/ --out ../../dist/ios-safari-app-experience",
     "dev": "slidev --open",

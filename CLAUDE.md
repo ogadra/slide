@@ -14,22 +14,22 @@ This is a personal slides website that hosts multiple Slidev presentations. The 
 ### Development
 ```bash
 # Run root workspace build (builds all slides and home)
-npm run build
+pnpm run build
 
 # Develop a specific slide deck
 cd slidev/[slide-name]
-npm run dev
+pnpm run dev
 
 # Develop the homepage
 cd home
-npm run dev
+pnpm run dev
 ```
 
 ### Building Individual Slides
 ```bash
 # Inside any slidev/[slide-name] directory
-npm run build          # Build slide deck and copy to dist
-npm run export:png      # Export slides as PNG images
+pnpm run build          # Build slide deck and copy to dist
+pnpm run export:png      # Export slides as PNG images
 ```
 
 ### Deployment
@@ -42,11 +42,11 @@ wrangler deploy
 ```bash
 # Run type checking (from home directory)
 cd home
-npm run typecheck
+pnpm run typecheck
 
 # Run linting
-npm run lint          # Check for issues
-npm run lint:fix      # Auto-fix issues
+pnpm run lint          # Check for issues
+pnpm run lint:fix      # Auto-fix issues
 
 # Pre-commit hooks automatically run:
 # - Type checking
@@ -57,7 +57,7 @@ npm run lint:fix      # Auto-fix issues
 ## Architecture
 
 ### Monorepo Structure
-- **Root**: npm workspace configuration
+- **Root**: pnpm workspace configuration
 - **home/**: Hono-based server for homepage and routing
 - **slidev/**: Individual slide presentations
 - **dist/**: Build output directory served by Cloudflare Workers
@@ -110,6 +110,6 @@ Static assets are served through Cloudflare Workers binding with `c.env.ASSETS.f
 
 ### Development Workflow
 1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection
-2. **Monorepo Management**: npm workspaces handle dependencies across slide decks and homepage
+2. **Monorepo Management**: pnpm workspaces handle dependencies across slide decks and homepage
 3. **Build Pipeline**: Each slide deck builds independently to shared dist directory
 4. **Local Development**: Use `wrangler dev --local` for full-stack testing with Workers runtime

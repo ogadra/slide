@@ -4,12 +4,9 @@
   "version": "0.0.1",
   "description": "ogadra's slides website.",
   "author": "ogadra",
-  "workspaces": [
-    "slidev/*",
-    "home"
-  ],
+  "packageManager": "pnpm@10.28.0",
   "scripts": {
-    "build": "npm run -ws build",
+    "build": "pnpm -r build",
     "dev": "wrangler dev --ip 0.0.0.0 --env dev",
     "start": "wrangler dev --ip 0.0.0.0 --env dev",
     "deploy:prd": "wrangler deploy",
@@ -30,5 +27,14 @@
   },
   "dependencies": {
     "vue-i18n": "^11.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "playwright-chromium",
+      "sharp",
+      "vue-demi",
+      "workerd"
+    ]
   }
 }

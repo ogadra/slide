@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/playwright-mcp-best-effort",
     "build:slidev": "slidev build --base /playwright-mcp-best-effort/ --out ../../dist/playwright-mcp-best-effort",
     "dev": "slidev --open",

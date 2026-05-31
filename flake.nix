@@ -58,9 +58,6 @@
           ]);
 
           shellHook = ''
-            echo "Slide development environment loaded"
-            echo "Node.js: $(node --version)"
-            echo "npm: $(npm --version)"
             export CHROME_PATH="${pkgs.google-chrome}/bin/google-chrome-stable"
           '';
         };
