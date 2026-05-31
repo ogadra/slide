@@ -22,7 +22,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_24
-            corepack
+            pnpm
             google-chrome
           ];
 
