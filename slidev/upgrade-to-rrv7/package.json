@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/upgrade-to-rrv7",
     "build:slidev": "slidev build --base /upgrade-to-rrv7/ --out ../../dist/upgrade-to-rrv7",
     "dev": "slidev --open",

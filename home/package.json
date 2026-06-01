@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:cf": "wrangler dev --ip 0.0.0.0",
-    "build": "vite build --mode server && cp -r ./.cloudflare/worker/hono_jsx_spa/* ../dist && mkdir -p ../dist/assets && cp assets/style.css ../dist/assets/style.css",
+    "build": "vite build --mode server && mkdir -p ../dist/assets && cp -r ./.cloudflare/worker/hono_jsx_spa/* ../dist && cp assets/style.css ../dist/assets/style.css",
     "preview": "vite preview",
     "export:png": "",
     "lint": "biome check",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
-    "@cloudflare/sandbox": "^0.7.17",
+    "@cloudflare/sandbox": "^0.7.21",
     "@cloudflare/workers-types": "^4.20260317.1",
     "typescript": "^6.0.3"
   }

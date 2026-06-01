@@ -22,7 +22,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_24
-            corepack
+            pnpm
             google-chrome
           ];
 
@@ -58,9 +58,6 @@
           ]);
 
           shellHook = ''
-            echo "Slide development environment loaded"
-            echo "Node.js: $(node --version)"
-            echo "npm: $(npm --version)"
             export CHROME_PATH="${pkgs.google-chrome}/bin/google-chrome-stable"
           '';
         };

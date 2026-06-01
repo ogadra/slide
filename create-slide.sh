@@ -54,7 +54,7 @@ cat > "$SLIDE_DIR/package.json" <<EOF
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/$SLIDE_NAME_EN",
     "build:slidev": "slidev build --base /$SLIDE_NAME_EN/ --out ../../dist/$SLIDE_NAME_EN",
     "dev": "slidev --open",
@@ -518,7 +518,7 @@ touch "$SLIDE_DIR/imgs/qr.png"
 
 # Install dependencies
 echo -e "${GREEN}Installing dependencies...${NC}"
-npm install
+pnpm install
 
 # Success message
 echo ""
@@ -528,4 +528,4 @@ echo ""
 echo -e "${GREEN}Happy presenting! 🚀${NC}"
 
 # Start development server (this will block until stopped)
-cd "$SLIDE_DIR" && npm run dev
+cd "$SLIDE_DIR" && pnpm run dev

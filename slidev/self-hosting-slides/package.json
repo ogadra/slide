@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/self-hosting-slides",
     "build:slidev": "slidev build --base /self-hosting-slides/ --out ../../dist/self-hosting-slides",
     "dev": "slidev --open",

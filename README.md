@@ -39,25 +39,25 @@
 
 ```bash
 cd slidev/[スライド名]
-npm run dev
+pnpm run dev
 ```
 
 ### ビルド
 
 ```bash
 # 全体ビルド
-npm run build
+pnpm run build
 
 # 個別スライドビルド
 cd slidev/[スライド名]
-npm run build
+pnpm run build
 ```
 
 ### PNG エクスポート
 
 ```bash
 cd slidev/[スライド名]
-npm run export:png
+pnpm run export:png
 ```
 
 ## 🌐 デプロイ

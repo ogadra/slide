@@ -5,7 +5,7 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "npm run build:slidev && npm run build:copy",
+    "build": "pnpm run build:slidev && pnpm run build:copy",
     "build:copy": "cp -r ./slides-export ../../dist/cloudflare-fullstack-application",
     "build:slidev": "slidev build --base /cloudflare-fullstack-application/ --out ../../dist/cloudflare-fullstack-application",
     "dev": "slidev --open",
