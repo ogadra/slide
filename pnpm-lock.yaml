@@ -62,8 +62,8 @@ importers:
         specifier: 2.4.16
         version: 2.4.16
       '@cloudflare/sandbox':
-        specifier: ^0.7.21
-        version: 0.7.21(@xterm/xterm@5.5.0)
+        specifier: ^0.11.0
+        version: 0.11.0(@xterm/xterm@5.5.0)
       '@cloudflare/workers-types':
         specifier: ^4.20260317.1
         version: 4.20260531.1
@@ -339,15 +339,15 @@ packages:
   '@chevrotain/types@11.1.2':
     resolution: {integrity: sha512-U+HFai5+zmJCkK86QsaJtoITlboZHBqrVketcO2ROv865xfCMSFpELQoz1GkX5GzME8pTa+3kbKrZHQtI0gdbw==}
 
-  '@cloudflare/containers@0.1.1':
-    resolution: {integrity: sha512-YTdobRTnTlUOUPMFemufH367A9Z8pDfZ+UboYMLbGpO0VlvEXZDiioSmXPQMHld2vRtkL31mcRii3bcbQU6fdw==}
+  '@cloudflare/containers@0.3.7':
+    resolution: {integrity: sha512-DM9dm3FnIBSyiSJ1FLavKwl/lk3oAmTaynCzZQ9pZR0ncRPquSxkxd8Nu2MFILxmDDsPkxKsSNEh9mHHMty4Fw==}
 
   '@cloudflare/kv-asset-handler@0.5.0':
     resolution: {integrity: sha512-jxQYkj8dSIzc0cD6cMMNdOc1UVjqSqu8BZdor5s8cGjW2I8BjODt/kWPVdY+u9zj3ms75Q5qaZgnxUad83+eAg==}
     engines: {node: '>=22.0.0'}
 
-  '@cloudflare/sandbox@0.7.21':
-    resolution: {integrity: sha512-BlfbhIWF83NkmixxGVpE9zrcR0Ix5fVgV+zzfJByxyRnXUS+g2aUeIXK2opBcnX8WWlk6v5+RYTKkSz1XKQ4eg==}
+  '@cloudflare/sandbox@0.11.0':
+    resolution: {integrity: sha512-OdM26ucJlc5B4en8eZMI0C8/UE3gk9bi2sqmElsGyqZIk6nhAo1HqHQynmuLKIHfNo6qo4bt12tWjTgFzzzgBg==}
     peerDependencies:
       '@openai/agents': ^0.3.3
       '@opencode-ai/sdk': ^1.1.40
@@ -2201,6 +2201,9 @@ packages:
 
   caniuse-lite@1.0.30001793:
     resolution: {integrity: sha512-iwSsYWaCOoh26cV8NwNRViHlrfUvYsHDfRVcbtmw0Kg6PJIZZXwMkj1442FYLBGkeUf1juAsU3DTfxW579mrPA==}
+
+  capnweb@0.8.0:
+    resolution: {integrity: sha512-BK/TuXUiyfLSKsmjojn70yN7oYG/JJzoURZ3tckjg5Zj2KcygPm0A5jyOlswK7SYB4f0Gh9tt+RZ132b80iLfA==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -5047,14 +5050,16 @@ snapshots:
 
   '@chevrotain/types@11.1.2': {}
 
-  '@cloudflare/containers@0.1.1': {}
+  '@cloudflare/containers@0.3.7': {}
 
   '@cloudflare/kv-asset-handler@0.5.0': {}
 
-  '@cloudflare/sandbox@0.7.21(@xterm/xterm@5.5.0)':
+  '@cloudflare/sandbox@0.11.0(@xterm/xterm@5.5.0)':
     dependencies:
-      '@cloudflare/containers': 0.1.1
+      '@cloudflare/containers': 0.3.7
       aws4fetch: 1.0.20
+      capnweb: 0.8.0
+      hono: 4.12.23
     optionalDependencies:
       '@xterm/xterm': 5.5.0
 
@@ -7293,6 +7298,8 @@ snapshots:
       function-bind: 1.1.2
 
   caniuse-lite@1.0.30001793: {}
+
+  capnweb@0.8.0: {}
 
   ccount@2.0.1: {}
 
