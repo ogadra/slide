@@ -1,0 +1,246 @@
+/* ============================================================
+   NERV / WUNDER 風 HUD — 印刷可能な白基調
+   ============================================================ */
+
+:root {
+  --paper: #fbf8f1;
+  --paper-ink: #fbf8f1;
+  --ink: #0e0e0e;
+  --ink-soft: #4a4a4a;
+  --ink-mute: #8a8275;
+  --hairline: #0e0e0e;
+  --rule: #d6cfba;
+
+  --hazard: #c44d1c;
+  --hazard-tint: rgba(196, 77, 28, 0.12);
+  --danger: #6b1818;
+  --danger-tint: rgba(107, 24, 24, 0.10);
+  --status-ok: #0a7a3a;
+  --status-warn: #b88a00;
+
+  /* 旧トーン名互換 */
+  --accent: var(--hazard);
+  --accent-tint: var(--hazard-tint);
+  --threat: var(--danger);
+  --slate: #2c4858;
+
+  --paper-grain: rgba(14, 14, 14, 0.025);
+
+  --font-display: "Antonio", "Saira Condensed", "Noto Sans JP", sans-serif;
+  --font-sans: "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
+}
+
+html {
+  font-size: 125%;
+}
+
+html, body, #app {
+  background: var(--paper) !important;
+}
+
+.slidev-layout {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  padding: 0 !important;
+  position: relative;
+  font-family: var(--font-mono);
+}
+
+.slidev-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 22%, var(--paper-grain) 1px, transparent 1.4px),
+    radial-gradient(circle at 72% 64%, var(--paper-grain) 1px, transparent 1.4px),
+    radial-gradient(circle at 38% 82%, var(--paper-grain) 1px, transparent 1.4px);
+  background-size: 7px 7px, 11px 11px, 13px 13px;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5 { color: var(--ink); margin: 0; }
+
+p, li {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--ink);
+}
+code::before, code::after { content: none !important; }
+
+pre, .slidev-code-wrapper, .shiki {
+  font-family: var(--font-mono) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.5 !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink);
+  padding: 1rem 1.25rem !important;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.slidev-code .line:not(.highlighted),
+.shiki .line:not(.highlighted) {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.shiki .line.highlighted {
+  background: var(--hazard-tint) !important;
+  box-shadow: inset 4px 0 0 var(--hazard);
+}
+
+/* ============================================================
+   NERV / WUNDER HUD ユーティリティ
+   ============================================================ */
+
+.nerv-tone-hazard { color: var(--hazard); }
+.nerv-tone-danger { color: var(--danger); }
+.nerv-tone-ok     { color: var(--status-ok); }
+.nerv-tone-warn   { color: var(--status-warn); }
+
+/* 小さなブラケット風タグ "[ ── ]" */
+.nerv-bracket {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.nerv-bracket strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+/* ハザードストライプ (黄黒) */
+.nerv-hazard-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--hazard) 0,
+    var(--hazard) 8px,
+    var(--ink) 8px,
+    var(--ink) 16px
+  );
+  height: 10px;
+}
+
+/* スタンプ風ラベル */
+.nerv-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  padding: 0.35rem 0.7rem;
+  border: 2.5px solid currentColor;
+  border-radius: 1px;
+  color: var(--hazard);
+  background: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+.nerv-stamp.danger { color: var(--danger); }
+.nerv-stamp.ok { color: var(--status-ok); }
+.nerv-stamp.warn { color: var(--status-warn); }
+
+/* 横罫 (太/細) */
+.nerv-rule        { height: 1px; background: var(--ink); }
+.nerv-rule.thick  { height: 3px; }
+.nerv-rule.hazard { background: var(--hazard); }
+.nerv-rule.danger { background: var(--danger); }
+.nerv-rule.ok     { background: var(--status-ok); }
+
+/* --- 既存コンポーネントが使う旧クラス (NERV stylesに統合) --- */
+.case-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.case-meta strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.case-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  padding: 0.16rem 0.7rem;
+  border: 2.5px solid currentColor;
+  border-radius: 1px;
+  color: var(--hazard);
+  background: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+.case-stamp.threat { color: var(--danger); }
+.case-stamp.slate { color: var(--ink-soft); }
+.case-stamp.ok { color: var(--status-ok); }
+
+.case-rule       { height: 1px; background: var(--ink); }
+.case-rule.thick { height: 3px; }
+.case-rule.soft  { background: var(--rule); }
+
+.case-tone-accent { color: var(--hazard); }
+.case-tone-threat { color: var(--danger); }
+.case-tone-slate  { color: var(--ink-soft); }
+
+/* キャンバスエリア (chrome の内側) */
+.case-canvas {
+  position: absolute;
+  top: 72px;
+  bottom: 96px;
+  left: 60px;
+  right: 60px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+/* 巨大な番号 */
+.case-bignum {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22rem;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+/* SVGテキスト共通 */
+.case-svg-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+@media print {
+  html, body, #app, .slidev-layout {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+  }
+  .footer-bar { display: none !important; }
+}
