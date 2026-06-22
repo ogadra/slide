@@ -56,6 +56,10 @@ const Body = () => {
 							link: "./fargate-as-sandbox",
 							title: "FargateをSandboxとして使う",
 						},
+						{
+							link: "./terraform-domain-destruction",
+							title: "Terraformでドメインを買うな",
+						},
 					]}
 				/>
 

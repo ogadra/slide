@@ -109,6 +109,8 @@ importers:
 
   slidev/solo-dev-considerations: {}
 
+  slidev/terraform-domain-destruction: {}
+
   slidev/terraform-github-management: {}
 
   slidev/upgrade-to-rrv7: {}
