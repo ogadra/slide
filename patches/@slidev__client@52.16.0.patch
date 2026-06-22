@@ -1,0 +1,18 @@
+diff --git a/logic/slides.ts b/logic/slides.ts
+index cb156a18af745ff4c2028bc6515683ec2e45c277..636d4e6df543f8fe87c7a652a53d7661a0e57364 100644
+--- a/logic/slides.ts
++++ b/logic/slides.ts
+@@ -20,8 +20,11 @@ export function getSlidePath(
+   if (typeof route === 'number' || typeof route === 'string')
+     route = getSlide(route)!
+   const no = route.meta.slide?.frontmatter.routeAlias ?? route.no
+-  const path = exporting ? `export/${no}` : presenter ? `presenter/${no}` : `${no}`
+-  return `${import.meta.env.BASE_URL}${path}`
++  // Workaround for slidevjs/slidev#2629 / PR #2630:
++  // 52.16.0 introduced a BASE_URL prefix here, but vue-router's history base already
++  // applies it, which caused `/<base>/<base>/N` URL doubling. Revert to a base-relative
++  // path so vue-router prepends BASE_URL exactly once.
++  return exporting ? `/export/${no}` : presenter ? `/presenter/${no}` : `/${no}`
+ }
+ 
+ export function useIsSlideActive() {
