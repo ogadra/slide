@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@slidev/client@52.16.0':
+    hash: bc790c6be37fb38320d3f829835a93a594b5422f647bbb973ab0a69ccf97e979
+    path: patches/@slidev__client@52.16.0.patch
+
 importers:
 
   .:
@@ -6694,7 +6699,7 @@ snapshots:
       '@shikijs/markdown-it': 4.2.0
       '@shikijs/twoslash': 4.2.0(typescript@6.0.3)
       '@shikijs/vitepress-twoslash': 4.2.0(@nuxt/kit@3.21.6)(typescript@6.0.3)
-      '@slidev/client': 52.16.0(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(esbuild@0.27.7)(lightningcss@1.32.0)(rolldown@1.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
+      '@slidev/client': 52.16.0(patch_hash=bc790c6be37fb38320d3f829835a93a594b5422f647bbb973ab0a69ccf97e979)(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(esbuild@0.27.7)(lightningcss@1.32.0)(rolldown@1.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
       '@slidev/parser': 52.16.0(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(typescript@6.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
       '@slidev/types': 52.16.0(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(typescript@6.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))
       '@unocss/extractor-mdc': 66.7.2
@@ -6890,7 +6895,7 @@ snapshots:
       - svelte
       - vite
 
-  '@slidev/client@52.16.0(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(esbuild@0.27.7)(lightningcss@1.32.0)(rolldown@1.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))':
+  '@slidev/client@52.16.0(patch_hash=bc790c6be37fb38320d3f829835a93a594b5422f647bbb973ab0a69ccf97e979)(@nuxt/kit@3.21.6)(@vue/compiler-sfc@3.5.38)(esbuild@0.27.7)(lightningcss@1.32.0)(rolldown@1.0.3)(vite@8.0.16(@types/node@22.20.0)(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.0))':
     dependencies:
       '@antfu/utils': 9.3.0
       '@fix-webm-duration/fix': 1.0.1
