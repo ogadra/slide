@@ -3,6 +3,8 @@ import { HeadHandler } from "./htmlRewriter";
 
 const titles = (path: string): string => {
   switch (path) {
+    case "fargate-as-sandbox":
+      return "FargateをSandboxとして使う";
     case "terraform-github-management":
       return "GitHub運用を地盤改良する";
     case "my-strongest-presentation-slides":

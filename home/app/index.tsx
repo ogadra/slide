@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/06/22"
+					eventLink="https://yumemi.connpass.com/event/392592/"
+					eventTitle="AWSぶっとんだ使い方発表会"
+					slide={[
+						{
+							link: "./fargate-as-sandbox",
+							title: "FargateをSandboxとして使う",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/05/18"
 					eventLink="https://yumemi.connpass.com/event/381395/"
 					eventTitle="ナンパはダメよ路上LT会"
