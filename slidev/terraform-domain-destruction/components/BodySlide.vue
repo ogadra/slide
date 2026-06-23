@@ -41,6 +41,7 @@ defineProps<{
   font-weight: 900;
   background: linear-gradient(transparent 60%, var(--tf-purple-tint) 60%);
   padding: 0 0.1em;
+  font-size: 4rem;
 }
 .body-content :deep(code) {
   font-family: var(--font-mono);

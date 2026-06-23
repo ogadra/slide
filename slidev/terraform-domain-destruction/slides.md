@@ -27,7 +27,10 @@ fonts:
 
 <BodySlide size="lg">
 
-みなさん、AWSのリソースをTerraformで管理していますよね？
+みなさん、<br/>
+AWSのリソースを<br/>
+<strong>Terraform</strong>で<br/>
+管理していますよね？
 
 </BodySlide>
 
@@ -214,7 +217,9 @@ Do you want to perform these actions?
 
 ---
 
-<LessonSlide no="3" headline="Terraformで<strong>ドメインを購入しない</strong>" />
+<LessonSlide no="3" headline="" >
+Terraformで<br/><strong>ドメインを購入しない</strong>
+</LessonSlide>
 
 ---
 

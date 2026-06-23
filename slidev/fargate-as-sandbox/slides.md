@@ -26,6 +26,13 @@ fonts:
 
 ---
 
+<DemoCard
+  url="bunshin.ogadra.net"
+/>
+
+---
+
+
 <CaseOpenerSlide
   case-no="001"
   case-name="1人1コンテナで環境を隔離"
