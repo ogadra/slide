@@ -1,0 +1,164 @@
+/* ============================================================
+   Terraform CLI / コードレポート風
+   ============================================================ */
+
+:root {
+  --paper: #f7f4ec;
+  --paper-ink: #f7f4ec;
+  --ink: #11161c;
+  --ink-soft: #4a525c;
+  --ink-mute: #8b8a82;
+  --rule: #d4cdba;
+
+  --tf-purple: #7b42bc;
+  --tf-purple-tint: rgba(123, 66, 188, 0.14);
+  --tf-purple-deep: #5c2da3;
+
+  --tf-red: #b8270c;
+  --tf-red-tint: rgba(184, 39, 12, 0.10);
+  --tf-amber: #b88a00;
+  --tf-green: #0a7a3a;
+
+  --accent: var(--tf-purple);
+  --accent-tint: var(--tf-purple-tint);
+  --threat: var(--tf-red);
+  --threat-tint: var(--tf-red-tint);
+
+  --paper-grain: rgba(17, 22, 28, 0.03);
+
+  --font-display: "Antonio", "Saira Condensed", "Noto Sans JP", sans-serif;
+  --font-sans: "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
+}
+
+html {
+  font-size: 125%;
+}
+
+html, body, #app {
+  background: var(--paper) !important;
+}
+
+.slidev-layout {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  padding: 0 !important;
+  position: relative;
+  font-family: var(--font-mono);
+}
+
+.slidev-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 22%, var(--paper-grain) 1px, transparent 1.4px),
+    radial-gradient(circle at 72% 64%, var(--paper-grain) 1px, transparent 1.4px),
+    radial-gradient(circle at 38% 82%, var(--paper-grain) 1px, transparent 1.4px);
+  background-size: 7px 7px, 11px 11px, 13px 13px;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5 { color: var(--ink); margin: 0; }
+
+p, li {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--ink);
+}
+code::before, code::after { content: none !important; }
+
+pre, .slidev-code-wrapper, .shiki {
+  font-family: var(--font-mono) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 1.5px solid var(--ink);
+  padding: 0.9rem 1.1rem !important;
+  box-shadow: 4px 4px 0 var(--ink);
+  white-space: pre-wrap !important;
+  word-break: break-all;
+}
+
+.slidev-code .line:not(.highlighted),
+.shiki .line:not(.highlighted) {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.shiki .line.highlighted {
+  background: var(--tf-red-tint) !important;
+  box-shadow: inset 4px 0 0 var(--tf-red);
+}
+
+/* ============================================================
+   レイアウト共通: キャンバスエリア
+   ============================================================ */
+.tf-canvas {
+  position: absolute;
+  top: 64px;
+  bottom: 84px;
+  left: 56px;
+  right: 56px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+.tf-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tf-meta strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.tf-rule        { height: 1px; background: var(--ink); }
+.tf-rule.thick  { height: 3px; }
+.tf-rule.purple { background: var(--tf-purple); }
+.tf-rule.red    { background: var(--tf-red); }
+
+.tf-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  padding: 0.18rem 0.6rem;
+  border: 2px solid currentColor;
+  border-radius: 1px;
+  color: var(--tf-purple);
+  background: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+.tf-stamp.red { color: var(--tf-red); }
+.tf-stamp.soft { color: var(--ink-soft); }
+
+@media print {
+  html, body, #app, .slidev-layout {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+  }
+}
