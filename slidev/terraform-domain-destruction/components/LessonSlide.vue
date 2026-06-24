@@ -104,9 +104,14 @@ defineProps<{
 
 .lesson-body {
   font-family: var(--font-sans);
-  font-size: 1.4rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
+  font-weight: 900;
+  font-size: 4rem;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-break: strict;
+  overflow-wrap: break-word;
+
 }
 .lesson-body :deep(p) {
   margin: 0 0 0.6rem 0;
@@ -120,5 +125,10 @@ defineProps<{
   background: var(--paper);
   border: 1px solid var(--ink-soft);
   padding: 0 0.3em;
+}
+
+.lesson-body :deep(strong) {
+  background: linear-gradient(transparent 58%, var(--tf-purple-tint) 58%);
+  padding: 0 0.1em;
 }
 </style>

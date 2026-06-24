@@ -16,8 +16,8 @@ defineProps<{
 
     <div class="title-main">
       <div class="title-display">
-        <span class="title-line cmd">$ terraform</span>
-        <span class="title-line cmd accent">&nbsp;&nbsp;apply</span>
+        <span class="title-line cmd">Terraformで</span>
+        <span class="title-line cmd accent">ドメインを買うな</span>
       </div>
       <div class="title-tag">aws_route53domains_domain &quot;domain&quot;</div>
     </div>
