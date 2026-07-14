@@ -21,7 +21,7 @@
 .statement-slide__title {
   font-weight: 700;
   font-size: 120px;
-  line-height: 1.2;
+  line-height: 1.4;
   letter-spacing: -0.02em;
 }
 

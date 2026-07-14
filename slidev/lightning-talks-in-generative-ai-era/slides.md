@@ -52,7 +52,7 @@ fonts:
 
 <StatementSlide>
 というわけで、<br/>
-Perlを書いてもらいました。
+Perlを書いてもらいました
 </StatementSlide>
 
 ---
@@ -92,7 +92,7 @@ Perlを書いてもらいました。
 
 <ProblemActionSlide>
   <template #problem>
-    みんなにPerlを<span class="accent">触って</span>もらいたい
+    みんなにPerlを<span class="accent">動かして</span>もらいたい
   </template>
   <template #action>
     <v-click><span class="accent">1人1コンテナ</span>を配布</v-click>
@@ -103,10 +103,11 @@ Perlを書いてもらいました。
 
 <ProblemActionSlide>
   <template #problem>
-    みんなにPerlを<span class="accent">触って</span>もらいたい
+    みんなにPerlを<span class="accent">動かして</span>もらいたい
   </template>
   <template #action>
-    これも<span class="accent">自作</span>
+    ECS Fargateを<br/>
+    <span class="accent">いっぱい</span>用意
   </template>
 </ProblemActionSlide>
 
@@ -114,10 +115,12 @@ Perlを書いてもらいました。
 
 <ProblemActionSlide>
   <template #problem>
-    みんなにPerlを<span class="accent">触って</span>もらいたい
+    みんなにPerlを<span class="accent">動かして</span>もらいたい
   </template>
   <template #action>
-    なんかすごい構成図
+    AWSに<br/>
+    <span class="accent">クォータ引き上げ</span><br/>
+    を依頼
   </template>
 </ProblemActionSlide>
 
@@ -135,14 +138,7 @@ Perlを書いてもらいました。
 
 ---
 
-<ProblemActionSlide>
-  <template #problem>
-    当日<span class="accent">障害</span>が起きたら？
-  </template>
-  <template #action>
-    なんかすごい構成図
-  </template>
-</ProblemActionSlide>
+<ArchitectureSlide />
 
 ---
 
@@ -156,7 +152,7 @@ Perlを書いてもらいました。
 <span class="accent">YES.</span><br/>
 
 生成AIが<br/>
-可能にしてくれます。
+可能にしてくれます
 </StatementSlide>
 
 ---
@@ -167,7 +163,7 @@ Perlを書いてもらいました。
   </template>
   <template #action>
     <v-click>
-      5分を満足させる<br/>
+      みなさんを満足させる<br/>
       <span class="accent">責任</span>が<br/>
       あるから
     </v-click>
@@ -209,6 +205,12 @@ Perlを書いてもらいました。
 
 ---
 
+<StatementSlide>
+ここで一句
+</StatementSlide>
+
+---
+
 <HaikuSlide :lines="['変わらない', '熱い想いと', 'その責任']" />
 
 ---
@@ -216,5 +218,5 @@ Perlを書いてもらいました。
 <ProfileSlide
   name="おがどら"
   avatar="https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif"
-  :lines="['twitter.com/@const_myself', 'github.com/ogadra', 'slide.ogadra.com']"
+  :lines="['twitter.com/const_myself', 'github.com/ogadra', 'slide.ogadra.com']"
 />
