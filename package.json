@@ -16,7 +16,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.1",
     "@slidev/cli": "^52.16.0",
-    "@slidev/client": "^52.16.0",
+    "@slidev/client": "^52.17.0",
     "playwright-chromium": "^1.59.1",
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^6.0.3",
