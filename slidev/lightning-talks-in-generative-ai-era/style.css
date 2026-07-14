@@ -1,0 +1,60 @@
+:root {
+  --base: #EAE6DE;
+  --ink: #211E18;
+  --ink-soft: #6C6557;
+  --ink-mute: #A79E8D;
+  --clay: #C24631;
+  --tan: #AE7A42;
+  --tan-deep: #241812;
+  --cherry: #E83D5D;
+  --amber: #E0A23B;
+
+  --font-sans: "IBM Plex Sans JP", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --font-display: "Yuji Mai", serif;
+}
+
+html, body, #app {
+  background: var(--base);
+}
+
+.slidev-layout {
+  background: var(--base);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  padding: 0;
+  overflow: hidden;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4,
+.slidev-layout h5,
+.slidev-layout h6 {
+  font-family: var(--font-sans);
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  color: inherit;
+  line-height: inherit;
+}
+
+.slidev-layout ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+code {
+  font-family: var(--font-mono);
+}
