@@ -48,6 +48,18 @@ const Body = () => {
 
 			<main>
 				<Section
+					date="2026/07/25"
+					eventLink="https://kichijojipm.connpass.com/event/387499/"
+					eventTitle="大吉祥寺.pm 2026"
+					slide={[
+						{
+							link: "./lightning-talks-in-generative-ai-era",
+							title: "生成AI時代におけるLTの在り方",
+						},
+					]}
+				/>
+
+				<Section
 					date="2026/06/22"
 					eventLink="https://yumemi.connpass.com/event/392592/"
 					eventTitle="AWSぶっとんだ使い方発表会"
