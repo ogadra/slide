@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logo from '../imgs/logo_color_right.svg'
+import logo from '../imgs/logo.svg'
 
 withDefaults(defineProps<{ size?: number }>(), { size: 560 })
 </script>
