@@ -1,15 +1,15 @@
 <script setup lang="ts">
 defineProps<{
   no: string
-  title: string
 }>()
 </script>
 
 <template>
   <div class="section-opener">
     <div class="section-opener__bignum">{{ no }}</div>
-    <div class="section-opener__no">{{ no }}</div>
-    <h2 class="section-opener__title">{{ title }}</h2>
+    <h2 class="section-opener__title">
+      <slot />
+    </h2>
   </div>
 </template>
 
@@ -29,32 +29,26 @@ defineProps<{
 
 .section-opener__bignum {
   position: absolute;
-  right: 100px;
-  bottom: -160px;
+  right: 80px;
+  bottom: 60px;
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 720px;
+  font-size: 240px;
   line-height: 0.8;
   color: var(--base);
-  opacity: 0.05;
-}
-
-.section-opener__no {
-  position: relative;
-  z-index: 2;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 32px;
-  color: var(--amber);
-  margin-bottom: 28px;
+  opacity: 0.08;
 }
 
 .section-opener__title {
   position: relative;
   z-index: 2;
   font-weight: 700;
-  font-size: 140px;
+  font-size: 220px;
   line-height: 1.1;
   letter-spacing: -0.02em;
+}
+
+.section-opener :deep(.accent) {
+  color: var(--clay);
 }
 </style>

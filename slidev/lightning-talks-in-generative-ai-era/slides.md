@@ -26,67 +26,195 @@ fonts:
   event="大吉祥寺.pm 2026"
 />
 
-<!--
-タイトル。生成AI時代におけるLTの在り方 / おがどら / 大吉祥寺.pm 2026。
--->
-
 ---
 
-<ThemeSlide />
-
-<!--
-配色とタイポの設計。ロゴ由来の暖色一本。
--->
-
----
-
-<SectionOpener no="01" title="見出しサンプル" />
-
-<!--
-サンプル：セクション扉。番号＋見出しのみ。
--->
+<StatementSlide>
+このイベントは<br/>
+大吉祥寺<span class="accent">.pm</span>ですよね？
+</StatementSlide>
 
 ---
 
 <StatementSlide>
-ここに<span class="accent">大きな見出し</span>の<br/>サンプルが入ります
+今日、<span class="accent">Perl</span>の話ありました？
 </StatementSlide>
 
-<!--
-サンプル：一言ドカン。見出しだけ、余白で見せる。
--->
+---
+
+
+<SectionOpener no="demo" >
+さあ、<br/>
+<span class="accent">Perl</span>を<br/>
+書こう
+</SectionOpener>
 
 ---
 
-<TwoColumnSlide
-  title="見出しサンプル"
-  heading-a="小見出しA"
-  heading-b="小見出しB"
-  :items-a="['箇条書きサンプル 1', '箇条書きサンプル 2', '箇条書きサンプル 3']"
-  :items-b="['箇条書きサンプル 1', '箇条書きサンプル 2', '箇条書きサンプル 3']"
+<StatementSlide>
+というわけで、<br/>
+Perlを書いてもらいました。
+</StatementSlide>
+
+---
+
+<StatementSlide>
+このデモでは、<br/>
+どんな工夫が<br/>
+されていたのでしょうか？
+</StatementSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    会場のネットワークが<span class="accent">貧弱</span>
+  </template>
+  <template #action>
+    <v-click>
+      フロントエンドの<br/>
+      <span class="accent">高速化</span>
+    </v-click>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    会場のネットワークが<span class="accent">貧弱</span>
+  </template>
+  <template #action>
+    Perlのパーサーを<span class="accent">自作</span>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    みんなにPerlを<span class="accent">触って</span>もらいたい
+  </template>
+  <template #action>
+    <v-click><span class="accent">1人1コンテナ</span>を配布</v-click>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    みんなにPerlを<span class="accent">触って</span>もらいたい
+  </template>
+  <template #action>
+    これも<span class="accent">自作</span>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    みんなにPerlを<span class="accent">触って</span>もらいたい
+  </template>
+  <template #action>
+    なんかすごい構成図
+  </template>
+</ProblemActionSlide>
+
+---
+
+
+<ProblemActionSlide>
+  <template #problem>
+    当日<span class="accent">障害</span>が起きたら？
+  </template>
+  <template #action>
+    <v-click><span class="accent">東京と大阪に</span><br/>展開</v-click>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    当日<span class="accent">障害</span>が起きたら？
+  </template>
+  <template #action>
+    なんかすごい構成図
+  </template>
+</ProblemActionSlide>
+
+---
+
+<StatementSlide>
+たった5分のために？
+</StatementSlide>
+
+---
+
+<StatementSlide>
+<span class="accent">YES.</span><br/>
+
+生成AIが<br/>
+可能にしてくれます。
+</StatementSlide>
+
+---
+
+<ProblemActionSlide>
+  <template #problem>
+    なぜそんなに<span class="accent">こだわる</span>のか
+  </template>
+  <template #action>
+    <v-click>
+      5分を満足させる<br/>
+      <span class="accent">責任</span>が<br/>
+      あるから
+    </v-click>
+  </template>
+</ProblemActionSlide>
+
+---
+
+<StatementSlide>
+生成AIで資料作成が<br/>
+楽になったと感じたとき、<br/>
+それは<span class="accent">聴衆</span>を<br/>
+意識していますか？
+</StatementSlide>
+
+---
+
+<StatementSlide>
+生成AIを効率化ツールとして<br/>
+使うのではなく、<br/>
+<span class="accent">可能性を拡張</span>するために<br/>
+使いませんか？
+</StatementSlide>
+
+---
+
+<StatementSlide>
+登壇準備は<br/>
+<span class="accent">変わっても、</span><br/>
+聴衆に対する想いは<br/>
+<span class="accent">変わらない</span>
+</StatementSlide>
+
+---
+
+<StatementSlide>
+それが<span class="accent">LT</span>
+</StatementSlide>
+
+---
+
+<HaikuSlide :lines="['変わらない', '熱い想いと', 'その責任']" />
+
+---
+
+<ProfileSlide
+  name="おがどら"
+  avatar="https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif"
+  :lines="['twitter.com/@const_myself', 'github.com/ogadra', 'slide.ogadra.com']"
 />
-
-<!--
-サンプル：対比。カード無し、余白と罫線だけ。
--->
-
----
-
-<CodeSlide title="見出しサンプル">
-<div><span class="cm"># sample code</span></div>
-<div><span class="kw">use</span> strict;</div>
-<div><span class="kw">my</span> $sample = <span class="str">"sample text"</span>;</div>
-<div><span class="kw">print</span> <span class="str">"$sample\n"</span>;</div>
-</CodeSlide>
-
-<!--
-サンプル：コード見せ。フラットなブロック。
--->
-
----
-
-<HaikuSlide :lines="['上の句と', '中の句入れる', '下の句に']" />
-
-<!--
-締めは5-7-5、縦書き。ロゴは左下。
--->

@@ -55,6 +55,10 @@ html, body, #app {
   list-style: none;
 }
 
+.slidev-vclick-target {
+  transition: none !important;
+}
+
 code {
   font-family: var(--font-mono);
 }
