@@ -1,0 +1,15 @@
+{
+  "name": "lightning-talks-in-generative-ai-era",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "pnpm run build:slidev && pnpm run build:copy",
+    "build:copy": "cp -r ./slides-export ../../dist/lightning-talks-in-generative-ai-era",
+    "build:slidev": "slidev build --base /lightning-talks-in-generative-ai-era/ --out ../../dist/lightning-talks-in-generative-ai-era",
+    "dev": "slidev --open",
+    "export": "slidev export",
+    "export:png": "slidev export --format png"
+  }
+}
