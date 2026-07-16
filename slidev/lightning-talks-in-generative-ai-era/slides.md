@@ -84,7 +84,7 @@ Perlを書いてもらいました
     会場のネットワークが<span class="accent">貧弱</span>
   </template>
   <template #action>
-    Perlのパーサーを<span class="accent">自作</span>
+    ランタイム依存<span class="accent">ゼロ</span>
   </template>
 </ProblemActionSlide>
 
