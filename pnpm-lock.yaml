@@ -52,7 +52,7 @@ importers:
     dependencies:
       '@hono/vite-dev-server':
         specifier: ^0.26.0
-        version: 0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@4.20260621.1))
+        version: 0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))
       bcrypt-ts:
         specifier: ^8.0.1
         version: 8.0.1
@@ -70,8 +70,8 @@ importers:
         specifier: ^0.11.0
         version: 0.11.0(@xterm/xterm@6.0.0)
       '@cloudflare/workers-types':
-        specifier: ^4.20260621.1
-        version: 4.20260621.1
+        specifier: ^5.20260719.1
+        version: 5.20260719.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -446,6 +446,9 @@ packages:
 
   '@cloudflare/workers-types@4.20260621.1':
     resolution: {integrity: sha512-c4xrf4shZdDOK1ihh1UKzlS/3MDYiGThT/Oqr4Y3qR9NLCSNzHB7rt+Vk/LOp0ZSNjA+7WNJEQsOhpiQtpT2GA==}
+
+  '@cloudflare/workers-types@5.20260719.1':
+    resolution: {integrity: sha512-DcGasbfUuczQilc80vhL2MPPdWcaxWkx0hN5IW9UdNDBdrRvWcal3akSJ6Ccm7e8+/OGeR+8tYrqkykA3YGSZw==}
 
   '@comark/markdown-it@0.3.4':
     resolution: {integrity: sha512-btB+klvBi08qRZGeSLbykfD2ROxhLLQJ4+uDI7FjL560ztlzTtBlGmqe6zP49mW/Yp9y39kSWeRS46iEFpGa0w==}
@@ -5643,7 +5646,10 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20260617.1':
     optional: true
 
-  '@cloudflare/workers-types@4.20260621.1': {}
+  '@cloudflare/workers-types@4.20260621.1':
+    optional: true
+
+  '@cloudflare/workers-types@5.20260719.1': {}
 
   '@comark/markdown-it@0.3.4(@types/markdown-it@14.1.2)(markdown-it@14.3.0)':
     dependencies:
@@ -5828,14 +5834,14 @@ snapshots:
     dependencies:
       hono: 4.12.23
 
-  '@hono/vite-dev-server@0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@4.20260621.1))':
+  '@hono/vite-dev-server@0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.23)
       hono: 4.12.23
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260617.1
-      wrangler: 4.103.0(@cloudflare/workers-types@4.20260621.1)
+      wrangler: 4.103.0(@cloudflare/workers-types@5.20260719.1)
 
   '@iconify-json/carbon@1.2.23':
     dependencies:
@@ -11482,6 +11488,24 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1):
+    dependencies:
+      '@cloudflare/kv-asset-handler': 0.5.0
+      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260617.1)
+      blake3-wasm: 2.1.5
+      esbuild: 0.28.1
+      miniflare: 4.20260617.1
+      path-to-regexp: 6.3.0
+      unenv: 2.0.0-rc.24
+      workerd: 1.20260617.1
+    optionalDependencies:
+      '@cloudflare/workers-types': 5.20260719.1
+      fsevents: 2.3.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    optional: true
 
   wrap-ansi@7.0.0:
     dependencies:
