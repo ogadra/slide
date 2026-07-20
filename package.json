@@ -21,7 +21,7 @@
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^6.0.3",
     "unocss": "^66.7.3",
-    "vite": "^8.0.16",
+    "vite": "^8.1.5",
     "vue": "^3.5.33",
     "wrangler": "^4.103.0"
   },
