@@ -90,6 +90,8 @@ importers:
 
   slidev/lambda-as-an-ecs-alternative: {}
 
+  slidev/lightning-talks-in-generative-ai-era: {}
+
   slidev/my-strongest-presentation-slides:
     dependencies:
       '@xterm/addon-fit':
