@@ -36,7 +36,7 @@ fonts:
 ---
 
 <StatementSlide>
-今日、<span class="accent">Perl</span>の話ありました？
+最近、<span class="accent">Perl</span>を書きました？
 </StatementSlide>
 
 ---
@@ -106,7 +106,7 @@ Perlを書いてもらいました
     みんなにPerlを<span class="accent">動かして</span>もらいたい
   </template>
   <template #action>
-    ECS Fargateを<br/>
+    コンテナをクラウドに<br/>
     <span class="accent">いっぱい</span>用意
   </template>
 </ProblemActionSlide>
@@ -118,14 +118,12 @@ Perlを書いてもらいました
     みんなにPerlを<span class="accent">動かして</span>もらいたい
   </template>
   <template #action>
-    AWSに<br/>
     <span class="accent">クォータ引き上げ</span><br/>
     を依頼
   </template>
 </ProblemActionSlide>
 
 ---
-
 
 <ProblemActionSlide>
   <template #problem>
@@ -137,6 +135,18 @@ Perlを書いてもらいました
 </ProblemActionSlide>
 
 ---
+
+<ProblemActionSlide>
+  <template #problem>
+    当日<span class="accent">障害</span>が起きたら？
+  </template>
+  <template #action>
+    <span class="accent">AWSとGoogle Cloudに</span><br/>展開
+  </template>
+</ProblemActionSlide>
+
+---
+
 
 <ArchitectureSlide />
 
