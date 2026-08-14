@@ -31,18 +31,6 @@ const slidesSource = join(repoRoot, "slidev");
 const slidesDist = join(repoRoot, "dist", "slides");
 const localPersist = join(repoRoot, ".wrangler", "state", "v3", "r2");
 
-const usage = `Usage: node scripts/syncSlides.ts --env prd|dev|local [--dry-run]
-
-Mirrors every deck under dist/slides/ into the target bucket. Build first with
-\`pnpm run build\`. prd and dev upload to R2 through rclone; local writes into the
-bucket \`wrangler dev\` keeps on disk, and ignores --dry-run.
-
-Required environment variables for prd and dev (the token is scoped per environment):
-  R2_ACCOUNT_ID
-  R2_ACCESS_KEY_ID_PRD     / R2_ACCESS_KEY_ID_DEV
-  R2_SECRET_ACCESS_KEY_PRD / R2_SECRET_ACCESS_KEY_DEV
-`;
-
 // The annotation sits on the binding so control flow analysis knows a call never returns.
 const fail: (message: string) => never = (message) => {
 	console.error(message);
@@ -50,40 +38,6 @@ const fail: (message: string) => never = (message) => {
 };
 
 const isTargetEnv = (value: string): value is TargetEnv => value in BUCKETS;
-
-const parseArgs = (argv: string[]) => {
-	let targetEnv: TargetEnv | undefined;
-	let dryRun = false;
-
-	for (let i = 0; i < argv.length; i++) {
-		const arg = argv[i];
-		switch (arg) {
-			case "--env": {
-				const value = argv[++i];
-				if (value === undefined || !isTargetEnv(value)) {
-					fail(`--env must be prd, dev or local, got: ${value ?? "(nothing)"}`);
-				}
-				targetEnv = value;
-				break;
-			}
-			case "--dry-run":
-				dryRun = true;
-				break;
-			case "-h":
-			case "--help":
-				console.log(usage);
-				process.exit(0);
-			default:
-				fail(`unknown argument: ${arg}\n\n${usage}`);
-		}
-	}
-
-	if (targetEnv === undefined) {
-		fail(`--env is required\n\n${usage}`);
-	}
-
-	return { targetEnv, dryRun };
-};
 
 const requireEnv = (name: string): string => {
 	const value = process.env[name];
@@ -133,7 +87,6 @@ const syncWithRclone = (
 	targetEnv: Exclude<TargetEnv, "local">,
 	bucketName: string,
 	decks: string[],
-	dryRun: boolean,
 ) => {
 	if (spawnSync("rclone", ["version"], { stdio: "ignore" }).error) {
 		fail("rclone is not installed");
@@ -166,7 +119,6 @@ const syncWithRclone = (
 				`:s3:${bucketName}/${deck}`,
 				"--checksum",
 				...reportFlags,
-				...(dryRun ? ["--dry-run"] : []),
 			],
 			{ stdio: "inherit", env: rcloneEnv },
 		);
@@ -182,11 +134,21 @@ const syncWithRclone = (
 	console.log(`==> done: ${decks.length} deck(s) synced to ${bucketName}`);
 };
 
-const { targetEnv, dryRun } = parseArgs(process.argv.slice(2));
+const [targetEnv] = process.argv.slice(2);
+if (targetEnv === undefined || !isTargetEnv(targetEnv)) {
+	fail(`target must be prd, dev or local, got: ${targetEnv ?? "(nothing)"}`);
+}
+
 const bucketName = BUCKETS[targetEnv];
 
+// A directory left behind by a removed deck holds no package.json, and pnpm does
+// not build it either, so it must not count as a deck.
 const decks = readdirSync(slidesSource, { withFileTypes: true })
-	.filter((entry) => entry.isDirectory())
+	.filter(
+		(entry) =>
+			entry.isDirectory() &&
+			existsSync(join(slidesSource, entry.name, "package.json")),
+	)
 	.map((entry) => entry.name);
 
 const missing = decks.filter((deck) => !existsSync(join(slidesDist, deck)));
@@ -199,5 +161,5 @@ if (missing.length > 0) {
 if (targetEnv === "local") {
 	await seedLocal(bucketName, decks);
 } else {
-	syncWithRclone(targetEnv, bucketName, decks, dryRun);
+	syncWithRclone(targetEnv, bucketName, decks);
 }
