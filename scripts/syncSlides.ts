@@ -141,14 +141,8 @@ if (targetEnv === undefined || !isTargetEnv(targetEnv)) {
 
 const bucketName = BUCKETS[targetEnv];
 
-// A directory left behind by a removed deck holds no package.json, and pnpm does
-// not build it either, so it must not count as a deck.
 const decks = readdirSync(slidesSource, { withFileTypes: true })
-	.filter(
-		(entry) =>
-			entry.isDirectory() &&
-			existsSync(join(slidesSource, entry.name, "package.json")),
-	)
+	.filter((entry) => entry.isDirectory())
 	.map((entry) => entry.name);
 
 const missing = decks.filter((deck) => !existsSync(join(slidesDist, deck)));
