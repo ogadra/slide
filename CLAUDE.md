@@ -34,14 +34,11 @@ pnpm run export:png      # Export slides as PNG images
 ```
 
 ### Deployment
+Each command builds everything, syncs the decks to R2, then deploys the Worker.
+
 ```bash
-# Build everything, sync the decks to R2, then deploy the Worker
 pnpm run deploy:dev
 pnpm run deploy:prd
-
-# Sync the decks without deploying
-pnpm run sync:dev
-pnpm run sync:prd
 ```
 
 `rclone sync --checksum` uploads only what actually changed, so every deck is compared on
