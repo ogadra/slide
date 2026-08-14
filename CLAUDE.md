@@ -34,19 +34,26 @@ pnpm run export:png      # Export slides as PNG images
 ```
 
 ### Syncing Slides to R2
-Slide decks are not part of the deploy. Build and sync them whenever their content changes.
+Slide decks are not part of the deploy. Production syncs itself: pushing to `main` runs
+the `Sync Slides to R2` workflow, which builds only the decks touched by that push.
+
+Run the script by hand for dev, or for a production sync that no push covers.
 
 ```bash
 # Sync one or more decks
-./scripts/sync-slides.sh --env dev  <slide-name>...
-./scripts/sync-slides.sh --env prd  <slide-name>...
+./scripts/sync-slides.sh --env dev <slide-name>...
+./scripts/sync-slides.sh --env prd <slide-name>...
 
 # Sync every deck (required after a Slidev version bump)
 ./scripts/sync-slides.sh --env prd --all
 ```
 
-Requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`
-(`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`). See `.env.sample`.
+The same full resync is available in CI: run the workflow via `workflow_dispatch` with an
+empty `slides` input for `--all`, or with deck names separated by spaces.
+
+Requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
+Each environment has its own API token, so a dev sync can never write to production.
+See `.env.sample`.
 
 ### Deployment
 ```bash
@@ -119,7 +126,7 @@ Each slide deck is self-contained with:
 3. Update build scripts with correct paths
 4. Add workspace entry if needed
 5. Add the title to `titles()` in `home/htmlRewriterHandler.ts` and a `Section` entry in `home/app/index.tsx`
-6. Publish with `./scripts/sync-slides.sh --env prd <slide-name>`
+6. Merging to `main` publishes the deck; `--env dev` syncs are manual
 
 ### Slide Routing
 - Homepage: `/`
@@ -136,3 +143,4 @@ The catch-all route falls back to `c.env.ASSETS.fetch()`, which serves the homep
 2. **Monorepo Management**: pnpm workspaces handle dependencies across slide decks and homepage
 3. **Build Pipeline**: Each slide deck builds independently to shared dist directory
 4. **Local Development**: Use `wrangler dev --local` for full-stack testing with Workers runtime
+5. **Publishing**: Pushing to `main` syncs the changed decks to the production R2 bucket

@@ -1,0 +1,89 @@
+name: Sync Slides to R2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "slidev/**"
+  workflow_dispatch:
+    inputs:
+      slides:
+        description: "Deck names separated by spaces. Leave empty to sync every deck."
+        required: false
+        default: ""
+
+concurrency:
+  group: sync-slides-prd
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      decks: ${{ steps.decks.outputs.decks }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Resolve target decks
+        id: decks
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_SLIDES: ${{ inputs.slides }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ -z "$INPUT_SLIDES" ]; then
+              decks="--all"
+            else
+              decks="$INPUT_SLIDES"
+            fi
+          else
+            base="$BEFORE"
+            if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2> /dev/null; then
+              base="$SHA^"
+            fi
+            # Decks deleted in this push drop out here; their R2 objects stay behind.
+            decks=$(git diff --name-only "$base" "$SHA" -- slidev \
+              | cut -d/ -f2 \
+              | sort -u \
+              | while read -r deck; do
+                  [ -d "slidev/$deck" ] && printf '%s ' "$deck"
+                done)
+          fi
+          decks=$(echo "$decks" | xargs)
+          echo "decks=$decks" >> "$GITHUB_OUTPUT"
+          echo "target decks: ${decks:-(none)}"
+
+  sync:
+    needs: resolve
+    if: needs.resolve.outputs.decks != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install rclone
+        run: sudo apt-get update && sudo apt-get install -y rclone
+
+      - name: Sync to production bucket
+        env:
+          DECK_ARGS: ${{ needs.resolve.outputs.decks }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID_PRD: ${{ secrets.R2_ACCESS_KEY_ID_PRD }}
+          R2_SECRET_ACCESS_KEY_PRD: ${{ secrets.R2_SECRET_ACCESS_KEY_PRD }}
+        run: ./scripts/sync-slides.sh --env prd $DECK_ARGS

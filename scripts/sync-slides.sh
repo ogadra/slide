@@ -15,10 +15,10 @@ Options:
   --dry-run       Build as usual, but let rclone only report what it would do
   -h, --help      Show this help
 
-Required environment variables:
+Required environment variables (the token is scoped per environment):
   R2_ACCOUNT_ID
-  R2_ACCESS_KEY_ID
-  R2_SECRET_ACCESS_KEY
+  R2_ACCESS_KEY_ID_PRD     / R2_ACCESS_KEY_ID_DEV
+  R2_SECRET_ACCESS_KEY_PRD / R2_SECRET_ACCESS_KEY_DEV
 EOS
 }
 
@@ -87,7 +87,10 @@ if ! command -v rclone > /dev/null; then
 	exit 1
 fi
 
-for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY; do
+access_key_var="R2_ACCESS_KEY_ID_${target_env^^}"
+secret_key_var="R2_SECRET_ACCESS_KEY_${target_env^^}"
+
+for var in R2_ACCOUNT_ID "$access_key_var" "$secret_key_var"; do
 	if [[ -z "${!var-}" ]]; then
 		echo "environment variable $var is not set" >&2
 		exit 1
@@ -113,12 +116,18 @@ fi
 export RCLONE_S3_PROVIDER="Cloudflare"
 export RCLONE_S3_REGION="auto"
 export RCLONE_S3_ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
-export RCLONE_S3_ACCESS_KEY_ID="$R2_ACCESS_KEY_ID"
-export RCLONE_S3_SECRET_ACCESS_KEY="$R2_SECRET_ACCESS_KEY"
+export RCLONE_S3_ACCESS_KEY_ID="${!access_key_var}"
+export RCLONE_S3_SECRET_ACCESS_KEY="${!secret_key_var}"
 # The sync token is scoped to the bucket and cannot list buckets.
 export RCLONE_S3_NO_CHECK_BUCKET="true"
 
-rclone_flags=(--checksum --progress)
+rclone_flags=(--checksum)
+if [[ -t 1 ]]; then
+	rclone_flags+=(--progress)
+else
+	# A redrawing progress bar is unreadable in CI logs; log each transfer instead.
+	rclone_flags+=(--verbose --stats 0)
+fi
 if $dry_run; then
 	rclone_flags+=(--dry-run)
 fi

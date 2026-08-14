@@ -65,17 +65,22 @@ pnpm run export:png
 
 ### スライドの公開
 
-スライドの成果物はR2に置いてあり、デプロイには含まれません。内容を変えたスライドだけを同期します。
+スライドの成果物はR2に置いてあり、デプロイには含まれません。`main` にpushすると、そのpushで変更されたスライドだけをGitHub Actionsがビルドして本番のバケットに同期します。
+
+devへの同期や、pushでは拾えない範囲の同期は手元から実行します。
 
 ```bash
 # 特定のスライドを同期
+./scripts/sync-slides.sh --env dev <スライド名>
 ./scripts/sync-slides.sh --env prd <スライド名>
 
 # 全スライドを同期（Slidevのバージョンを上げたときなど）
 ./scripts/sync-slides.sh --env prd --all
 ```
 
-`rclone`（Nix devShellに同梱）と、`.env` に置いたR2の認証情報が必要です。`.env.sample` を参照してください。
+全同期はCIからも実行できます。`Sync Slides to R2` ワークフローを `slides` 入力を空にして手動実行すると `--all` 相当になります。
+
+`rclone`（Nix devShellに同梱）と、`.env` に置いたR2の認証情報が必要です。APIトークンは環境ごとに分けてあるので、devの同期が本番に書き込むことはありません。`.env.sample` を参照してください。
 
 ### Workerのデプロイ
 
