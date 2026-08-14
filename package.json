@@ -8,10 +8,10 @@
   "scripts": {
     "build": "pnpm -r build",
     "typecheck": "tsc --noEmit -p scripts",
-    "dev": "wrangler dev --ip 0.0.0.0 --env dev",
-    "start": "wrangler dev --ip 0.0.0.0 --env dev",
-    "deploy:prd": "pnpm run build && node scripts/sync-slides.ts --env prd && wrangler deploy",
-    "deploy:dev": "pnpm run build && node scripts/sync-slides.ts --env dev && wrangler deploy --env dev"
+    "dev": "node scripts/syncSlides.ts --env local && wrangler dev --ip 0.0.0.0 --env dev",
+    "start": "node scripts/syncSlides.ts --env local && wrangler dev --ip 0.0.0.0 --env dev",
+    "deploy:prd": "pnpm run build && node scripts/syncSlides.ts --env prd && wrangler deploy",
+    "deploy:dev": "pnpm run build && node scripts/syncSlides.ts --env dev && wrangler deploy --env dev"
   },
   "private": true,
   "devDependencies": {

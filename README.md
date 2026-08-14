@@ -28,7 +28,7 @@ Slidevで作ったスライドを公開しているサイトです。
 .
 ├── slidev/              # 各スライド
 ├── home/                # トップページ（Hono）
-├── scripts/             # 運用スクリプト（sync-slides.ts）
+├── scripts/             # 運用スクリプト（syncSlides.ts）
 ├── create-slide.sh      # スライド作成コマンド
 └── CLAUDE.md            # Claude Code向けの指示
 ```
@@ -44,6 +44,8 @@ pnpm run export:png   # サムネイル用のPNGを slides-export/ に書き出�
 ```
 
 全体をビルドするなら、リポジトリのルートで `pnpm run build` です。
+
+トップページやWorkerの挙動を見るときは、ルートで `pnpm dev` を実行します。本番ではスライドをR2から配信していて、ローカルのR2は空のままなので、起動前に `dist/slides/` の中身をローカルのR2に流し込みます。事前に一度 `pnpm run build` しておいてください。
 
 ## デプロイ
 

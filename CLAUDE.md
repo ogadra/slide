@@ -14,6 +14,9 @@ This is a personal slides website that hosts multiple Slidev presentations. The 
 
 ### Development
 ```bash
+# Run the Worker locally (seeds dist/slides/ into the local R2 first)
+pnpm run dev
+
 # Run root workspace build (builds all slides and home)
 pnpm run build
 
@@ -76,7 +79,7 @@ pnpm run lint:fix      # Auto-fix issues
 - **Root**: pnpm workspace configuration
 - **home/**: Hono-based server for homepage and routing
 - **slidev/**: Individual slide presentations
-- **scripts/**: Operational scripts (`sync-slides.ts`)
+- **scripts/**: Operational scripts (`syncSlides.ts`)
 - **dist/home/**: Homepage output, shipped as Workers static assets
 - **dist/slides/**: Slide deck output, uploaded to R2
 
@@ -98,7 +101,7 @@ Each slide deck is self-contained with:
 ### Build Process
 1. Each slide deck builds with Slidev, outputs to `../../dist/slides/[slide-name]/`
 2. PNG exports are copied there for thumbnail generation
-3. `sync-slides.ts` mirrors every `dist/slides/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
+3. `syncSlides.ts` mirrors every `dist/slides/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
 4. Homepage builds separately with Vite into `dist/home/` and ships as Workers static assets on deploy
 
 ### Technologies
@@ -134,5 +137,5 @@ The catch-all route falls back to `c.env.ASSETS.fetch()`, which serves the homep
 1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection
 2. **Monorepo Management**: pnpm workspaces handle dependencies across slide decks and homepage
 3. **Build Pipeline**: Each slide deck builds independently into `dist/slides/`
-4. **Local Development**: Use `wrangler dev --local` for full-stack testing with Workers runtime
+4. **Local Development**: `pnpm run dev` seeds `dist/slides/` into the local R2, so the decks need a build first
 5. **Publishing**: `pnpm run deploy:prd` builds, syncs the decks to R2, and deploys the Worker
