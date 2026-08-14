@@ -55,8 +55,8 @@ cat > "$SLIDE_DIR/package.json" <<EOF
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/$SLIDE_NAME_EN",
-    "build:slidev": "slidev build --base /$SLIDE_NAME_EN/ --out ../../dist/$SLIDE_NAME_EN",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/$SLIDE_NAME_EN",
+    "build:slidev": "slidev build --base /$SLIDE_NAME_EN/ --out ../../dist/slides/$SLIDE_NAME_EN",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

@@ -29,7 +29,7 @@
 .
 ├── slidev/              # 個別のスライドプレゼンテーション
 ├── home/                # ホームページ（Hono）
-├── scripts/             # 運用スクリプト（sync-slides.sh）
+├── scripts/             # 運用スクリプト（sync-slides.ts）
 ├── create-slide.sh      # スライド作成コマンド
 └── CLAUDE.md            # プロジェクトガイドライン
 ```
@@ -63,32 +63,21 @@ pnpm run export:png
 
 ## 🌐 デプロイ
 
-### スライドの公開
-
-スライドの成果物はR2に置いてあり、デプロイには含まれません。`main` にpushすると、そのpushで変更されたスライドだけをGitHub Actionsがビルドして本番のバケットに同期します。
-
-devへの同期や、pushでは拾えない範囲の同期は手元から実行します。
-
 ```bash
-# 特定のスライドを同期
-./scripts/sync-slides.sh --env dev <スライド名>
-./scripts/sync-slides.sh --env prd <スライド名>
+# ビルド、R2への同期、Workerのデプロイまで
+pnpm run deploy:dev
+pnpm run deploy:prd
 
-# 全スライドを同期（Slidevのバージョンを上げたときなど）
-./scripts/sync-slides.sh --env prd --all
+# デプロイせず同期だけ
+pnpm run sync:dev
+pnpm run sync:prd
 ```
 
-全同期はCIからも実行できます。`Sync Slides to R2` ワークフローを `slides` 入力を空にして手動実行すると `--all` 相当になります。
+スライドの成果物は `dist/slides/` に出て、R2から配信されます。static assetsとしてデプロイされるのは `dist/home/` だけです。
+
+同期は `rclone sync --checksum` なので、毎回全スライドを比較して差分だけをアップロードします。どれを同期するか選ぶ必要はありません。
 
 `rclone`（Nix devShellに同梱）と、`.env` に置いたR2の認証情報が必要です。APIトークンは環境ごとに分けてあるので、devの同期が本番に書き込むことはありません。`.env.sample` を参照してください。
-
-### Workerのデプロイ
-
-```bash
-wrangler deploy
-```
-
-`home/` の成果物が静的アセットとしてCloudflare Workersにデプロイされます。スライド本体はR2から配信されます。
 
 ## 📝 使用技術
 

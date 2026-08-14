@@ -33,39 +33,32 @@ pnpm run build          # Build slide deck and copy to dist
 pnpm run export:png      # Export slides as PNG images
 ```
 
-### Syncing Slides to R2
-Slide decks are not part of the deploy. Production syncs itself: pushing to `main` runs
-the `Sync Slides to R2` workflow, which builds only the decks touched by that push.
-
-Run the script by hand for dev, or for a production sync that no push covers.
-
+### Deployment
 ```bash
-# Sync one or more decks
-./scripts/sync-slides.sh --env dev <slide-name>...
-./scripts/sync-slides.sh --env prd <slide-name>...
+# Build everything, sync the decks to R2, then deploy the Worker
+pnpm run deploy:dev
+pnpm run deploy:prd
 
-# Sync every deck (required after a Slidev version bump)
-./scripts/sync-slides.sh --env prd --all
+# Sync the decks without deploying
+pnpm run sync:dev
+pnpm run sync:prd
 ```
 
-The same full resync is available in CI: run the workflow via `workflow_dispatch` with an
-empty `slides` input for `--all`, or with deck names separated by spaces.
+`rclone sync --checksum` uploads only what actually changed, so every deck is compared on
+every run and there is nothing to select by hand.
 
-Requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
+Syncing requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
 Each environment has its own API token, so a dev sync can never write to production.
 See `.env.sample`.
 
-### Deployment
-```bash
-# Deploy to Cloudflare Workers (builds and ships home/ only)
-wrangler deploy
-```
-
-Workers Builds runs `pnpm --filter slide-home build`. Slide decks reach production
-through `sync-slides.sh`, not through the deploy.
+Workers Builds deploys the Worker on push and runs `pnpm --filter slide-home build`. That
+build only produces `dist/home/`, so a push never touches the decks — `deploy:prd` does.
 
 ### Quality Assurance
 ```bash
+# Run type checking for scripts/ (from the repository root)
+pnpm run typecheck
+
 # Run type checking (from home directory)
 cd home
 pnpm run typecheck
@@ -86,8 +79,9 @@ pnpm run lint:fix      # Auto-fix issues
 - **Root**: pnpm workspace configuration
 - **home/**: Hono-based server for homepage and routing
 - **slidev/**: Individual slide presentations
-- **scripts/**: Operational scripts (`sync-slides.sh`)
-- **dist/**: Build output directory; `home/` output ships as Workers static assets, slide output is uploaded to R2
+- **scripts/**: Operational scripts (`sync-slides.ts`)
+- **dist/home/**: Homepage output, shipped as Workers static assets
+- **dist/slides/**: Slide deck output, uploaded to R2
 
 ### Key Components
 
@@ -105,15 +99,16 @@ Each slide deck is self-contained with:
 - **uno.config.ts**: UnoCSS configuration
 
 ### Build Process
-1. Each slide deck builds with Slidev, outputs to `../../dist/[slide-name]/`
-2. PNG exports are copied to dist for thumbnail generation
-3. `sync-slides.sh` mirrors `dist/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
-4. Homepage builds separately with Vite and ships as Workers static assets on deploy
+1. Each slide deck builds with Slidev, outputs to `../../dist/slides/[slide-name]/`
+2. PNG exports are copied there for thumbnail generation
+3. `sync-slides.ts` mirrors every `dist/slides/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
+4. Homepage builds separately with Vite into `dist/home/` and ships as Workers static assets on deploy
 
 ### Technologies
 - **Slidev**: Presentation framework
 - **Hono**: Lightweight web framework
 - **Cloudflare Workers**: Hosting platform
+- **Cloudflare R2**: Slide deck artifact storage
 - **UnoCSS**: CSS framework
 - **Vite**: Build tool
 - **TypeScript**: Type safety
@@ -126,7 +121,7 @@ Each slide deck is self-contained with:
 3. Update build scripts with correct paths
 4. Add workspace entry if needed
 5. Add the title to `titles()` in `home/htmlRewriterHandler.ts` and a `Section` entry in `home/app/index.tsx`
-6. Merging to `main` publishes the deck; `--env dev` syncs are manual
+6. Publish with `pnpm run deploy:prd`; the new deck is picked up automatically
 
 ### Slide Routing
 - Homepage: `/`
@@ -141,6 +136,6 @@ The catch-all route falls back to `c.env.ASSETS.fetch()`, which serves the homep
 ### Development Workflow
 1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection
 2. **Monorepo Management**: pnpm workspaces handle dependencies across slide decks and homepage
-3. **Build Pipeline**: Each slide deck builds independently to shared dist directory
+3. **Build Pipeline**: Each slide deck builds independently into `dist/slides/`
 4. **Local Development**: Use `wrangler dev --local` for full-stack testing with Workers runtime
-5. **Publishing**: Pushing to `main` syncs the changed decks to the production R2 bucket
+5. **Publishing**: `pnpm run deploy:prd` builds, syncs the decks to R2, and deploys the Worker

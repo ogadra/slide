@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/self-hosting-slides",
-    "build:slidev": "slidev build --base /self-hosting-slides/ --out ../../dist/self-hosting-slides",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/self-hosting-slides",
+    "build:slidev": "slidev build --base /self-hosting-slides/ --out ../../dist/slides/self-hosting-slides",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

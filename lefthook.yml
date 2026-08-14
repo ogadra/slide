@@ -7,6 +7,9 @@ pre-commit:
       glob: "*.{ts,tsx,js,jsx}"
       stage_fixed: true
       run: pnpm run typecheck
+    01_typecheck_scripts:
+      glob: "scripts/*.ts"
+      run: pnpm run typecheck
     01_secrets:
       run: gitleaks protect --staged -v
     02_fix:

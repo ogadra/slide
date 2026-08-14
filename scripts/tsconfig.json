@@ -1,0 +1,20 @@
+{
+	"include": ["**/*.ts"],
+	"compilerOptions": {
+		"target": "ES2023",
+		"lib": ["ES2023"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"types": ["node"],
+		"noEmit": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		// Node runs these files by stripping types, which only handles erasable syntax.
+		"erasableSyntaxOnly": true,
+		"skipLibCheck": true
+	}
+}

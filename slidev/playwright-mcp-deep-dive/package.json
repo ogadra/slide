@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/playwright-mcp-deep-dive",
-    "build:slidev": "slidev build --base /playwright-mcp-deep-dive/ --out ../../dist/playwright-mcp-deep-dive",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/playwright-mcp-deep-dive",
+    "build:slidev": "slidev build --base /playwright-mcp-deep-dive/ --out ../../dist/slides/playwright-mcp-deep-dive",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

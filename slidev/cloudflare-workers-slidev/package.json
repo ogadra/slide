@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/cloudflare-workers-slidev",
-    "build:slidev": "slidev build --base /cloudflare-workers-slidev/ --out ../../dist/cloudflare-workers-slidev",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/cloudflare-workers-slidev",
+    "build:slidev": "slidev build --base /cloudflare-workers-slidev/ --out ../../dist/slides/cloudflare-workers-slidev",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/remix-on-hono",
-    "build:slidev": "slidev build --base /remix-on-hono/ --out ../../dist/remix-on-hono",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/remix-on-hono",
+    "build:slidev": "slidev build --base /remix-on-hono/ --out ../../dist/slides/remix-on-hono",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

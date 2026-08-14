@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/ios-safari-app-experience",
-    "build:slidev": "slidev build --base /ios-safari-app-experience/ --out ../../dist/ios-safari-app-experience",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/ios-safari-app-experience",
+    "build:slidev": "slidev build --base /ios-safari-app-experience/ --out ../../dist/slides/ios-safari-app-experience",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"
