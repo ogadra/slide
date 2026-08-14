@@ -8,6 +8,7 @@ This is a personal slides website that hosts multiple Slidev presentations. The 
 - Individual slide decks in `slidev/` directory
 - A homepage in `home/` that serves as a slide archive
 - Cloudflare Workers deployment with dynamic HTML rewriting
+- Slide deck artifacts stored in R2 and served through the `SLIDE_ASSETS` binding
 
 ## Common Commands
 
@@ -32,11 +33,29 @@ pnpm run build          # Build slide deck and copy to dist
 pnpm run export:png      # Export slides as PNG images
 ```
 
+### Syncing Slides to R2
+Slide decks are not part of the deploy. Build and sync them whenever their content changes.
+
+```bash
+# Sync one or more decks
+./scripts/sync-slides.sh --env dev  <slide-name>...
+./scripts/sync-slides.sh --env prd  <slide-name>...
+
+# Sync every deck (required after a Slidev version bump)
+./scripts/sync-slides.sh --env prd --all
+```
+
+Requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`
+(`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`). See `.env.sample`.
+
 ### Deployment
 ```bash
-# Deploy to Cloudflare Workers
+# Deploy to Cloudflare Workers (builds and ships home/ only)
 wrangler deploy
 ```
+
+Workers Builds runs `pnpm --filter slide-home build`. Slide decks reach production
+through `sync-slides.sh`, not through the deploy.
 
 ### Quality Assurance
 ```bash
@@ -60,7 +79,8 @@ pnpm run lint:fix      # Auto-fix issues
 - **Root**: pnpm workspace configuration
 - **home/**: Hono-based server for homepage and routing
 - **slidev/**: Individual slide presentations
-- **dist/**: Build output directory served by Cloudflare Workers
+- **scripts/**: Operational scripts (`sync-slides.sh`)
+- **dist/**: Build output directory; `home/` output ships as Workers static assets, slide output is uploaded to R2
 
 ### Key Components
 
@@ -80,8 +100,8 @@ Each slide deck is self-contained with:
 ### Build Process
 1. Each slide deck builds with Slidev, outputs to `../../dist/[slide-name]/`
 2. PNG exports are copied to dist for thumbnail generation
-3. Homepage builds separately with Vite
-4. Cloudflare Workers serves static assets with dynamic routing
+3. `sync-slides.sh` mirrors `dist/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
+4. Homepage builds separately with Vite and ships as Workers static assets on deploy
 
 ### Technologies
 - **Slidev**: Presentation framework
@@ -98,6 +118,8 @@ Each slide deck is self-contained with:
 2. Copy package.json structure from existing slide
 3. Update build scripts with correct paths
 4. Add workspace entry if needed
+5. Add the title to `titles()` in `home/htmlRewriterHandler.ts` and a `Section` entry in `home/app/index.tsx`
+6. Publish with `./scripts/sync-slides.sh --env prd <slide-name>`
 
 ### Slide Routing
 - Homepage: `/`
@@ -106,7 +128,8 @@ Each slide deck is self-contained with:
 - Demo pages: `/demo/*` (e.g., `/demo/ios-safari-app-experience`)
 
 ### Asset Handling
-Static assets are served through Cloudflare Workers binding with `c.env.ASSETS.fetch()`
+Slide deck files live in R2 under `{slide-name}/...` and are read with `c.env.SLIDE_ASSETS.get()`.
+The catch-all route falls back to `c.env.ASSETS.fetch()`, which serves the homepage's own static assets.
 
 ### Development Workflow
 1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection

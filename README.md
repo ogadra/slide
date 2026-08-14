@@ -29,6 +29,7 @@
 .
 ├── slidev/              # 個別のスライドプレゼンテーション
 ├── home/                # ホームページ（Hono）
+├── scripts/             # 運用スクリプト（sync-slides.sh）
 ├── create-slide.sh      # スライド作成コマンド
 └── CLAUDE.md            # プロジェクトガイドライン
 ```
@@ -62,17 +63,34 @@ pnpm run export:png
 
 ## 🌐 デプロイ
 
+### スライドの公開
+
+スライドの成果物はR2に置いてあり、デプロイには含まれません。内容を変えたスライドだけを同期します。
+
+```bash
+# 特定のスライドを同期
+./scripts/sync-slides.sh --env prd <スライド名>
+
+# 全スライドを同期（Slidevのバージョンを上げたときなど）
+./scripts/sync-slides.sh --env prd --all
+```
+
+`rclone`（Nix devShellに同梱）と、`.env` に置いたR2の認証情報が必要です。`.env.sample` を参照してください。
+
+### Workerのデプロイ
+
 ```bash
 wrangler deploy
 ```
 
-Cloudflare Workersにデプロイされ、静的アセットとしてスライドが配信されます。
+`home/` の成果物が静的アセットとしてCloudflare Workersにデプロイされます。スライド本体はR2から配信されます。
 
 ## 📝 使用技術
 
 - **Slidev** - プレゼンテーション作成
 - **Hono** - ウェブフレームワーク
 - **Cloudflare Workers** - ホスティングプラットフォーム
+- **Cloudflare R2** - スライド成果物の保管
 - **UnoCSS** - CSSフレームワーク
 - **TypeScript** - 型安全性
 - **Vite** - ビルドツール

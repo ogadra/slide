@@ -49,8 +49,17 @@ const titles = (path: string): string => {
 export const HTMLRewriterHandler = async (c: Context, num: number) =>{
   const regex = /^(https?:\/\/[^/]+\/[^/]+)/;
   const urlPrefix = c.req.url.match(regex)?.[1] ?? c.req.url;
-  const html = await c.env.ASSETS.fetch(urlPrefix);
-  const title = titles(c.req.param("slide") ?? "");
+  const slide = c.req.param("slide") ?? "";
+  const object = await c.env.SLIDE_ASSETS.get(`${slide}/index.html`);
+
+  if (object === null) {
+    return c.notFound();
+  }
+
+  const html = new Response(object.body, {
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+  const title = titles(slide);
 
   return new HTMLRewriter()
     .on(

@@ -16,6 +16,7 @@ import { randomString } from "./utils/randomString";
 type BindingsEnv = {
 	Sandbox: DurableObjectNamespace;
 	IP_LOG: KVNamespace;
+	SLIDE_ASSETS: R2Bucket;
 };
 
 const app = new Hono<{
@@ -80,7 +81,19 @@ app.on("GET", ["/"], async (c: Context) => {
 });
 
 app.on("GET", ["*"], async (c: Context) => {
-	return c.env.ASSETS.fetch(c.req.url);
+	const key = new URL(c.req.url).pathname.slice(1);
+	const object = await c.env.SLIDE_ASSETS.get(key);
+	if (object === null) {
+		return c.env.ASSETS.fetch(c.req.url);
+	}
+
+	return new Response(object.body, {
+		headers: {
+			"content-type":
+				object.httpMetadata?.contentType ?? "application/octet-stream",
+			etag: object.httpEtag,
+		},
+	});
 });
 
 export default app;

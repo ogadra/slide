@@ -72,6 +72,12 @@
 			"id": "980bf28266914afabf49e7ec179c95f4"
 		}
 	],
+	"r2_buckets": [
+		{
+			"binding": "SLIDE_ASSETS", // Slide deck build artifacts
+			"bucket_name": "slide-decks"
+		}
+	],
 	"env": {
 		"dev": {
 			"preview_urls": false,
@@ -141,6 +147,12 @@
 				{
 					"binding": "IP_LOG",
 					"id": "6a421abbb9b646638579fa375c46bc4b"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "SLIDE_ASSETS", // Slide deck build artifacts
+					"bucket_name": "slide-decks-dev"
 				}
 			]
 		}

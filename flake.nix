@@ -24,6 +24,7 @@
             nodejs_24
             pnpm
             google-chrome
+            rclone
           ];
 
           # Playwright requires these libraries
