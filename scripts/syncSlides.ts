@@ -65,7 +65,6 @@ const seedLocal = async (bucketName: string, decks: string[]) => {
 	});
 	const bucket = await mf.getR2Bucket(binding);
 
-	let count = 0;
 	for (const deck of decks) {
 		for (const file of walk(join(slidesDist, deck))) {
 			await bucket.put(file.slice(slidesDist.length + 1), readFileSync(file), {
@@ -75,12 +74,10 @@ const seedLocal = async (bucketName: string, decks: string[]) => {
 						"application/octet-stream",
 				},
 			});
-			count++;
 		}
 	}
 
 	await mf.dispose();
-	console.log(`==> seeded ${count} objects into the local ${bucketName}`);
 };
 
 const syncWithRclone = (
