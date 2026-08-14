@@ -5,11 +5,6 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"preview_urls": false,
 	"workers_dev": false,
-	"assets": {
-		"directory": "./dist/home/",
-		"binding": "ASSETS",
-		"run_worker_first": true,
-	},
 	"vars": {
 		"ENVIRONMENT": "production",
 	},
@@ -74,7 +69,7 @@
 	],
 	"r2_buckets": [
 		{
-			"binding": "SLIDE_ASSETS", // Slide deck build artifacts
+			"binding": "ASSETS", // Mirrors dist/ (home/ and slides/)
 			"bucket_name": "slide-decks"
 		}
 	],
@@ -151,7 +146,7 @@
 			],
 			"r2_buckets": [
 				{
-					"binding": "SLIDE_ASSETS", // Slide deck build artifacts
+					"binding": "ASSETS", // Mirrors dist/ (home/ and slides/)
 					"bucket_name": "slide-decks-dev"
 				}
 			]

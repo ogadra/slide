@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { dirname, extname, join } from "node:path";
+import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const BUCKETS = {
@@ -28,7 +28,7 @@ const CONTENT_TYPES: Record<string, string> = {
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 const slidesSource = join(repoRoot, "slidev");
-const slidesDist = join(repoRoot, "dist", "slides");
+const dist = join(repoRoot, "dist");
 const localPersist = join(repoRoot, ".wrangler", "state", "v3", "r2");
 
 // The annotation sits on the binding so control flow analysis knows a call never returns.
@@ -53,10 +53,12 @@ const walk = (dir: string): string[] =>
 		return entry.isDirectory() ? walk(path) : [path];
 	});
 
-const seedLocal = async (bucketName: string, decks: string[]) => {
+type Target = { dir: string; prefix: string };
+
+const seedLocal = async (bucketName: string, targets: Target[]) => {
 	// Only the local target needs miniflare, so it stays out of a deploy's startup.
 	const { Miniflare } = await import("miniflare");
-	const binding = "SLIDE_ASSETS";
+	const binding = "ASSETS";
 	const mf = new Miniflare({
 		modules: true,
 		script: "export default {};",
@@ -65,9 +67,9 @@ const seedLocal = async (bucketName: string, decks: string[]) => {
 	});
 	const bucket = await mf.getR2Bucket(binding);
 
-	for (const deck of decks) {
-		for (const file of walk(join(slidesDist, deck))) {
-			await bucket.put(file.slice(slidesDist.length + 1), readFileSync(file), {
+	for (const { dir, prefix } of targets) {
+		for (const file of walk(dir)) {
+			await bucket.put(`${prefix}/${relative(dir, file)}`, readFileSync(file), {
 				httpMetadata: {
 					contentType:
 						CONTENT_TYPES[extname(file).toLowerCase()] ??
@@ -83,7 +85,7 @@ const seedLocal = async (bucketName: string, decks: string[]) => {
 const syncWithRclone = (
 	targetEnv: Exclude<TargetEnv, "local">,
 	bucketName: string,
-	decks: string[],
+	targets: Target[],
 ) => {
 	if (spawnSync("rclone", ["version"], { stdio: "ignore" }).error) {
 		fail("rclone is not installed");
@@ -106,17 +108,11 @@ const syncWithRclone = (
 		? ["--progress"]
 		: ["--verbose", "--stats", "0"];
 
-	for (const deck of decks) {
-		console.log(`==> syncing ${deck} to ${bucketName}`);
+	for (const { dir, prefix } of targets) {
+		console.log(`==> syncing ${prefix} to ${bucketName}`);
 		const { status, error } = spawnSync(
 			"rclone",
-			[
-				"sync",
-				join(slidesDist, deck),
-				`:s3:${bucketName}/${deck}`,
-				"--checksum",
-				...reportFlags,
-			],
+			["sync", dir, `:s3:${bucketName}/${prefix}`, "--checksum", ...reportFlags],
 			{ stdio: "inherit", env: rcloneEnv },
 		);
 
@@ -124,11 +120,9 @@ const syncWithRclone = (
 			fail(`failed to run rclone: ${error.message}`);
 		}
 		if (status !== 0) {
-			fail(`rclone exited with ${status} while syncing ${deck}`);
+			fail(`rclone exited with ${status} while syncing ${prefix}`);
 		}
 	}
-
-	console.log(`==> done: ${decks.length} deck(s) synced to ${bucketName}`);
 };
 
 const [targetEnv] = process.argv.slice(2);
@@ -138,19 +132,26 @@ if (targetEnv === undefined || !isTargetEnv(targetEnv)) {
 
 const bucketName = BUCKETS[targetEnv];
 
-const decks = readdirSync(slidesSource, { withFileTypes: true })
-	.filter((entry) => entry.isDirectory())
-	.map((entry) => entry.name);
+// The bucket mirrors dist/, so each target keeps its directory name as the key prefix.
+const targets: Target[] = [
+	{ dir: join(dist, "home"), prefix: "home" },
+	...readdirSync(slidesSource, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => ({
+			dir: join(dist, "slides", entry.name),
+			prefix: `slides/${entry.name}`,
+		})),
+];
 
-const missing = decks.filter((deck) => !existsSync(join(slidesDist, deck)));
+const missing = targets.filter(({ dir }) => !existsSync(dir));
 if (missing.length > 0) {
 	fail(
-		`no build output for: ${missing.join(", ")}\nRun \`pnpm run build\` first.`,
+		`no build output for: ${missing.map(({ prefix }) => prefix).join(", ")}\nRun \`pnpm run build\` first.`,
 	);
 }
 
 if (targetEnv === "local") {
-	await seedLocal(bucketName, decks);
+	await seedLocal(bucketName, targets);
 } else {
-	syncWithRclone(targetEnv, bucketName, decks);
+	syncWithRclone(targetEnv, bucketName, targets);
 }

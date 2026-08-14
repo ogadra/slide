@@ -50,7 +50,7 @@ export const HTMLRewriterHandler = async (c: Context, num: number) =>{
   const regex = /^(https?:\/\/[^/]+\/[^/]+)/;
   const urlPrefix = c.req.url.match(regex)?.[1] ?? c.req.url;
   const slide = c.req.param("slide") ?? "";
-  const object = await c.env.SLIDE_ASSETS.get(`${slide}/index.html`);
+  const object = await c.env.ASSETS.get(`slides/${slide}/index.html`);
 
   if (object === null) {
     return c.notFound();

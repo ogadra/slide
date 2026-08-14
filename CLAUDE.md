@@ -8,13 +8,13 @@ This is a personal slides website that hosts multiple Slidev presentations. The 
 - Individual slide decks in `slidev/` directory
 - A homepage in `home/` that serves as a slide archive
 - Cloudflare Workers deployment with dynamic HTML rewriting
-- Slide deck artifacts stored in R2 and served through the `SLIDE_ASSETS` binding
+- All static files stored in R2 and served through the `ASSETS` binding
 
 ## Common Commands
 
 ### Development
 ```bash
-# Run the Worker locally (seeds dist/slides/ into the local R2 first)
+# Run the Worker locally (seeds dist/ into the local R2 first)
 pnpm run dev
 
 # Run root workspace build (builds all slides and home)
@@ -37,22 +37,23 @@ pnpm run export:png      # Export slides as PNG images
 ```
 
 ### Deployment
-Each command builds everything, syncs the decks to R2, then deploys the Worker.
+Production deploys from `.github/workflows/deploy.yml` on every push to `main`, which runs
+`deploy:prd`. Cloudflare's own Workers Builds is not used, so the R2 sync and the Worker
+deploy always happen together.
 
 ```bash
-pnpm run deploy:dev
-pnpm run deploy:prd
+pnpm run deploy:dev   # dev is deployed by hand
+pnpm run deploy:prd   # what CI runs
 ```
 
-`rclone sync --checksum` uploads only what actually changed, so every deck is compared on
+Each command builds everything, mirrors `dist/` into R2, then deploys the Worker.
+`rclone sync --checksum` uploads only what actually changed, so every file is compared on
 every run and there is nothing to select by hand.
 
 Syncing requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
 Each environment has its own API token, so a dev sync can never write to production.
-See `.env.sample`.
-
-Workers Builds deploys the Worker on push and runs `pnpm --filter slide-home build`. That
-build only produces `dist/home/`, so a push never touches the decks — `deploy:prd` does.
+See `.env.sample`. CI reads the same names from repository secrets, plus
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` for `wrangler deploy`.
 
 ### Quality Assurance
 ```bash
@@ -79,9 +80,9 @@ pnpm run lint:fix      # Auto-fix issues
 - **Root**: pnpm workspace configuration
 - **home/**: Hono-based server for homepage and routing
 - **slidev/**: Individual slide presentations
-- **scripts/**: Operational scripts (`syncSlides.ts`)
-- **dist/home/**: Homepage output, shipped as Workers static assets
-- **dist/slides/**: Slide deck output, uploaded to R2
+- **scripts/**: Operational scripts (`syncAssets.ts`)
+- **dist/home/**: Homepage output, uploaded to R2 under `home/`
+- **dist/slides/**: Slide deck output, uploaded to R2 under `slides/`
 
 ### Key Components
 
@@ -101,14 +102,14 @@ Each slide deck is self-contained with:
 ### Build Process
 1. Each slide deck builds with Slidev, outputs to `../../dist/slides/[slide-name]/`
 2. PNG exports are copied there for thumbnail generation
-3. `syncSlides.ts` mirrors every `dist/slides/[slide-name]/` into the R2 bucket with `rclone sync --checksum`
-4. Homepage builds separately with Vite into `dist/home/` and ships as Workers static assets on deploy
+3. Homepage builds separately with Vite into `dist/home/`
+4. `syncAssets.ts` mirrors `dist/` into the R2 bucket with `rclone sync --checksum`, keeping the same layout
 
 ### Technologies
 - **Slidev**: Presentation framework
 - **Hono**: Lightweight web framework
 - **Cloudflare Workers**: Hosting platform
-- **Cloudflare R2**: Slide deck artifact storage
+- **Cloudflare R2**: Static file storage
 - **UnoCSS**: CSS framework
 - **Vite**: Build tool
 - **TypeScript**: Type safety
@@ -130,12 +131,12 @@ Each slide deck is self-contained with:
 - Demo pages: `/demo/*` (e.g., `/demo/ios-safari-app-experience`)
 
 ### Asset Handling
-Slide deck files live in R2 under `{slide-name}/...` and are read with `c.env.SLIDE_ASSETS.get()`.
-The catch-all route falls back to `c.env.ASSETS.fetch()`, which serves the homepage's own static assets.
+The bucket mirrors `dist/`, so every file is read with `c.env.ASSETS.get()`. `/assets/*` maps to
+`home/assets/*` and everything else to `slides/*`. There is no static assets binding.
 
 ### Development Workflow
 1. **Code Quality**: Lefthook pre-commit hooks enforce type checking, linting, and secrets detection
 2. **Monorepo Management**: pnpm workspaces handle dependencies across slide decks and homepage
 3. **Build Pipeline**: Each slide deck builds independently into `dist/slides/`
-4. **Local Development**: `pnpm run dev` seeds `dist/slides/` into the local R2, so the decks need a build first
-5. **Publishing**: `pnpm run deploy:prd` builds, syncs the decks to R2, and deploys the Worker
+4. **Local Development**: `pnpm run dev` seeds `dist/` into the local R2, so a build has to come first
+5. **Publishing**: pushing to `main` runs `deploy:prd` in GitHub Actions

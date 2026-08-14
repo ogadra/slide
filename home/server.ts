@@ -16,7 +16,7 @@ import { randomString } from "./utils/randomString";
 type BindingsEnv = {
 	Sandbox: DurableObjectNamespace;
 	IP_LOG: KVNamespace;
-	SLIDE_ASSETS: R2Bucket;
+	ASSETS: R2Bucket;
 };
 
 const app = new Hono<{
@@ -64,9 +64,25 @@ app.post("/sandbox/:slide", handleSandboxRequest);
 
 app.all("/bunshin/:endpoint", proxyToBunshin);
 
-app.on("GET", ["/assets/*"], async (c: Context) => {
-	return c.env.ASSETS.fetch(c.req.url);
-});
+// The bucket mirrors dist/: the homepage's own files under home/, the decks under slides/.
+const serveObject = async (c: Context, key: string) => {
+	const object = await c.env.ASSETS.get(key);
+	if (object === null) {
+		return c.notFound();
+	}
+
+	return new Response(object.body, {
+		headers: {
+			"content-type":
+				object.httpMetadata?.contentType ?? "application/octet-stream",
+			etag: object.httpEtag,
+		},
+	});
+};
+
+app.on("GET", ["/assets/*"], async (c: Context) =>
+	serveObject(c, `home${new URL(c.req.url).pathname}`),
+);
 
 app.on(
 	"GET",
@@ -80,21 +96,9 @@ app.on("GET", ["/"], async (c: Context) => {
 	return Index(c);
 });
 
-app.on("GET", ["*"], async (c: Context) => {
-	const key = new URL(c.req.url).pathname.slice(1);
-	const object = await c.env.SLIDE_ASSETS.get(key);
-	if (object === null) {
-		return c.env.ASSETS.fetch(c.req.url);
-	}
-
-	return new Response(object.body, {
-		headers: {
-			"content-type":
-				object.httpMetadata?.contentType ?? "application/octet-stream",
-			etag: object.httpEtag,
-		},
-	});
-});
+app.on("GET", ["*"], async (c: Context) =>
+	serveObject(c, `slides${new URL(c.req.url).pathname}`),
+);
 
 export default app;
 
