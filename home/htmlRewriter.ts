@@ -1,10 +1,11 @@
+import { escapeToBuffer } from "hono/utils/html";
+
 // Both values are interpolated into raw markup.
-const escapeAttribute = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+const escapeAttribute = (value: string) => {
+  const buffer: [string] = [""];
+  escapeToBuffer(value, buffer);
+  return buffer[0];
+};
 
 class HeadHandler {
   content: string;
