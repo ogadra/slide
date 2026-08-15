@@ -1,7 +1,7 @@
 ---
 theme: purplin
 title: LambdaをECSと思い込む技術
-date: '2026/02/18'
+date: '2026/02/20'
 event: 'TECH BATON in 東京 〜今 Lambdaどうやって使ってる？ 〜'
 eventLink: 'https://findy.connpass.com/event/383708/'
 info: LambdaをECSと思い込む技術
