@@ -4,6 +4,10 @@ theme: purplin
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: RemixでConformを使って感じたこと
+date: '2025/03/25'
+event: 'Remix Tokyo Meetup 第4回 『Remix in Production』'
+eventLink: 'https://lu.ma/l9539owb'
+order: 2
 info: RemixでConformを使って感じたこと (Conform in Remix Personal Observations)
 # apply unocss classes to the current slide
 # class: text-center

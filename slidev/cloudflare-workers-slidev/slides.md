@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: 実行可能なスライドを作る
+date: '2025/12/10'
+event: 'Cloudflare Meet-up Tokyo Vol.9'
+eventLink: 'https://cfm-cts.connpass.com/event/374413/'
 info: 実行可能なスライドを作る
 colorSchema: 'dark'
 drawings:

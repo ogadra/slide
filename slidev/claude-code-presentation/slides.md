@@ -1,6 +1,8 @@
 ---
 theme: purplin
 title: 大興奮！Claude Codeはなぜ我々の価値観を変えるのか
+date: '2025/07/10'
+event: '非公開発表'
 info: Claude Codeの革新的な機能と開発フローへの影響について
 colorSchema: 'dark'
 drawings:

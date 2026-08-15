@@ -1,6 +1,9 @@
 ---
 theme: default
 title: GitHub運用を地盤改良する
+date: '2026/05/18'
+event: 'ナンパはダメよ路上LT会'
+eventLink: 'https://yumemi.connpass.com/event/381395/'
 info: GitHubリポジトリをTerraformでIaC管理する
 colorSchema: 'light'
 drawings:

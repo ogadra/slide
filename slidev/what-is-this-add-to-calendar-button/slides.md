@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: 「カレンダーに追加」ボタンって何者？
+date: '2026/01/15'
+event: 'Yokohama North Meetup #12「LT新年会2026」'
+eventLink: 'https://yokohama-north.connpass.com/event/377972/'
 info: 「カレンダーに追加」ボタンって何者？
 colorSchema: 'dark'
 drawings:

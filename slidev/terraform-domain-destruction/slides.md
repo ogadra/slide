@@ -1,6 +1,10 @@
 ---
 theme: default
 title: Terraformでドメインを買うな
+date: '2026/06/22'
+event: 'AWSぶっとんだ使い方発表会'
+eventLink: 'https://yumemi.connpass.com/event/392592/'
+order: 2
 info: Route53のドメインがTerraformのtaintedで消えた話
 colorSchema: 'light'
 drawings:

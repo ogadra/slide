@@ -101,6 +101,7 @@ pnpm run lint:fix      # Auto-fix issues
 - **server.ts**: Hono server with asset handling and slide routing
 - **htmlRewriterHandler.ts**: Dynamic HTML manipulation for slide metadata
 - **app/index.tsx**: React-based landing page displaying all slide presentations
+- **scripts/generate-manifest.mjs**: Reads every deck's headmatter into `generated/manifest.ts`
 - **demo/**: Demo functionality routes (e.g., iOS Safari App Experience)
 
 #### Slide Presentations (`slidev/`)
@@ -128,12 +129,39 @@ Each slide deck is self-contained with:
 ## Development Notes
 
 ### Adding New Slides
+`./create-slide.sh <slide-name-en> <slide-name-ja>` does all of this. It asks for
+the presentation date, the event name and the event page URL, and writes them into
+the headmatter along with everything else a deck needs.
+
+By hand:
 1. Create new directory in `slidev/`
 2. Copy package.json structure from existing slide
 3. Update build scripts with correct paths
 4. Add workspace entry if needed
-5. Add the title to `titles()` in `home/htmlRewriterHandler.ts` and a `Section` entry in `home/app/index.tsx`
+5. Fill in the headmatter of `slides.md` (see below)
 6. Publish with `pnpm run deploy:prd`; the new deck is picked up automatically
+
+Nothing under `home/` has to be touched. The homepage listing and the OGP tags both
+come from the headmatter.
+
+### Slide Metadata
+`home/scripts/generate-manifest.mjs` reads the headmatter of every `slidev/*/slides.md`
+and writes `home/generated/manifest.ts`, which `home/app/index.tsx` and
+`home/htmlRewriterHandler.ts` import. The file is generated, not committed, so it is
+rebuilt by `pnpm run dev`, `pnpm run build` and `pnpm run typecheck`.
+
+| Key | Required | Format | Meaning |
+|---|---|---|---|
+| `title` | ✓ | string | Shown on the homepage and in `og:title` |
+| `date` | ✓ | `'YYYY/MM/DD'` | Presentation date. Sorted descending |
+| `event` | ✓ | string | Event name. `非公開発表` when there is none |
+| `eventLink` | | URL | Event page. Omit the key when there is none |
+| `order` | | number | Position within one event. Defaults to 0, ascending |
+
+Quote the values. A `#` after a space starts a YAML comment, which would truncate an
+event name like `埼京.dev #3【俺の考えた最強の◯◯】` without any error. Decks that share a
+`date` and an `event` are shown as one entry, so their `eventLink` has to match.
+A missing or malformed key fails the build with the file path and the key name.
 
 ### Slide Routing
 - Homepage: `/`

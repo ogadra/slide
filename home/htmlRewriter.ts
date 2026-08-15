@@ -1,9 +1,18 @@
+// Both values reach the page as raw markup: the title comes from a deck's
+// headmatter and the image URL is built from the request.
+const escapeAttribute = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
 class HeadHandler {
   content: string;
   title: string;
   constructor(content: string, title: string) {
-    this.content = content;
-    this.title = title;
+    this.content = escapeAttribute(content);
+    this.title = escapeAttribute(title);
   }
 
   element(element: any) {

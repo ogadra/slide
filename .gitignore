@@ -3,6 +3,7 @@ dist/*
 .cloudflare
 .wrangler
 home/dist/*
+home/generated/
 .dev.vars
 .env
 !.env.sample

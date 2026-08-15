@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: 深堀り! Playwright MCP
+date: '2025/10/22'
+event: 'Work≠Build Meetup Tokyo feat ryoppippi'
+eventLink: 'https://wnb.connpass.com/event/371722/'
 info: 深堀り! Playwright MCP
 colorSchema: 'dark'
 drawings:

@@ -4,6 +4,9 @@ theme: purplin
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: CloudflareだけでWebアプリを作成してみた
+date: '2025/03/14'
+event: 'Cloudflare Meet-up Tokyo Vol.7'
+eventLink: 'https://cfm-cts.connpass.com/event/344633/'
 info: CloudflareだけでWebアプリを作成してみた
 # apply unocss classes to the current slide
 # class: text-center

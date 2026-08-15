@@ -1,6 +1,9 @@
 ---
 theme: default
 title: 生成AI時代におけるLTの在り方
+date: '2026/07/25'
+event: '大吉祥寺.pm 2026'
+eventLink: 'https://kichijojipm.connpass.com/event/387499/'
 info: 大吉祥寺.pm 2026
 colorSchema: 'light'
 drawings:
