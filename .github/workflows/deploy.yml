@@ -34,15 +34,15 @@ jobs:
         id: build-set
         env:
           PUSH_BEFORE: ${{ github.event.before }}
-        run: node .github/scripts/resolveBuildFilters.ts
+        run: node .github/scripts/resolveBuildArgs.ts
 
       - name: Install rclone
         run: sudo apt-get update && sudo apt-get install -y rclone
 
       - name: Build
         env:
-          FILTERS: ${{ steps.build-set.outputs.filters }}
-        run: pnpm $FILTERS build
+          BUILD_ARGS: ${{ steps.build-set.outputs.build-args }}
+        run: pnpm $BUILD_ARGS build
 
       # Whatever the build did not produce keeps the copy already in R2. The
       # sync has to land before the deploy so the Worker never serves a page

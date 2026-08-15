@@ -143,8 +143,7 @@ const targets: Target[] = [
 		})),
 ];
 
-// CI builds only what a push touched, so dist/ is allowed to be partial. Every
-// target that was not built keeps whatever the bucket already holds.
+// CI builds only what a push touched, so dist/ is allowed to be partial.
 const built = targets.filter(({ dir }) => existsSync(dir));
 const skipped = targets.filter(({ dir }) => !existsSync(dir));
 
