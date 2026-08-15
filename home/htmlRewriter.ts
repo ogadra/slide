@@ -31,7 +31,6 @@ class HeadHandler {
       { html: true }
     )
 
-    // Slidev writes its own og:title, which is left alone.
     element.append(
       `  <meta name="twitter:title" content="${this.title}" />\n`,
       { html: true }
