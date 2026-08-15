@@ -44,9 +44,12 @@ deploy always happen together.
 ```bash
 pnpm run deploy:dev   # dev is deployed by hand
 pnpm run deploy:prd   # what CI runs
+
+pnpm run sync:dev     # mirror dist/ into R2 without deploying
+pnpm run sync:prd
 ```
 
-Each command builds everything, mirrors `dist/` into R2, then deploys the Worker.
+Each deploy command builds everything, mirrors `dist/` into R2, then deploys the Worker.
 `rclone sync --checksum` uploads only what actually changed, so every file is compared on
 every run and there is nothing to select by hand.
 
