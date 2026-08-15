@@ -37,6 +37,4 @@ pnpm run deploy:dev
 pnpm run deploy:prd
 ```
 
-`main` にpushするとGitHub Actionsが `deploy:prd` を実行する。devは手元から。
-
-ビルド成果物は `dist/` に出て、R2がその構成をそのまま持つ。WorkerはR2だけを読む。
+スライドの成果物は `dist/slides/` に出て、WorkerがR2から読んで返す。
