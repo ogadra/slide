@@ -41,7 +41,6 @@ fi
 echo -e "${GREEN}Creating slide...${NC}"
 mkdir -p "$SLIDE_DIR"
 mkdir -p "$SLIDE_DIR/components"
-mkdir -p "$SLIDE_DIR/slides-export"
 mkdir -p "$SLIDE_DIR/imgs"
 mkdir -p "$SLIDE_DIR/setup"
 
@@ -54,12 +53,11 @@ cat > "$SLIDE_DIR/package.json" <<EOF
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/slides/$SLIDE_NAME_EN",
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --output ../../dist/slides/$SLIDE_NAME_EN/slides-export",
     "build:slidev": "slidev build --base /$SLIDE_NAME_EN/ --out ../../dist/slides/$SLIDE_NAME_EN",
     "dev": "slidev --open",
-    "export": "slidev export",
-    "export:png": "slidev export --format png"
+    "export": "slidev export"
   }
 }
 EOF

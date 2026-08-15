@@ -5,11 +5,10 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/slides/terraform-github-management",
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --output ../../dist/slides/terraform-github-management/slides-export",
     "build:slidev": "slidev build --base /terraform-github-management/ --out ../../dist/slides/terraform-github-management",
     "dev": "slidev --open",
-    "export": "slidev export",
-    "export:png": "slidev export --format png"
+    "export": "slidev export"
   }
 }

@@ -5,11 +5,10 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/slides/remix-on-hono",
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --output ../../dist/slides/remix-on-hono/slides-export",
     "build:slidev": "slidev build --base /remix-on-hono/ --out ../../dist/slides/remix-on-hono",
     "dev": "slidev --open",
-    "export": "slidev export",
-    "export:png": "slidev export --format png"
+    "export": "slidev export"
   }
 }
