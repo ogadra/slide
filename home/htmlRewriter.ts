@@ -1,6 +1,5 @@
 import { escapeToBuffer } from "hono/utils/html";
 
-// Both values are interpolated into raw markup.
 const escapeAttribute = (value: string) => {
   const buffer: [string] = [""];
   escapeToBuffer(value, buffer);
