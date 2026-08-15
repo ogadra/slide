@@ -31,10 +31,9 @@ class HeadHandler {
       { html: true }
     )
 
-    element.append(
-      `  <meta property="og:title" content="${this.title}" />\n`,
-      { html: true }
-    )
+    // Slidev already writes an og:title, so appending one here would leave the
+    // page with two. What Slidev emits carries its ` - Slidev` suffix and stays
+    // as it is; the tags below are ours and use the bare title.
     element.append(
       `  <meta name="twitter:title" content="${this.title}" />\n`,
       { html: true }
@@ -43,16 +42,6 @@ class HeadHandler {
       `  <meta name="twitter:text:title" content="${this.title}" />\n`,
       { html: true }
     )
-  }
-  text(text: any) {
-    const regex = / - Slidev$/;
-    if (regex.test(text.text)) {
-      const title = text.text.replace(regex, "");
-      text.replace(
-        title,
-        { html: true }
-      );
-    }
   }
 }
 
