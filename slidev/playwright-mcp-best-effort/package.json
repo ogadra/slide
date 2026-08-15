@@ -6,7 +6,7 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:png",
-    "build:png": "slidev export --format png --output ../../dist/slides/playwright-mcp-best-effort/slides-export",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/playwright-mcp-best-effort/slides-export",
     "build:slidev": "slidev build --base /playwright-mcp-best-effort/ --out ../../dist/slides/playwright-mcp-best-effort",
     "dev": "slidev --open",
     "export": "slidev export"

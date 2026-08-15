@@ -6,7 +6,7 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:png",
-    "build:png": "slidev export --format png --output ../../dist/slides/lambda-as-an-ecs-alternative/slides-export",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/lambda-as-an-ecs-alternative/slides-export",
     "build:slidev": "slidev build --base /lambda-as-an-ecs-alternative/ --out ../../dist/slides/lambda-as-an-ecs-alternative",
     "dev": "slidev --open",
     "export": "slidev export"

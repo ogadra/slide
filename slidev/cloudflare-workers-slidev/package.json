@@ -6,7 +6,7 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:png",
-    "build:png": "slidev export --format png --output ../../dist/slides/cloudflare-workers-slidev/slides-export",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/cloudflare-workers-slidev/slides-export",
     "build:slidev": "slidev build --base /cloudflare-workers-slidev/ --out ../../dist/slides/cloudflare-workers-slidev",
     "dev": "slidev --open",
     "export": "slidev export"

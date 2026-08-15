@@ -54,7 +54,7 @@ jobs:
       - name: Build
         env:
           BUILD_ARGS: ${{ steps.build-set.outputs.build-args }}
-        run: pnpm $BUILD_ARGS build
+        run: pnpm --workspace-concurrency=2 $BUILD_ARGS build
 
       # Whatever the build did not produce keeps the copy already in R2. The
       # sync has to land before the deploy so the Worker never serves a page

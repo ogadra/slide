@@ -6,7 +6,7 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:png",
-    "build:png": "slidev export --format png --output ../../dist/slides/dai-kichijoji-pm-2026-teaser-talk/slides-export",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/dai-kichijoji-pm-2026-teaser-talk/slides-export",
     "build:slidev": "slidev build --base /dai-kichijoji-pm-2026-teaser-talk/ --out ../../dist/slides/dai-kichijoji-pm-2026-teaser-talk",
     "dev": "slidev --open",
     "export": "slidev export"

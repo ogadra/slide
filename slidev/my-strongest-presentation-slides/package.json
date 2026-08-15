@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:png",
-    "build:png": "slidev export --format png --output ../../dist/slides/my-strongest-presentation-slides/slides-export",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/my-strongest-presentation-slides/slides-export",
     "build:slidev": "slidev build --base /my-strongest-presentation-slides/ --out ../../dist/slides/my-strongest-presentation-slides",
     "dev": "slidev --open",
     "export": "slidev export"
