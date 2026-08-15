@@ -1,4 +1,3 @@
-/** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 
 import type { Context } from "hono";

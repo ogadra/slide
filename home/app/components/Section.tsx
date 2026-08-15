@@ -1,4 +1,3 @@
-/** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 
 type SlideProps = {

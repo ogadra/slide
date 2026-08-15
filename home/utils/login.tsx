@@ -1,4 +1,3 @@
-/** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 
 import { compare } from "bcrypt-ts";

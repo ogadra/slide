@@ -13,7 +13,7 @@
     "sync:local": "node scripts/syncAssets.ts local",
     "dev": "pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
     "start": "pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
-    "deploy:prd": "pnpm run build && pnpm run sync:prd && wrangler deploy",
+    "deploy:prd": "pnpm run build && pnpm run sync:prd && wrangler deploy --env=\"\"",
     "deploy:dev": "pnpm run build && pnpm run sync:dev && wrangler deploy --env dev"
   },
   "private": true,
