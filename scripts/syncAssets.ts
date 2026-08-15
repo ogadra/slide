@@ -96,7 +96,7 @@ const syncWithRclone = (
 		...process.env,
 		RCLONE_S3_PROVIDER: "Cloudflare",
 		RCLONE_S3_REGION: "auto",
-		RCLONE_S3_ENDPOINT: `https://${requireEnv("R2_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
+		RCLONE_S3_ENDPOINT: `https://${requireEnv("CLOUDFLARE_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
 		RCLONE_S3_ACCESS_KEY_ID: requireEnv(`R2_ACCESS_KEY_ID_${suffix}`),
 		RCLONE_S3_SECRET_ACCESS_KEY: requireEnv(`R2_SECRET_ACCESS_KEY_${suffix}`),
 		// The sync token is scoped to the bucket and cannot list buckets.

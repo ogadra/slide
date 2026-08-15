@@ -53,7 +53,8 @@ every run and there is nothing to select by hand.
 Syncing requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
 Each environment has its own API token, so a dev sync can never write to production.
 See `.env.sample`. CI reads the same names from repository secrets, plus
-`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` for `wrangler deploy`.
+`CLOUDFLARE_API_TOKEN` for `wrangler deploy`. `CLOUDFLARE_ACCOUNT_ID` serves both, since
+the R2 endpoint host is the account id.
 
 ### Quality Assurance
 ```bash
