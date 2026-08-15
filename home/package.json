@@ -4,14 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:cf": "wrangler dev --ip 0.0.0.0",
-    "build": "mkdir -p ../dist/home/assets && cp assets/style.css ../dist/home/assets/style.css",
-    "preview": "vite preview",
+    "generate": "node scripts/generateManifest.ts",
+    "dev": "pnpm run generate && vite",
+    "dev:cf": "pnpm run generate && wrangler dev --ip 0.0.0.0",
+    "build": "pnpm run generate && mkdir -p ../dist/home/assets && cp assets/style.css ../dist/home/assets/style.css",
+    "preview": "pnpm run generate && vite preview",
     "export:png": "",
-    "lint": "biome check",
-    "lint:fix": "biome check --write --unsafe",
-    "typecheck": "tsc --noEmit"
+    "lint": "biome check --no-errors-on-unmatched",
+    "lint:fix": "biome check --write --unsafe --no-errors-on-unmatched",
+    "typecheck": "pnpm run generate && tsc --noEmit"
   },
   "dependencies": {
     "@hono/vite-dev-server": "^0.26.0",
@@ -23,6 +24,8 @@
     "@biomejs/biome": "2.5.3",
     "@cloudflare/sandbox": "^0.11.0",
     "@cloudflare/workers-types": "^5.20260719.1",
-    "typescript": "^6.0.3"
+    "@types/node": "^22.20.1",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.0"
   }
 }

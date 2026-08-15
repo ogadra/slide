@@ -4,6 +4,9 @@ theme: purplin
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: 個人開発で気をつけるべきこと
+date: '2025/03/29'
+event: '個人開発LT会'
+eventLink: 'https://mii-meetup.connpass.com/event/347603/'
 info: 個人開発で気をつけるべきこと
 # apply unocss classes to the current slide
 # class: text-center

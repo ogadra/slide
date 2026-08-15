@@ -1,9 +1,17 @@
+import { escapeToBuffer } from "hono/utils/html";
+
+const escapeAttribute = (value: string) => {
+  const buffer: [string] = [""];
+  escapeToBuffer(value, buffer);
+  return buffer[0];
+};
+
 class HeadHandler {
   content: string;
   title: string;
   constructor(content: string, title: string) {
-    this.content = content;
-    this.title = title;
+    this.content = escapeAttribute(content);
+    this.title = escapeAttribute(title);
   }
 
   element(element: any) {
@@ -23,10 +31,6 @@ class HeadHandler {
     )
 
     element.append(
-      `  <meta property="og:title" content="${this.title}" />\n`,
-      { html: true }
-    )
-    element.append(
       `  <meta name="twitter:title" content="${this.title}" />\n`,
       { html: true }
     )
@@ -34,16 +38,6 @@ class HeadHandler {
       `  <meta name="twitter:text:title" content="${this.title}" />\n`,
       { html: true }
     )
-  }
-  text(text: any) {
-    const regex = / - Slidev$/;
-    if (regex.test(text.text)) {
-      const title = text.text.replace(regex, "");
-      text.replace(
-        title,
-        { html: true }
-      );
-    }
   }
 }
 

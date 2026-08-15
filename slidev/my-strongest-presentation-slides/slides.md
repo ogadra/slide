@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: 俺の考えた最強の登壇資料
+date: '2026/04/22'
+event: '埼京.dev #3【俺の考えた最強の◯◯】'
+eventLink: 'https://sai-kyo.connpass.com/event/386639/'
 info: 俺の考えた最強の登壇資料
 colorSchema: 'dark'
 drawings:

@@ -3,7 +3,10 @@ theme: default
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
-title: hono-remix-adapter使ってみた
+title: hono-remix-adapter 使ってみた
+date: '2024/11/19'
+event: 'Remix Tokyo × Cloudflare Meetup'
+eventLink: 'https://lu.ma/wv9xzam7'
 info: hono-remix-adapter使ってみた
 # apply unocss classes to the current slide
 # class: text-center

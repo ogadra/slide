@@ -1,6 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
 import type { Context } from "hono";
+import { manifest } from "../generated/manifest";
 import { Section } from "./components/Section";
 
 export const Index = (c: Context) => {
@@ -46,228 +47,17 @@ const Body = () => {
 			</header>
 
 			<main>
-				<Section
-					date="2026/07/25"
-					eventLink="https://kichijojipm.connpass.com/event/387499/"
-					eventTitle="大吉祥寺.pm 2026"
-					slide={[
-						{
-							link: "./lightning-talks-in-generative-ai-era",
-							title: "生成AI時代におけるLTの在り方",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/07/24"
-					eventLink="https://kichijojipm.connpass.com/event/395501/"
-					eventTitle="大吉祥寺.pm 2026 前夜祭"
-					slide={[
-						{
-							link: "./dai-kichijoji-pm-2026-teaser-talk",
-							title: "生成AI時代におけるLTの在り方（ティザー）",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/06/22"
-					eventLink="https://yumemi.connpass.com/event/392592/"
-					eventTitle="AWSぶっとんだ使い方発表会"
-					slide={[
-						{
-							link: "./fargate-as-sandbox",
-							title: "FargateをSandboxとして使う",
-						},
-						{
-							link: "./terraform-domain-destruction",
-							title: "Terraformでドメインを買うな",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/05/18"
-					eventLink="https://yumemi.connpass.com/event/381395/"
-					eventTitle="ナンパはダメよ路上LT会"
-					slide={[
-						{
-							link: "./terraform-github-management",
-							title: "GitHub運用を地盤改良する",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/04/22"
-					eventLink="https://sai-kyo.connpass.com/event/386639/"
-					eventTitle="埼京.dev #3【俺の考えた最強の◯◯】"
-					slide={[
-						{
-							link: "./my-strongest-presentation-slides",
-							title: "俺の考えた最強の登壇資料",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/02/18"
-					eventLink="https://findy.connpass.com/event/383708/"
-					eventTitle="TECH BATON in 東京 〜今 Lambdaどうやって使ってる？ 〜"
-					slide={[
-						{
-							link: "./lambda-as-an-ecs-alternative",
-							title: "LambdaをECSと思い込む技術",
-						},
-					]}
-				/>
-
-				<Section
-					date="2026/01/15"
-					eventLink="https://yokohama-north.connpass.com/event/377972/"
-					eventTitle="Yokohama North Meetup #12「LT新年会2026」"
-					slide={[
-						{
-							link: "./what-is-this-add-to-calendar-button",
-							title: "「カレンダーに追加」ボタンって何者？",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/12/10"
-					eventLink="https://cfm-cts.connpass.com/event/374413/"
-					eventTitle="Cloudflare Meet-up Tokyo Vol.9"
-					slide={[
-						{
-							link: "./cloudflare-workers-slidev",
-							title: "実行可能なスライドを作る",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/10/22"
-					eventLink="https://wnb.connpass.com/event/371722/"
-					eventTitle="Work≠Build Meetup Tokyo feat ryoppippi"
-					slide={[
-						{
-							link: "./playwright-mcp-deep-dive",
-							title: "深堀り! Playwright MCP",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/08/26"
-					eventLink="https://beenos.connpass.com/event/364554/"
-					eventTitle="個人開発/環境依存LT会"
-					slide={[
-						{
-							link: "./ios-safari-app-experience",
-							title: "Safariでもネイティブアプリの触り心地を実現したい！",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/07/29"
-					eventLink="https://dev-hive.connpass.com/event/361847/"
-					eventTitle="全力で生成AIに仕事奪わせてみたLT会"
-					slide={[
-						{
-							link: "./playwright-mcp-best-effort",
-							title: "Playwright MCPの、今の全力",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/07/10"
-					eventTitle="非公開発表"
-					slide={[
-						{
-							link: "./claude-code-presentation",
-							title: "大興奮！Claude Codeはなぜ我々の価値観を変えるのか",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/06/23"
-					eventLink="https://lu.ma/paz62qi5"
-					eventTitle="Remix Tokyo Meetup 第5回 『Bring Your Own Talk』"
-					slide={[
-						{
-							link: "./upgrade-to-rrv7",
-							title: "RRv7移行のつらみポイント",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/04/10"
-					eventLink="https://canly.connpass.com/event/349882/"
-					eventTitle="初心者歓迎！クラフトビールを楽しむLT会！#2"
-					slide={[
-						{
-							link: "./self-hosting-slides",
-							title: "スライド自己管理のすゝめ",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/03/29"
-					eventLink="https://mii-meetup.connpass.com/event/347603/"
-					eventTitle="個人開発LT会"
-					slide={[
-						{
-							link: "./solo-dev-considerations",
-							title: "個人開発で気をつけるべきこと",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/03/25"
-					eventLink="https://lu.ma/l9539owb"
-					eventTitle="Remix Tokyo Meetup 第4回 『Remix in Production』"
-					slide={[
-						{
-							link: "./using-conform-in-remix",
-							title: "Conform in Remix Personal Observations",
-						},
-						{
-							link: "./ja-using-conform-in-remix",
-							title: "RemixでConformを使って感じたこと",
-						},
-					]}
-				/>
-
-				<Section
-					date="2025/03/14"
-					eventLink="https://cfm-cts.connpass.com/event/344633/"
-					eventTitle="Cloudflare Meet-up Tokyo Vol.7"
-					slide={[
-						{
-							link: "./cloudflare-fullstack-application",
-							title: "CloudflareだけでWebアプリを作成してみた",
-						},
-					]}
-				/>
-
-				<Section
-					date="2024/11/19"
-					eventLink="https://lu.ma/wv9xzam7"
-					eventTitle="Remix Tokyo × Cloudflare Meetup"
-					slide={[
-						{
-							link: "./remix-on-hono",
-							title: "hono-remix-adapter 使ってみた",
-						},
-					]}
-				/>
+				{manifest.map((group) => (
+					<Section
+						date={group.date}
+						eventLink={group.eventLink}
+						eventTitle={group.event}
+						slide={group.slides.map((slide) => ({
+							link: `./${slide.name}`,
+							title: slide.title,
+						}))}
+					/>
+				))}
 			</main>
 
 			<footer>

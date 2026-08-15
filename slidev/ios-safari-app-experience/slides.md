@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: Safariでもネイティブアプリの触り心地を実現したい！
+date: '2025/08/26'
+event: '個人開発/環境依存LT会'
+eventLink: 'https://beenos.connpass.com/event/364554/'
 info: Safariでもネイティブアプリの触り心地を実現したい！
 colorSchema: 'dark'
 drawings:

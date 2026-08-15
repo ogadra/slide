@@ -4,6 +4,9 @@ theme: default
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: RRv7移行のつらみポイント
+date: '2025/06/23'
+event: 'Remix Tokyo Meetup 第5回 『Bring Your Own Talk』'
+eventLink: 'https://lu.ma/paz62qi5'
 info: RRv7移行のつらみポイント
 # apply unocss classes to the current slide
 # class: text-center

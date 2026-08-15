@@ -4,6 +4,9 @@ theme: default
 # like them? see https://unsplash.com/collections/94734566/slidev
 # some information about your slides (markdown enabled)
 title: スライド自己管理のすゝめ
+date: '2025/04/10'
+event: '初心者歓迎！クラフトビールを楽しむLT会！#2'
+eventLink: 'https://canly.connpass.com/event/349882/'
 info: スライド自己管理のすゝめ
 # apply unocss classes to the current slide
 # class: text-center

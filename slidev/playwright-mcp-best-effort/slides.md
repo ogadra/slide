@@ -1,6 +1,9 @@
 ---
 theme: purplin
 title: Playwright MCPの、今の全力
+date: '2025/07/29'
+event: '全力で生成AIに仕事奪わせてみたLT会'
+eventLink: 'https://dev-hive.connpass.com/event/361847/'
 info: Playwright MCP、今の全力
 colorSchema: 'dark'
 drawings:

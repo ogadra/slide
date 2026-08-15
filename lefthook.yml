@@ -7,6 +7,9 @@ pre-commit:
       glob: "*.{ts,tsx,js,jsx}"
       stage_fixed: true
       run: pnpm run typecheck
+    01_manifest:
+      glob: "slidev/*/slides.md"
+      run: pnpm run generate
     01_typecheck_scripts:
       glob: "{scripts,.github/scripts}/*.ts"
       run: pnpm run typecheck

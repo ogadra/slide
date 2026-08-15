@@ -72,9 +72,15 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^5.20260719.1
         version: 5.20260719.1
+      '@types/node':
+        specifier: ^22.20.1
+        version: 22.20.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
 
   slidev/claude-code-presentation: {}
 

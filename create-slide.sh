@@ -37,6 +37,38 @@ if [ -d "$SLIDE_DIR" ]; then
     exit 1
 fi
 
+# A deck whose headmatter is missing these cannot be built.
+ask() {
+    local prompt=$1
+    local pattern=$2
+    local answer
+    while true; do
+        read -r -p "$prompt" answer
+        if [[ "$answer" =~ $pattern ]]; then
+            REPLY_VALUE=$answer
+            return
+        fi
+        echo -e "${YELLOW}入力し直してください${NC}"
+    done
+}
+
+# Single quotes keep YAML from reading a '#' as the start of a comment.
+yaml_quote() {
+    printf "'%s'" "${1//\'/\'\'}"
+}
+
+ask "発表日 (YYYY/MM/DD): " '^[0-9]{4}/[0-9]{2}/[0-9]{2}$'
+SLIDE_DATE=$(yaml_quote "$REPLY_VALUE")
+
+ask "イベント名: " '.'
+SLIDE_EVENT=$(yaml_quote "$REPLY_VALUE")
+
+ask "イベントページのURL（任意）: " '^(https?://.+)?$'
+SLIDE_EVENT_LINK=""
+if [ -n "$REPLY_VALUE" ]; then
+    SLIDE_EVENT_LINK=$'\n'"eventLink: $(yaml_quote "$REPLY_VALUE")"
+fi
+
 # Create directory structure
 echo -e "${GREEN}Creating slide...${NC}"
 mkdir -p "$SLIDE_DIR"
@@ -67,6 +99,8 @@ cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
 title: $SLIDE_NAME_JA
+date: $SLIDE_DATE
+event: $SLIDE_EVENT$SLIDE_EVENT_LINK
 info: $SLIDE_NAME_JA
 colorSchema: 'dark'
 drawings:
