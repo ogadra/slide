@@ -40,7 +40,16 @@ jobs:
         run: node .github/scripts/resolveBuildArgs.ts
 
       - name: Install rclone
-        run: sudo apt-get update && sudo apt-get install -y rclone
+        run: |
+          version=v1.75.0
+          sha256=aa2804e08f48250e71009c727124b6341cd0288465804a9a09d14663cabafbaa
+          archive="rclone-${version}-linux-amd64"
+          curl -fsSL -o "${archive}.zip" "https://downloads.rclone.org/${version}/${archive}.zip"
+          sha256sum -c - <<<"${sha256}  ${archive}.zip"
+          unzip -q "${archive}.zip"
+          sudo install -m 755 "${archive}/rclone" /usr/local/bin/rclone
+          rm -r "${archive}" "${archive}.zip"
+          rclone version | head -1
 
       - name: Build
         env:
