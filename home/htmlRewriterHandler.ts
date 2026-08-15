@@ -5,6 +5,8 @@ const titles = (path: string): string => {
   switch (path) {
     case "lightning-talks-in-generative-ai-era":
       return "生成AI時代におけるLTの在り方";
+    case "dai-kichijoji-pm-2026-teaser-talk":
+      return "生成AI時代におけるLTの在り方（ティザー）";
     case "fargate-as-sandbox":
       return "FargateをSandboxとして使う";
     case "terraform-domain-destruction":
