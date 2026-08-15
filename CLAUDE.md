@@ -85,6 +85,9 @@ pnpm run lint:fix      # Auto-fix issues
 # - Code formatting and linting
 ```
 
+`.github/workflows/check.yml` runs the same lint and type checks on every pull request,
+so a commit that skipped the hooks still gets caught before it reaches `main`.
+
 ## Architecture
 
 ### Monorepo Structure

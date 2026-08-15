@@ -9,6 +9,7 @@ import {
 	mockedStreamHandler,
 } from "./mock/handlers";
 import { AllowExecute, type AllowExecuteType } from "./types/sandbox";
+
 export { AllowExecute, type AllowExecuteType };
 
 const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
