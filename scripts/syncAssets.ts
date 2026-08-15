@@ -143,15 +143,22 @@ const targets: Target[] = [
 		})),
 ];
 
-const missing = targets.filter(({ dir }) => !existsSync(dir));
-if (missing.length > 0) {
-	fail(
-		`no build output for: ${missing.map(({ prefix }) => prefix).join(", ")}\nRun \`pnpm run build\` first.`,
+// CI builds only what a push touched, so dist/ is allowed to be partial. Every
+// target that was not built keeps whatever the bucket already holds.
+const built = targets.filter(({ dir }) => existsSync(dir));
+const skipped = targets.filter(({ dir }) => !existsSync(dir));
+
+if (skipped.length > 0) {
+	console.log(
+		`==> not built, leaving as is: ${skipped.map(({ prefix }) => prefix).join(", ")}`,
 	);
+}
+if (built.length === 0) {
+	fail("dist/ holds nothing to sync. Run `pnpm run build` first.");
 }
 
 if (targetEnv === "local") {
-	await seedLocal(bucketName, targets);
+	await seedLocal(bucketName, built);
 } else {
-	syncWithRclone(targetEnv, bucketName, targets);
+	syncWithRclone(targetEnv, bucketName, built);
 }

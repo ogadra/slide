@@ -17,6 +17,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Resolve what to build
+        id: build-set
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          # A manual run has no diff to narrow down, so it rebuilds everything.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "filters=--recursive" >> "$GITHUB_OUTPUT"
+            echo "building every package: manual run"
+            exit 0
+          fi
+
+          base="$BEFORE"
+          if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2> /dev/null; then
+            base="$SHA^"
+          fi
+          changed=$(git diff --name-only "$base" "$SHA")
+
+          # These reach every deck's output, so touching one rebuilds all of them.
+          if echo "$changed" | grep -qE '^(package\.json|pnpm-lock\.yaml|pnpm-workspace\.yaml|patches/)'; then
+            echo "filters=--recursive" >> "$GITHUB_OUTPUT"
+            echo "building every package: a shared dependency changed"
+            exit 0
+          fi
+
+          # The homepage is cheap and its output carries the deck index, so it
+          # always builds. Decks build only when their own directory changed.
+          filters="--filter slide-home"
+          for deck in $(echo "$changed" | grep '^slidev/' | cut -d/ -f2 | sort -u); do
+            [ -d "slidev/$deck" ] && filters="$filters --filter $deck"
+          done
+          echo "filters=$filters" >> "$GITHUB_OUTPUT"
+          echo "building: $filters"
 
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
@@ -31,13 +69,23 @@ jobs:
       - name: Install rclone
         run: sudo apt-get update && sudo apt-get install -y rclone
 
-      # Builds every deck, mirrors dist/ into R2, then ships the Worker. The
+      - name: Build
+        env:
+          FILTERS: ${{ steps.build-set.outputs.filters }}
+        run: pnpm $FILTERS build
+
+      # Whatever the build did not produce keeps the copy already in R2. The
       # sync has to land before the deploy so the Worker never serves a page
       # that R2 does not have yet.
-      - name: Build, sync and deploy
-        run: pnpm run deploy:prd
+      - name: Sync to R2
+        run: node scripts/syncAssets.ts prd
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID_PRD: ${{ secrets.R2_ACCESS_KEY_ID_PRD }}
+          R2_SECRET_ACCESS_KEY_PRD: ${{ secrets.R2_SECRET_ACCESS_KEY_PRD }}
+
+      - name: Deploy the Worker
+        run: pnpm exec wrangler deploy
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          R2_ACCESS_KEY_ID_PRD: ${{ secrets.R2_ACCESS_KEY_ID_PRD }}
-          R2_SECRET_ACCESS_KEY_PRD: ${{ secrets.R2_SECRET_ACCESS_KEY_PRD }}

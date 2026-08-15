@@ -37,21 +37,24 @@ pnpm run export:png      # Export slides as PNG images
 ```
 
 ### Deployment
-Production deploys from `.github/workflows/deploy.yml` on every push to `main`, which runs
-`deploy:prd`. Cloudflare's own Workers Builds is not used, so the R2 sync and the Worker
-deploy always happen together.
+Production deploys from `.github/workflows/deploy.yml` on every push to `main`. Cloudflare's
+own Workers Builds is not used, so the R2 sync and the Worker deploy always happen together.
+
+CI builds the homepage plus the decks that push touched, then syncs and deploys. A change to
+the root `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml` or `patches/` rebuilds every
+deck, and so does a manual `workflow_dispatch` run.
 
 ```bash
 pnpm run deploy:dev   # dev is deployed by hand
-pnpm run deploy:prd   # what CI runs
+pnpm run deploy:prd   # the same three steps, building everything
 
 pnpm run sync:dev     # mirror dist/ into R2 without deploying
 pnpm run sync:prd
 ```
 
-Each deploy command builds everything, mirrors `dist/` into R2, then deploys the Worker.
-`rclone sync --checksum` uploads only what actually changed, so every file is compared on
-every run and there is nothing to select by hand.
+Both deploy commands build, mirror `dist/` into R2, then deploy the Worker. `syncAssets.ts`
+uploads whatever `dist/` holds and leaves the rest of the bucket alone, which is what lets CI
+build a subset. `rclone sync --checksum` then uploads only the files that actually differ.
 
 Syncing requires `rclone` (provided by the Nix dev shell) and the R2 credentials in `.env`.
 Each environment has its own API token, so a dev sync can never write to production.
