@@ -8,7 +8,7 @@ pre-commit:
       stage_fixed: true
       run: pnpm run typecheck
     01_typecheck_scripts:
-      glob: "scripts/*.ts"
+      glob: "{scripts,.github/scripts}/*.ts"
       run: pnpm run typecheck
     01_secrets:
       run: gitleaks protect --staged -v

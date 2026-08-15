@@ -8,7 +8,7 @@ const EVERYTHING = "--recursive";
 // A change to any of these reaches every deck's output.
 const SHARED = /^(package\.json|pnpm-lock\.yaml|pnpm-workspace\.yaml|patches\/)/;
 
-const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 const commitExists = (rev: string): boolean =>
 	spawnSync("git", ["cat-file", "-e", `${rev}^{commit}`], {
@@ -16,13 +16,15 @@ const commitExists = (rev: string): boolean =>
 		stdio: "ignore",
 	}).status === 0;
 
-const changedFiles = (base: string, head: string): string[] => {
+// null means git could not answer, which reads the same as "nothing changed"
+// unless the caller keeps them apart.
+const changedFiles = (base: string, head: string): string[] | null => {
 	const { status, stdout } = spawnSync(
 		"git",
 		["diff", "--name-only", base, head],
 		{ cwd: repoRoot, encoding: "utf8" },
 	);
-	return status === 0 ? stdout.split("\n").filter(Boolean) : [];
+	return status === 0 ? stdout.split("\n").filter(Boolean) : null;
 };
 
 const resolve = (): { filters: string; reason: string } => {
@@ -37,6 +39,11 @@ const resolve = (): { filters: string; reason: string } => {
 	const base = before !== "" && commitExists(before) ? before : `${head}^`;
 
 	const changed = changedFiles(base, head);
+	// The checkout is shallow, so the starting point may not have been fetched.
+	// Assuming nothing changed would silently skip a deck.
+	if (changed === null) {
+		return { filters: EVERYTHING, reason: `cannot diff against ${base}` };
+	}
 	if (changed.some((file) => SHARED.test(file))) {
 		return { filters: EVERYTHING, reason: "a shared dependency changed" };
 	}
