@@ -24,8 +24,8 @@
 cd slidev/[スライド名]
 
 pnpm run dev          # devサーバー
-pnpm run build        # このスライドだけビルド
-pnpm run export:png   # サムネイル用のPNGを slides-export/ に書き出す
+pnpm run build        # このスライドだけビルドし、サムネイル用のPNGも書き出す
+pnpm run build:png    # PNGだけ書き出す
 ```
 
 トップページやWorkerの挙動を見るときは、ルートで `pnpm dev` を実行する。

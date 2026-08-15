@@ -30,6 +30,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # A deck's build screenshots itself with the bundled Chromium, which the
+      # runner image does not have every shared library for.
+      - name: Install Chromium system dependencies
+        run: pnpm exec playwright install-deps chromium
+
       - name: Resolve what to build
         id: build-set
         env:

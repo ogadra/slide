@@ -5,11 +5,10 @@
   "private": true,
   "author": "ogadra",
   "scripts": {
-    "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/slides/terraform-domain-destruction",
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --output ../../dist/slides/terraform-domain-destruction/slides-export",
     "build:slidev": "slidev build --base /terraform-domain-destruction/ --out ../../dist/slides/terraform-domain-destruction",
     "dev": "slidev --open",
-    "export": "slidev export",
-    "export:png": "slidev export --format png"
+    "export": "slidev export"
   }
 }

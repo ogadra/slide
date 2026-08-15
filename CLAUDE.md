@@ -32,9 +32,13 @@ pnpm run dev
 ### Building Individual Slides
 ```bash
 # Inside any slidev/[slide-name] directory
-pnpm run build          # Build slide deck and copy to dist
-pnpm run export:png      # Export slides as PNG images
+pnpm run build          # Build the deck and export its PNGs into dist
+pnpm run build:png      # Export the PNGs only
 ```
+
+`build:png` runs `slidev export --format png`, so it needs the Playwright Chromium that
+`pnpm install` pulls in. It writes into `dist/slides/[slide-name]/slides-export/` after
+`build:slidev`, which empties that directory first.
 
 ### Deployment
 Production deploys from `.github/workflows/deploy.yml` on every push to `main`. Cloudflare's
@@ -103,12 +107,12 @@ pnpm run lint:fix      # Auto-fix issues
 Each slide deck is self-contained with:
 - **slides.md**: Main slide content
 - **components/**: Vue components (Footer.vue, etc.)
-- **slides-export/**: PNG exports for thumbnails
 - **uno.config.ts**: UnoCSS configuration
 
 ### Build Process
 1. Each slide deck builds with Slidev, outputs to `../../dist/slides/[slide-name]/`
-2. PNG exports are copied there for thumbnail generation
+2. The same build exports one PNG per slide into `slides-export/`, which serves the OGP
+   image and the homepage thumbnail. The PNGs live only in `dist/` and R2, never in git
 3. Homepage builds separately with Vite into `dist/home/`
 4. `syncAssets.ts` mirrors `dist/` into the R2 bucket with `rclone sync --checksum`, keeping the same layout
 
