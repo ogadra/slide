@@ -1,5 +1,4 @@
-// Both values reach the page as raw markup: the title comes from a deck's
-// headmatter and the image URL is built from the request.
+// Both values are interpolated into raw markup.
 const escapeAttribute = (value: string) =>
   value
     .replaceAll("&", "&amp;")
@@ -31,9 +30,7 @@ class HeadHandler {
       { html: true }
     )
 
-    // Slidev already writes an og:title, so appending one here would leave the
-    // page with two. What Slidev emits carries its ` - Slidev` suffix and stays
-    // as it is; the tags below are ours and use the bare title.
+    // Slidev writes its own og:title, which is left alone.
     element.append(
       `  <meta name="twitter:title" content="${this.title}" />\n`,
       { html: true }

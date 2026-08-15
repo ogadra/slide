@@ -19,8 +19,7 @@ export const HTMLRewriterHandler = async (c: Context, num: number) =>{
     return c.notFound();
   }
 
-  // R2 mirrors dist/, which is built from the same slidev/ the manifest is
-  // generated from, so a deck can only be missing here if the two drifted.
+  // R2 and the manifest both come from slidev/, so a miss means they drifted.
   const title = slideTitles[slide];
   if (title === undefined) {
     throw new Error(`R2 serves ${slide} but the manifest has no entry for it`);

@@ -37,8 +37,7 @@ if [ -d "$SLIDE_DIR" ]; then
     exit 1
 fi
 
-# The homepage and the OGP tags are built from the headmatter, so a deck
-# without these cannot be built at all.
+# A deck whose headmatter is missing these cannot be built.
 ask() {
     local prompt=$1
     local pattern=$2

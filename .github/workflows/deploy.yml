@@ -51,8 +51,7 @@ jobs:
           rm -r "${archive}" "${archive}.zip"
           rclone version | head -1
 
-      # The Worker bundles home/generated/manifest.ts, so the deploy needs it
-      # even if the build set ever stops covering the homepage.
+      # The Worker bundles home/generated/manifest.ts, so the deploy needs it.
       - name: Generate the slide manifest
         run: pnpm run generate
 
