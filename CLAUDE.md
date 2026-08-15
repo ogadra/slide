@@ -101,7 +101,7 @@ pnpm run lint:fix      # Auto-fix issues
 - **server.ts**: Hono server with asset handling and slide routing
 - **htmlRewriterHandler.ts**: Dynamic HTML manipulation for slide metadata
 - **app/index.tsx**: React-based landing page displaying all slide presentations
-- **scripts/generate-manifest.mjs**: Reads every deck's headmatter into `generated/manifest.ts`
+- **scripts/generateManifest.ts**: Reads every deck's headmatter into `generated/manifest.ts`
 - **demo/**: Demo functionality routes (e.g., iOS Safari App Experience)
 
 #### Slide Presentations (`slidev/`)
@@ -145,7 +145,7 @@ Nothing under `home/` has to be touched. The homepage listing and the OGP tags b
 come from the headmatter.
 
 ### Slide Metadata
-`home/scripts/generate-manifest.mjs` reads the headmatter of every `slidev/*/slides.md`
+`home/scripts/generateManifest.ts` reads the headmatter of every `slidev/*/slides.md`
 and writes `home/generated/manifest.ts`, which `home/app/index.tsx` and
 `home/htmlRewriterHandler.ts` import. The file is generated, not committed, so it is
 rebuilt by `pnpm run dev`, `pnpm run build` and `pnpm run typecheck`.
