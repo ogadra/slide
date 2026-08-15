@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:cf": "wrangler dev --ip 0.0.0.0",
-    "build": "vite build --mode server && mkdir -p ../dist/home/assets && cp -r ./.cloudflare/worker/hono_jsx_spa/* ../dist/home && cp assets/style.css ../dist/home/assets/style.css",
+    "build": "mkdir -p ../dist/home/assets && cp assets/style.css ../dist/home/assets/style.css",
     "preview": "vite preview",
     "export:png": "",
     "lint": "biome check",
