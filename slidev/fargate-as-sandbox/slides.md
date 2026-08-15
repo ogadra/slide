@@ -4,7 +4,7 @@ title: FargateをSandboxとして使う
 date: '2026/06/22'
 event: 'AWSぶっとんだ使い方発表会'
 eventLink: 'https://yumemi.connpass.com/event/392592/'
-order: 1
+order: 0
 info: AWS Fargateをサンドボックス環境として活用する
 colorSchema: 'light'
 drawings:
