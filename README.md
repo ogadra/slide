@@ -37,4 +37,4 @@ pnpm run deploy:dev
 pnpm run deploy:prd
 ```
 
-スライドの成果物は `dist/slides/` に出て、WorkerがR2から読んで返す。
+ビルド成果物は `dist/` に出て、R2が返す。
