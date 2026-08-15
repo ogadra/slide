@@ -48,7 +48,7 @@ jobs:
       # sync has to land before the deploy so the Worker never serves a page
       # that R2 does not have yet.
       - name: Sync to R2
-        run: node scripts/syncAssets.ts prd
+        run: pnpm run sync:prd
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID_PRD: ${{ secrets.R2_ACCESS_KEY_ID_PRD }}

@@ -71,8 +71,7 @@ const resolve = (): { filters: string; reason: string } => {
 
 const { filters, reason } = resolve();
 
-console.error(`building ${filters} (${reason})`);
-console.log(filters);
+console.log(`building ${filters} (${reason})`);
 
 const githubOutput = process.env.GITHUB_OUTPUT;
 if (githubOutput !== undefined) {
