@@ -82,6 +82,8 @@ importers:
 
   slidev/cloudflare-workers-slidev: {}
 
+  slidev/dai-kichijoji-pm-2026-teaser-talk: {}
+
   slidev/fargate-as-sandbox: {}
 
   slidev/ios-safari-app-experience: {}
