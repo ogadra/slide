@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/playwright-mcp-best-effort",
-    "build:slidev": "slidev build --base /playwright-mcp-best-effort/ --out ../../dist/playwright-mcp-best-effort",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/playwright-mcp-best-effort",
+    "build:slidev": "slidev build --base /playwright-mcp-best-effort/ --out ../../dist/slides/playwright-mcp-best-effort",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/using-conform-in-remix",
-    "build:slidev": "slidev build --base /using-conform-in-remix/ --out ../../dist/using-conform-in-remix",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/using-conform-in-remix",
+    "build:slidev": "slidev build --base /using-conform-in-remix/ --out ../../dist/slides/using-conform-in-remix",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

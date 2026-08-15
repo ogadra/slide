@@ -7,10 +7,14 @@
   "packageManager": "pnpm@10.26.1",
   "scripts": {
     "build": "pnpm -r build",
-    "dev": "wrangler dev --ip 0.0.0.0 --env dev",
-    "start": "wrangler dev --ip 0.0.0.0 --env dev",
-    "deploy:prd": "wrangler deploy",
-    "deploy:dev": "wrangler deploy --env dev"
+    "typecheck": "tsc --noEmit",
+    "sync:prd": "node scripts/syncAssets.ts prd",
+    "sync:dev": "node scripts/syncAssets.ts dev",
+    "sync:local": "node scripts/syncAssets.ts local",
+    "dev": "pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
+    "start": "pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
+    "deploy:prd": "pnpm run build && pnpm run sync:prd && wrangler deploy",
+    "deploy:dev": "pnpm run build && pnpm run sync:dev && wrangler deploy --env dev"
   },
   "private": true,
   "devDependencies": {

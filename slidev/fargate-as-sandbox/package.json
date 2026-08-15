@@ -6,8 +6,8 @@
   "author": "ogadra",
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/fargate-as-sandbox",
-    "build:slidev": "slidev build --base /fargate-as-sandbox/ --out ../../dist/fargate-as-sandbox",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/fargate-as-sandbox",
+    "build:slidev": "slidev build --base /fargate-as-sandbox/ --out ../../dist/slides/fargate-as-sandbox",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

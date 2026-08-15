@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "pnpm run build:slidev && pnpm run build:copy",
-    "build:copy": "cp -r ./slides-export ../../dist/my-strongest-presentation-slides",
-    "build:slidev": "slidev build --base /my-strongest-presentation-slides/ --out ../../dist/my-strongest-presentation-slides",
+    "build:copy": "cp -r ./slides-export ../../dist/slides/my-strongest-presentation-slides",
+    "build:slidev": "slidev build --base /my-strongest-presentation-slides/ --out ../../dist/slides/my-strongest-presentation-slides",
     "dev": "slidev --open",
     "export": "slidev export",
     "export:png": "slidev export --format png"

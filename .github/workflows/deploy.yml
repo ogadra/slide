@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prd
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Resolve what to build
+        id: build-set
+        env:
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: node .github/scripts/resolveBuildArgs.ts
+
+      - name: Install rclone
+        run: sudo apt-get update && sudo apt-get install -y rclone
+
+      - name: Build
+        env:
+          BUILD_ARGS: ${{ steps.build-set.outputs.build-args }}
+        run: pnpm $BUILD_ARGS build
+
+      # Whatever the build did not produce keeps the copy already in R2. The
+      # sync has to land before the deploy so the Worker never serves a page
+      # that R2 does not have yet.
+      - name: Sync to R2
+        run: pnpm run sync:prd
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID_PRD: ${{ secrets.R2_ACCESS_KEY_ID_PRD }}
+          R2_SECRET_ACCESS_KEY_PRD: ${{ secrets.R2_SECRET_ACCESS_KEY_PRD }}
+
+      - name: Deploy the Worker
+        run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
