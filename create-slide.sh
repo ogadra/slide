@@ -60,10 +60,10 @@ yaml_quote() {
 ask "発表日 (YYYY/MM/DD): " '^[0-9]{4}/[0-9]{2}/[0-9]{2}$'
 SLIDE_DATE=$(yaml_quote "$REPLY_VALUE")
 
-ask "イベント名 (非公開の場合は 非公開発表): " '.'
+ask "イベント名: " '.'
 SLIDE_EVENT=$(yaml_quote "$REPLY_VALUE")
 
-ask "イベントページのURL (無ければ空のままEnter): " '^(https?://.+)?$'
+ask "イベントページのURL（任意）: " '^(https?://.+)?$'
 SLIDE_EVENT_LINK=""
 if [ -n "$REPLY_VALUE" ]; then
     SLIDE_EVENT_LINK=$'\n'"eventLink: $(yaml_quote "$REPLY_VALUE")"
