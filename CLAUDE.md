@@ -132,9 +132,9 @@ Each slide deck is self-contained with:
 ## Development Notes
 
 ### Adding New Slides
-`./create-slide.sh <slide-name-en> <slide-name-ja>` does all of this. It asks for
-the presentation date, the event name and the event page URL, and writes them into
-the headmatter along with everything else a deck needs.
+`./create-slide.sh <slide-name-en>` does all of this. It asks for the title, the
+presentation date, the event name and the event page URL, and writes them into the
+headmatter along with everything else a deck needs.
 
 By hand:
 1. Create new directory in `slidev/`

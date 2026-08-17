@@ -8,9 +8,9 @@ NC='\033[0m' # No Color
 
 # Usage function
 usage() {
-    echo "Usage: $0 <slide-name-en> <slide-name-ja>"
+    echo "Usage: $0 <slide-name-en>"
     echo "Creates a new Slidev presentation with the given name"
-    echo "Example: $0 my-awesome-presentation 私の素晴らしいプレゼンテーション"
+    echo "Example: $0 my-awesome-presentation"
     exit 1
 }
 
@@ -21,7 +21,6 @@ if [ $# -eq 0 ]; then
 fi
 
 SLIDE_NAME_EN=$1
-SLIDE_NAME_JA=$2
 
 # Validate slide name (kebab-case)
 if ! [[ "$SLIDE_NAME_EN" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
@@ -56,6 +55,10 @@ ask() {
 yaml_quote() {
     printf "'%s'" "${1//\'/\'\'}"
 }
+
+ask "タイトル: " '.'
+SLIDE_TITLE=$REPLY_VALUE
+SLIDE_TITLE_YAML=$(yaml_quote "$SLIDE_TITLE")
 
 ask "発表日 (YYYY/MM/DD): " '^[0-9]{4}/[0-9]{2}/[0-9]{2}$'
 SLIDE_DATE=$(yaml_quote "$REPLY_VALUE")
@@ -98,10 +101,10 @@ EOF
 cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
-title: $SLIDE_NAME_JA
+title: $SLIDE_TITLE_YAML
 date: $SLIDE_DATE
 event: $SLIDE_EVENT$SLIDE_EVENT_LINK
-info: $SLIDE_NAME_JA
+info: $SLIDE_TITLE_YAML
 colorSchema: 'dark'
 drawings:
   enabled: false
@@ -112,7 +115,7 @@ canvasWidth: 960
 
 <div style="height: 100px"/>
 
-# $SLIDE_NAME_JA
+# $SLIDE_TITLE
 
 <div style="height: 30px" />
 
@@ -164,7 +167,7 @@ div {
 <template>
   <div class="fixed left-0 bottom-0 bg-barBottom flex absolute w-full text-sm">
     <div class="text-left bg-barBottomLeft left-0 py-0.5 px-1">
-      $SLIDE_NAME_JA
+      $SLIDE_TITLE
     </div>
     <div class="w-1/2 flex justify-end ml-auto px-2">
       <Item text="ogadra">
