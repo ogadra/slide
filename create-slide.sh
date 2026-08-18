@@ -27,7 +27,6 @@ yaml_quote() {
 
 ask "タイトル: " '.'
 SLIDE_TITLE=$REPLY_VALUE
-SLIDE_TITLE_YAML=$(yaml_quote "$SLIDE_TITLE")
 
 # The English name becomes the directory, the URL and the package name.
 while true; do
@@ -41,10 +40,10 @@ while true; do
 done
 
 ask "発表日 (YYYY/MM/DD): " '^[0-9]{4}/[0-9]{2}/[0-9]{2}$'
-SLIDE_DATE=$(yaml_quote "$REPLY_VALUE")
+SLIDE_DATE=$REPLY_VALUE
 
 ask "イベント名: " '.'
-SLIDE_EVENT=$(yaml_quote "$REPLY_VALUE")
+SLIDE_EVENT=$REPLY_VALUE
 
 ask "イベントページのURL（任意）: " '^(https?://.+)?$'
 SLIDE_EVENT_LINK=""
@@ -81,10 +80,10 @@ EOF
 cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
-title: $SLIDE_TITLE_YAML
-date: $SLIDE_DATE
-event: $SLIDE_EVENT$SLIDE_EVENT_LINK
-info: $SLIDE_TITLE_YAML
+title: $(yaml_quote "$SLIDE_TITLE")
+date: $(yaml_quote "$SLIDE_DATE")
+event: $(yaml_quote "$SLIDE_EVENT")$SLIDE_EVENT_LINK
+info: $(yaml_quote "$SLIDE_TITLE")
 colorSchema: 'dark'
 drawings:
   enabled: false
