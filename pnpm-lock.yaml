@@ -88,6 +88,8 @@ importers:
 
   slidev/cloudflare-workers-slidev: {}
 
+  slidev/cost-and-access-log-report: {}
+
   slidev/dai-kichijoji-pm-2026-teaser-talk: {}
 
   slidev/fargate-as-sandbox: {}
