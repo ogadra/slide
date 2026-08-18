@@ -5,7 +5,7 @@
 ## スライド作成
 
 ```bash
-./create-slide.sh <英語名> <日本語名>
+./create-slide.sh
 ```
 
 ## プロジェクト構造

@@ -1,43 +1,11 @@
 #!/usr/bin/env bash
 
 # Color codes for output
-RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Usage function
-usage() {
-    echo "Usage: $0 <slide-name-en> <slide-name-ja>"
-    echo "Creates a new Slidev presentation with the given name"
-    echo "Example: $0 my-awesome-presentation 私の素晴らしいプレゼンテーション"
-    exit 1
-}
-
-# Check if slide name is provided
-if [ $# -eq 0 ]; then
-    echo -e "${RED}Error: No slide name provided${NC}"
-    usage
-fi
-
-SLIDE_NAME_EN=$1
-SLIDE_NAME_JA=$2
-
-# Validate slide name (kebab-case)
-if ! [[ "$SLIDE_NAME_EN" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
-    echo -e "${RED}Error: Slide name must be in kebab-case (lowercase letters, numbers, and hyphens only)${NC}"
-    echo -e "${YELLOW}Example: my-awesome-presentation${NC}"
-    exit 1
-fi
-
-# Check if directory already exists
-SLIDE_DIR="slidev/$SLIDE_NAME_EN"
-if [ -d "$SLIDE_DIR" ]; then
-    echo -e "${RED}Error: Directory $SLIDE_DIR already exists${NC}"
-    exit 1
-fi
-
-# A deck whose headmatter is missing these cannot be built.
+# Keep asking until the answer is one the deck can be built with.
 ask() {
     local prompt=$1
     local pattern=$2
@@ -57,11 +25,25 @@ yaml_quote() {
     printf "'%s'" "${1//\'/\'\'}"
 }
 
+ask "日本語名: " '.'
+SLIDE_NAME_JA=$REPLY_VALUE
+
+# The English name is the directory, the URL and the package name.
+while true; do
+    ask "英語名 (kebab-case): " '^[a-z0-9]+(-[a-z0-9]+)*$'
+    SLIDE_NAME_EN=$REPLY_VALUE
+    SLIDE_DIR="slidev/$SLIDE_NAME_EN"
+    if [ ! -d "$SLIDE_DIR" ]; then
+        break
+    fi
+    echo -e "${YELLOW}$SLIDE_DIR はすでにあります${NC}"
+done
+
 ask "発表日 (YYYY/MM/DD): " '^[0-9]{4}/[0-9]{2}/[0-9]{2}$'
-SLIDE_DATE=$(yaml_quote "$REPLY_VALUE")
+SLIDE_DATE=$REPLY_VALUE
 
 ask "イベント名: " '.'
-SLIDE_EVENT=$(yaml_quote "$REPLY_VALUE")
+SLIDE_EVENT=$REPLY_VALUE
 
 ask "イベントページのURL（任意）: " '^(https?://.+)?$'
 SLIDE_EVENT_LINK=""
@@ -98,10 +80,10 @@ EOF
 cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
-title: $SLIDE_NAME_JA
-date: $SLIDE_DATE
-event: $SLIDE_EVENT$SLIDE_EVENT_LINK
-info: $SLIDE_NAME_JA
+title: $(yaml_quote "$SLIDE_NAME_JA")
+date: $(yaml_quote "$SLIDE_DATE")
+event: $(yaml_quote "$SLIDE_EVENT")$SLIDE_EVENT_LINK
+info: $(yaml_quote "$SLIDE_NAME_JA")
 colorSchema: 'dark'
 drawings:
   enabled: false
