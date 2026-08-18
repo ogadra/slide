@@ -25,10 +25,10 @@ yaml_quote() {
     printf "'%s'" "${1//\'/\'\'}"
 }
 
-ask "タイトル: " '.'
-SLIDE_TITLE=$REPLY_VALUE
+ask "日本語名: " '.'
+SLIDE_NAME_JA=$REPLY_VALUE
 
-# The English name becomes the directory, the URL and the package name.
+# The English name is the directory, the URL and the package name.
 while true; do
     ask "英語名 (kebab-case): " '^[a-z0-9]+(-[a-z0-9]+)*$'
     SLIDE_NAME_EN=$REPLY_VALUE
@@ -80,10 +80,10 @@ EOF
 cat > "$SLIDE_DIR/slides.md" <<EOF
 ---
 theme: purplin
-title: $(yaml_quote "$SLIDE_TITLE")
+title: $(yaml_quote "$SLIDE_NAME_JA")
 date: $(yaml_quote "$SLIDE_DATE")
 event: $(yaml_quote "$SLIDE_EVENT")$SLIDE_EVENT_LINK
-info: $(yaml_quote "$SLIDE_TITLE")
+info: $(yaml_quote "$SLIDE_NAME_JA")
 colorSchema: 'dark'
 drawings:
   enabled: false
@@ -94,7 +94,7 @@ canvasWidth: 960
 
 <div style="height: 100px"/>
 
-# $SLIDE_TITLE
+# $SLIDE_NAME_JA
 
 <div style="height: 30px" />
 
@@ -146,7 +146,7 @@ div {
 <template>
   <div class="fixed left-0 bottom-0 bg-barBottom flex absolute w-full text-sm">
     <div class="text-left bg-barBottomLeft left-0 py-0.5 px-1">
-      $SLIDE_TITLE
+      $SLIDE_NAME_JA
     </div>
     <div class="w-1/2 flex justify-end ml-auto px-2">
       <Item text="ogadra">
