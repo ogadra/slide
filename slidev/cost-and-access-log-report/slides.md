@@ -175,14 +175,21 @@ fonts:
 
 ---
 
-<ProblemActionSlide>
+<WideMediaSlide>
   <template #problem>
     Google Cloud
   </template>
   <template #action>
-    6,000 ~ 10,000円くらい？
+
+  当日のみなら1,389円<br/>
+  うち半分がKubernetes Engine<br/>
+  <span class="accent">9,435円</span>
+
   </template>
-</ProblemActionSlide>
+  <template #media>
+    <img src="./imgs/google_cloud_cost.png" alt="Google Cloudのサービス別コスト内訳(当日)" />
+  </template>
+</WideMediaSlide>
 
 ---
 
@@ -241,7 +248,7 @@ fonts:
     合計
   </template>
   <template #action>
-    <span class="accent">90,911円 + Google Cloud請求料金</span>
+    <span class="accent">100,346円</span>
   </template>
 </ProblemActionSlide>
 
