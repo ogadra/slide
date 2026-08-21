@@ -52,13 +52,13 @@ importers:
     dependencies:
       '@hono/vite-dev-server':
         specifier: ^0.26.0
-        version: 0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))
+        version: 0.26.0(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))
       bcrypt-ts:
         specifier: ^8.0.1
         version: 8.0.1
       hono:
-        specifier: ^4.12.8
-        version: 4.12.23
+        specifier: ^4.13.2
+        version: 4.13.2
       nanoid:
         specifier: ^6.0.0
         version: 6.0.0
@@ -3400,8 +3400,8 @@ packages:
   hey-listen@1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
 
-  hono@4.12.23:
-    resolution: {integrity: sha512-eIaZ9qDgu7XV0pxOCrg7/WhnQ6Ivm22UcxhXx/A3dcbqbbYgBEkc6e/J/s7j2tS96zoB0S9VBdLwQNCWwUo4LA==}
+  hono@4.13.2:
+    resolution: {integrity: sha512-JydRilDRkYBQMt9qR9U92mXxmbGqsqSn/IKOrh4e7/gEbn+0zSr8igTu0obwJoNGN4sez28DIql7FBHWydoJpA==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -5502,7 +5502,7 @@ snapshots:
       '@cloudflare/containers': 0.3.7
       aws4fetch: 1.0.20
       capnweb: 0.8.0
-      hono: 4.12.23
+      hono: 4.13.2
     optionalDependencies:
       '@xterm/xterm': 6.0.0
 
@@ -5739,14 +5739,14 @@ snapshots:
     dependencies:
       markdown-it: 13.0.2
 
-  '@hono/node-server@1.19.14(hono@4.12.23)':
+  '@hono/node-server@1.19.14(hono@4.13.2)':
     dependencies:
-      hono: 4.12.23
+      hono: 4.13.2
 
-  '@hono/vite-dev-server@0.26.0(hono@4.12.23)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))':
+  '@hono/vite-dev-server@0.26.0(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))':
     dependencies:
-      '@hono/node-server': 1.19.14(hono@4.12.23)
-      hono: 4.12.23
+      '@hono/node-server': 1.19.14(hono@4.13.2)
+      hono: 4.13.2
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260617.1
@@ -9097,7 +9097,7 @@ snapshots:
 
   hey-listen@1.0.8: {}
 
-  hono@4.12.23: {}
+  hono@4.13.2: {}
 
   hookable@5.5.3: {}
 
