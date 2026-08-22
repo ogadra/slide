@@ -27,7 +27,7 @@
     "typescript": "^7.0.2",
     "unocss": "^66.7.5",
     "vite": "^8.2.1",
-    "vue": "^3.5.33",
+    "vue": "^3.5.41",
     "wrangler": "^4.103.0"
   },
   "dependencies": {
