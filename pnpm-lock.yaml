@@ -51,8 +51,8 @@ importers:
   home:
     dependencies:
       '@hono/vite-dev-server':
-        specifier: ^0.26.0
-        version: 0.26.0(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))
+        specifier: ^0.26.1
+        version: 0.26.1(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))
       bcrypt-ts:
         specifier: ^8.0.1
         version: 8.0.1
@@ -710,14 +710,14 @@ packages:
     peerDependencies:
       markdown-it: '>=12'
 
-  '@hono/node-server@1.19.14':
-    resolution: {integrity: sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw==}
+  '@hono/node-server@1.19.17':
+    resolution: {integrity: sha512-dSneS5qhiauZWGDCeK4o695Xd9nUNjviSZCMQrj10eetr8Uln1ucn6bbphOM6UynAMMtNIzZNSpL9vnASJwrPQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
 
-  '@hono/vite-dev-server@0.26.0':
-    resolution: {integrity: sha512-DYHht1lge/SRGd1dpOgwhS6DpamSaDtxAOlwl2RkcYyLFy769DZPEX6CeRaUzeDNgClO9JAuT83VptxB5mH5jA==}
+  '@hono/vite-dev-server@0.26.1':
+    resolution: {integrity: sha512-OlcWoXjNogKiJhVwV/ftMK87UcsJmIBfmImSdI4e8to/ZdwNHrW9ddKw2OGHjXI5/uS2RaZr+2y+l8T9VFbCmw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -2461,8 +2461,8 @@ packages:
     resolution: {integrity: sha512-z0M+byMThzQmD9NILRniCUXYsYpjwnlO8N5uCFaCqIOpqRsJCrQL9NK3JsD67CN5a08nF5oIL2bD6loTdHOuKw==}
     engines: {node: '>= 5.10.0'}
 
-  brace-expansion@2.1.1:
-    resolution: {integrity: sha512-WR1cURNjuvBLMZBMbqM0UoE+WAfdUcEV1ccD8PVBVOI+Z3ND4+SZbN8RsfT2bMuG1qwz5RFvPukSZm5fF2D5eA==}
+  brace-expansion@2.1.4:
+    resolution: {integrity: sha512-hGfVzPxthbf3+2yjg/RBs60cB0FhqBS/zvdV/4wn4/BmN0bNMMHPc4V/BbFieqf1TKAGGAHnY4eSjajCl0f2Xg==}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -5765,13 +5765,13 @@ snapshots:
     dependencies:
       markdown-it: 13.0.2
 
-  '@hono/node-server@1.19.14(hono@4.13.2)':
+  '@hono/node-server@1.19.17(hono@4.13.2)':
     dependencies:
       hono: 4.13.2
 
-  '@hono/vite-dev-server@0.26.0(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.2)(miniflare@4.20260617.1)(wrangler@4.103.0(@cloudflare/workers-types@5.20260719.1))':
     dependencies:
-      '@hono/node-server': 1.19.14(hono@4.13.2)
+      '@hono/node-server': 1.19.17(hono@4.13.2)
       hono: 4.13.2
       minimatch: 9.0.9
     optionalDependencies:
@@ -8129,7 +8129,7 @@ snapshots:
     dependencies:
       big-integer: 1.6.52
 
-  brace-expansion@2.1.1:
+  brace-expansion@2.1.4:
     dependencies:
       balanced-match: 1.0.2
 
@@ -9769,11 +9769,11 @@ snapshots:
 
   minimatch@5.1.9:
     dependencies:
-      brace-expansion: 2.1.1
+      brace-expansion: 2.1.4
 
   minimatch@9.0.9:
     dependencies:
-      brace-expansion: 2.1.1
+      brace-expansion: 2.1.4
 
   mlly@1.8.2:
     dependencies:

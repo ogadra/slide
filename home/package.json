@@ -15,7 +15,7 @@
     "typecheck": "pnpm run generate && tsc --noEmit"
   },
   "dependencies": {
-    "@hono/vite-dev-server": "^0.26.0",
+    "@hono/vite-dev-server": "^0.26.1",
     "bcrypt-ts": "^8.0.1",
     "hono": "^4.13.2",
     "nanoid": "^6.0.0"
