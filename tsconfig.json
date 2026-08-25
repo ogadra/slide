@@ -15,6 +15,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
+		// nodenext resolution wants the real extension, which the test imports spell out.
+		"allowImportingTsExtensions": true,
 		// Node runs these files by stripping types, which only handles erasable syntax.
 		"erasableSyntaxOnly": true,
 		"skipLibCheck": true
