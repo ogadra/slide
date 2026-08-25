@@ -20,8 +20,8 @@
   "private": true,
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.1",
-    "@slidev/cli": "^52.16.0",
-    "@slidev/client": "^52.19.0",
+    "@slidev/cli": "^52.19.1",
+    "@slidev/client": "^52.19.1",
     "playwright-chromium": "^1.59.1",
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^7.0.2",
@@ -40,9 +40,6 @@
       "sharp",
       "vue-demi",
       "workerd"
-    ],
-    "patchedDependencies": {
-      "@slidev/client@52.16.0": "patches/@slidev__client@52.16.0.patch"
-    }
+    ]
   }
 }
