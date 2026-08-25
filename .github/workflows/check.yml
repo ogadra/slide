@@ -41,3 +41,26 @@ jobs:
       # Generates the gitignored manifest and Worker types first.
       - name: Typecheck the homepage
         run: pnpm --filter slide-home run typecheck
+
+  # Its own job so a type error and a failing test show up as two findings, not one.
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # Keeps its scripts for workerd, skips Chromium, which only the PNG export needs.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+      # The Worker imports the generated manifest, so `test` generates it first.
+      - name: Test
+        run: pnpm run test

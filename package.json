@@ -8,6 +8,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "typecheck": "tsc --noEmit",
+    "test": "pnpm run generate && vitest run",
     "sync:prd": "node scripts/syncAssets.ts prd",
     "sync:dev": "node scripts/syncAssets.ts dev",
     "sync:local": "node scripts/syncAssets.ts local",
@@ -21,6 +22,7 @@
   "private": true,
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.1",
+    "@cloudflare/vitest-pool-workers": "^0.22.0",
     "@slidev/cli": "^52.19.1",
     "@slidev/client": "^52.19.1",
     "playwright-chromium": "^1.59.1",
@@ -28,6 +30,7 @@
     "typescript": "^7.0.2",
     "unocss": "^66.7.5",
     "vite": "^8.2.1",
+    "vitest": "^4.1.11",
     "vue": "^3.5.41",
     "wrangler": "^4.103.0"
   },
