@@ -12,7 +12,7 @@
     "export:png": "",
     "lint": "biome check --no-errors-on-unmatched",
     "lint:fix": "biome check --write --unsafe --no-errors-on-unmatched",
-    "typecheck": "pnpm run generate && tsc --noEmit"
+    "typecheck": "pnpm run generate && pnpm -w run generate:types && tsc --noEmit"
   },
   "dependencies": {
     "@hono/vite-dev-server": "^0.26.1",

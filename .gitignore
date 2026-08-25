@@ -8,3 +8,4 @@ home/generated/
 .env
 !.env.sample
 .direnv
+home/worker-configuration.d.ts

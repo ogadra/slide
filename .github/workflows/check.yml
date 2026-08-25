@@ -34,6 +34,10 @@ jobs:
       - name: Typecheck scripts
         run: pnpm run typecheck
 
-      # This one generates the manifest first, which the homepage sources import.
+      # Only the key names reach the generated types, so the sample is enough.
+      - name: Provide the .dev.vars keys
+        run: cp .dev.vars.sample .dev.vars
+
+      # Generates the gitignored manifest and Worker types first.
       - name: Typecheck the homepage
         run: pnpm --filter slide-home run typecheck

@@ -14,6 +14,7 @@
     "dev": "pnpm run generate && pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
     "start": "pnpm run generate && pnpm run sync:local && wrangler dev --ip 0.0.0.0 --env dev",
     "generate": "pnpm --filter slide-home run generate",
+    "generate:types": "wrangler types --config wrangler.jsonc home/worker-configuration.d.ts",
     "deploy:prd": "pnpm run build && pnpm run sync:prd && wrangler deploy --env=\"\"",
     "deploy:dev": "pnpm run build && pnpm run sync:dev && wrangler deploy --env dev"
   },
