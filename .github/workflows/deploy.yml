@@ -55,10 +55,14 @@ jobs:
       - name: Generate the slide manifest
         run: pnpm run generate
 
+      # Chromium exports run one at a time, and networkidle puts the page wait under --timeout.
       - name: Build
         env:
           BUILD_ARGS: ${{ steps.build-set.outputs.build-args }}
-        run: pnpm --workspace-concurrency=2 $BUILD_ARGS build
+        run: |
+          pnpm --workspace-concurrency=2 $BUILD_ARGS run build:slidev
+          pnpm --workspace-concurrency=1 $BUILD_ARGS run build:png --wait-until networkidle
+          pnpm --filter slide-home run build
 
       # Whatever the build did not produce keeps the copy already in R2. The
       # sync has to land before the deploy so the Worker never serves a page
