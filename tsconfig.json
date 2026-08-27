@@ -1,5 +1,10 @@
 {
-	"include": ["scripts/**/*.ts", ".github/scripts/**/*.ts"],
+	"include": [
+		"scripts/**/*.ts",
+		".github/scripts/**/*.ts",
+		"e2e/**/*.ts",
+		"playwright.config.ts"
+	],
 	"compilerOptions": {
 		"target": "esnext",
 		"module": "nodenext",

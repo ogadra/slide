@@ -9,3 +9,5 @@ home/generated/
 !.env.sample
 .direnv
 home/worker-configuration.d.ts
+test-results/
+playwright-report/

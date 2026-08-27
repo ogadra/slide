@@ -9,6 +9,8 @@
     "build": "pnpm -r build",
     "typecheck": "tsc --noEmit",
     "test": "pnpm run generate && vitest run",
+    "e2e:fixture": "pnpm run generate && node scripts/e2eFixture.ts",
+    "e2e": "pnpm run e2e:fixture && node node_modules/@playwright/test/cli.js test",
     "sync:prd": "node scripts/syncAssets.ts prd",
     "sync:dev": "node scripts/syncAssets.ts dev",
     "sync:local": "node scripts/syncAssets.ts local",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.1",
     "@cloudflare/vitest-pool-workers": "^0.22.0",
+    "@playwright/test": "1.60.0",
     "@slidev/cli": "^52.19.1",
     "@slidev/client": "^52.19.1",
     "playwright-chromium": "^1.59.1",
