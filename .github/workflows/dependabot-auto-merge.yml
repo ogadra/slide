@@ -8,8 +8,8 @@ permissions:
 
 jobs:
   auto-merge:
-    # Only dependabot's own pull requests. Everything else keeps merging by hand.
-    if: github.actor == 'dependabot[bot]'
+    # The author, not the actor, so a maintainer reopening the PR still counts.
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Read the update metadata
