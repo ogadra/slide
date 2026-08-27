@@ -7,15 +7,6 @@ if (deck === undefined) {
 	throw new Error("the manifest holds no decks, so there is nothing to open");
 }
 
-const openDeck = async (page: import("@playwright/test").Page) => {
-	await page.goto("/");
-	const [opened] = await Promise.all([
-		page.context().waitForEvent("page"),
-		page.getByRole("link", { name: deck.title }).click(),
-	]);
-	return opened;
-};
-
 test("the homepage shows the newest deck with a thumbnail that loads", async ({
 	page,
 }) => {
@@ -35,18 +26,25 @@ test("the homepage shows the newest deck with a thumbnail that loads", async ({
 	expect(width).toBeGreaterThan(0);
 });
 
-test("a deck opens from the homepage", async ({ page }) => {
-	const opened = await openDeck(page);
+test("the deck opens from the homepage and its slides advance", async ({
+	page,
+}) => {
+	await page.goto("/");
 
-	await expect(opened).toHaveURL(new RegExp(`/${deck.name}/?$`));
-});
+	// The thumbnail anchor carries target=_blank, so the deck arrives in a new tab.
+	const [deckPage] = await Promise.all([
+		page.context().waitForEvent("page"),
+		page.getByRole("link", { name: deck.title }).click(),
+	]);
 
-// Shift skips the click animations, so this advances a slide whatever the deck holds.
-test("the slides advance", async ({ page }) => {
-	const opened = await openDeck(page);
-	await opened.locator("#slide-container").waitFor();
+	await expect(deckPage).toHaveURL(new RegExp(`/${deck.name}/?$`));
+	await expect(deckPage.locator('[data-slidev-no="1"]')).toBeVisible();
 
-	await opened.keyboard.press("Shift+ArrowRight");
+	// Shift skips the click animations, so this advances a slide whatever the deck holds.
+	await deckPage.keyboard.press("Shift+ArrowRight");
 
-	await expect(opened).toHaveURL(new RegExp(`/${deck.name}/2$`));
+	await expect(deckPage).toHaveURL(new RegExp(`/${deck.name}/2$`));
+	// Slidev keeps both in the DOM and swaps which one shows.
+	await expect(deckPage.locator('[data-slidev-no="2"]')).toBeVisible();
+	await expect(deckPage.locator('[data-slidev-no="1"]')).toBeHidden();
 });
