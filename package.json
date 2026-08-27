@@ -7,7 +7,7 @@
   "packageManager": "pnpm@10.26.1",
   "scripts": {
     "build": "pnpm -r build",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "pnpm run generate && tsc --noEmit",
     "test": "pnpm run generate && vitest run",
     "e2e:fixture": "pnpm run generate && node scripts/e2eFixture.ts",
     "e2e": "pnpm run e2e:fixture && node node_modules/@playwright/test/cli.js test",
