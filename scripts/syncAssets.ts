@@ -3,14 +3,13 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// The local target reads its bucket out of wrangler.jsonc, so only rclone needs a name.
 const BUCKETS = {
 	prd: "slide-decks",
 	dev: "slide-decks-dev",
-	// `wrangler dev --env dev` binds this bucket name in its own local storage.
-	local: "slide-decks-dev",
 } as const;
 
-type TargetEnv = keyof typeof BUCKETS;
+type RemoteEnv = keyof typeof BUCKETS;
 
 // rclone derives these itself; the local bucket needs them spelled out.
 const CONTENT_TYPES: Record<string, string> = {
@@ -29,15 +28,12 @@ const CONTENT_TYPES: Record<string, string> = {
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 const slidesSource = join(repoRoot, "slidev");
 const dist = join(repoRoot, "dist");
-const localPersist = join(repoRoot, ".wrangler", "state", "v3", "r2");
 
 // The annotation sits on the binding so control flow analysis knows a call never returns.
 const fail: (message: string) => never = (message) => {
 	console.error(message);
 	process.exit(1);
 };
-
-const isTargetEnv = (value: string): value is TargetEnv => value in BUCKETS;
 
 const requireEnv = (name: string): string => {
 	const value = process.env[name];
@@ -55,38 +51,49 @@ const walk = (dir: string): string[] =>
 
 type Target = { dir: string; prefix: string };
 
-const seedLocal = async (bucketName: string, targets: Target[]) => {
-	// Only the local target needs miniflare, so it stays out of a deploy's startup.
-	const { Miniflare } = await import("miniflare");
-	const binding = "ASSETS";
-	const mf = new Miniflare({
-		modules: true,
-		script: "export default {};",
-		r2Buckets: { [binding]: bucketName },
-		r2Persist: localPersist,
+// The proxy is generic over the Worker's env, and seeding only ever puts objects.
+type LocalEnv = {
+	ASSETS: {
+		put: (
+			key: string,
+			value: Buffer,
+			options: { httpMetadata: { contentType: string } },
+		) => Promise<unknown>;
+	};
+};
+
+const seedLocal = async (targets: Target[]) => {
+	// Only the local target starts a Worker, so it stays out of a deploy's startup.
+	const { getPlatformProxy } = await import("wrangler");
+	// The same config and local storage `wrangler dev --env dev` reads, so it lands where
+	// the dev server looks. Nothing here is worth reaching Cloudflare for.
+	const { env, dispose } = await getPlatformProxy<LocalEnv>({
+		environment: "dev",
+		remoteBindings: false,
 	});
-	const bucket = await mf.getR2Bucket(binding);
 
 	for (const { dir, prefix } of targets) {
 		for (const file of walk(dir)) {
-			await bucket.put(`${prefix}/${relative(dir, file)}`, readFileSync(file), {
-				httpMetadata: {
-					contentType:
-						CONTENT_TYPES[extname(file).toLowerCase()] ??
-						"application/octet-stream",
+			await env.ASSETS.put(
+				`${prefix}/${relative(dir, file)}`,
+				readFileSync(file),
+				{
+					httpMetadata: {
+						contentType:
+							CONTENT_TYPES[extname(file).toLowerCase()] ??
+							"application/octet-stream",
+					},
 				},
-			});
+			);
 		}
 	}
 
-	await mf.dispose();
+	await dispose();
 };
 
-const syncWithRclone = (
-	targetEnv: Exclude<TargetEnv, "local">,
-	bucketName: string,
-	targets: Target[],
-) => {
+const syncWithRclone = (targetEnv: RemoteEnv, targets: Target[]) => {
+	const bucketName = BUCKETS[targetEnv];
+
 	if (spawnSync("rclone", ["version"], { stdio: "ignore" }).error) {
 		fail("rclone is not installed");
 	}
@@ -125,12 +132,23 @@ const syncWithRclone = (
 	}
 };
 
+// How dist/ reaches each target's bucket. The local one is the only one held in process.
+const SYNCS = {
+	prd: (targets: Target[]) => syncWithRclone("prd", targets),
+	dev: (targets: Target[]) => syncWithRclone("dev", targets),
+	local: seedLocal,
+};
+
+type TargetEnv = keyof typeof SYNCS;
+
+const isTargetEnv = (value: string): value is TargetEnv => value in SYNCS;
+
 const [targetEnv] = process.argv.slice(2);
 if (targetEnv === undefined || !isTargetEnv(targetEnv)) {
-	fail(`target must be prd, dev or local, got: ${targetEnv ?? "(nothing)"}`);
+	fail(
+		`target must be ${Object.keys(SYNCS).join(", ")}, got: ${targetEnv ?? "(nothing)"}`,
+	);
 }
-
-const bucketName = BUCKETS[targetEnv];
 
 // The bucket mirrors dist/, so each target keeps its directory name as the key prefix.
 const targets: Target[] = [
@@ -156,8 +174,4 @@ if (built.length === 0) {
 	fail("dist/ holds nothing to sync. Run `pnpm run build` first.");
 }
 
-if (targetEnv === "local") {
-	await seedLocal(bucketName, built);
-} else {
-	syncWithRclone(targetEnv, bucketName, built);
-}
+await SYNCS[targetEnv](built);
