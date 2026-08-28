@@ -18,7 +18,7 @@
     "@hono/vite-dev-server": "^0.26.1",
     "bcrypt-ts": "^8.0.1",
     "hono": "^4.13.2",
-    "nanoid": "^6.0.0"
+    "nanoid": "^6.0.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.10",
