@@ -2,11 +2,6 @@
 import { DurableObject } from "cloudflare:workers";
 import { getSessionTokenFromRequest, verifySessionToken } from "../utils/auth";
 
-export type Env = {
-	SLIDE_SYNC_CONNECTION_SERVER: DurableObjectNamespace<SlideSyncConnectionServer>;
-	SESSION_KV: KVNamespace;
-};
-
 const Role = {
 	PRESENTER: "presenter",
 	VIEWER: "viewer",

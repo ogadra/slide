@@ -11,7 +11,7 @@ import { parse } from "yaml";
 
 // Slidev parses the headmatter with this same package.
 
-type Deck = {
+export type Deck = {
 	name: string;
 	title: string;
 	date: string;
@@ -20,95 +20,82 @@ type Deck = {
 	order: number;
 };
 
-type EventGroup = {
+export type EventGroup = {
 	date: string;
 	event: string;
 	eventLink: string | undefined;
 	decks: Deck[];
 };
 
-const homeDir = join(dirname(fileURLToPath(import.meta.url)), "..");
-const slidevDir = join(homeDir, "..", "slidev");
-const outputPath = join(homeDir, "generated", "manifest.ts");
-
 const DATE = /^\d{4}\/\d{2}\/\d{2}$/;
 const URL_PREFIX = /^https?:\/\//;
-
-const errors: string[] = [];
-
-const report = (name: string, message: string) => {
-	errors.push(`slidev/${name}/slides.md: ${message}`);
-};
-
-const fail = (): never => {
-	for (const error of errors) console.error(error);
-	process.exit(1);
-};
 
 // An unquoted value is truncated at a ' #' and stays a non-empty string.
 const UNQUOTED = /^(title|date|event|eventLink):\s*([^'"\s].*)$/;
 
-const checkComment = (name: string, line: string) => {
+type Report = (message: string) => void;
+
+const checkComment = (report: Report, line: string) => {
 	const match = line.match(UNQUOTED);
 	if (match !== null && / #/.test(match[2])) {
-		report(name, `quote the value of ${match[1]}, a ' #' would start a comment`);
+		report(`quote the value of ${match[1]}, a ' #' would start a comment`);
 	}
 };
 
 // Only the leading block is the headmatter; every later `---` starts a slide.
 const readHeadmatter = (
-	name: string,
-	path: string,
+	report: Report,
+	source: string,
 ): Record<string, unknown> | null => {
-	const lines = readFileSync(path, "utf8").split("\n");
+	const lines = source.split("\n");
 	if (lines[0] !== "---") {
-		report(name, "does not start with a headmatter block");
+		report("does not start with a headmatter block");
 		return null;
 	}
 	const end = lines.indexOf("---", 1);
 	if (end === -1) {
-		report(name, "the headmatter block is never closed");
+		report("the headmatter block is never closed");
 		return null;
 	}
 	const block = lines.slice(1, end);
-	for (const line of block) checkComment(name, line);
+	for (const line of block) checkComment(report, line);
 	return parse(block.join("\n")) ?? {};
 };
 
 const text = (
-	name: string,
+	report: Report,
 	headmatter: Record<string, unknown>,
 	key: string,
 ): string | null => {
 	const value = headmatter[key];
 	if (typeof value !== "string" || value.trim() === "") {
-		report(
-			name,
-			`${key} must be a non-empty string, got ${JSON.stringify(value)}`,
-		);
+		report(`${key} must be a non-empty string, got ${JSON.stringify(value)}`);
 		return null;
 	}
 	return value;
 };
 
-const readDeck = (name: string): Deck | null => {
-	const path = join(slidevDir, name, "slides.md");
-	if (!existsSync(path)) return null;
+export const parseDeck = (
+	name: string,
+	source: string,
+): { deck: Deck | null; errors: string[] } => {
+	const errors: string[] = [];
+	const report: Report = (message) =>
+		void errors.push(`slidev/${name}/slides.md: ${message}`);
 
-	const headmatter = readHeadmatter(name, path);
-	if (headmatter === null) return null;
+	const headmatter = readHeadmatter(report, source);
+	if (headmatter === null) return { deck: null, errors };
 
-	const title = text(name, headmatter, "title");
-	const event = text(name, headmatter, "event");
-	const date = text(name, headmatter, "date");
-	if (title === null || event === null || date === null) return null;
+	const title = text(report, headmatter, "title");
+	const event = text(report, headmatter, "event");
+	const date = text(report, headmatter, "date");
+	if (title === null || event === null || date === null) {
+		return { deck: null, errors };
+	}
 
 	if (!DATE.test(date)) {
-		report(
-			name,
-			`date must look like 'YYYY/MM/DD', got ${JSON.stringify(date)}`,
-		);
-		return null;
+		report(`date must look like 'YYYY/MM/DD', got ${JSON.stringify(date)}`);
+		return { deck: null, errors };
 	}
 
 	const eventLink = headmatter.eventLink;
@@ -117,62 +104,60 @@ const readDeck = (name: string): Deck | null => {
 		(typeof eventLink !== "string" || !URL_PREFIX.test(eventLink))
 	) {
 		report(
-			name,
 			`eventLink must be an http(s) URL, got ${JSON.stringify(eventLink)}`,
 		);
-		return null;
+		return { deck: null, errors };
 	}
 
 	const order = headmatter.order === undefined ? 0 : headmatter.order;
 	if (typeof order !== "number") {
-		report(name, `order must be a number, got ${JSON.stringify(order)}`);
-		return null;
+		report(`order must be a number, got ${JSON.stringify(order)}`);
+		return { deck: null, errors };
 	}
 
-	return { name, title, date, event, eventLink, order };
+	return { deck: { name, title, date, event, eventLink, order }, errors };
 };
 
-const decks = readdirSync(slidevDir, { withFileTypes: true })
-	.filter((entry) => entry.isDirectory())
-	.map((entry) => readDeck(entry.name))
-	.filter((deck) => deck !== null);
+export const groupDecks = (
+	decks: Deck[],
+): { groups: EventGroup[]; errors: string[] } => {
+	const errors: string[] = [];
+	const groups = new Map<string, EventGroup>();
 
-// Grouping reads the values, so nothing may be missing by this point.
-if (errors.length > 0) fail();
-
-const groups = new Map<string, EventGroup>();
-for (const deck of decks) {
-	const key = `${deck.date} ${deck.event}`;
-	const group = groups.get(key);
-	if (group === undefined) {
-		groups.set(key, {
-			date: deck.date,
-			event: deck.event,
-			eventLink: deck.eventLink,
-			decks: [deck],
-		});
-		continue;
+	for (const deck of decks) {
+		const key = `${deck.date} ${deck.event}`;
+		const group = groups.get(key);
+		if (group === undefined) {
+			groups.set(key, {
+				date: deck.date,
+				event: deck.event,
+				eventLink: deck.eventLink,
+				decks: [deck],
+			});
+			continue;
+		}
+		// Letting the first deck win would drop the other one's link without a word.
+		if (group.eventLink !== deck.eventLink) {
+			errors.push(
+				`slidev/${deck.name}/slides.md: eventLink disagrees with the other decks of ${deck.event}`,
+			);
+		}
+		group.decks.push(deck);
 	}
-	// Letting the first deck win would drop the other one's link without a word.
-	if (group.eventLink !== deck.eventLink) {
-		report(
-			deck.name,
-			`eventLink disagrees with the other decks of ${deck.event}`,
-		);
-	}
-	group.decks.push(deck);
-}
 
-if (errors.length > 0) fail();
+	const sorted = [...groups.values()]
+		.sort(
+			(a, b) => b.date.localeCompare(a.date) || a.event.localeCompare(b.event),
+		)
+		.map((group) => ({
+			...group,
+			decks: group.decks.sort(
+				(a, b) => a.order - b.order || a.name.localeCompare(b.name),
+			),
+		}));
 
-const sorted = [...groups.values()]
-	.sort((a, b) => b.date.localeCompare(a.date) || a.event.localeCompare(b.event))
-	.map((group) => ({
-		...group,
-		decks: group.decks.sort(
-			(a, b) => a.order - b.order || a.name.localeCompare(b.name),
-		),
-	}));
+	return { groups: sorted, errors };
+};
 
 const string = (value: string) => JSON.stringify(value);
 
@@ -195,12 +180,13 @@ const groupLiteral = (group: EventGroup) => {
 	return lines.join("\n");
 };
 
-const titleEntries = sorted
-	.flatMap((group) => group.decks)
-	.map((deck) => `\t${string(deck.name)}: ${string(deck.title)},`)
-	.join("\n");
+export const renderManifest = (groups: EventGroup[]): string => {
+	const titleEntries = groups
+		.flatMap((group) => group.decks)
+		.map((deck) => `\t${string(deck.name)}: ${string(deck.title)},`)
+		.join("\n");
 
-const output = `// Generated by home/scripts/generateManifest.ts. Do not edit.
+	return `// Generated by home/scripts/generateManifest.ts. Do not edit.
 
 export type SlideEntry = { name: string; title: string };
 
@@ -212,14 +198,47 @@ export type EventGroup = {
 };
 
 export const manifest: EventGroup[] = [
-${sorted.map(groupLiteral).join("\n")}
+${groups.map(groupLiteral).join("\n")}
 ];
 
 export const slideTitles: Record<string, string | undefined> = {
 ${titleEntries}
 };
 `;
+};
 
-mkdirSync(dirname(outputPath), { recursive: true });
-writeFileSync(outputPath, output);
-console.log(`generated ${decks.length} decks in ${sorted.length} events`);
+if (import.meta.main) {
+	const homeDir = join(dirname(fileURLToPath(import.meta.url)), "..");
+	const slidevDir = join(homeDir, "..", "slidev");
+	const outputPath = join(homeDir, "generated", "manifest.ts");
+
+	const fail = (errors: string[]): never => {
+		for (const error of errors) console.error(error);
+		process.exit(1);
+	};
+
+	const errors: string[] = [];
+
+	const decks = readdirSync(slidevDir, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => {
+			const path = join(slidevDir, entry.name, "slides.md");
+			if (!existsSync(path)) return null;
+
+			const parsed = parseDeck(entry.name, readFileSync(path, "utf8"));
+			errors.push(...parsed.errors);
+			return parsed.deck;
+		})
+		.filter((deck) => deck !== null);
+
+	// Grouping reads the values, so nothing may be missing by this point.
+	if (errors.length > 0) fail(errors);
+
+	const { groups, errors: groupErrors } = groupDecks(decks);
+	if (groupErrors.length > 0) fail(groupErrors);
+
+	mkdirSync(dirname(outputPath), { recursive: true });
+	writeFileSync(outputPath, renderManifest(groups));
+	console.log(`generated ${decks.length} decks in ${groups.length} events`);
+
+}

@@ -13,6 +13,8 @@
 			"server.ts",
 			"durableObjects/**/*.ts",
 			"utils/*.ts",
+			"tests/**/*.ts",
+			"vitest.config.ts",
 			"!node_modules",
 			"!build",
 		],

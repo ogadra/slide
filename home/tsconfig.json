@@ -14,7 +14,12 @@
             "DOM",
             "DOM.Iterable"
         ],
-        "types": ["node", "vite/client", "./worker-configuration"],
+        "types": [
+            "node",
+            "vite/client",
+            "./worker-configuration",
+            "@cloudflare/vitest-pool-workers/types"
+        ],
         "jsx": "react-jsx",
         "jsxImportSource": "hono/jsx",
         "rootDirs": [".", "./.react-router/types"],
