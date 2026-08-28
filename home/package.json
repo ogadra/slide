@@ -24,7 +24,7 @@
     "@biomejs/biome": "2.5.10",
     "@cloudflare/sandbox": "^0.12.8",
     "@cloudflare/workers-types": "^5.20260821.1",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.3.0",
     "typescript": "^7.0.2",
     "yaml": "^2.9.0"
   }
