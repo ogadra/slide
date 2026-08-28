@@ -9,3 +9,9 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    groups:
+      # These two ship the same Chromium, so one pull request has to carry both.
+      playwright:
+        patterns:
+          - "@playwright/test"
+          - "playwright-chromium"
