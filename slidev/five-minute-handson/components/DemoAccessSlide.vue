@@ -1,18 +1,25 @@
 <script setup lang="ts">
-// qr を渡すまでは枠だけが出る。画像が入るまでも当日の導線を確認できる
+import QrcodeVue from 'qrcode.vue'
+
 defineProps<{
   url: string
-  qr?: string
-  caption?: string
 }>()
 </script>
 
 <template>
   <div class="demo-access-slide">
-    <figure class="demo-access-slide__item">
-      <img v-if="qr" :src="qr" alt="デモページ QR" class="demo-access-slide__qr" />
-      <div v-else class="demo-access-slide__placeholder">QR</div>
-    </figure>
+    <div class="demo-access-slide__frame">
+      <QrcodeVue
+        :value="url"
+        :size="520"
+        :margin="4"
+        level="M"
+        render-as="svg"
+        background="#E6EFF8"
+        foreground="#070C15"
+        class="demo-access-slide__qr"
+      />
+    </div>
     <p class="demo-access-slide__url">{{ url }}</p>
   </div>
 </template>
@@ -25,46 +32,21 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 140px;
+  gap: 120px;
   padding: 0 160px;
   box-sizing: border-box;
 }
 
-.demo-access-slide__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 36px;
+/* 静音域はQR側の margin で確保しているので、枠は見た目のためだけ */
+.demo-access-slide__frame {
+  flex: none;
+  border: 1px solid rgba(86, 225, 245, 0.35);
+  box-shadow: 0 0 90px rgba(86, 225, 245, 0.16);
+  line-height: 0;
 }
 
 .demo-access-slide__qr {
-  width: 520px;
-  height: 520px;
-  object-fit: contain;
   display: block;
-  background: var(--paper);
-  padding: 28px;
-  box-sizing: border-box;
-}
-
-.demo-access-slide__placeholder {
-  width: 520px;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed rgba(86, 225, 245, 0.4);
-  font-family: var(--font-mono);
-  font-size: 64px;
-  letter-spacing: 0.2em;
-  color: var(--mute);
-}
-
-.demo-access-slide__caption {
-  font-family: var(--font-mono);
-  font-size: 30px;
-  letter-spacing: 0.16em;
-  color: var(--mute);
 }
 
 .demo-access-slide__url {

@@ -29,6 +29,7 @@
     "@slidev/cli": "^52.19.1",
     "@slidev/client": "^52.19.1",
     "playwright-chromium": "^1.62.1",
+    "qrcode.vue": "^3.10.0",
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^7.0.2",
     "unocss": "^66.8.1",
