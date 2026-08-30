@@ -6,7 +6,7 @@
   "author": "ogadra",
   "packageManager": "pnpm@10.26.1",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm --workspace-concurrency=2 -r run build:slidev && pnpm --workspace-concurrency=1 -r run build:png --wait-until networkidle && pnpm --filter slide-home run build",
     "typecheck": "pnpm run generate && tsc --noEmit",
     "test": "pnpm run generate && vitest run",
     "e2e:fixture": "pnpm run generate && node scripts/e2eFixture.ts",
