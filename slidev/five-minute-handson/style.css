@@ -1,0 +1,61 @@
+:root {
+  --void: #070C15;
+  --paper: #E6EFF8;
+  --mute: #61809F;
+  --cyan: #56E1F5;
+
+  --font-sans: "Zen Kaku Gothic New", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+}
+
+html, body, #app {
+  background: var(--void);
+}
+
+.slidev-layout {
+  position: relative;
+  background: var(--void);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  padding: 0;
+  overflow: hidden;
+}
+
+/* 方眼は大目盛りだけ。副罫を引くと途端にうるさくなる */
+.slidev-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(86, 225, 245, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(86, 225, 245, 0.055) 1px, transparent 1px);
+  background-size: 240px 240px;
+}
+
+.slidev-layout h1,
+.slidev-layout h2 {
+  font-family: var(--font-sans);
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  color: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+.slidev-layout ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
