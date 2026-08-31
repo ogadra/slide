@@ -154,12 +154,6 @@ fonts:
 
 ---
 
-<StepsSlide
-  :steps="['環境を汚さずコマンドが実行できる', 'nix develop']"
-/>
-
----
-
 <SectionOpener>
 環境を汚さずに<br/>
 <span class="accent">コマンドが動く</span>
