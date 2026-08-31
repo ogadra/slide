@@ -32,7 +32,7 @@ importers:
         version: 1.62.1
       qrcode.vue:
         specifier: ^3.10.0
-        version: 3.10.0(vue@3.5.41(typescript@7.0.2))
+        version: 3.10.0(vue@3.5.42(typescript@7.0.2))
       slidev-theme-purplin:
         specifier: ^1.2.0
         version: 1.2.0(@babel/parser@7.29.8)(@nuxt/kit@3.21.11)(@types/node@26.4.0)(@vue/compiler-sfc@3.5.42)(playwright-chromium@1.62.1)(postcss@8.5.26)(rollup@4.60.4)(typescript@7.0.2)
@@ -10060,9 +10060,9 @@ snapshots:
 
   punycode.js@2.3.1: {}
 
-  qrcode.vue@3.10.0(vue@3.5.41(typescript@7.0.2)):
+  qrcode.vue@3.10.0(vue@3.5.42(typescript@7.0.2)):
     dependencies:
-      vue: 3.5.41(typescript@7.0.2)
+      vue: 3.5.42(typescript@7.0.2)
 
   quansync@0.2.11: {}
 
