@@ -21,7 +21,7 @@ html, body, #app {
   overflow: hidden;
 }
 
-/* 方眼は大目盛りだけ。副罫を引くと途端にうるさくなる */
+/* 方眼は大目盛りだけ。副罫は引かない */
 .slidev-layout::before {
   content: "";
   position: absolute;

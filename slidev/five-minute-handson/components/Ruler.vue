@@ -2,7 +2,7 @@
 import { useNav } from '@slidev/client'
 import { computed } from 'vue'
 
-// フッターの代わりに引く一本の線。5分のうちどこにいるかだけを示す
+// 5分のうちどこにいるかを一本の線で見せる
 const { currentPage, total } = useNav()
 
 const progress = computed(() => {

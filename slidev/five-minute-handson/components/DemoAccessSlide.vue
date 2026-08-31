@@ -37,7 +37,7 @@ defineProps<{
   box-sizing: border-box;
 }
 
-/* 静音域はQR側の margin で確保しているので、枠は見た目のためだけ */
+/* 静音域はQR側のmarginで確保しているので、枠は見た目のためだけ */
 .demo-access-slide__frame {
   flex: none;
   border: 1px solid rgba(86, 225, 245, 0.35);

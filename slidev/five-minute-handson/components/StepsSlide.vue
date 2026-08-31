@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// active は1始まり。渡さなければどの手も強調しない
+// activeは1始まり。渡さなければどの手も強調しない
 withDefaults(defineProps<{ steps: string[]; active?: number }>(), { active: 0 })
 </script>
 

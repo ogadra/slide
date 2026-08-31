@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-// small は長いワンライナー用。既定の68pxだと1920pxに収まらない
-// command に配列を渡すと1要素が1行になる。`\` での折り返しはこちらで書く
+// smallは長いワンライナー用。既定の68pxだと1920pxに収まらない
+// commandに配列を渡すと1要素が1行になる。`\` での折り返しはこちらで書く
 const props = defineProps<{
   command: string | string[]
   output?: string
