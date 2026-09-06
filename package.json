@@ -6,7 +6,7 @@
   "author": "ogadra",
   "packageManager": "pnpm@10.26.1",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm --workspace-concurrency=2 -r run build:slidev && pnpm --workspace-concurrency=1 -r run build:png --wait-until networkidle && pnpm --filter slide-home run build",
     "typecheck": "pnpm run generate && tsc --noEmit",
     "test": "pnpm run generate && vitest run",
     "e2e:fixture": "pnpm run generate && node scripts/e2eFixture.ts",
@@ -23,22 +23,23 @@
   },
   "private": true,
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.53.1",
+    "@cloudflare/vite-plugin": "^1.54.3",
     "@cloudflare/vitest-pool-workers": "^0.22.0",
     "@playwright/test": "1.62.1",
     "@slidev/cli": "^52.19.1",
     "@slidev/client": "^52.19.1",
     "playwright-chromium": "^1.62.1",
+    "qrcode.vue": "^3.10.0",
     "slidev-theme-purplin": "^1.2.0",
     "typescript": "^7.0.2",
-    "unocss": "^66.8.1",
-    "vite": "^8.2.1",
+    "unocss": "^66.9.2",
+    "vite": "^8.2.2",
     "vitest": "^4.1.11",
-    "vue": "^3.5.41",
-    "wrangler": "^4.125.0"
+    "vue": "^3.5.42",
+    "wrangler": "^4.128.0"
   },
   "dependencies": {
-    "vue-i18n": "^11.4.9"
+    "vue-i18n": "^11.4.10"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -1,0 +1,14 @@
+{
+  "name": "five-minute-handson",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/five-minute-handson/slides-export",
+    "build:slidev": "slidev build --base /five-minute-handson/ --out ../../dist/slides/five-minute-handson",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
