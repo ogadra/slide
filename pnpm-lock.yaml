@@ -31,8 +31,8 @@ importers:
         specifier: ^1.63.0
         version: 1.63.0
       qrcode.vue:
-        specifier: ^3.10.0
-        version: 3.10.0(vue@3.5.42(typescript@7.0.2))
+        specifier: ^3.11.0
+        version: 3.11.0(vue@3.5.42(typescript@7.0.2))
       slidev-theme-purplin:
         specifier: ^1.2.0
         version: 1.2.0(@babel/parser@7.29.8)(@nuxt/kit@3.21.11)(@types/node@26.5.0)(@vue/compiler-sfc@3.5.42)(playwright-chromium@1.63.0)(postcss@8.5.26)(rollup@4.60.4)(typescript@7.0.2)
@@ -4545,8 +4545,8 @@ packages:
     resolution: {integrity: sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA==}
     engines: {node: '>=6'}
 
-  qrcode.vue@3.10.0:
-    resolution: {integrity: sha512-1bjeBds9hRKMszZuBuYQZor9HdJYWtb0S44HG1JofZ9uicpJpdF+TtDvqo3+2ZlH0k80WVIkmiKB4hq0/N6/rA==}
+  qrcode.vue@3.11.0:
+    resolution: {integrity: sha512-PnaO9yqcEVsH9euUmo4Nn0JZMkNwk4u6fDUosKjDTXv2Cgv7rHZhr2D8Iq54clBvSycOESwgUE/rw/tBRBjIVg==}
     peerDependencies:
       vue: ^3.0.0
 
@@ -10304,7 +10304,7 @@ snapshots:
 
   punycode.js@2.3.1: {}
 
-  qrcode.vue@3.10.0(vue@3.5.42(typescript@7.0.2)):
+  qrcode.vue@3.11.0(vue@3.5.42(typescript@7.0.2)):
     dependencies:
       vue: 3.5.42(typescript@7.0.2)
 
