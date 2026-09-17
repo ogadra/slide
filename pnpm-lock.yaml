@@ -101,6 +101,8 @@ importers:
 
   slidev/fargate-as-sandbox: {}
 
+  slidev/filing-a-patent-solo: {}
+
   slidev/five-minute-handson: {}
 
   slidev/ios-safari-app-experience: {}
