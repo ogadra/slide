@@ -1,0 +1,14 @@
+{
+  "name": "filing-a-patent-solo",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/filing-a-patent-solo/slides-export",
+    "build:slidev": "slidev build --base /filing-a-patent-solo/ --out ../../dist/slides/filing-a-patent-solo",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}
