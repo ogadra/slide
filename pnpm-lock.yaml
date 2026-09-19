@@ -23,7 +23,7 @@ importers:
         version: 1.63.0
       '@slidev/cli':
         specifier: ^52.19.1
-        version: 52.19.1(@devframes/hub@0.9.18(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.18(cac@7.0.0)(srvx@1.0.4)))(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@types/markdown-it@14.1.2)(@types/node@26.6.1)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(esbuild@0.28.1)(hono@4.13.7)(lightningcss@1.33.0)(markdown-it@14.3.0)(oxc-parser@0.131.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.8)(rollup@4.60.4)(srvx@1.0.4)
+        version: 52.19.1(@devframes/hub@0.9.18(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.18(cac@7.0.0)(srvx@1.0.4)))(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@types/markdown-it@14.1.2)(@types/node@26.6.1)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(esbuild@0.28.1)(hono@4.13.8)(lightningcss@1.33.0)(markdown-it@14.3.0)(oxc-parser@0.131.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.8)(rollup@4.60.4)(srvx@1.0.4)
       '@slidev/client':
         specifier: ^52.19.1
         version: 52.19.1(@devframes/hub@0.9.18(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.18(cac@7.0.0)(srvx@1.0.4)))(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(esbuild@0.28.1)(lightningcss@1.33.0)(oxc-parser@0.131.0)(rolldown@1.2.8)(rollup@4.60.4)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))
@@ -59,13 +59,13 @@ importers:
     dependencies:
       '@hono/vite-dev-server':
         specifier: ^0.26.1
-        version: 0.26.1(hono@4.13.7)(miniflare@4.20260617.1)(wrangler@4.131.2(@cloudflare/workers-types@5.20260915.1)(@types/node@26.6.1))
+        version: 0.26.1(hono@4.13.8)(miniflare@4.20260617.1)(wrangler@4.131.2(@cloudflare/workers-types@5.20260915.1)(@types/node@26.6.1))
       bcrypt-ts:
         specifier: ^9.0.2
         version: 9.0.2
       hono:
-        specifier: ^4.13.7
-        version: 4.13.7
+        specifier: ^4.13.8
+        version: 4.13.8
       nanoid:
         specifier: ^6.0.1
         version: 6.0.1
@@ -3785,8 +3785,8 @@ packages:
   hey-listen@1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
 
-  hono@4.13.7:
-    resolution: {integrity: sha512-c8/gF9ac8Y78/agExVocyLevgR+JlpNB444Py0FSX8pJoPdYUfUzRcXtYEYGwt6l19qIlVZPN5Mfsw9jFShmQQ==}
+  hono@4.13.8:
+    resolution: {integrity: sha512-/Gng7NfoykZl2pjukW5Z6+8Yxm3BPRf86GTbQnt0SbySkvax4fyL4H3HhY1cCpBGmiW9XDRFzRV+CXK2W8QudQ==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -5968,7 +5968,7 @@ snapshots:
       '@cloudflare/containers': 0.3.7
       aws4fetch: 1.0.20
       capnweb: 0.8.0
-      hono: 4.13.7
+      hono: 4.13.8
     optionalDependencies:
       '@xterm/xterm': 6.0.0
 
@@ -6261,14 +6261,14 @@ snapshots:
     dependencies:
       markdown-it: 13.0.2
 
-  '@hono/node-server@1.19.17(hono@4.13.7)':
+  '@hono/node-server@1.19.17(hono@4.13.8)':
     dependencies:
-      hono: 4.13.7
+      hono: 4.13.8
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.7)(miniflare@4.20260617.1)(wrangler@4.131.2(@cloudflare/workers-types@5.20260915.1)(@types/node@26.6.1))':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.8)(miniflare@4.20260617.1)(wrangler@4.131.2(@cloudflare/workers-types@5.20260915.1)(@types/node@26.6.1))':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.7)
-      hono: 4.13.7
+      '@hono/node-server': 1.19.17(hono@4.13.8)
+      hono: 4.13.8
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260617.1
@@ -6714,12 +6714,12 @@ snapshots:
     dependencies:
       zod: 4.4.3
 
-  '@modelcontextprotocol/node@2.0.0(@modelcontextprotocol/server@2.0.0)(hono@4.13.7)':
+  '@modelcontextprotocol/node@2.0.0(@modelcontextprotocol/server@2.0.0)(hono@4.13.8)':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.7)
+      '@hono/node-server': 1.19.17(hono@4.13.8)
       '@modelcontextprotocol/server': 2.0.0
     optionalDependencies:
-      hono: 4.13.7
+      hono: 4.13.8
 
   '@modelcontextprotocol/server@2.0.0':
     dependencies:
@@ -7164,7 +7164,7 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/cli@52.19.1(@devframes/hub@0.9.18(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.18(cac@7.0.0)(srvx@1.0.4)))(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@types/markdown-it@14.1.2)(@types/node@26.6.1)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(esbuild@0.28.1)(hono@4.13.7)(lightningcss@1.33.0)(markdown-it@14.3.0)(oxc-parser@0.131.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.8)(rollup@4.60.4)(srvx@1.0.4)':
+  '@slidev/cli@52.19.1(@devframes/hub@0.9.18(crossws@0.4.12(srvx@1.0.4))(devframe@0.9.18(cac@7.0.0)(srvx@1.0.4)))(@nuxt/kit@3.21.11)(@oxc-project/types@0.149.0)(@types/markdown-it@14.1.2)(@types/node@26.6.1)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.4)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.42)(cac@7.0.0)(crossws@0.4.12(srvx@1.0.4))(esbuild@0.28.1)(hono@4.13.8)(lightningcss@1.33.0)(markdown-it@14.3.0)(oxc-parser@0.131.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.8)(rollup@4.60.4)(srvx@1.0.4)':
     dependencies:
       '@antfu/ni': 30.5.0
       '@antfu/utils': 9.3.0
@@ -7173,7 +7173,7 @@ snapshots:
       '@iconify-json/ph': 1.2.2
       '@iconify-json/svg-spinners': 1.2.4
       '@lillallol/outline-pdf': 4.0.0
-      '@modelcontextprotocol/node': 2.0.0(@modelcontextprotocol/server@2.0.0)(hono@4.13.7)
+      '@modelcontextprotocol/node': 2.0.0(@modelcontextprotocol/server@2.0.0)(hono@4.13.8)
       '@modelcontextprotocol/server': 2.0.0
       '@shikijs/magic-move': 4.4.3(shiki@4.4.3)(vue@3.5.42(typescript@7.0.2))
       '@shikijs/markdown-it': 4.4.3
@@ -9561,7 +9561,7 @@ snapshots:
 
   hey-listen@1.0.8: {}
 
-  hono@4.13.7: {}
+  hono@4.13.8: {}
 
   hookable@5.5.3: {}
 
