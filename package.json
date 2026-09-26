@@ -27,7 +27,7 @@
     "@cloudflare/vitest-pool-workers": "^0.22.0",
     "@playwright/test": "1.63.0",
     "@slidev/cli": "^52.20.0",
-    "@slidev/client": "^52.19.2",
+    "@slidev/client": "^53.0.0",
     "playwright-chromium": "^1.63.0",
     "qrcode.vue": "^3.11.0",
     "slidev-theme-purplin": "^1.2.0",
