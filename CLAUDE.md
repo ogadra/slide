@@ -22,8 +22,6 @@ pnpm --filter slide-home run typecheck    # home/; needs .dev.vars (cp .dev.vars
 pnpm --filter slide-home run lint[:fix]   # biome; root has no lint script
 ```
 
-Pre-commit hooks run typecheck, gitleaks and biome.
-
 ## Slide decks
 
 `./create-slide.sh` scaffolds a new deck. The homepage listing and OGP tags are generated
