@@ -24,8 +24,7 @@ export type Push = {
 	showFile: (rev: string, file: string) => string | null;
 };
 
-// Splits a lockfile into its per-package importer entries and everything else,
-// so a diff confined to importers can be attributed to the packages it touches.
+// Lets an importers-only lockfile diff stay a partial build.
 const parseLockfile = (
 	text: string | null,
 ): { importers: Map<string, string>; rest: string } | null => {
@@ -61,8 +60,7 @@ const parseLockfile = (
 	};
 };
 
-// Returns the decks whose importer entry changed, or null when the diff reaches
-// anything else and every deck has to be rebuilt.
+// null means the diff reached shared ground, so every deck rebuilds.
 const changedLockfileDecks = (push: Push): string[] | null => {
 	const before = parseLockfile(push.showFile(push.before, LOCKFILE));
 	const head = parseLockfile(push.showFile(push.head, LOCKFILE));
@@ -77,8 +75,7 @@ const changedLockfileDecks = (push: Push): string[] | null => {
 		if (before.importers.get(key) === head.importers.get(key)) {
 			continue;
 		}
-		// A deck resolves its dependencies through the shared sections and the
-		// root importer, so a change to any other importer can reach every deck.
+		// The root importer feeds every deck's build.
 		if (!key.startsWith("slidev/")) {
 			return null;
 		}

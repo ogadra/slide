@@ -82,8 +82,7 @@ describe("resolveBuildArgs", () => {
 		expect(reason).toBe("a shared dependency changed");
 	});
 
-	// The dependabot path: a bump rewrites resolutions outside the importers
-	// section, which can reach every deck no matter which files the push touched.
+	// The dependabot path: a bump rewrites resolutions outside importers.
 	it("builds everything when the lockfile changes outside importers", () => {
 		const { buildArgs } = resolveBuildArgs(
 			push({
@@ -101,8 +100,7 @@ describe("resolveBuildArgs", () => {
 		expect(buildArgs).toBe(ALL_PACKAGES);
 	});
 
-	// Decks resolve through the root importer, so its change reaches all of them
-	// even when the diff stays inside the importers section.
+	// The root importer feeds every deck, even via an importers-only diff.
 	it("builds everything when a non-deck importer changes", () => {
 		const { buildArgs } = resolveBuildArgs(
 			push({
