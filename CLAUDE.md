@@ -45,8 +45,10 @@ Production deploys from `.github/workflows/deploy.yml` on every push to `main`. 
 own Workers Builds is not used, so the R2 sync and the Worker deploy always happen together.
 
 CI builds the homepage plus the decks that push touched, then syncs and deploys. A change to
-the root `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml` or `patches/` rebuilds every
-deck, and so does a manual `workflow_dispatch` run.
+the root `package.json`, `pnpm-workspace.yaml`, `patches/` or `home/fonts/` rebuilds every
+deck, and so does a manual `workflow_dispatch` run. A `pnpm-lock.yaml` change rebuilds every
+deck too, unless the diff is confined to `slidev/*` importer entries, in which case only
+those decks build.
 
 ```bash
 pnpm run deploy:dev   # dev is deployed by hand
