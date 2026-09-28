@@ -179,3 +179,29 @@ li {
   transition: all 0.2s ease;
 }
 
+/* コンテンツがフッターに被るスライドで余白とフォントを縮小 */
+.compact h2 {
+  margin: 1rem 0 0.75rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.compact h3 {
+  margin: 0.5rem 0 !important;
+  padding: 0.5rem 0 0.5rem 1rem !important;
+}
+
+.compact p,
+.compact li {
+  font-size: 1.15rem !important;
+  line-height: 1.5 !important;
+}
+
+.compact pre {
+  margin: 0.5rem 0 !important;
+}
+
+.compact pre code {
+  font-size: 0.85rem !important;
+  line-height: 1.35 !important;
+}
+

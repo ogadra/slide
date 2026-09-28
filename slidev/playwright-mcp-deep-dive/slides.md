@@ -93,6 +93,8 @@ Playwright MCPからLLMが何を得ているか、<br/>
 ※ Chrome DevTools MCPにも応用可能です
 
 ---
+class: compact
+---
 
 ## 目次
 
@@ -118,13 +120,15 @@ Playwright MCPからLLMが何を得ているか、<br/>
 </div>
 
 ---
+class: compact
+---
 
 ### 接続フロー（接続確立）
 
 <div style="display: flex; justify-content: center;">
   <div style="background: #1e1e1e; padding: 1px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); border: 1px solid transparent; background-image: linear-gradient(#1e1e1e, #1e1e1e), linear-gradient(120deg, #4ec9b0 0%, #16825d 100%); background-origin: border-box; background-clip: content-box, border-box;">
 
-```mermaid {scale: 0.9, theme: 'dark'}
+```mermaid {scale: 0.7, theme: 'dark'}
 sequenceDiagram
     participant C as LLM
     participant S as MCP
@@ -139,6 +143,8 @@ sequenceDiagram
   </div>
 </div>
 
+---
+class: compact
 ---
 
 ## ツール一覧 - tools/list
@@ -175,6 +181,8 @@ example.comを開く場合
 }
 ```
 
+---
+class: compact
 ---
 
 ### レスポンス - tools/call
@@ -241,6 +249,8 @@ export class BrowserServerBackend {
 </div>
 
 ---
+class: compact
+---
 
 ### ツール一覧 - tools/list
 
@@ -262,6 +272,8 @@ export const browserTools: Tool<any>[] = [
 toolsの定義はbrowserToolsにまとめられている
 
 ---
+class: compact
+---
 
 ### ツール一覧 - tools/list
 
@@ -282,6 +294,8 @@ const navigate = defineTool({
 
 toolsは名前, 説明, 入力形式, そして実行関数を持つ
 
+---
+class: compact
 ---
 
 ### ツール一覧 - tools/list
@@ -340,6 +354,8 @@ MCPは下記の流れでツールを呼ぶ
 5. ツールの実行結果と補足情報をLLMに返す
 
 ---
+class: compact
+---
 
 ### ツール呼び出し - tools/call
 
@@ -359,6 +375,8 @@ export class BrowserServerBackend {
 
 名前が一致するツールに対して引数を渡し、実行する
 
+---
+class: compact
 ---
 
 ### ツール呼び出し - tools/call
