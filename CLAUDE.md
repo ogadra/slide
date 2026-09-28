@@ -24,9 +24,8 @@ pnpm --filter slide-home run lint[:fix]   # biome; root has no lint script
 
 ## Slide decks
 
-`./create-slide.sh` scaffolds a new deck. The homepage listing and OGP tags are generated
-from every deck's `slides.md` headmatter by `home/scripts/generateManifest.ts` into
-`home/generated/manifest.ts` (generated, not committed).
+`./create-slide.sh` scaffolds a new deck.
+The homepage listing and OGP tags are generated from every deck's `slides.md` headmatter by `home/scripts/generateManifest.ts` into `home/generated/manifest.ts` (generated, not committed).
 
 | Key | Required | Format | Meaning |
 |---|---|---|---|
@@ -36,6 +35,6 @@ from every deck's `slides.md` headmatter by `home/scripts/generateManifest.ts` i
 | `eventLink` | | URL | Omit the key when there is none |
 | `order` | | number | Position within one event, defaults to 0, ascending |
 
-Quote the values: a `#` after a space starts a YAML comment. Decks sharing a `date` and an
-`event` show as one entry, so their `eventLink` has to match. A missing or malformed key
-fails the build with the file path and the key name.
+Quote the values: a `#` after a space starts a YAML comment.
+Decks sharing a `date` and an `event` show as one entry, so their `eventLink` has to match.
+A missing or malformed key fails the build with the file path and the key name.
