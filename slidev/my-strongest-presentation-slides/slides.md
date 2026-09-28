@@ -25,14 +25,14 @@ canvasWidth: 960
 
 ## この発表について
 
-<div class="center-content">
+<div class="center-content" style="min-height: 0;">
 
-<p style="font-size: 1.6rem !important;">2026年3月27日 <b>Terminal Night #2</b> での発表の解説です</p>
+<p style="font-size: 1.3rem !important; margin-bottom: 0.75rem;">2026年3月27日 <b>Terminal Night #2</b> での発表の解説です</p>
 
 <a href="https://github.com/ogadra/20260327-cli-demo" target="_blank" style="text-decoration: none; color: inherit;">
-  <div style="border: 1px solid #444; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 0 auto;">
+  <div style="border: 1px solid #444; border-radius: 8px; overflow: hidden; max-width: 380px; margin: 0 auto;">
     <img src="/imgs/20260327-cli-demo-ogp.png" alt="20260327-cli-demo のOGP画像" style="width: 100%;" />
-    <div style="padding: 8px 12px; font-size: 0.85rem; color: #aaa;">github.com/ogadra/20260327-cli-demo</div>
+    <div style="padding: 4px 10px; font-size: 0.75rem; color: #aaa;">github.com/ogadra/20260327-cli-demo</div>
   </div>
 </a>
 
