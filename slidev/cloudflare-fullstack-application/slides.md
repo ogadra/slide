@@ -77,6 +77,8 @@ h2 {
 - 結果をOGPつきでツイートできる
 
 ---
+class: compact-diagram
+---
 
 ## こんなアーキテクチャで動いています
 
@@ -84,7 +86,7 @@ h2 {
   src="./imgs/mogami-architecture.svg"
   class="w-144 m-auto"
   alt="Cloudflare構成図"
-  style="background-color: #FFF"
+  style="background-color: #FFF; max-height: 16rem"
 />
 
 ---
@@ -116,6 +118,8 @@ h2 {
 - acceptWebSocketにより属性からsocketを取得
 - strageに進行状況を保存・取得
 
+---
+class: compact-code
 ---
 
 ## ユーザー接続処理
@@ -156,6 +160,8 @@ private async webSocketMessage(
 ```
 
 ---
+class: compact-code
+---
 
 ## ユーザー接続処理
 
@@ -175,6 +181,8 @@ this.state.acceptWebSocket(server, [
 ]);
 ```
 
+---
+class: compact-code
 ---
 
 ## ユーザー接続処理
