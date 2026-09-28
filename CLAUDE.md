@@ -26,8 +26,7 @@ pnpm --filter slide-home run lint[:fix]   # biome; root has no lint script
 
 `./create-slide.sh` scaffolds a new deck. The homepage listing and OGP tags are generated
 from every deck's `slides.md` headmatter by `home/scripts/generateManifest.ts` into
-`home/generated/manifest.ts` (generated, not committed). Deck builds also export PNGs to
-`dist/slides/<deck>/slides-export/`, used for OGP images and homepage thumbnails.
+`home/generated/manifest.ts` (generated, not committed).
 
 | Key | Required | Format | Meaning |
 |---|---|---|---|
