@@ -14,7 +14,7 @@ A personal slides website hosting multiple Slidev presentations:
 ## Commands
 
 ```bash
-pnpm run dev                              # local Worker; seeds dist/ into the local R2, so run a build first
+cd slidev/<deck> && pnpm run dev          # per-deck preview
 pnpm run build                            # every deck + home
 pnpm run test                             # vitest
 pnpm run typecheck                        # scripts/, .github/scripts/, e2e/
