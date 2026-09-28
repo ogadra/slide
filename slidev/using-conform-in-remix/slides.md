@@ -34,6 +34,8 @@ canvasWidth: 960
 
 ---
 
+<div class="dense">
+
 ## Attention
 
 - Please do not take photos.
@@ -43,6 +45,8 @@ canvasWidth: 960
 
 - 写真撮影はご遠慮ください。
 - スライドは英語ですが、発表は日本語で行います。
+
+</div>
 
 <!--
   スライドは英語で書いてありますが、発表は日本語で行います。
@@ -54,14 +58,14 @@ canvasWidth: 960
 
 ## Slide
 
-<div class="flex flex-wrap w-160 mx-auto my-10">
-  <div class="w-1/2 px-12">
+<div class="flex flex-wrap w-128 mx-auto my-4">
+  <div class="w-1/2 px-8">
     <img src="./imgs/using-conform-in-remix.png" alt="English Slide" class="w-full">
-    <p class="text-center">English</p>
+    <p class="text-center caption">English</p>
   </div>
-  <div class="w-1/2 px-12">
+  <div class="w-1/2 px-8">
     <img src="./imgs/ja-using-conform-in-remix.png" alt="Japanese Slide" class="w-full">
-    <p class="text-center">Japanese</p>
+    <p class="text-center caption">Japanese</p>
   </div>
 </div>
 
@@ -111,7 +115,7 @@ A type-safe form validation library utilizing web fundamentals to progressively 
 
 ## HOW TO USE
 
-<div class="my-2">
+<div class="text-085 my-1">
 
 ```tsx {|5-12}
 export default function Index() {
@@ -138,7 +142,7 @@ export default function Index() {
 
 ## HOW TO USE
 
-<div class="text-09675 my-5">
+<div class="text-085 my-2">
 
 ```tsx {|3,7}
 return (
@@ -165,9 +169,11 @@ return (
 
 ## Result
 
-![onSubmitValidation](./imgs/onSubmitValidation.gif)
-
 <div class="text-center">
+  <img src="./imgs/onSubmitValidation.gif" alt="onSubmitValidation" class="result-gif">
+</div>
+
+<div class="text-center caption">
 Error messages appear when submitting.
 </div>
 
@@ -201,9 +207,11 @@ const [form, { username }] = useForm({
 
 ## Result
 
-![onInputValidation](./imgs/onInputValidation.gif)
-
 <div class="text-center">
+  <img src="./imgs/onInputValidation.gif" alt="onInputValidation" class="result-gif">
+</div>
+
+<div class="text-center caption">
 Error messages appear on input.
 </div>
 
@@ -237,9 +245,11 @@ So, it would be desirable to disable the Submit button when an error message is 
 
 ---
 
+<div class="dense">
+
 ## Disable submit button when form is valid
 
-<div class="text-094 my-2">
+<div class="text-08 my-1">
 
 ```tsx{10}
 <Form
@@ -259,6 +269,8 @@ So, it would be desirable to disable the Submit button when an error message is 
 ```
 </div>
 
+</div>
+
 <!--
   検証失敗時にサブミットボタンを無効にするには、`disabled`プロパティに`!form.valid || !form.dirty`を設定します。
 -->
@@ -267,9 +279,11 @@ So, it would be desirable to disable the Submit button when an error message is 
 
 ## Result
 
-![submitDisabledOnInvalidForm](./imgs/submitDisabledOnInvalidForm.gif)
-
 <div class="text-center">
+  <img src="./imgs/submitDisabledOnInvalidForm.gif" alt="submitDisabledOnInvalidForm" class="result-gif">
+</div>
+
+<div class="text-center caption">
 The submit button is disabled when the form is invalid.
 </div>
 
@@ -291,9 +305,9 @@ The documentation on form properties was not found, and the implementation was d
 
 ## So, I created a PR to add the docs
 
-<div class="w-144 mx-auto my-4">
+<div class="text-center my-2">
 
-![pr](./imgs/conform-pr-887.png)
+<img src="./imgs/conform-pr-887.png" alt="pr" class="pr-shot">
 
 </div>
 
@@ -337,7 +351,7 @@ const createClientSchema = pipe(
 
 ### Server
 
-<div class="text-094">
+<div class="text-08 my-1">
 
 ```typescript {|6-9}
 const createServerSchema = pipeAsync(
@@ -364,9 +378,11 @@ const createServerSchema = pipeAsync(
 
 ## Result
 
-![asyncValidation](./imgs/asyncValidation.gif)
-
 <div class="text-center">
+  <img src="./imgs/asyncValidation.gif" alt="asyncValidation" class="result-gif">
+</div>
+
+<div class="text-center caption">
 The username is checked asynchronously on the server.
 </div>
 
@@ -396,6 +412,8 @@ This request trrigers the Remix action, which sets `navigation.state` to `submit
 
 ---
 
+<div class="dense">
+
 ## Pros and Cons
 
 ### pros
@@ -407,6 +425,8 @@ We can validate user input asynchronously on the server 😊
 Because the `navigation.state` becomes `submitting`, the message `Sending...` is displayed during validation 😢
 
 I'm considering whether introducing a `validating` property to the `form` might provide a clearer distinction from the `submitting`. I'd appreciate your opinion on this.
+
+</div>
 
 <!--
   サーバー側でユーザーの検証を簡単に行うことができるのがメリットです。
