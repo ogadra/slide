@@ -205,14 +205,14 @@ ccusage monthly
 
 ## 人間が構築する際のボトルネックが<br/>みるみる剥がれていく
 
-<div style="font-size: 2rem; margin: 2rem 0;">
+<div style="font-size: 1.5rem; margin: 1rem 0;">
 ❌ &nbsp; 編集範囲への移動<br/>
 ❌ &nbsp; タイピング<br/>
 ❌ &nbsp; エラー解消<br/>
 ❌ &nbsp; コマンド操作
 </div>
 
-<div style="font-size: 2.5rem; text-align: center; margin: 3rem 0; color: #f87171;">
+<div style="font-size: 1.75rem; text-align: center; margin: 1.5rem 0; color: #f87171;">
 → 最後のボトルネックは人間による確認
 </div>
 
