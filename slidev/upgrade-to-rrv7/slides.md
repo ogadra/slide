@@ -49,6 +49,8 @@ package-lock.jsonを除いた差分 -> **4,564行 / 66ファイル**
 
 </div>
 ---
+class: dense-list
+---
 
 ## Single Fetch
 
@@ -155,6 +157,8 @@ return redirect('/');
 throw redirect('/');
 ```
 
+---
+class: dense-code
 ---
 
 ## loader / actionの返り値の型
