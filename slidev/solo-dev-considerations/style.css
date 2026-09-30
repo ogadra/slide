@@ -32,3 +32,8 @@ li {
 code {
   font-size: 1rem !important;
 }
+
+.slidev-layout.law-list li {
+  font-size: 1.15rem !important;
+  line-height: 1.7 !important;
+}
