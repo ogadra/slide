@@ -1,5 +1,6 @@
 import { addSyncMethod } from "@slidev/client";
 import { defineAppSetup } from "@slidev/types";
+import { loadPrintFonts } from "../../shared/loadPrintFonts";
 import {
 	ConnectionStatusEnum,
 	changeConnectionState,
@@ -80,5 +81,6 @@ const websocketSync: Sync = {
 };
 
 export default defineAppSetup(({ app }) => {
+	loadPrintFonts();
 	addSyncMethod(websocketSync);
 });
