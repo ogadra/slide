@@ -1,17 +1,18 @@
-// The print page never fetches CJK unicode-range subsets on its own.
+// Print fetches no CJK subsets itself; load all faces up front so late text causes no reflow.
 export function loadPrintFonts() {
   if (!location.pathname.endsWith('/print') && !location.search.includes('print=')) return
-  let len = -1
-  let stable = 0
+  const style = document.createElement('style')
+  style.textContent = '* { transition: none !important }'
+  document.head.append(style)
+  let calm = 0
   const id = setInterval(() => {
-    const text = document.body.innerText
-    if (!text) return
-    stable = text.length === len ? stable + 1 : 0
-    if (stable > 30) return clearInterval(id)
-    len = text.length
+    let pending = 0
     document.fonts.forEach((f) => {
-      void document.fonts.load(`${f.style} ${f.weight} 16px "${f.family}"`, text).catch(() => [])
+      if (f.status === 'unloaded') void f.load().catch(() => {})
+      if (f.status !== 'loaded') pending++
     })
+    calm = pending ? 0 : calm + 1
+    if (document.readyState === 'complete' && calm > 10) clearInterval(id)
   }, 200)
 }
 
