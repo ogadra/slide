@@ -33,50 +33,6 @@ canvasWidth: 960
 ## ogadra
 
 ---
-
-<div class="dense">
-
-## Attention
-
-- Please do not take photos.
-- The slides are in English, but the presentation will be in Japanese.
-
-## 注意
-
-- 写真撮影はご遠慮ください。
-- スライドは英語ですが、発表は日本語で行います。
-
-</div>
-
-<!--
-  スライドは英語で書いてありますが、発表は日本語で行います。
-
-  The slides are in English, but the presentation will be in Japanese.
--->
-
----
-
-## Slide
-
-<div class="flex flex-wrap w-128 mx-auto my-4">
-  <div class="w-1/2 px-8">
-    <img src="./imgs/using-conform-in-remix.png" alt="English Slide" class="w-full">
-    <p class="text-center caption">English</p>
-  </div>
-  <div class="w-1/2 px-8">
-    <img src="./imgs/ja-using-conform-in-remix.png" alt="Japanese Slide" class="w-full">
-    <p class="text-center caption">Japanese</p>
-  </div>
-</div>
-
-<!--
-  日英のスライドQRコードです。
-
-  The slides are in English, but the presentation will be in Japanese.
--->
-
-
----
 layout: image-x
 image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
 imageOrder: 2
