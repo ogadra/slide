@@ -34,3 +34,33 @@ li {
 img {
   margin: 0 auto;
 }
+
+/* Slide 4: shrink the bullet list so it stays above the footer */
+.slidev-layout.dense-list h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.slidev-layout.dense-list li {
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Slide 11: shrink the code block so the last lines fit on the slide */
+.slidev-layout.dense-code h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.slidev-layout.dense-code p {
+  margin-bottom: 0.5rem;
+}
+
+.slidev-layout.dense-code .slidev-code {
+  margin: 0.25rem 0 !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.slidev-layout.dense-code .slidev-code code {
+  font-size: 0.65rem !important;
+}

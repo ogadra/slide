@@ -1,0 +1,15 @@
+diff --git a/dist/export-LauAJGMx.mjs b/dist/export-LauAJGMx.mjs
+index 9f565e04e6ac0cb6bbb3924d1032d78213df3080..a3be64ed9719cb72b3abcb0540e7acc5d69ae3b0 100644
+--- a/dist/export-LauAJGMx.mjs
++++ b/dist/export-LauAJGMx.mjs
+@@ -184,6 +184,10 @@ async function exportSlides({ port = 18724, total = 0, range, format = "pdf", ou
+ 			const count = await elements.count();
+ 			for (let index = 0; index < count; index++) await elements.nth(index).evaluate((node) => node.style.display = "none");
+ 		}
++		await page.evaluate(async () => {
++			await Promise.allSettled(Array.from(document.fonts).map((face) => face.load()));
++			await document.fonts.ready;
++		});
+ 		if (wait) await page.waitForTimeout(wait);
+ 	}
+ 	async function getSlidesIndex() {
