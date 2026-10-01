@@ -48,6 +48,9 @@
       "sharp",
       "vue-demi",
       "workerd"
-    ]
+    ],
+    "patchedDependencies": {
+      "@slidev/cli@53.0.0": "patches/@slidev__cli@53.0.0.patch"
+    }
   }
 }

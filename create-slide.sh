@@ -208,11 +208,6 @@ export const changeConnectionState = (newState: ConnectionState) => {
 };
 EOF
 
-# Create setup/main.ts
-cat > "$SLIDE_DIR/setup/main.ts" <<'EOF'
-export { default } from '../../shared/loadPrintFonts'
-EOF
-
 # Create components/LiveIcon.vue
 cat > "$SLIDE_DIR/components/LiveIcon.vue" <<'EOF'
 <script setup lang="ts">
