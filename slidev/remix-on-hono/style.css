@@ -30,3 +30,8 @@ li {
 img {
   margin: 0 auto;
 }
+
+.dense-list li {
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}
