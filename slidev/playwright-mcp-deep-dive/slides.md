@@ -11,6 +11,10 @@ drawings:
 transition: slide-left
 mdc: true
 canvasWidth: 960
+fonts:
+  custom: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 ---
 
 <style>
