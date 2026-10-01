@@ -11,7 +11,7 @@ export default defineConfig({
     extend: {
       fontFamily: {
         sans: '"Zen Kaku Gothic New", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-        mono: '"JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace',
+        mono: '"JetBrains Mono", "Zen Kaku Gothic New", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace',
       },
     },
   },

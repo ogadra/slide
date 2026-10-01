@@ -28,7 +28,7 @@
 
   --font-display: "Antonio", "Saira Condensed", "Noto Sans JP", sans-serif;
   --font-sans: "Noto Sans JP", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
+  --font-mono: "JetBrains Mono", "Noto Sans JP", ui-monospace, "Fira Code", monospace;
 }
 
 html {

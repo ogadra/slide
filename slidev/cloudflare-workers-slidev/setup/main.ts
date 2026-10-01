@@ -1,5 +1,6 @@
 import { addSyncMethod } from "@slidev/client";
 import { defineAppSetup } from "@slidev/types";
+import { loadPrintFonts } from "../../shared/loadPrintFonts";
 import { startSandbox } from "../composables/useCodeExecution";
 import { useSandboxUrl } from "../composables/useSandboxUrl";
 import {
@@ -84,6 +85,7 @@ const websocketSync: Sync = {
 };
 
 export default defineAppSetup(({ app, router }) => {
+	loadPrintFonts();
 	addSyncMethod(websocketSync);
 
 	// スライド読み込み時にサンドボックスを起動
