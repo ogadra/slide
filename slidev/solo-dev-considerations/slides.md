@@ -19,6 +19,10 @@ transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 canvasWidth: 960
+fonts:
+  custom: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 lang: ja
 ---
 
@@ -72,13 +76,15 @@ Favorite languages: Typescript, Go
   <img
     src="./imgs/arrest.png"
     alt="マッチングアプリ個人開発したら逮捕されかけた話"
-    class="w-144 mx-auto my-2"
+    class="max-h-80 mx-auto my-1"
   />
   </div>
   <div class="flex flex-wrap w-full mx-auto">
-  <span class="text-center mx-auto">https://zenn.dev/shoheiweb/articles/448e7b7c73356f</span>
+  <span class="text-center mx-auto text-sm">https://zenn.dev/shoheiweb/articles/448e7b7c73356f</span>
 </div>
 
+---
+class: law-list
 ---
 
 ## どんな法律があるのか
@@ -173,8 +179,8 @@ C. ポート番号
 
 ## プロ責法の要件を満たすインフラ構成
 
-<div class="flex m-2">
-  <img src="./imgs/ng.svg" alt="プロバイダ責任制限法の要件を満たせないインフラ構成。APIGatewayを用いている。" class="w-96">
+<div class="flex m-1">
+  <img src="./imgs/ng.svg" alt="プロバイダ責任制限法の要件を満たせないインフラ構成。APIGatewayを用いている。" class="w-80">
   <div class="w-80 my-auto mx-2 my-0">
     APIGatewayを用いる場合、<br/>
     プロバイダ責任制限法の要件を満たすための情報を取得できない。
@@ -182,8 +188,8 @@ C. ポート番号
   
 </div>
 
-<div class="flex mx-2 my-4">
-  <img src="./imgs/ok.svg" alt="プロバイダ責任制限法の要件を満たせるインフラ構成。CloudFrontを用いている。" class="w-96">
+<div class="flex mx-2 my-2">
+  <img src="./imgs/ok.svg" alt="プロバイダ責任制限法の要件を満たせるインフラ構成。CloudFrontを用いている。" class="w-80">
   <div class="w-80 my-auto mx-2 my-0">
     CloudFrontを用いる場合、<br/>
     プロバイダ責任制限法の要件を満たすために十分な情報を取得できる。

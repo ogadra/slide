@@ -32,3 +32,12 @@ li {
 code {
   font-size: 1rem !important;
 }
+
+.compact-diagram h2 {
+  font-size: 2rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.compact-code code {
+  font-size: 0.8rem !important;
+}
