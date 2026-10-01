@@ -150,11 +150,11 @@ reveal.jsだと
 
 ## アーキテクチャ概要
 
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center -mt-4">
   <img src="./imgs/slide.svg" class="rounded-sm" width="550px">
 </div>
 
-<div class="text-center my-4">Honoでルーティングして、ビルドした各スライドを返す</div>
+<div class="text-center mt-1 text-xs">Honoでルーティングして、ビルドした各スライドを返す</div>
 
 ---
 
