@@ -19,6 +19,10 @@ transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 canvasWidth: 960
+fonts:
+  sans: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 lang: ja
 ---
 
@@ -35,7 +39,7 @@ lang: ja
 ---
 
 ## 🎉 yusukebe/hono-remix-adapter 🎉
-<img src="./imgs/hono-remix-adapter-releases.png" width="600px" />
+<img src="./imgs/hono-remix-adapter-releases.png" width="450px" />
 
 <p class="text-center">
 ついでにコントリビュートしました
@@ -43,7 +47,7 @@ lang: ja
 ---
 
 ## 作ったサービス
-<img src="./imgs/mogami.png" width="600px" />
+<img src="./imgs/mogami.png" width="450px" />
 
 <p class="text-center">
   <a href="https://mogami.live">
@@ -77,6 +81,8 @@ lang: ja
 <img src="./imgs/cloudflare-architecture.png" width="700px" />
 
 ---
+class: dense-list
+---
 
 ## Honoで処理していること
 
@@ -87,6 +93,8 @@ lang: ja
       - Service bindings
   - 静的ファイルの配信
 
+---
+class: dense-list
 ---
 
 ## HonoとRemixを動かした感想

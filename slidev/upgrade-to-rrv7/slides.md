@@ -19,6 +19,10 @@ transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 canvasWidth: 960
+fonts:
+  sans: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 lang: ja
 ---
 
@@ -48,6 +52,8 @@ package-lock.jsonを除いた差分 -> **4,564行 / 66ファイル**
   Single Fetch
 
 </div>
+---
+class: dense-list
 ---
 
 ## Single Fetch
@@ -155,6 +161,8 @@ return redirect('/');
 throw redirect('/');
 ```
 
+---
+class: dense-code
 ---
 
 ## loader / actionの返り値の型

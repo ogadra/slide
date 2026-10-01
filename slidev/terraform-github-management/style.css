@@ -2,7 +2,7 @@
   --ink: #111111;
   --paper: #ffffff;
   --hazard-yellow: #ffd400;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-mono: "JetBrains Mono", "Noto Sans JP", monospace;
 }
 
 html {

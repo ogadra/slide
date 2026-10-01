@@ -10,7 +10,7 @@ export default defineConfig({
   theme: {
     fontFamily: {
       sans: '"LINE Seed JP", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-      mono: '"Fira Code", monospace',
+      mono: '"Fira Code", "LINE Seed JP", monospace',
     },
   },
 })
