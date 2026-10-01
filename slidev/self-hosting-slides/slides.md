@@ -19,6 +19,10 @@ transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 canvasWidth: 960
+fonts:
+  sans: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 lang: ja
 ---
 
@@ -146,11 +150,11 @@ reveal.jsだと
 
 ## アーキテクチャ概要
 
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center -mt-4">
   <img src="./imgs/slide.svg" class="rounded-sm" width="550px">
 </div>
 
-<div class="text-center my-4">Honoでルーティングして、ビルドした各スライドを返す</div>
+<div class="text-center mt-1 text-xs">Honoでルーティングして、ビルドした各スライドを返す</div>
 
 ---
 

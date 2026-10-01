@@ -11,7 +11,7 @@ export default defineConfig({
     extend: {
       fontFamily: {
         sans: '"Noto Sans JP", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        mono: '"JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace',
+        mono: '"JetBrains Mono", "Noto Sans JP", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace',
       }
     },
   },

@@ -19,6 +19,10 @@ transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 canvasWidth: 960
+fonts:
+  custom: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 lang: ja
 ---
 

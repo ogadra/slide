@@ -11,6 +11,10 @@ drawings:
 transition: slide-left
 mdc: true
 canvasWidth: 960
+fonts:
+  custom: 'Noto Sans JP'
+  weights: '400,600,700'
+  provider: google
 ---
 
 # LambdaをECSと思い込む技術
@@ -121,8 +125,16 @@ Lambda特有のイベントを変換 -> アプリをそのまま動かせる
 </div>
 
 <style>
+h2 {
+  margin: 0.75rem 0 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
 p {
-  font-size: 1.5rem !important;
+  font-size: 1.25rem !important;
+  margin: 0.5rem 0 !important;
+}
+small {
+  margin-top: 0 !important;
 }
 </style>
 
