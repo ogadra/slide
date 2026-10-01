@@ -76,7 +76,7 @@ RemixやNext.jsなどのフレームワークと組み合わせて使うこと�
 
 ## 使い方
 
-<div class="my-2">
+<div class="text-085 my-1">
 
 ```tsx {|5-12}
 export default function Index() {
@@ -102,7 +102,7 @@ export default function Index() {
 
 ## 使い方
 
-<div class="text-09675 my-5">
+<div class="text-085 my-2">
 
 ```tsx {|3,7}
 return (
@@ -203,9 +203,11 @@ const [form, { username }] = useForm({
 
 ---
 
+<div class="dense">
+
 ## 検証失敗時にSubmitボタンを無効にする
 
-<div class="text-094 my-2">
+<div class="text-08 my-1">
 
 ```tsx{10}
 <Form
@@ -223,6 +225,8 @@ const [form, { username }] = useForm({
   </button>
 </Form>
 ```
+</div>
+
 </div>
 
 <!--
@@ -305,7 +309,7 @@ const createClientSchema = pipe(
 
 ### Server
 
-<div class="text-094">
+<div class="text-08 my-1">
 
 ```typescript {|6-9}
 const createServerSchema = pipeAsync(
