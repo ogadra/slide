@@ -28,7 +28,7 @@ importers:
         version: 1.63.0
       '@slidev/cli':
         specifier: ^53.0.0
-        version: 53.0.0(patch_hash=62fa3ad77abc6d504c4a243cf022a403288d8b323aaa957a16283381083dabbe)(@nuxt/kit@3.21.11)(@oxc-project/types@0.151.0)(@types/markdown-it@14.2.0)(@types/node@26.6.3)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.1.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(esbuild@0.28.1)(hono@4.13.9)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.11)(rollup@4.60.4)(srvx@1.0.5)
+        version: 53.0.0(patch_hash=62fa3ad77abc6d504c4a243cf022a403288d8b323aaa957a16283381083dabbe)(@nuxt/kit@3.21.11)(@oxc-project/types@0.151.0)(@types/markdown-it@14.2.0)(@types/node@26.6.3)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.1.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(esbuild@0.28.1)(hono@4.13.10)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.11)(rollup@4.60.4)(srvx@1.0.5)
       '@slidev/client':
         specifier: ^53.0.0
         version: 53.0.0(@modelcontextprotocol/server@2.1.0)(@nuxt/kit@3.21.11)(@oxc-project/types@0.151.0)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.1.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(esbuild@0.28.1)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(rolldown@1.2.11)(rollup@4.60.4)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))
@@ -64,13 +64,13 @@ importers:
     dependencies:
       '@hono/vite-dev-server':
         specifier: ^0.26.1
-        version: 0.26.1(hono@4.13.9)(miniflare@4.20260617.1)(wrangler@4.143.0(@cloudflare/workers-types@5.20260927.1)(@types/node@26.6.3))
+        version: 0.26.1(hono@4.13.10)(miniflare@4.20260617.1)(wrangler@4.143.0(@cloudflare/workers-types@5.20260927.1)(@types/node@26.6.3))
       bcrypt-ts:
         specifier: ^9.0.2
         version: 9.0.2
       hono:
-        specifier: ^4.13.9
-        version: 4.13.9
+        specifier: ^4.13.10
+        version: 4.13.10
       nanoid:
         specifier: ^6.0.1
         version: 6.0.1
@@ -3694,8 +3694,8 @@ packages:
   hey-listen@1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
 
-  hono@4.13.9:
-    resolution: {integrity: sha512-7dMkQmZoC4E6F7AtaQSPhlWAdnBti+j7rreMZl8QB4jFiEhP9TWbGWUMi8WYzBCgmgulxuvLQupKqo+Co6Omyg==}
+  hono@4.13.10:
+    resolution: {integrity: sha512-dQuLsa5oO+47QVMVMaaD9cIv8ctmVtK1iRvwWngkfloFJMeFeuoUFDswIqZGxmGX3hrRzREgEArjkK9OgsQEhA==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -5867,7 +5867,7 @@ snapshots:
       '@cloudflare/containers': 0.3.7
       aws4fetch: 1.0.20
       capnweb: 0.8.0
-      hono: 4.13.9
+      hono: 4.13.10
     optionalDependencies:
       '@xterm/xterm': 6.0.0
 
@@ -6108,14 +6108,14 @@ snapshots:
     dependencies:
       markdown-it: 13.0.2
 
-  '@hono/node-server@1.19.17(hono@4.13.9)':
+  '@hono/node-server@1.19.17(hono@4.13.10)':
     dependencies:
-      hono: 4.13.9
+      hono: 4.13.10
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.9)(miniflare@4.20260617.1)(wrangler@4.143.0(@cloudflare/workers-types@5.20260927.1)(@types/node@26.6.3))':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.10)(miniflare@4.20260617.1)(wrangler@4.143.0(@cloudflare/workers-types@5.20260927.1)(@types/node@26.6.3))':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.9)
-      hono: 4.13.9
+      '@hono/node-server': 1.19.17(hono@4.13.10)
+      hono: 4.13.10
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260617.1
@@ -6551,12 +6551,12 @@ snapshots:
     dependencies:
       zod: 4.6.5
 
-  '@modelcontextprotocol/node@2.1.0(@modelcontextprotocol/server@2.1.0)(hono@4.13.9)':
+  '@modelcontextprotocol/node@2.1.0(@modelcontextprotocol/server@2.1.0)(hono@4.13.10)':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.9)
+      '@hono/node-server': 1.19.17(hono@4.13.10)
       '@modelcontextprotocol/server': 2.1.0
     optionalDependencies:
-      hono: 4.13.9
+      hono: 4.13.10
 
   '@modelcontextprotocol/server@2.1.0':
     dependencies:
@@ -6987,7 +6987,7 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/cli@53.0.0(patch_hash=62fa3ad77abc6d504c4a243cf022a403288d8b323aaa957a16283381083dabbe)(@nuxt/kit@3.21.11)(@oxc-project/types@0.151.0)(@types/markdown-it@14.2.0)(@types/node@26.6.3)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.1.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(esbuild@0.28.1)(hono@4.13.9)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.11)(rollup@4.60.4)(srvx@1.0.5)':
+  '@slidev/cli@53.0.0(patch_hash=62fa3ad77abc6d504c4a243cf022a403288d8b323aaa957a16283381083dabbe)(@nuxt/kit@3.21.11)(@oxc-project/types@0.151.0)(@types/markdown-it@14.2.0)(@types/node@26.6.3)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.1.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(esbuild@0.28.1)(hono@4.13.10)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(playwright-chromium@1.63.0)(postcss@8.5.28)(rolldown@1.2.11)(rollup@4.60.4)(srvx@1.0.5)':
     dependencies:
       '@antfu/ni': 30.6.0
       '@antfu/utils': 9.3.0
@@ -6996,7 +6996,7 @@ snapshots:
       '@iconify-json/ph': 1.2.2
       '@iconify-json/svg-spinners': 1.2.4
       '@lillallol/outline-pdf': 4.0.0
-      '@modelcontextprotocol/node': 2.1.0(@modelcontextprotocol/server@2.1.0)(hono@4.13.9)
+      '@modelcontextprotocol/node': 2.1.0(@modelcontextprotocol/server@2.1.0)(hono@4.13.10)
       '@modelcontextprotocol/server': 2.1.0
       '@shikijs/magic-move': 4.4.3(shiki@4.4.3)(vue@3.5.43(typescript@7.0.2))
       '@shikijs/markdown-it': 4.4.3
@@ -9329,7 +9329,7 @@ snapshots:
 
   hey-listen@1.0.8: {}
 
-  hono@4.13.9: {}
+  hono@4.13.10: {}
 
   hookable@5.5.3: {}
 
