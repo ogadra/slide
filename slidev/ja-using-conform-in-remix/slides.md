@@ -53,7 +53,8 @@ Favorite languages: Typescript, Go
 
 ## テーマ
 
-<div class="my-8 text-09675">
+<div class="my-4 text-09675">
+
 ```
  ███████╗  ██████╗  ███╗  ██╗ ████████╗  ██████╗  ███████╗  ███╗ ███╗
 ██╔═════╝ ██╔═══██╗ ████╗ ██║ ██╔═════╝ ██╔═══██╗ ██╔═══██╗ ████████║
@@ -144,6 +145,7 @@ return (
 ## 入力時にエラーメッセージを表示する
 
 <div class="my-12">
+
 ```tsx {2}
 const [form, { username }] = useForm({
   shouldValidate: "onInput",
@@ -277,7 +279,8 @@ formのプロパティに関するドキュメントが見当たらず、実装�
 
 ### Client
 
-<div class="my-4">
+<div class="text-08 my-1">
+
 ```typescript {|6-7}
 const createClientSchema = pipe(
   baseSchema,
