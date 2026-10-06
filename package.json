@@ -39,7 +39,7 @@
     "wrangler": "^4.145.0"
   },
   "dependencies": {
-    "vue-i18n": "^11.4.12"
+    "vue-i18n": "^11.4.13"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
