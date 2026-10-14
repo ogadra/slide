@@ -53,7 +53,8 @@ Favorite languages: Typescript, Go
 
 ## Thema
 
-<div class="my-8 text-09675">
+<div class="my-4 text-09675">
+
 ```
  ███████╗  ██████╗  ███╗  ██╗ ████████╗  ██████╗  ███████╗  ███╗ ███╗
 ██╔═════╝ ██╔═══██╗ ████╗ ██║ ██╔═════╝ ██╔═══██╗ ██╔═══██╗ ████████║
@@ -146,6 +147,7 @@ Error messages appear when submitting.
 ## Error messages appear on input
 
 <div class="my-12">
+
 ```tsx {2}
 const [form, { username }] = useForm({
   shouldValidate: "onInput",
@@ -283,7 +285,8 @@ The documentation on form properties was not found, and the implementation was d
 
 ### Client
 
-<div class="my-4">
+<div class="text-08 my-1">
+
 ```typescript {|6-7}
 const createClientSchema = pipe(
   baseSchema,
