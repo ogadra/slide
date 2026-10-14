@@ -41,3 +41,32 @@ code {
   font-size: 0.94rem !important;
 }
 
+.text-085 * {
+  font-size: 0.85rem !important;
+}
+
+.text-08 * {
+  font-size: 0.8rem !important;
+}
+
+.dense h2 {
+  font-size: 1.75rem !important;
+  padding-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.dense h3 {
+  margin: 0.4rem 0;
+}
+
+.dense p {
+  font-size: 1.1rem !important;
+  line-height: 1.45 !important;
+  margin: 0.4rem 0;
+}
+
+.dense li {
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}
+
