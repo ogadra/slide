@@ -36,7 +36,7 @@
     "vite": "^8.3.8",
     "vitest": "^4.1.11",
     "vue": "^3.5.45",
-    "wrangler": "^4.159.0"
+    "wrangler": "^4.160.1"
   },
   "dependencies": {
     "vue-i18n": "^11.4.18"
