@@ -127,3 +127,65 @@ jobs:
       # Builds the newest deck, seeds it into the local R2, then drives wrangler dev.
       - name: End to end
         run: pnpm run e2e
+
+  vrt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install rclone
+        run: |
+          version=v1.75.0
+          sha256=aa2804e08f48250e71009c727124b6341cd0288465804a9a09d14663cabafbaa
+          archive="rclone-${version}-linux-amd64"
+          curl -fsSL -o "${archive}.zip" "https://downloads.rclone.org/${version}/${archive}.zip"
+          sha256sum -c - <<<"${sha256}  ${archive}.zip"
+          unzip -q "${archive}.zip"
+          sudo install -m 755 "${archive}/rclone" /usr/local/bin/rclone
+          rm -r "${archive}" "${archive}.zip"
+          rclone version | head -1
+
+      - name: Download the deployed slides
+        env:
+          RCLONE_S3_PROVIDER: Cloudflare
+          RCLONE_S3_REGION: auto
+          RCLONE_S3_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          RCLONE_S3_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID_VRT }}
+          RCLONE_S3_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY_VRT }}
+          RCLONE_S3_NO_CHECK_BUCKET: "true"
+        run: rclone copy :s3:slide-decks/slides vrt-baseline/slides --include '*/slides-export/*.png'
+
+      - name: Export the decks this pull request leaves alone
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          filters=$(git diff --name-only "$BASE_SHA" HEAD -- slidev | grep -vE '/(package\.json|pnpm-lock\.yaml)$' | cut -d/ -f2 | sort -u | sed 's/^/--filter=!/' | tr '\n' ' ')
+          echo "excluded: ${filters:-none}"
+          pnpm --workspace-concurrency=1 -r $filters run build:png --wait-until networkidle
+
+      - name: Visual regression
+        run: pnpm run vrt
+
+      - name: Upload the diff report
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: vrt-report
+          path: |
+            playwright-report/
+            test-results/

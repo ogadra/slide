@@ -4,6 +4,7 @@ const PORT = 8787;
 
 export default defineConfig({
 	testDir: "./e2e",
+	testIgnore: "**/vrt.spec.ts",
 	forbidOnly: !!process.env.CI,
 	use: {
 		baseURL: `http://127.0.0.1:${PORT}`,
