@@ -8,13 +8,14 @@ import {
 	handleSandboxRequest,
 	handleSandboxStreamRequest,
 } from "./durableObjects/sandbox/handler";
+import type { Sandbox } from "./durableObjects/sandbox/Sandbox";
 import { HTMLRewriterHandler } from "./htmlRewriterHandler";
 import { handleWebSocketConnection } from "./utils/handleWebSocketConnection";
 import { handleLogin, LoginPage } from "./utils/login";
 import { randomString } from "./utils/randomString";
 
 type BindingsEnv = {
-	Sandbox: DurableObjectNamespace;
+	Sandbox: DurableObjectNamespace<Sandbox>;
 	IP_LOG: KVNamespace;
 	ASSETS: R2Bucket;
 };

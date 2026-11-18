@@ -1,4 +1,3 @@
-import { getSandbox } from "@cloudflare/sandbox";
 import type { Context } from "hono";
 import { ipLogger } from "../../utils/ipLogger";
 import { AllowCommands } from "./constants/allowCommands";
@@ -8,6 +7,7 @@ import {
 	mockedHandler,
 	mockedStreamHandler,
 } from "./mock/handlers";
+import type { Sandbox } from "./Sandbox";
 import { AllowExecute, type AllowExecuteType } from "./types/sandbox";
 
 export { AllowExecute, type AllowExecuteType };
@@ -16,6 +16,9 @@ const AllowEditableFiles = ["example-1/index.ts", "example-2/index.ts"];
 
 const EXPORT_PORT = 7070;
 const IS_MOCKED = true;
+
+const getSandbox = (c: Context, sessionId: string) =>
+	(c.env.Sandbox as DurableObjectNamespace<Sandbox>).getByName(sessionId);
 
 export const handleSandboxAccessRequest = async (
 	c: Context,
@@ -38,16 +41,8 @@ export const handleSandboxStreamRequest = async (
 		return mockedStreamHandler(c, sessionId, processId);
 	}
 
-	const sandbox = getSandbox(c.env.Sandbox, sessionId);
-	const streamProcess = await sandbox.streamProcessLogs(processId);
-
-	return new Response(streamProcess, {
-		headers: {
-			"Content-Type": "text/event-stream",
-			"Cache-Control": "no-cache",
-			Connection: "keep-alive",
-		},
-	});
+	const response = await getSandbox(c, sessionId).follow(processId);
+	return response ?? c.json({ error: "Process not found" }, { status: 404 });
 };
 
 export const handleSandboxRequest = async (c: Context): Promise<Response> => {
@@ -57,7 +52,7 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 		return mockedHandler(c, sessionId);
 	}
 
-	const sandbox = getSandbox(c.env.Sandbox, sessionId);
+	const sandbox = getSandbox(c, sessionId);
 
 	const content = await c.req.json();
 	const { code, execType, fileName } = content as {
@@ -85,8 +80,8 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 
 	switch (execType as AllowExecuteType) {
 		case AllowExecute.bash: {
-			const process = await sandbox.startProcess(code);
-			return c.json({ processId: process.id });
+			const processId = await sandbox.startProcess(code);
+			return c.json({ processId });
 		}
 		case AllowExecute.TypeScript: {
 			// check fileName
@@ -107,12 +102,12 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 			if (!processId) {
 				return c.json({ error: "Process ID required" }, { status: 400 });
 			}
-			const result = await sandbox.killProcess(processId);
-			return c.json(result);
+			const success = await sandbox.stop(processId);
+			return c.json({ success });
 		}
 		case AllowExecute.start: {
 			const hostname = new URL(c.req.url).hostname;
-			const exposes = await sandbox.getExposedPorts(hostname);
+			const exposes = await sandbox.getExposedPorts(sessionId, hostname);
 
 			for (const expose of exposes) {
 				if (expose.port === EXPORT_PORT) {
@@ -124,7 +119,11 @@ export const handleSandboxRequest = async (c: Context): Promise<Response> => {
 				}
 			}
 
-			const exposed = await sandbox.exposePort(EXPORT_PORT, { hostname });
+			const exposed = await sandbox.exposePort(
+				sessionId,
+				EXPORT_PORT,
+				hostname,
+			);
 			return c.json({
 				url: exposed.url,
 				exitCode: 0,
