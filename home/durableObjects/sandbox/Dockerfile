@@ -1,11 +1,13 @@
-FROM docker.io/cloudflare/sandbox:0.6.3
+FROM node:24-trixie-slim
 
-RUN apt-get update && apt-get install -y lsof\
+RUN apt-get update && apt-get install -y --no-install-recommends lsof \
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=docker.io/cloudflare/sandbox:1.0.3 /usr/local/bin/sandbox-shim /usr/local/bin/sandbox-shim
 
 WORKDIR /workspace
 
 COPY src/ /workspace/
 RUN npm install
 
-EXPOSE 7070
+CMD ["sleep", "infinity"]
