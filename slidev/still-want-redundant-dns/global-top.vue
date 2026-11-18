@@ -1,3 +1,0 @@
-<template>
-  <LiveIcon />
-</template>
