@@ -1,7 +1,7 @@
-diff --git a/dist/export-LauAJGMx.mjs b/dist/export-LauAJGMx.mjs
+diff --git a/dist/export-qz37iJkE.mjs b/dist/export-qz37iJkE.mjs
 index 9f565e04e6ac0cb6bbb3924d1032d78213df3080..a3be64ed9719cb72b3abcb0540e7acc5d69ae3b0 100644
---- a/dist/export-LauAJGMx.mjs
-+++ b/dist/export-LauAJGMx.mjs
+--- a/dist/export-qz37iJkE.mjs
++++ b/dist/export-qz37iJkE.mjs
 @@ -184,6 +184,10 @@ async function exportSlides({ port = 18724, total = 0, range, format = "pdf", ou
  			const count = await elements.count();
  			for (let index = 0; index < count; index++) await elements.nth(index).evaluate((node) => node.style.display = "none");
