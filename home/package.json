@@ -17,13 +17,13 @@
   "dependencies": {
     "@hono/vite-dev-server": "^0.26.1",
     "bcrypt-ts": "^9.0.3",
-    "hono": "^4.13.16",
+    "hono": "^4.13.18",
     "nanoid": "^6.0.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.7",
     "@cloudflare/sandbox": "^0.12.10",
-    "@cloudflare/workers-types": "^5.20261101.1",
+    "@cloudflare/workers-types": "^5.20261114.1",
     "@types/node": "^26.6.6",
     "typescript": "^7.0.2",
     "yaml": "^2.9.1"
