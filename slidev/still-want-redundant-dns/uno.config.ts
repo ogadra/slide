@@ -11,9 +11,7 @@ export default defineConfig({
   shortcuts: {
     // custom the default background
     'bg-main': 'bg-[#FFFAED] text-[#222222]',
-    'border-image': 'border border-[#222222] border-opacity-10 shadow-md shadow-[#222222]',
-    'bg-barBottom': 'bg-[#222222] text-[#FFFFFF]',
-    'bg-barBottomLeft': 'bg-[#EA5520] text-[#FFFFFF]',
+    'border-image': 'border border-[#222222] border-opacity-10',
   },
   theme: {
     extend: {

@@ -9,6 +9,7 @@
   --mustard: #e29d25;
   --purple: #593b6e;
   --green: #00992b;
+  --navy: #10355e;
   --stitch: rgba(255, 255, 255, 0.85);
 
   --font-sans: "Zen Maru Gothic", "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -44,10 +45,9 @@ h2 {
   font-family: var(--font-sans);
   font-weight: 700 !important;
   font-size: 1.5rem !important;
-  max-width: calc(100% - 7rem);
   line-height: 1.4 !important;
   margin: 1.5rem 0 1rem !important;
-  padding: 0.6rem 1.4rem !important;
+  padding: 0.45rem 1.4rem 0.75rem !important;
   color: #ffffff !important;
   background: var(--orange);
   border-radius: 6px;
@@ -156,31 +156,15 @@ tr:nth-child(even) td {
   overflow: hidden;
 }
 
-.slidev-page-1 .slidev-layout::before,
-.slidev-page-1 .slidev-layout::after {
-  content: "";
+.slidev-page-1 h1 {
+  position: relative;
+}
+
+.cover-logo {
   position: absolute;
-  pointer-events: none;
-  outline: 2px dashed var(--stitch);
-  outline-offset: -8px;
-}
-
-.slidev-page-1 .slidev-layout::before {
-  top: -30px;
-  right: 60px;
-  width: 140px;
-  height: 120px;
-  background: var(--mustard);
-  transform: rotate(8deg);
-}
-
-.slidev-page-1 .slidev-layout::after {
-  bottom: 30px;
-  right: -40px;
-  width: 220px;
-  height: 90px;
-  background: var(--blue);
-  transform: rotate(-12deg);
+  top: 100px;
+  right: 70px;
+  width: 260px;
 }
 
 .slidev-page-1 h2 {
@@ -205,4 +189,9 @@ tr:nth-child(even) td {
 .center-content ol {
   display: inline-block;
   text-align: left;
+}
+
+/* テーマは上の余白だけ消しているので、画像を上下中央に置くと上へずれる */
+.image-x {
+  padding-bottom: 0 !important;
 }

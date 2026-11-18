@@ -1,15 +1,12 @@
-<style scoped>
-div {
-  font-size: 0.75rem;
-}
-</style>
+<script setup lang="ts">
+import logo from '../imgs/yapc-header-logo.svg'
+</script>
 
 <template>
-  <div class="fixed left-0 bottom-0 bg-barBottom flex absolute w-full text-sm">
-    <div class="text-left bg-barBottomLeft left-0 py-0.5 px-1">
-      それでも、DNSを冗長化したい
-    </div>
-    <div class="w-1/2 flex justify-end ml-auto px-2">
+  <footer class="deck-footer">
+    <img :src="logo" alt="YAPC::Tokyo 2026" class="deck-footer-logo" />
+    <span>それでも、DNSを冗長化したい</span>
+    <div class="deck-footer-links">
       <Item text="ogadra">
         <carbon:logo-github />
       </Item>
@@ -20,5 +17,34 @@ div {
         <carbon:link />
       </Item>
     </div>
-  </div>
+  </footer>
 </template>
+
+<style scoped>
+.deck-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 1rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: #ffffff;
+  border-top: 1px dashed var(--ink-soft);
+}
+
+.deck-footer-logo {
+  height: 0.9rem;
+  margin: 0;
+}
+
+.deck-footer-links {
+  display: flex;
+  margin-left: auto;
+}
+</style>

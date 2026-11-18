@@ -18,9 +18,18 @@ fonts:
   provider: google
 ---
 
-<div style="height: 100px"/>
+<Patch shape="square" color="mustard" style="top: -40px; left: -36px; width: 150px; transform: rotate(-8deg);" />
+<Patch shape="wave" color="orange" style="top: -6px; left: 380px; width: 190px; transform: rotate(-6deg);" />
+<Patch shape="zigzag" color="purple" style="top: 40px; right: 40px; width: 64px;" />
+<Patch shape="blob" color="green" style="bottom: -56px; left: -48px; width: 190px; transform: rotate(10deg);" />
+<Patch shape="t" color="mustard" style="bottom: 24px; left: 430px; width: 84px; transform: rotate(-16deg);" />
+<Patch shape="triangle" color="blue" style="bottom: -28px; right: -24px; width: 200px; transform: rotate(-10deg);" />
 
-# それでも、DNSを冗長化したい
+<img src="./imgs/yapc-logo.svg" alt="YAPC::Tokyo 2026" class="cover-logo" />
+
+<div style="height: 110px"/>
+
+# それでも、<br>DNSを冗長化したい
 
 <div style="height: 30px" />
 
@@ -35,13 +44,6 @@ fonts:
 <div style="position: absolute; top: 50%; right: 5%; transform: translateY(-50%); text-align: center;">
   <p style="font-size: 1.75rem !important; color: #ea5520; font-weight: bold;">写真撮影はご遠慮ください</p>
   <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #616161;">発表者は顔出しNGのため</p>
-</div>
-
-<div style="position: absolute; right: 4rem; top: 3rem;">
-  <div style="display: flex; flex-direction: column; align-items: flex-end;">
-    <span style="font-size: 1.5rem; transform: rotate(-45deg); margin-bottom: 0.25rem;">→</span>
-    <span style="font-size: 0.9rem; color: #004aba;">タップでスライド同期をオフにできます</span>
-  </div>
 </div>
 
 ---
