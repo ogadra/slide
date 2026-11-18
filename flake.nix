@@ -25,6 +25,7 @@
             pnpm
             google-chrome
             rclone
+            lefthook
           ];
 
           shellHook = ''
