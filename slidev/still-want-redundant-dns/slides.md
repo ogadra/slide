@@ -5,12 +5,17 @@ date: '2026/11/28'
 event: 'YAPC::Tokyo 2026'
 eventLink: 'https://fortee.jp/yapc-tokyo-2026/proposal/938e5ccb-e21e-4a65-890c-0e978c88775b'
 info: 'それでも、DNSを冗長化したい'
-colorSchema: 'dark'
+colorSchema: 'light'
 drawings:
   enabled: false
 transition: slide-left
 mdc: true
 canvasWidth: 960
+fonts:
+  sans: 'Zen Maru Gothic'
+  serif: 'Solway'
+  weights: '400,700'
+  provider: google
 ---
 
 <div style="height: 100px"/>
@@ -28,14 +33,14 @@ canvasWidth: 960
 </div>
 
 <div style="position: absolute; top: 50%; right: 5%; transform: translateY(-50%); text-align: center;">
-  <p style="font-size: 1.75rem !important; color: #ff6b6b; font-weight: bold;">写真撮影はご遠慮ください</p>
-  <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #aaa;">発表者は顔出しNGのため</p>
+  <p style="font-size: 1.75rem !important; color: #ea5520; font-weight: bold;">写真撮影はご遠慮ください</p>
+  <p style="font-size: 1.3rem !important; margin-top: 1rem; color: #616161;">発表者は顔出しNGのため</p>
 </div>
 
 <div style="position: absolute; right: 4rem; top: 3rem;">
   <div style="display: flex; flex-direction: column; align-items: flex-end;">
     <span style="font-size: 1.5rem; transform: rotate(-45deg); margin-bottom: 0.25rem;">→</span>
-    <span style="font-size: 0.9rem; color: #4ec9b0;">タップでスライド同期をオフにできます</span>
+    <span style="font-size: 0.9rem; color: #004aba;">タップでスライド同期をオフにできます</span>
   </div>
 </div>
 

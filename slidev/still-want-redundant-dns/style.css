@@ -1,86 +1,86 @@
+/* YAPC::Tokyo 2026 のパッチワーク風デザインに合わせる */
+:root {
+  --cream: #fffaed;
+  --ink: #222222;
+  --ink-soft: #616161;
+  --rule: #e3e3e3;
+  --orange: #ea5520;
+  --blue: #004aba;
+  --mustard: #e29d25;
+  --purple: #593b6e;
+  --green: #00992b;
+  --stitch: rgba(255, 255, 255, 0.85);
+
+  --font-sans: "Zen Maru Gothic", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-display: "Solway", "Zen Maru Gothic", serif;
+}
+
 html {
   font-size: 125%;
 }
 
-/* キーフレームアニメーション */
-@keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+html, body, #app, .slidev-layout {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
 }
 
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 400% 50%; }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
-}
-
-@keyframes shimmer-h2 {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+.slidev-layout {
+  padding-top: 0 !important;
+  font-family: var(--font-sans);
 }
 
 h1 {
-  line-height: 1 !important;
-  font-size: 3.5rem !important;
-  background: linear-gradient(120deg, #007acc 0%, #00d4ff 97%, #007acc 100%);
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3.5s cubic-bezier(0, 0.8, 0.4, 1) infinite;
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  font-family: var(--font-display);
+  font-weight: 700 !important;
+  font-size: 2.9rem !important;
+  line-height: 1.2 !important;
+  color: var(--ink) !important;
   white-space: pre-line;
 }
 
 h2 {
-  font-size: 1.75rem !important;
-  margin: 1.5rem 0 1rem !important;
-  padding-bottom: 1rem !important;
-  border-bottom: 5px solid transparent;
-  background-image: linear-gradient(90deg,#4ec9b0 0%,#16825d 100%);
-  background-size: 100% 5px;
-  background-repeat: no-repeat;
-  background-position: bottom;
+  display: inline-block;
   position: relative;
-  transition: all 0.3s ease;
-  color: #4ec9b0;
-  text-shadow: 0 0 8px rgba(78, 201, 176, 0.4);
+  font-family: var(--font-sans);
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  max-width: calc(100% - 7rem);
+  line-height: 1.4 !important;
+  margin: 1.5rem 0 1rem !important;
+  padding: 0.6rem 1.4rem !important;
+  color: #ffffff !important;
+  background: var(--orange);
+  border-radius: 6px;
+  outline: 2px dashed var(--stitch);
+  outline-offset: -7px;
+  transform: rotate(-1deg);
 }
-
-
 
 h3 {
-  opacity: 1 !important;
-  font-size: 1.5rem !important;
+  font-family: var(--font-sans);
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
   line-height: 1.5 !important;
-  padding: 0.75rem 0 !important;
-  margin-bottom: 1rem !important;
-  padding-left: 1rem !important;
-  border-left: 3px solid #4ec9b0;
-  color: #7dd3c0;
-  position: relative;
-}
-
-h3::before {
-  content: '';
-  position: absolute;
-  left: -3px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
-  background: linear-gradient(180deg, #4ec9b0, #16825d);
-  border-radius: 2px;
+  margin-bottom: 0.75rem !important;
+  padding: 0.25rem 0 0.25rem 1rem !important;
+  border-left: 8px solid var(--blue);
+  color: var(--blue) !important;
+  opacity: 1 !important;
 }
 
 p {
   font-size: 1.4rem !important;
-  line-height: 1.5 !important;
+  line-height: 1.6 !important;
   white-space: pre-line;
+}
+
+li {
+  font-size: 1.4rem !important;
+  line-height: 1.75 !important;
+}
+
+li::marker {
+  color: var(--orange);
 }
 
 ol {
@@ -88,17 +88,13 @@ ol {
   padding-left: 2rem !important;
 }
 
-li {
-  font-size: 1.4rem !important;
-  line-height: 1.75 !important;
+strong {
+  color: var(--orange);
 }
 
-.text-09675 * {
-  font-size: 0.9675rem !important;
-}
-
-.text-094 * {
-  font-size: 0.94rem !important;
+a {
+  color: var(--blue) !important;
+  border-bottom: 2px dashed currentColor !important;
 }
 
 img {
@@ -106,86 +102,91 @@ img {
 }
 
 blockquote {
-  display: block;
   position: relative;
-  font-style: italic;
-  color: #d1d5db;
-  border-left: 4px solid transparent;
-  background-image:
-    linear-gradient(135deg, rgba(78, 201, 176, 0.08), rgba(22, 130, 93, 0.05)),
-    linear-gradient(90deg, #10af8f, #16825d);
-  background-origin: border-box;
-  padding: 0.625rem 2rem !important;
   margin: 1.1rem 0;
+  padding: 0.75rem 1.75rem !important;
+  color: var(--ink) !important;
+  background: rgba(226, 157, 37, 0.18) !important;
+  border-left: 8px solid var(--mustard) !important;
   border-radius: 0 8px 8px 0;
-  box-shadow:
-    0 4px 16px rgba(78, 201, 176, 0.25),
-    0 0 30px rgba(78, 201, 176, 0.2);
-  transition: all 0.3s ease;
+  font-style: normal;
 }
 
 blockquote p {
-  font-size: 1.5rem !important;
-  line-height: 1.6 !important;
+  font-size: 1.4rem !important;
   margin: 0;
 }
 
-blockquote::before {
-  content: '"';
-  position: absolute;
-  top: 0;
-  left: 0.5rem;
-  font-size: 4rem;
-  background: linear-gradient(225deg, #10af8f, #16825d);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0.8;
-  width: 2rem;
-  line-height: 1;
-  text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
+:not(pre) > code {
+  color: var(--purple) !important;
+  background: rgba(89, 59, 110, 0.1) !important;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
 }
 
-blockquote::after {
-  content: '"';
-  position: absolute;
-  bottom: -1.5rem;
-  right: 0.5rem;
-  font-size: 4rem;
-  background: linear-gradient(45deg, #10af8f, #16825d);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0.8;
-  line-height: 1;
-  width: 2rem;
-  text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
-}
-
-/* コードブロックの装飾 */
 pre {
-  position: relative;
-  background: rgba(18, 18, 18, 1) !important;
-  border: 1px solid rgba(78, 201, 176, 0.15);
+  background: #ffffff !important;
+  border: 2px dashed var(--rule);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
 }
 
-
-/* リストアイテムにアクセント */
-li {
-  font-size: 1.4rem !important;
-  line-height: 1.75 !important;
-  position: relative;
-  transition: all 0.2s ease;
+table {
+  font-size: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.slidev-layout {
-  padding-top: 0 !important;
+th {
+  color: #ffffff;
+  background: var(--blue);
+  padding: 0.4rem 0.8rem !important;
 }
 
-/* 本文中央配置用スタイル */
+td {
+  padding: 0.4rem 0.8rem !important;
+  border-bottom: 1px solid var(--rule);
+}
+
+tr:nth-child(even) td {
+  background: rgba(0, 74, 186, 0.05);
+}
+
+/* 表紙だけサイトの図形を置き、本文スライドは読みやすさを優先して飾らない */
+.slidev-page-1 .slidev-layout {
+  overflow: hidden;
+}
+
+.slidev-page-1 .slidev-layout::before,
+.slidev-page-1 .slidev-layout::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  outline: 2px dashed var(--stitch);
+  outline-offset: -8px;
+}
+
+.slidev-page-1 .slidev-layout::before {
+  top: -30px;
+  right: 60px;
+  width: 140px;
+  height: 120px;
+  background: var(--mustard);
+  transform: rotate(8deg);
+}
+
+.slidev-page-1 .slidev-layout::after {
+  bottom: 30px;
+  right: -40px;
+  width: 220px;
+  height: 90px;
+  background: var(--blue);
+  transform: rotate(-12deg);
+}
+
+.slidev-page-1 h2 {
+  background: var(--ink);
+}
+
 .center-content {
   display: flex;
   flex-direction: column;
@@ -195,7 +196,8 @@ li {
   min-height: 350px;
 }
 
-.center-content p {
+.center-content p,
+.center-content li {
   font-size: 2.25rem !important;
 }
 
@@ -203,8 +205,4 @@ li {
 .center-content ol {
   display: inline-block;
   text-align: left;
-}
-
-.center-content li {
-  font-size: 2.25rem !important;
 }
