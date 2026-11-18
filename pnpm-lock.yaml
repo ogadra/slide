@@ -137,6 +137,8 @@ importers:
 
   slidev/solo-dev-considerations: {}
 
+  slidev/still-want-redundant-dns: {}
+
   slidev/terraform-domain-destruction: {}
 
   slidev/terraform-github-management: {}
