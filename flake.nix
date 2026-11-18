@@ -13,12 +13,14 @@
           inherit system;
           config.allowUnfree = true;
         };
+        # nixpkgs has no @playwright/cli package, and its npm tarball ships no
+        # lockfile for buildNpmPackage, so a version-pinned npx wrapper is used.
+        playwright-cli = pkgs.writeShellScriptBin "playwright-cli" ''
+          export PLAYWRIGHT_MCP_EXECUTABLE_PATH="${pkgs.google-chrome}/bin/google-chrome-stable"
+          exec ${pkgs.nodejs_24}/bin/npx -y @playwright/cli@0.1.24 "$@"
+        '';
       in
       {
-        packages.chrome-devtools-mcp = pkgs.writeShellScriptBin "chrome-devtools-mcp" ''
-          exec ${pkgs.nodejs_24}/bin/npx -y chrome-devtools-mcp --isolated -e ${pkgs.google-chrome}/bin/google-chrome-stable "$@"
-        '';
-
         devShells.default = pkgs.mkShell ({
           buildInputs = with pkgs; [
             nodejs_24
@@ -26,6 +28,7 @@
             google-chrome
             rclone
             lefthook
+            playwright-cli
           ];
 
           shellHook = ''
