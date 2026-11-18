@@ -26,7 +26,7 @@
     "@cloudflare/vite-plugin": "^1.69.1",
     "@cloudflare/vitest-pool-workers": "^0.23.0",
     "@playwright/test": "1.65.1",
-    "@slidev/cli": "^53.0.0",
+    "@slidev/cli": "^53.1.0",
     "@slidev/client": "^53.1.0",
     "playwright-chromium": "^1.65.1",
     "qrcode.vue": "^3.11.0",
@@ -50,7 +50,7 @@
       "workerd"
     ],
     "patchedDependencies": {
-      "@slidev/cli@53.0.0": "patches/@slidev__cli@53.0.0.patch"
+      "@slidev/cli@53.1.0": "patches/@slidev__cli@53.1.0.patch"
     }
   }
 }
