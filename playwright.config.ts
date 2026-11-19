@@ -44,7 +44,6 @@ export default defineConfig({
 		// The dev server a deck is written against, which bundles the client differently from a build.
 		{
 			command: `pnpm --filter ${deck} exec slidev --port ${SLIDEV_PORT}`,
-			// slidev ignores --bind without --remote and may listen on ::1 only, so 127.0.0.1 would not reach it.
 			url: `http://localhost:${SLIDEV_PORT}`,
 			reuseExistingServer: !process.env.CI,
 			timeout: 120_000,
