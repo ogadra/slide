@@ -1,0 +1,212 @@
+/*
+ * 公式サイトと同じ太さを読み込む。Slidevのfonts.weightsは全フォント共通の指定で、
+ * Zen Maru Gothicに800、Solwayに900が無くGoogle Fontsがエラーを返すため使わない
+ */
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Solway:wght@500;700;800&display=swap");
+
+/* YAPC::Tokyo 2026 のパッチワーク風デザインに合わせる */
+:root {
+  --cream: #fffaed;
+  --ink: #222222;
+  --ink-soft: #616161;
+  --rule: #e3e3e3;
+  --orange: #ea5520;
+  --blue: #004aba;
+  --mustard: #e29d25;
+  --purple: #593b6e;
+  --green: #00992b;
+  --navy: #10355e;
+  --stitch: rgba(255, 255, 255, 0.85);
+
+  --font-sans: "Zen Maru Gothic", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-display: "Solway", "Zen Maru Gothic", serif;
+}
+
+html {
+  font-size: 125%;
+}
+
+html, body, #app, .slidev-layout {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+}
+
+.slidev-layout {
+  padding-top: 0 !important;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-feature-settings: "palt";
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 900 !important;
+  font-size: 2.9rem !important;
+  line-height: 1.2 !important;
+  color: var(--ink) !important;
+  white-space: pre-line;
+}
+
+h2 {
+  display: inline-block;
+  position: relative;
+  font-family: var(--font-sans);
+  font-weight: 900 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.4 !important;
+  margin: 1.5rem 0 1rem !important;
+  padding: 0.45rem 1.4rem 0.75rem !important;
+  color: #ffffff !important;
+  background: var(--orange);
+  border-radius: 6px;
+  outline: 2px dashed var(--stitch);
+  outline-offset: -7px;
+  transform: rotate(-1deg);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 900 !important;
+  font-size: 1.4rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.75rem !important;
+  padding: 0.25rem 0 0.25rem 1rem !important;
+  border-left: 8px solid var(--blue);
+  color: var(--blue) !important;
+  opacity: 1 !important;
+}
+
+p {
+  font-size: 1.4rem !important;
+  line-height: 1.6 !important;
+  white-space: pre-line;
+}
+
+li {
+  font-size: 1.4rem !important;
+  line-height: 1.75 !important;
+}
+
+li::marker {
+  color: var(--orange);
+}
+
+ol {
+  list-style-type: decimal !important;
+  padding-left: 2rem !important;
+}
+
+strong {
+  color: var(--orange);
+}
+
+a {
+  color: var(--blue) !important;
+  border-bottom: 2px dashed currentColor !important;
+}
+
+img {
+  margin: 0 auto;
+}
+
+blockquote {
+  position: relative;
+  margin: 1.1rem 0;
+  padding: 0.75rem 1.75rem !important;
+  color: var(--ink) !important;
+  background: rgba(226, 157, 37, 0.18) !important;
+  border-left: 8px solid var(--mustard) !important;
+  border-radius: 0 8px 8px 0;
+  font-style: normal;
+}
+
+blockquote p {
+  font-size: 1.4rem !important;
+  margin: 0;
+}
+
+:not(pre) > code {
+  color: var(--purple) !important;
+  background: rgba(89, 59, 110, 0.1) !important;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  background: #ffffff !important;
+  border: 2px dashed var(--rule);
+  border-radius: 8px;
+}
+
+table {
+  font-size: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th {
+  color: #ffffff;
+  background: var(--blue);
+  padding: 0.4rem 0.8rem !important;
+}
+
+td {
+  padding: 0.4rem 0.8rem !important;
+  border-bottom: 1px solid var(--rule);
+}
+
+tr:nth-child(even) td {
+  background: rgba(0, 74, 186, 0.05);
+}
+
+/* 表紙だけサイトの図形を置き、本文スライドは読みやすさを優先して飾らない */
+.slidev-page-1 .slidev-layout {
+  overflow: hidden;
+}
+
+.slidev-page-1 h1 {
+  position: relative;
+}
+
+/* 図形は公式サイトのSVGをそのまま使う。色やステッチを自前で描くと公式の見た目からずれるため */
+.patch {
+  position: absolute;
+  margin: 0;
+  pointer-events: none;
+}
+
+.cover-logo {
+  position: absolute;
+  top: 136px;
+  right: 70px;
+  width: 260px;
+}
+
+.slidev-page-1 h2 {
+  background: var(--ink);
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 350px;
+}
+
+.center-content p,
+.center-content li {
+  font-size: 2.25rem !important;
+}
+
+.center-content ul,
+.center-content ol {
+  display: inline-block;
+  text-align: left;
+}
+
+/* テーマは上の余白だけ消しているので、画像を上下中央に置くと上へずれる */
+.image-x {
+  padding-bottom: 0 !important;
+}
