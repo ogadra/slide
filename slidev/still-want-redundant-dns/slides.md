@@ -14,8 +14,7 @@ canvasWidth: 960
 fonts:
   sans: 'Zen Maru Gothic'
   serif: 'Solway'
-  weights: '400,700'
-  provider: google
+  provider: none
 ---
 
 <img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="top: -40px; left: -36px; width: 150px;" />

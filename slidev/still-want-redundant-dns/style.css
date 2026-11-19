@@ -1,3 +1,9 @@
+/*
+ * 公式サイトと同じ太さを読み込む。Slidevのfonts.weightsは全フォント共通の指定で、
+ * Zen Maru Gothicに800、Solwayに900が無くGoogle Fontsがエラーを返すため使わない
+ */
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Solway:wght@500;700;800&display=swap");
+
 /* YAPC::Tokyo 2026 のパッチワーク風デザインに合わせる */
 :root {
   --cream: #fffaed;
@@ -28,11 +34,13 @@ html, body, #app, .slidev-layout {
 .slidev-layout {
   padding-top: 0 !important;
   font-family: var(--font-sans);
+  font-weight: 500;
+  font-feature-settings: "palt";
 }
 
 h1 {
   font-family: var(--font-display);
-  font-weight: 700 !important;
+  font-weight: 900 !important;
   font-size: 2.9rem !important;
   line-height: 1.2 !important;
   color: var(--ink) !important;
@@ -43,7 +51,7 @@ h2 {
   display: inline-block;
   position: relative;
   font-family: var(--font-sans);
-  font-weight: 700 !important;
+  font-weight: 900 !important;
   font-size: 1.5rem !important;
   line-height: 1.4 !important;
   margin: 1.5rem 0 1rem !important;
@@ -58,7 +66,7 @@ h2 {
 
 h3 {
   font-family: var(--font-sans);
-  font-weight: 700 !important;
+  font-weight: 900 !important;
   font-size: 1.4rem !important;
   line-height: 1.5 !important;
   margin-bottom: 0.75rem !important;
