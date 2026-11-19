@@ -160,6 +160,13 @@ tr:nth-child(even) td {
   position: relative;
 }
 
+/* 図形は公式サイトのSVGをそのまま使う。色やステッチを自前で描くと公式の見た目からずれるため */
+.patch {
+  position: absolute;
+  margin: 0;
+  pointer-events: none;
+}
+
 .cover-logo {
   position: absolute;
   top: 100px;

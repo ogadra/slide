@@ -18,12 +18,12 @@ fonts:
   provider: google
 ---
 
-<Patch shape="square" color="mustard" style="top: -40px; left: -36px; width: 150px; transform: rotate(-8deg);" />
-<Patch shape="wave" color="orange" style="top: -6px; left: 380px; width: 190px; transform: rotate(-6deg);" />
-<Patch shape="zigzag" color="purple" style="top: 40px; right: 40px; width: 64px;" />
-<Patch shape="blob" color="green" style="bottom: -56px; left: -48px; width: 190px; transform: rotate(10deg);" />
-<Patch shape="t" color="mustard" style="bottom: 24px; left: 430px; width: 84px; transform: rotate(-16deg);" />
-<Patch shape="triangle" color="blue" style="bottom: -28px; right: -24px; width: 200px; transform: rotate(-10deg);" />
+<img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="top: -40px; left: -36px; width: 150px;" />
+<img src="./imgs/shapes/shape-orange-stroke-right.svg" alt="" class="patch" style="top: -30px; left: 360px; width: 220px;" />
+<img src="./imgs/shapes/shape-purple-right-small.svg" alt="" class="patch" style="top: 30px; right: 20px; width: 110px;" />
+<img src="./imgs/shapes/shape-green-right-bottom.svg" alt="" class="patch" style="bottom: -100px; left: -70px; width: 200px;" />
+<img src="./imgs/shapes/shape-gold-right.svg" alt="" class="patch" style="bottom: -40px; left: 420px; width: 100px;" />
+<img src="./imgs/shapes/shape-blue-right-top.svg" alt="" class="patch" style="bottom: -40px; right: -30px; width: 220px;" />
 
 <img src="./imgs/yapc-logo.svg" alt="YAPC::Tokyo 2026" class="cover-logo" />
 
