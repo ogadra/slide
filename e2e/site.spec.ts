@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { manifest } from "../home/generated/manifest.ts";
+import { collectConsoleErrors } from "./consoleErrors.ts";
 
 // The same entry e2eFixture builds, so the deck opened here is the deck that exists.
 const deck = manifest[0]?.slides[0];
@@ -47,4 +48,16 @@ test("the deck opens from the homepage and its slides advance", async ({
 	// Slidev keeps both in the DOM and swaps which one shows.
 	await expect(deckPage.locator('[data-slidev-no="2"]')).toBeVisible();
 	await expect(deckPage.locator('[data-slidev-no="1"]')).toBeHidden();
+});
+
+test("the deck opens through the Worker without console errors", async ({
+	page,
+}) => {
+	const errors = await collectConsoleErrors(page);
+
+	await page.goto(`/${deck.name}/`);
+	await expect(page.locator('[data-slidev-no="1"]')).toBeVisible();
+	await page.waitForLoadState("networkidle");
+
+	expect(errors).toEqual([]);
 });
