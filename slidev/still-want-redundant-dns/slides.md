@@ -27,11 +27,9 @@ fonts:
 
 <img src="./imgs/yapc-logo.svg" alt="YAPC::Tokyo 2026" class="cover-logo" />
 
-<div style="height: 110px"/>
+<div style="height: 180px"/>
 
 # それでも、<br>DNSを冗長化したい
-
-<div style="height: 30px" />
 
 ## ogadra
 
