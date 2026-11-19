@@ -8,9 +8,24 @@ if (deck === undefined) {
 	throw new Error("the manifest holds no decks, so there is nothing to open");
 }
 
+const TRANSPARENT_PNG = Buffer.from(
+	"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+	"base64",
+);
+
 test("the homepage shows the newest deck with a thumbnail that loads", async ({
 	page,
 }) => {
+	const errors = await collectConsoleErrors(page);
+	// e2eFixture seeds only the newest deck, so the other thumbnails would 404 only here.
+	await page.route(
+		(url) =>
+			url.pathname.endsWith("/slides-export/1.png") &&
+			!url.pathname.startsWith(`/${deck.name}/`),
+		(route) =>
+			route.fulfill({ contentType: "image/png", body: TRANSPARENT_PNG }),
+	);
+
 	await page.goto("/");
 
 	await expect(
@@ -25,6 +40,9 @@ test("the homepage shows the newest deck with a thumbnail that loads", async ({
 		.locator("img")
 		.evaluate((img: HTMLImageElement) => img.naturalWidth);
 	expect(width).toBeGreaterThan(0);
+
+	await page.waitForLoadState("networkidle");
+	expect(errors).toEqual([]);
 });
 
 test("the deck opens from the homepage and its slides advance", async ({
