@@ -87,7 +87,6 @@ info: $(yaml_quote "$SLIDE_NAME_JA")
 colorSchema: 'dark'
 drawings:
   enabled: false
-transition: slide-left
 mdc: true
 canvasWidth: 960
 ---
