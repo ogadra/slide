@@ -23,7 +23,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.69.1",
+    "@cloudflare/vite-plugin": "^1.70.1",
     "@cloudflare/vitest-pool-workers": "^0.23.0",
     "@playwright/test": "1.65.1",
     "@slidev/cli": "^53.1.0",
