@@ -8,7 +8,6 @@ info: 'それでも、DNSを冗長化したい'
 colorSchema: 'light'
 drawings:
   enabled: false
-transition: slide-left
 mdc: true
 canvasWidth: 960
 fonts:
@@ -36,41 +35,364 @@ fonts:
 
 ## 前提となった技術要件
 
----
+大吉祥寺.pmの登壇に用いたデモアプリ
 
-## なぜDNSを多重化するのか
+AWSおよびGoogle Cloudのマルチクラウド構成
 
----
+以下が落ちてもサービスが提供できること
 
-## AWSやGoogle Cloudを利用した一般的なサービス構成
-
----
-
-## なぜDNSを多重化することが難しいのか
+- いずれかのDNSサービス
+- AWS または Google Cloud
 
 ---
-
-## CNAMEとAレコードを同時に登録する手法、ALIASレコードについて
-
+class: text-center-body
 ---
 
-## CloudFrontの制約とCloud DNSの制約の噛みあわないところ
+## なぜDNSを冗長化するのか
 
----
+カンファレンス登壇なので、**絶対に**失敗したくない
 
-## delegation(委任)とは
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
----
+特定のクラウドプロバイダの**全サービス**がサービスダウンしても
 
-## 各サービス比較
+サービス継続できるだけの可用性が欲しかった
 
 ---
 
-## 構成例
+## AWSを利用した一般的なサービス構成
+
+<img src="./imgs/aws_architecture.png" alt="AWSを利用した一般的なサービス構成図" class="architecture" />
 
 ---
+
+## Google Cloudを利用した一般的なサービス構成
+
+<img src="./imgs/gcp_architecture.png" alt="Google Cloudを利用した一般的なサービス構成図" class="architecture" />
+
+---
+
+## なぜDNSを冗長化することが難しかったのか
+
+DNSの冗長化には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
+
+1. Route53やGoogle Cloud DNSはゾーン転送に非対応
+2. ゾーン転送を用いるとヘルスチェックができない
+
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
+
+それぞれのDNSに同じレコードを登録すればいいのでは？
+
+---
+
+## なぜDNSを冗長化することが難しかったのか
+
+それぞれのDNSに同じレコードをした場合
+
+Cloud DNS <img src="./imgs/shapes/arrow.svg" alt="から" class="arrow-inline" /> CloudFrontの**ヘルスチェックができず**
+
+当初の要件を満たすことができなかった
+
+---
+
+## なぜDNSを冗長化することが難しいのか
+
+<div class="two-col">
+<div class="text-center">
+
+Amazon CloudFrontは通常、固定IPを持たず、FQDNしか払い出さない
+
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
+
+登録するレコードはCNAMEレコードになる。
+
+</div>
+<div>
+
+<img src="./imgs/route53_targets.png" alt="Route 53からCloudFrontとExternal Application LBへ向ける構成図" class="architecture" />
+
+</div>
+</div>
+
+---
+
+## CNAMEレコードとは
+
+<div class="two-col figure">
+<div>
+
+CNAMEレコードは「このドメイン名は別のドメインの別名である」ということを伝えるレコード
+
+問い合わせのあったレコードを別のレコードに読み替える
+
+</div>
+<div>
+
+<CnameFigure />
+
+</div>
+</div>
+
+---
+
+## なぜDNSを冗長化することが難しいのか
+
+<div class="two-col figure">
+<div class="text-center">
+
+CNAMEレコードは他のレコードと**同居できない** (RFC 2181)
+
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
+
+Route 53の**Alias Record**を使い、
+CloudFrontとExternal Application LBの両方を登録
+
+</div>
+<div>
+
+<CnameConflictFigure />
+
+</div>
+</div>
+
+---
+
+## Aliasレコードについて
+
+<div class="two-col figure">
+<div>
+
+Route 53の機能
+
+CNAMEレコードとして通常登録されるところ、Aレコードとして返却するように変換して応答する仕組み
+
+AWSのサービスをCNAMEで登録するときのみ有効化可能
+
+</div>
+<div>
+
+<AliasFigure />
+
+</div>
+</div>
+
+
+---
+
+## Aliasレコードについて
+
+Cloud DNSでは**ALIASレコード**、<br/>
+Cloudflareでは**CNAME flattening**という名称で提供
+
+各社微妙に仕様が異なる
+
+---
+
+## なぜDNSを冗長化することが難しいのか
+
+<div class="two-col">
+<div>
+
+Route 53の**Alias Record**を使い、
+CloudFrontとExternal Application LBの両方を登録
+
+</div>
+<div>
+
+<img src="./imgs/route53_targets.png" alt="Route 53からCloudFrontとExternal Application LBへ向ける構成図" class="architecture" />
+
+</div>
+</div>
+
+---
+
+## なぜDNSを冗長化することが難しいのか
+
+<div class="two-col">
+<div class="text-center">
+
+Cloud DNSではCNAMEレコードに<br/>
+ヘルスチェックを設定できない
+
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
+
+Cloud DNSを含めた構成だと<br/>
+可用性を十分に確保できない
+
+</div>
+<div>
+
+<img src="./imgs/clouddns_targets.png" alt="Cloud DNSからCloudFrontとExternal Application LBへ向ける構成図" class="architecture" />
+
+</div>
+</div>
+
+---
+
+## なぜDNSを冗長化することが難しいのか
+
+
+<div class="two-col">
+<div>
+
+Route 53 + Cloud DNSという構成が今回の要件上取れない
+
+1. Cloud DNSではヘルスチェックが有効化できない
+2. AXFR / IXFRでの設定もできない
+
+</div>
+<div>
+
+<img src="./imgs/clouddns_targets.png" alt="Cloud DNSからCloudFrontとExternal Application LBへ向ける構成図" class="architecture" />
+
+</div>
+</div>
+
+
+
+---
+
+## サービス選定に立ち戻る
+
+- CNAMEレコードとAレコードが同時に登録できること
+- ヘルスチェックによって向き先を変更できること
+- AXFR / IXFRは諦める
+  - Route53が対応していないため
+
+<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
+
+<div class="text-center">
+
+**IBM NS1 Connect**を採用
+
+</div>
+
+---
+
+## 登録する
+
+<img src="./imgs/delegation.png" alt="Route 53 Domainsから.netレジストリにNSを登録し、ogadra.netとbunshin.ogadra.netのゾーンをRoute 53とIBM NS1 Connectの両方に置いて委任する図" class="architecture" />
+
+---
+
+## 1. ホストゾーンの作成 (Route 53)
+
+<div class="two-col figure">
+<div>
+
+- 自由に作成できる
+  - ドメインがなくても
+- 作成するとレコードが登録される
+  - NSレコード
+  - SOAレコード
+
+</div>
+<div>
+
+<DelegationFigure :step="1" />
+
+</div>
+</div>
+
+---
+
+## 2. ネームサーバーをレジストラで登録
+
+<div class="two-col figure">
+<div>
+
+- レジストラで<br>それぞれのNSを登録
+- ゾーンのレコードも<br>更新
+  - Apexドメインの<br>NSレコード
+
+</div>
+<div>
+
+<DelegationFigure :step="2" />
+
+</div>
+</div>
+
+---
+
+## 3. NSレコード登録
+
+<div class="two-col figure">
+<div>
+
+- 子ゾーンのNSレコードを親ゾーンに登録
+  - 各のホストゾーンのNSレコード
+- 子ゾーンのNSレコードを各ゾーンで共通の値にする
+</div>
+<div>
+
+<DelegationFigure :step="3" />
+
+</div>
+</div>
+
+---
+
 
 ## 出来上がったもの
+
+<img src="./imgs/bunshin_architecture_icons.png" alt="AWSとGoogle Cloudにまたがる構成図" class="architecture tall" />
+
+---
+
+<img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="top: -40px; left: -36px; width: 150px;" />
+<img src="./imgs/shapes/shape-orange-stroke-right.svg" alt="" class="patch" style="top: -30px; left: 360px; width: 220px;" />
+<img src="./imgs/shapes/shape-purple-right-small.svg" alt="" class="patch" style="top: 30px; right: 20px; width: 110px;" />
+<img src="./imgs/shapes/shape-green-right-bottom.svg" alt="" class="patch" style="bottom: 30px; left: -70px; width: 200px;" />
+<img src="./imgs/shapes/shape-gold-right.svg" alt="" class="patch" style="bottom: 40px; left: 420px; width: 100px;" />
+<img src="./imgs/shapes/shape-blue-right-top.svg" alt="" class="patch" style="bottom: 40px; right: -30px; width: 220px;" />
+
+<div class="statement">
+<p class="statement-patch">ね、簡単でしょ？</p>
+</div>
+
+---
+
+<img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="top: -40px; left: -36px; width: 150px;" />
+<img src="./imgs/shapes/shape-orange-stroke-right.svg" alt="" class="patch" style="top: -30px; left: 360px; width: 220px;" />
+<img src="./imgs/shapes/shape-purple-right-small.svg" alt="" class="patch" style="top: 30px; right: 20px; width: 110px;" />
+<img src="./imgs/shapes/shape-green-right-bottom.svg" alt="" class="patch" style="bottom: 30px; left: -70px; width: 200px;" />
+<img src="./imgs/shapes/shape-gold-right.svg" alt="" class="patch" style="bottom: 40px; left: 420px; width: 100px;" />
+<img src="./imgs/shapes/shape-blue-right-top.svg" alt="" class="patch" style="bottom: 40px; right: -30px; width: 220px;" />
+
+<div class="statement">
+<p class="statement-patch" style="font-size: 2.5rem !important;">やり方は一つじゃない - TMTOWTDI</p>
+</div>
+
+---
+
+## Global Accelerator を使えばAレコードになる
+
+<img src="./imgs/bunshin_current_dns.png" alt="Route 53とCloud DNSがGlobal AcceleratorとExternal Application LBを返す構成図" class="architecture" />
+
+---
+
+## CloudFrontのAnycast static IPsを申請する
+
+<img src="./imgs/bunshin_current_dns_cloudfront.png" alt="Route 53とCloud DNSがCloudFrontとExternal Application LBを返す構成図" class="architecture" />
+
+---
+
+<img src="./imgs/shapes/deco-star-orange.svg" alt="" class="patch" style="top: 14px; right: 40px; width: 80px;" />
+<img src="./imgs/shapes/deco-button-purple.svg" alt="" class="patch" style="bottom: 46px; left: 14px; width: 64px;" />
+
+## まとめ
+
+<div class="summary-cloth-wrap">
+<div class="cloth-scrap mustard top-left"></div>
+<div class="summary-cloth">
+<p>DNSサービスは各社で異なり、それぞれの布片を1枚の布に仕立てるのは大変</p>
+<div class="cloth-thread"></div>
+<p class="strong">ばらばらなDNSサービスを、NSレコードという糸で縫い合わせ、どこかが欠けてもほつれない布に仕立てられた</p>
+</div>
+<div class="cloth-scrap blue bottom-right"></div>
+</div>
+
 
 ---
 layout: image-x
