@@ -400,12 +400,11 @@ Route 53 + Cloud DNSという<br/>
 
 
 ---
-layout: image-x
-image: https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif
-imageOrder: 2
----
 
 ## Thank you for listening!
+
+<div class="two-col">
+<div>
 
 Done is better than perfect.
 
@@ -414,3 +413,10 @@ Done is better than perfect.
 
 <PoweredBySlidev mt-10 />
 
+</div>
+<div>
+
+<img src="https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif" alt="" class="architecture" />
+
+</div>
+</div>

@@ -238,11 +238,6 @@ tr:nth-child(even) td {
   text-align: left;
 }
 
-/* テーマは上の余白だけ消しているので、画像を上下中央に置くと上へずれる */
-.image-x {
-  padding-bottom: 0 !important;
-}
-
 .arrow {
   display: block;
   width: 56px;
