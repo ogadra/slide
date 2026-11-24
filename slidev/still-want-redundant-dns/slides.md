@@ -9,6 +9,7 @@ colorSchema: 'light'
 drawings:
   enabled: false
 mdc: true
+preloadImages: false
 htmlAttrs:
   lang: 'ja'
 canvasWidth: 960
