@@ -29,7 +29,7 @@
 <style scoped>
 .fig {
   display: block;
-  width: 360px;
+  width: 410px;
   margin: 0 auto;
   overflow: visible;
 }

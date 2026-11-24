@@ -44,7 +44,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 <style scoped>
 .fig {
   display: block;
-  width: 360px;
+  width: 410px;
   margin: 0 auto;
   overflow: visible;
 }
