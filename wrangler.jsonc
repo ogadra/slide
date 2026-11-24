@@ -120,6 +120,18 @@
 					"deleted_classes": [
 						"Sandbox"
 					]
+				},
+				{
+					"tag": "v5",
+					"new_classes": [
+						"EventReceptionServer"
+					]
+				},
+				{
+					"tag": "v6",
+					"deleted_classes": [
+						"EventReceptionServer"
+					]
 				}
 			],
 			"durable_objects": {
