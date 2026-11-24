@@ -29,7 +29,7 @@
 <style scoped>
 .fig {
   display: block;
-  width: 340px;
+  width: 360px;
   margin: 0 auto;
   overflow: visible;
 }
@@ -97,7 +97,7 @@
 }
 
 .note {
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
   fill: var(--orange);
 }

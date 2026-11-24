@@ -15,8 +15,8 @@ const badgeWidth = (type: string) => type.length * 10 + 18
       </marker>
     </defs>
 
-    <rect x="70" y="4" width="240" height="34" rx="17" class="query" />
-    <text x="190" y="26" class="query-text">www.example.com の A は？</text>
+    <rect x="60" y="4" width="260" height="34" rx="17" class="query" />
+    <text x="190" y="27" class="query-text">www.example.com の A は？</text>
     <line x1="190" y1="40" x2="190" y2="62" class="edge" marker-end="url(#cname-conflict-arrow)" />
 
     <rect x="10" y="66" width="360" height="104" rx="10" class="card" />
@@ -28,14 +28,14 @@ const badgeWidth = (type: string) => type.length * 10 + 18
     </g>
 
     <line x1="150" y1="172" x2="96" y2="236" class="edge" marker-end="url(#cname-conflict-arrow)" />
-    <text x="20" y="200" class="note">A をそのまま返す</text>
+    <text x="116" y="196" class="note end">A をそのまま返す</text>
     <rect x="22" y="240" width="148" height="34" rx="17" class="answer" />
-    <text x="96" y="262" class="answer-text">203.0.113.10</text>
+    <text x="96" y="263" class="answer-text">203.0.113.10</text>
 
     <line x1="230" y1="172" x2="284" y2="236" class="edge" marker-end="url(#cname-conflict-arrow)" />
-    <text x="360" y="200" class="note end">CNAME をたどる</text>
+    <text x="264" y="196" class="note">CNAME をたどる</text>
     <rect x="210" y="240" width="148" height="34" rx="17" class="answer" />
-    <text x="284" y="262" class="answer-text">198.51.100.5</text>
+    <text x="284" y="263" class="answer-text">198.51.100.5</text>
 
     <text x="190" y="318" class="conflict">答えが2つになる</text>
   </svg>
@@ -44,7 +44,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 <style scoped>
 .fig {
   display: block;
-  width: 340px;
+  width: 400px;
   margin: 0 auto;
   overflow: visible;
 }
@@ -57,7 +57,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 
 .query-text,
 .answer-text {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   text-anchor: middle;
   fill: var(--ink);
@@ -70,7 +70,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
   fill: var(--ink);
 }
@@ -80,14 +80,14 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .badge-text {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   text-anchor: middle;
   fill: #ffffff;
 }
 
 .value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   fill: var(--ink-soft);
 }
@@ -98,7 +98,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .note {
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
   fill: var(--ink);
 }

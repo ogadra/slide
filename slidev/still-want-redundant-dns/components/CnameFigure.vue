@@ -15,8 +15,8 @@ const badgeWidth = (type: string) => type.length * 10 + 18
       </marker>
     </defs>
 
-    <rect x="70" y="4" width="240" height="34" rx="17" class="query" />
-    <text x="190" y="26" class="query-text">www.example.com の A は？</text>
+    <rect x="60" y="4" width="260" height="34" rx="17" class="query" />
+    <text x="190" y="27" class="query-text">www.example.com の A は？</text>
     <line x1="190" y1="40" x2="190" y2="62" class="edge" marker-end="url(#cname-arrow)" />
 
     <g v-for="record in records" :key="record.name">
@@ -32,14 +32,14 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 
     <line x1="190" y1="260" x2="190" y2="284" class="edge" marker-end="url(#cname-arrow)" />
     <rect x="116" y="288" width="148" height="34" rx="17" class="answer" />
-    <text x="190" y="310" class="answer-text">198.51.100.5</text>
+    <text x="190" y="311" class="answer-text">198.51.100.5</text>
   </svg>
 </template>
 
 <style scoped>
 .fig {
   display: block;
-  width: 340px;
+  width: 410px;
   margin: 0 auto;
   overflow: visible;
 }
@@ -52,7 +52,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 
 .query-text,
 .answer-text {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   text-anchor: middle;
   fill: var(--ink);
@@ -65,7 +65,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
   fill: var(--ink);
 }
@@ -75,14 +75,14 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .badge-text {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   text-anchor: middle;
   fill: #ffffff;
 }
 
 .value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   fill: var(--ink-soft);
 }
@@ -93,7 +93,7 @@ const badgeWidth = (type: string) => type.length * 10 + 18
 }
 
 .note {
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 700;
   fill: var(--orange);
 }

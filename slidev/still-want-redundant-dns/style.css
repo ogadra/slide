@@ -111,11 +111,13 @@ p {
   font-size: 1.4rem !important;
   line-height: 1.6 !important;
   white-space: pre-line;
+  word-break: auto-phrase;
 }
 
 li {
   font-size: 1.4rem !important;
   line-height: 1.75 !important;
+  word-break: auto-phrase;
 }
 
 li::marker {
@@ -281,7 +283,13 @@ tr:nth-child(even) td {
 }
 
 .two-col.figure {
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+}
+
+.text-center p,
+.slidev-layout.text-center-body > p {
+  text-wrap: balance;
 }
 
 .statement {
@@ -384,4 +392,8 @@ tr:nth-child(even) td {
 
 .slidev-layout.text-center-body > p {
   text-align: center;
+}
+
+.two-col.figure .architecture {
+  max-height: 300px;
 }

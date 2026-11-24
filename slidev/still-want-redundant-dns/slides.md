@@ -9,6 +9,8 @@ colorSchema: 'light'
 drawings:
   enabled: false
 mdc: true
+htmlAttrs:
+  lang: 'ja'
 canvasWidth: 960
 fonts:
   sans: 'Zen Maru Gothic'
@@ -87,7 +89,7 @@ DNSの冗長化には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
 
 ## なぜDNSを冗長化することが難しかったのか
 
-それぞれのDNSに同じレコードをした場合
+それぞれのDNSに同じレコードを登録した場合
 
 Cloud DNS <img src="./imgs/shapes/arrow.svg" alt="から" class="arrow-inline" /> CloudFrontの**ヘルスチェックができず**
 
@@ -95,16 +97,18 @@ Cloud DNS <img src="./imgs/shapes/arrow.svg" alt="から" class="arrow-inline" /
 
 ---
 
-## なぜDNSを冗長化することが難しいのか
+## なぜDNSを冗長化することが難しかったのか
 
-<div class="two-col">
+<div class="two-col figure">
 <div class="text-center">
 
-Amazon CloudFrontは通常、固定IPを持たず、FQDNしか払い出さない
+Amazon CloudFrontは<br/>
+通常、固定IPを持たず<br/>
+FQDNしか払い出さない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
-登録するレコードはCNAMEレコードになる。
+登録するレコードはCNAMEレコードになる
 
 </div>
 <div>
@@ -140,7 +144,7 @@ CNAMEレコードは「このドメイン名は別のドメインの別名であ
 <div class="two-col figure">
 <div class="text-center">
 
-CNAMEレコードは他のレコードと**同居できない** (RFC 2181)
+CNAMEレコードは他のレコードと**同居できない** (RFC&nbsp;2181)
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
@@ -190,7 +194,7 @@ Cloudflareでは**CNAME flattening**という名称で提供
 
 ## なぜDNSを冗長化することが難しいのか
 
-<div class="two-col">
+<div class="two-col figure">
 <div>
 
 Route 53の**Alias Record**を使い、
@@ -208,10 +212,10 @@ CloudFrontとExternal Application LBの両方を登録
 
 ## なぜDNSを冗長化することが難しいのか
 
-<div class="two-col">
+<div class="two-col figure">
 <div class="text-center">
 
-Cloud DNSではCNAMEレコードに<br/>
+Cloud DNSでは<br/>CNAMEレコードに<br/>
 ヘルスチェックを設定できない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
@@ -232,13 +236,14 @@ Cloud DNSを含めた構成だと<br/>
 ## なぜDNSを冗長化することが難しいのか
 
 
-<div class="two-col">
+<div class="two-col figure">
 <div>
 
-Route 53 + Cloud DNSという構成が今回の要件上取れない
+Route 53 + Cloud DNSという<br/>
+構成が今回の要件上取れない
 
-1. Cloud DNSではヘルスチェックが有効化できない
-2. AXFR / IXFRでの設定もできない
+1. Cloud DNSでは<br/>ヘルスチェックが<br/>有効化できない
+2. AXFR / IXFRでの設定が不可
 
 </div>
 <div>
@@ -321,7 +326,7 @@ Route 53 + Cloud DNSという構成が今回の要件上取れない
 <div>
 
 - 子ゾーンのNSレコードを親ゾーンに登録
-  - 各のホストゾーンのNSレコード
+  - 各ホストゾーンのNSレコード
 - 子ゾーンのNSレコードを各ゾーンで共通の値にする
 </div>
 <div>
@@ -353,15 +358,15 @@ Route 53 + Cloud DNSという構成が今回の要件上取れない
 
 ---
 
-<img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="top: -40px; left: -36px; width: 150px;" />
-<img src="./imgs/shapes/shape-orange-stroke-right.svg" alt="" class="patch" style="top: -30px; left: 360px; width: 220px;" />
-<img src="./imgs/shapes/shape-purple-right-small.svg" alt="" class="patch" style="top: 30px; right: 20px; width: 110px;" />
-<img src="./imgs/shapes/shape-green-right-bottom.svg" alt="" class="patch" style="bottom: 30px; left: -70px; width: 200px;" />
-<img src="./imgs/shapes/shape-gold-right.svg" alt="" class="patch" style="bottom: 40px; left: 420px; width: 100px;" />
-<img src="./imgs/shapes/shape-blue-right-top.svg" alt="" class="patch" style="bottom: 40px; right: -30px; width: 220px;" />
+<img src="./imgs/shapes/shape-blue-right-top.svg" alt="" class="patch" style="top: -50px; left: -40px; width: 200px;" />
+<img src="./imgs/shapes/shape-gold-right.svg" alt="" class="patch" style="top: 24px; left: 520px; width: 90px;" />
+<img src="./imgs/shapes/shape-green-right-bottom.svg" alt="" class="patch" style="top: -40px; right: -50px; width: 190px;" />
+<img src="./imgs/shapes/shape-purple-right-small.svg" alt="" class="patch" style="bottom: 50px; left: 30px; width: 110px;" />
+<img src="./imgs/shapes/shape-orange-stroke-right.svg" alt="" class="patch" style="bottom: 30px; left: 440px; width: 200px;" />
+<img src="./imgs/shapes/shape-gold-left-top.svg" alt="" class="patch" style="bottom: 30px; right: -30px; width: 150px;" />
 
 <div class="statement">
-<p class="statement-patch" style="font-size: 2.5rem !important;">やり方は一つじゃない - TMTOWTDI</p>
+<p class="statement-patch" style="font-size: 2.1rem !important;">やり方は一つじゃない - TMTOWTDI</p>
 </div>
 
 ---
@@ -379,7 +384,7 @@ Route 53 + Cloud DNSという構成が今回の要件上取れない
 ---
 
 <img src="./imgs/shapes/deco-star-orange.svg" alt="" class="patch" style="top: 14px; right: 40px; width: 80px;" />
-<img src="./imgs/shapes/deco-button-purple.svg" alt="" class="patch" style="bottom: 46px; left: 14px; width: 64px;" />
+<img src="./imgs/shapes/deco-button-purple.svg" alt="" class="patch" style="top: 76px; right: 136px; width: 44px;" />
 
 ## まとめ
 
