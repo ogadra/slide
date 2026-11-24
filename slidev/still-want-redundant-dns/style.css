@@ -332,7 +332,7 @@ tr:nth-child(even) td {
 
 .summary-cloth {
   position: relative;
-  padding: 2.2rem 3rem;
+  padding: 2.5rem 3rem;
   background: #ffffff;
   mask: url("./imgs/shapes/h2-patch.svg") center / 100% 100% no-repeat;
 }

@@ -144,12 +144,9 @@ CNAMEレコードは「このドメイン名は別のドメインの別名であ
 <div class="two-col figure">
 <div class="text-center">
 
-CNAMEレコードは他のレコードと**同居できない** (RFC&nbsp;2181)
-
-<img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
-
-Route 53の**Alias Record**を使い、
-CloudFrontとExternal Application LBの両方を登録
+CNAMEレコードは<br/>
+他のレコードと<br/>
+**同居できない** (RFC&nbsp;2181)
 
 </div>
 <div>
@@ -197,8 +194,11 @@ Cloudflareでは**CNAME flattening**という名称で提供
 <div class="two-col figure">
 <div>
 
-Route 53の**Alias Record**を使い、
-CloudFrontとExternal Application LBの両方を登録
+Route 53の<br/>
+**Alias Record**を使い、<br/>
+CloudFrontと<br/>
+External Application LBの<br/>
+両方を登録
 
 </div>
 <div>
@@ -287,7 +287,7 @@ Route 53 + Cloud DNSという<br/>
 
 - 自由に作成できる
   - ドメインがなくても
-- 作成するとレコードが登録される
+- 作成するとレコードが<br/>登録される
   - NSレコード
   - SOAレコード
 
@@ -327,7 +327,7 @@ Route 53 + Cloud DNSという<br/>
 
 - 子ゾーンのNSレコードを親ゾーンに登録
   - 各ホストゾーンのNSレコード
-- 子ゾーンのNSレコードを各ゾーンで共通の値にする
+- 子ゾーンのNSレコードを各ゾーンで共通の値に
 </div>
 <div>
 
@@ -391,9 +391,9 @@ Route 53 + Cloud DNSという<br/>
 <div class="summary-cloth-wrap">
 <div class="cloth-scrap mustard top-left"></div>
 <div class="summary-cloth">
-<p>DNSサービスは各社で異なり、それぞれの布片を1枚の布に仕立てるのは大変</p>
+<p>DNSサービスは各社で異なるため、<br/>それぞれの布片を1枚の布に仕立てるのは大変</p>
 <div class="cloth-thread"></div>
-<p class="strong">ばらばらなDNSサービスを、NSレコードという糸で縫い合わせ、どこかが欠けてもほつれない布に仕立てられた</p>
+<p class="strong">ばらばらなDNSサービスを、<br/>NSレコードという糸で縫い合わせ、<br/>どこかが欠けてもほつれない布に仕立てられた</p>
 </div>
 <div class="cloth-scrap blue bottom-right"></div>
 </div>
