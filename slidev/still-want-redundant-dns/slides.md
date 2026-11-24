@@ -78,7 +78,7 @@ class: text-center-body
 
 DNSの冗長化には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
 
-1. Route53やGoogle Cloud DNSはゾーン転送に非対応
+1. Route 53やGoogle Cloud DNSはゾーン転送に非対応
 2. ゾーン転送を用いるとヘルスチェックができない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
@@ -170,7 +170,7 @@ Route 53の機能
 
 CNAMEレコードとして通常登録されるところ、Aレコードとして返却するように変換して応答する仕組み
 
-AWSのサービスをCNAMEで登録するときのみ有効化可能
+宛先はAWSの一部リソースと同じゾーン内のレコードに限られる
 
 </div>
 <div>
@@ -215,7 +215,7 @@ CloudFrontとExternal Application LBの両方を登録
 <div class="two-col figure">
 <div class="text-center">
 
-Cloud DNSでは<br/>CNAMEレコードに<br/>
+Cloud DNSでは<br/>CNAME / ALIASに<br/>
 ヘルスチェックを設定できない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
@@ -242,7 +242,7 @@ Cloud DNSを含めた構成だと<br/>
 Route 53 + Cloud DNSという<br/>
 構成が今回の要件上取れない
 
-1. Cloud DNSでは<br/>ヘルスチェックが<br/>有効化できない
+1. Cloud DNSではCNAME / ALIASに<br/>ヘルスチェックを<br/>設定できない
 2. AXFR / IXFRでの設定が不可
 
 </div>
@@ -259,10 +259,10 @@ Route 53 + Cloud DNSという<br/>
 
 ## サービス選定に立ち戻る
 
-- CNAMEレコードとAレコードが同時に登録できること
+- CNAMEとAをヘルスチェックで切り替えて返せること
 - ヘルスチェックによって向き先を変更できること
 - AXFR / IXFRは諦める
-  - Route53が対応していないため
+  - Route 53が対応していないため
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
