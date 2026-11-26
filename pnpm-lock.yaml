@@ -64,13 +64,13 @@ importers:
     dependencies:
       '@hono/vite-dev-server':
         specifier: ^0.26.1
-        version: 0.26.1(hono@4.13.19)(miniflare@4.20260617.1)(wrangler@4.166.0(@cloudflare/workers-types@5.20261121.1)(@types/node@26.6.6)(vitest@4.1.11(@types/node@26.6.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))))
+        version: 0.26.1(hono@4.13.20)(miniflare@4.20260617.1)(wrangler@4.166.0(@cloudflare/workers-types@5.20261121.1)(@types/node@26.6.6)(vitest@4.1.11(@types/node@26.6.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))))
       bcrypt-ts:
         specifier: ^9.0.3
         version: 9.0.3
       hono:
-        specifier: ^4.13.19
-        version: 4.13.19
+        specifier: ^4.13.20
+        version: 4.13.20
       nanoid:
         specifier: ^6.0.2
         version: 6.0.2
@@ -3993,8 +3993,8 @@ packages:
   hey-listen@1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
 
-  hono@4.13.19:
-    resolution: {integrity: sha512-KmXvQAXwcAHV+muzbIwoJ23niEB5nMoDVr9WcRkU8mvjUECm/1+7v4Jgp7P7a+H6MLFrh+vXrGonGrGS+RQfkA==}
+  hono@4.13.20:
+    resolution: {integrity: sha512-xo6gecEJQ+CjTtOUUbcLHE8CdRKMeF4qITe+DT+OhFnSUmZR/ZBa9XavAfiGh4HlukmlaHFdaK4dz5tkTYFNmA==}
     engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
@@ -6279,7 +6279,7 @@ snapshots:
       '@cloudflare/containers': 0.3.7
       aws4fetch: 1.0.20
       capnweb: 0.8.0
-      hono: 4.13.19
+      hono: 4.13.20
     optionalDependencies:
       '@xterm/xterm': 6.0.0
 
@@ -6639,14 +6639,14 @@ snapshots:
     dependencies:
       markdown-it: 13.0.2
 
-  '@hono/node-server@1.19.17(hono@4.13.19)':
+  '@hono/node-server@1.19.17(hono@4.13.20)':
     dependencies:
-      hono: 4.13.19
+      hono: 4.13.20
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.19)(miniflare@4.20260617.1)(wrangler@4.166.0(@cloudflare/workers-types@5.20261121.1)(@types/node@26.6.6)(vitest@4.1.11(@types/node@26.6.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))))':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.20)(miniflare@4.20260617.1)(wrangler@4.166.0(@cloudflare/workers-types@5.20261121.1)(@types/node@26.6.6)(vitest@4.1.11(@types/node@26.6.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))))':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.19)
-      hono: 4.13.19
+      '@hono/node-server': 1.19.17(hono@4.13.20)
+      hono: 4.13.20
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260617.1
@@ -7084,9 +7084,9 @@ snapshots:
 
   '@modelcontextprotocol/node@2.1.2(@modelcontextprotocol/server@2.4.0)':
     dependencies:
-      '@hono/node-server': 1.19.17(hono@4.13.19)
+      '@hono/node-server': 1.19.17(hono@4.13.20)
       '@modelcontextprotocol/server': 2.4.0
-      hono: 4.13.19
+      hono: 4.13.20
 
   '@modelcontextprotocol/server@2.4.0':
     dependencies:
@@ -9944,7 +9944,7 @@ snapshots:
 
   hey-listen@1.0.8: {}
 
-  hono@4.13.19: {}
+  hono@4.13.20: {}
 
   hookable@5.5.3: {}
 
