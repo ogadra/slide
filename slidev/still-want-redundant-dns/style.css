@@ -392,3 +392,28 @@ tr:nth-child(even) td {
 .two-col.figure .architecture {
   max-height: 300px;
 }
+
+p code {
+  font-size: 0.8em !important;
+  white-space: nowrap;
+}
+
+.two-col:has(> :first-child > h3) {
+  min-height: 18.5rem;
+  align-items: start;
+}
+
+.two-col > :first-child:has(> h3) {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem !important;
+}
+
+.two-col > :first-child > h3 + * {
+  margin-top: auto !important;
+}
+
+.two-col > :first-child:has(> h3) > :last-child {
+  margin-bottom: auto !important;
+}

@@ -281,16 +281,54 @@ Route 53 + Cloud DNSという<br/>
 
 ---
 
-## 1. ホストゾーンの作成 (Route 53)
+## 1. DNSゾーンの作成 (Route 53)
 
 <div class="two-col figure">
 <div>
 
-- 自由に作成できる
-  - ドメインがなくても
-- 作成するとレコードが<br/>登録される
-  - NSレコード
-  - SOAレコード
+### DNSゾーンとは
+
+特定ドメインのリソースレコードを置く、権威の範囲のこと
+
+マネージドサービスでゾーンを作成すると、ネームサーバーが割り振られる
+
+</div>
+<div>
+
+<HostedZoneFigure :step="1" />
+
+</div>
+</div>
+
+---
+
+## 1. DNSゾーンの作成 (Route 53)
+
+<div class="two-col figure">
+<div>
+
+### DNSゾーンとは
+
+割り振られたサーバーを親ゾーンにNSとして設定すると、インターネットから名前解決できるようになる
+
+</div>
+<div>
+
+<HostedZoneFigure :step="2" />
+
+</div>
+</div>
+
+---
+
+## 1. DNSゾーンの作成 (Route 53)
+
+<div class="two-col figure">
+<div>
+
+- 管理する単位ごとに作成
+  - 各プロバイダ
+  - 各(サブ)ドメイン
 
 </div>
 <div>
@@ -327,7 +365,7 @@ Route 53 + Cloud DNSという<br/>
 <div>
 
 - 子ゾーンのNSレコードを親ゾーンに登録
-  - 各ホストゾーンのNSレコード
+  - 各DNSゾーンのNSレコード
 - 子ゾーンのNSレコードを各ゾーンで共通の値に
 </div>
 <div>

@@ -1,5 +1,5 @@
 <template>
-  <svg class="fig" viewBox="0 0 380 262" role="img" aria-label="www.example.comのAを問い合わせると、Route 53がAliasの指すd111111abcdef8.cloudfront.netを自分で解決し、Aレコード198.51.100.5として返す図">
+  <svg class="fig" viewBox="0 0 380 262" role="img" aria-label="www.example.comのAを問い合わせると、Route 53がAliasの指すexample.comを自分で解決し、Aレコード198.51.100.5として返す図">
     <defs>
       <marker id="alias-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0 0L10 5L0 10z" fill="#7b8894" />
@@ -10,13 +10,13 @@
     <text x="190" y="26" class="query-text">www.example.com の A は？</text>
     <line x1="190" y1="40" x2="190" y2="62" class="edge" marker-end="url(#alias-arrow)" />
 
-    <rect x="10" y="66" width="360" height="108" rx="10" class="card" />
+    <PatchCard :x="10" :y="66" :width="360" :height="108" />
     <text x="26" y="92" class="name">www.example.com</text>
     <rect x="26" y="106" width="28" height="22" rx="11" class="badge" />
     <text x="40" y="122" class="badge-text">A</text>
     <rect x="62" y="106" width="62" height="22" rx="11" class="alias" />
     <text x="93" y="122" class="alias-text">Alias</text>
-    <text x="26" y="158" class="value">→ d111111abcdef8.cloudfront.net</text>
+    <text x="26" y="158" class="value">→ example.com</text>
 
     <line x1="190" y1="176" x2="190" y2="214" class="edge" marker-end="url(#alias-arrow)" />
     <text x="202" y="200" class="note">Route 53 が引いて A で返す</text>
@@ -46,12 +46,6 @@
   font-weight: 700;
   text-anchor: middle;
   fill: var(--ink);
-}
-
-.card {
-  fill: #ffffff;
-  stroke: #aeb6be;
-  stroke-width: 1.5;
 }
 
 .name {

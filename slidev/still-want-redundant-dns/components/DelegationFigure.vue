@@ -31,7 +31,7 @@ const zones = [
     </defs>
 
     <g v-for="zone in zones" :key="zone.name" :class="on(...zone.steps)">
-      <rect :x="zone.x" y="30" width="140" height="270" rx="10" :class="['zone', blink(1)]" />
+      <PatchCard :x="zone.x" :y="30" :width="140" :height="270" :stitch-class="blink(1)" />
       <text :x="zone.x + 70" y="52" class="zone-name">{{ zone.name }}</text>
     </g>
 
@@ -73,12 +73,6 @@ const zones = [
   width: 460px;
   margin: 0 -28px 0 auto;
   overflow: visible;
-}
-
-.zone {
-  fill: none;
-  stroke: #aeb6be;
-  stroke-width: 1.5;
 }
 
 .zone-name {
