@@ -77,10 +77,10 @@ class: text-center-body
 
 ## なぜDNSを冗長化することが難しかったのか
 
-DNSの冗長化には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
+権威DNS間のレコード同期には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
 
 1. Route 53やGoogle Cloud DNSはゾーン転送に非対応
-2. ゾーン転送を用いるとヘルスチェックができない
+2. ゾーン転送ではヘルスチェックやルーティングポリシーを同期できない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
@@ -104,12 +104,12 @@ Cloud DNS <img src="./imgs/shapes/arrow.svg" alt="から" class="arrow-inline" /
 <div class="text-center">
 
 Amazon CloudFrontは<br/>
-通常、固定IPを持たず<br/>
-FQDNしか払い出さない
+通常、FQDNしか払い出さない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
-登録するレコードはCNAMEレコードになる
+標準的なDNSレコードでは、<br/>
+CNAMEレコードを使用する
 
 </div>
 <div>
@@ -126,9 +126,14 @@ FQDNしか払い出さない
 <div class="two-col figure">
 <div>
 
-CNAMEレコードは「このドメイン名は別のドメインの別名である」ということを伝えるレコード
+CNAMEレコードは<br/>
+**このドメイン名は**<br/>
+**別のドメインの別名である**<br/>
+ということを伝えるレコード
 
-問い合わせのあったレコードを別のレコードに読み替える
+問い合わせのあった<br/>
+レコードを別のレコードに<br/>
+読み替え、名前解決をする
 
 </div>
 <div>
@@ -146,7 +151,8 @@ CNAMEレコードは「このドメイン名は別のドメインの別名であ
 <div class="text-center">
 
 CNAMEレコードは<br/>
-他のレコードと<br/>
+同じ名前に対する<br/>
+A / AAAAレコードなどと<br/>
 **同居できない** (RFC&nbsp;2181)
 
 </div>
@@ -166,9 +172,9 @@ CNAMEレコードは<br/>
 
 Route 53の機能
 
-CNAMEの代わりに、<br/>宛先のIPアドレスを<br/>Aレコードとして返す仕組み
+CNAMEの代わりに、<br/>宛先のIPアドレスを<br/>A / AAAAレコードとして返す仕組み
 
-宛先はAWSの一部リソースと同じゾーン内のレコードに限られる
+宛先はAWSの一部リソース等に限られる
 
 </div>
 <div>
@@ -195,11 +201,9 @@ Cloudflareでは**CNAME flattening**という名称で提供
 <div class="two-col figure">
 <div>
 
-Route 53の<br/>
-**Alias Record**を使い、<br/>
-CloudFrontと<br/>
-External Application LBの<br/>
-両方を登録
+External Application LBは通常のA / AAAAレコードを、<br/>
+CloudFrontは**Alias Record**を使って<br/>
+DNSレコードを登録
 
 </div>
 <div>
@@ -240,11 +244,10 @@ Cloud DNSを含めた構成だと<br/>
 <div class="two-col figure">
 <div>
 
-Route 53 + Cloud DNSという<br/>
-構成が今回の要件上取れない
+Route 53 + Cloud DNSが今回の要件に合わない
 
-1. Cloud DNSではCNAME / ALIASに<br/>ヘルスチェックを<br/>設定できない
-2. AXFR / IXFRでの設定が不可
+1. Cloud DNSではFQDNに<br/>ヘルスチェックを<br/>設定できない
+2. AXFR / IXFRによるゾーン情報の同期が不可
 
 </div>
 <div>
@@ -260,10 +263,9 @@ Route 53 + Cloud DNSという<br/>
 
 ## サービス選定に立ち戻る
 
-- CNAMEとAをヘルスチェックで切り替えて返せること
-- ヘルスチェックによって向き先を変更できること
-- AXFR / IXFRは諦める
-  - Route 53が対応していないため
+- FQDNとIPアドレスの両方を扱えること
+- ヘルスチェックによって応答を切り替えられること
+- ゾーン転送、DNSSECは諦める
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
@@ -290,7 +292,9 @@ Route 53 + Cloud DNSという<br/>
 
 特定ドメインのリソースレコードを置く、権威の範囲のこと
 
-マネージドサービスでゾーンを作成すると、ネームサーバーが割り振られる
+マネージドサービスで<br/>
+ゾーンを作成すると、<br/>
+ネームサーバーが割り振られる
 
 </div>
 <div>
@@ -309,7 +313,10 @@ Route 53 + Cloud DNSという<br/>
 
 ### DNSゾーンとは
 
-割り振られたサーバーを親ゾーンにNSとして設定すると、インターネットから名前解決できるようになる
+割り振られたサーバーを<br/>
+親ゾーンにNS設定すると、<br/>
+インターネットから<br/>
+名前解決できるようになる
 
 </div>
 <div>
@@ -326,7 +333,7 @@ Route 53 + Cloud DNSという<br/>
 <div class="two-col figure">
 <div>
 
-- 管理する単位ごとに作成
+- 管理・委任する単位ごとに作成
   - 各プロバイダ
   - 各(サブ)ドメイン
 
@@ -347,7 +354,7 @@ Route 53 + Cloud DNSという<br/>
 
 - レジストラで<br>それぞれのNSを登録
 - ゾーンのレコードも<br>更新
-  - Apexドメインの<br>NSレコード
+  - ゾーンApexの<br>NSレコード
 
 </div>
 <div>
