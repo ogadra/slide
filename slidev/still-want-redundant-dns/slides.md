@@ -77,10 +77,11 @@ class: text-center-body
 
 ## なぜDNSを冗長化することが難しかったのか
 
-権威DNS間のレコード同期には基本的に**ゾーン転送** (IXFR / AXFR)を用いる
+権威DNS間のレコード同期には基本的に<br/>
+**ゾーン転送** (IXFR / AXFR)を用いる
 
 1. Route 53やGoogle Cloud DNSはゾーン転送に非対応
-2. ゾーン転送ではヘルスチェックやルーティングポリシーを同期できない
+2. ゾーン転送ではヘルスチェック等を同期できない
 
 <img src="./imgs/shapes/arrow.svg" alt="" class="arrow" style="transform: rotate(180deg);" />
 
