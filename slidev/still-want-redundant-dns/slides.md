@@ -35,19 +35,6 @@ fonts:
 ## ogadra
 
 ---
-
-## 前提となった技術要件
-
-大吉祥寺.pmの登壇に用いたデモアプリ
-
-AWSおよびGoogle Cloudのマルチクラウド構成
-
-以下が落ちてもサービスが提供できること
-
-- いずれかのDNSサービス
-- AWS または Google Cloud
-
----
 class: text-center-body
 ---
 
@@ -60,6 +47,56 @@ class: text-center-body
 特定のクラウドプロバイダの**全サービス**がサービスダウンしても
 
 サービス継続できるだけの可用性が欲しかった
+
+---
+
+## 前提となった技術要件
+
+大吉祥寺.pmの登壇に用いたデモアプリ
+
+AWSおよびGoogle Cloudのマルチクラウド構成
+
+いずれかのクラウドが落ちてもサービスが提供できること
+
+---
+clicks: 2
+---
+
+## 前提となった技術要件
+
+<div class="two-col figure">
+<div>
+
+AWSが落ちたら<br/>
+Google Cloudに接続する
+
+</div>
+<div>
+
+<FailoverFigure :step="$clicks" fail="server" />
+
+</div>
+</div>
+
+---
+clicks: 2
+---
+
+## 実現したいシステム
+
+<div class="two-col figure">
+<div>
+
+Route53が落ちたら<br/>
+Cloud DNSで名前解決する
+
+</div>
+<div>
+
+<FailoverFigure :step="$clicks" fail="dns" />
+
+</div>
+</div>
 
 ---
 
@@ -291,7 +328,7 @@ Route 53 + Cloud DNSが今回の要件に合わない
 
 ### DNSゾーンとは
 
-特定ドメインのリソースレコードを置く、権威の範囲のこと
+特定のドメインのDNSレコードを管理する単位
 
 マネージドサービスで<br/>
 ゾーンを作成すると、<br/>
@@ -463,7 +500,7 @@ Done is better than perfect.
 </div>
 <div>
 
-<img src="https://media.ogadra.com/misskey/drive/b7f08bb1-df92-45c3-855d-521eb9859015.gif" alt="" class="architecture" />
+<img src="https://media.ogadra.com/misskey/drive/eb4d0e37-3c1b-4575-9cb0-12085fc72bbf.png" alt="" class="architecture" />
 
 </div>
 </div>

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ x: number, y: number, width: number, height: number, r?: number, inset?: number, stitchClass?: string | string[] }>(), {
+withDefaults(defineProps<{ x: number, y: number, width: number, height: number, r?: number, inset?: number, stitchClass?: string | string[], fill?: string }>(), {
   r: 10,
   inset: 5,
   stitchClass: '',
+  fill: '#ffffff',
 })
 </script>
 
 <template>
   <g>
     <rect :x="x" :y="y + 4" :width="width" :height="height" :rx="r" class="shadow" />
-    <rect :x="x" :y="y" :width="width" :height="height" :rx="r" class="face" />
+    <rect :x="x" :y="y" :width="width" :height="height" :rx="r" :fill="fill" />
     <rect :x="x + inset" :y="y + inset" :width="width - inset * 2" :height="height - inset * 2" :rx="Math.max(r - inset / 2, 2)" :class="['stitch', stitchClass]" />
   </g>
 </template>
@@ -17,10 +18,6 @@ withDefaults(defineProps<{ x: number, y: number, width: number, height: number, 
 <style scoped>
 .shadow {
   fill: rgba(34, 34, 34, 0.06);
-}
-
-.face {
-  fill: #ffffff;
 }
 
 .stitch {
