@@ -421,11 +421,17 @@ Route 53 + Cloud DNSが今回の要件に合わない
 </div>
 
 ---
-
+clicks: 1
+---
 
 ## 出来上がったもの
 
+<div class="zoom-frame">
+<div :class="['zoom-target', { zoomed: $clicks >= 1 }]">
 <img src="./imgs/bunshin_architecture_icons.png" alt="AWSとGoogle Cloudにまたがる構成図" class="architecture tall" />
+<div class="zoom-highlight"></div>
+</div>
+</div>
 
 ---
 
