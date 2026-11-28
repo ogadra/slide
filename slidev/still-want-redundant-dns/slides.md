@@ -481,7 +481,7 @@ clicks: 1
 <div class="summary-cloth-wrap">
 <div class="cloth-scrap mustard top-left"></div>
 <div class="summary-cloth">
-<p>DNSサービスは各社で異なるため、<br/>それぞれの布片を1枚の布に仕立てるのは大変</p>
+<p>DNSサービスの仕様は各社で異なるため、<br/>それぞれの布片を1枚の布に仕立てるのは大変</p>
 <div class="cloth-thread"></div>
 <p class="strong">ばらばらなDNSサービスを、<br/>NSレコードという糸で縫い合わせ、<br/>どこかが欠けてもほつれない布に仕立てられた</p>
 </div>
