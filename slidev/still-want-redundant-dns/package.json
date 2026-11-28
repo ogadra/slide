@@ -1,0 +1,14 @@
+{
+  "name": "still-want-redundant-dns",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "ogadra",
+  "scripts": {
+    "build": "pnpm run build:slidev && pnpm run build:png",
+    "build:png": "slidev export --format png --timeout 120000 --output ../../dist/slides/still-want-redundant-dns/slides-export",
+    "build:slidev": "slidev build --base /still-want-redundant-dns/ --out ../../dist/slides/still-want-redundant-dns",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  }
+}

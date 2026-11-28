@@ -1,0 +1,451 @@
+/*
+ * 公式サイトと同じ太さを読み込む。Slidevのfonts.weightsは全フォント共通の指定で、
+ * Zen Maru Gothicに800、Solwayに900が無くGoogle Fontsがエラーを返すため使わない
+ */
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Solway:wght@500;700;800&display=swap");
+
+/* YAPC::Tokyo 2026 のパッチワーク風デザインに合わせる */
+:root {
+  --cream: #fffaed;
+  --ink: #222222;
+  --ink-soft: #616161;
+  --rule: #e3e3e3;
+  --orange: #ea5520;
+  --blue: #004aba;
+  --mustard: #e29d25;
+  --purple: #593b6e;
+  --green: #00992b;
+  --navy: #10355e;
+  --stitch: rgba(255, 255, 255, 0.85);
+
+  --font-sans: "Zen Maru Gothic", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-display: "Solway", "Zen Maru Gothic", serif;
+}
+
+html {
+  font-size: 125%;
+}
+
+html, body, #app, .slidev-layout {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+}
+
+.slidev-layout {
+  padding-top: 0 !important;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-feature-settings: "palt";
+}
+
+.slidev-layout.default:has(> h2) {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  padding-bottom: 2.8rem !important;
+}
+
+.slidev-layout.default:has(> h2) > h2 {
+  align-self: flex-start;
+}
+
+.slidev-layout.default:has(> h2) > h2 + * {
+  margin-top: auto !important;
+}
+
+.slidev-layout.default:has(> h2) > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.slidev-layout.default:has(> h2)::after {
+  content: "";
+  margin-top: auto;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 900 !important;
+  font-size: 2.9rem !important;
+  line-height: 1.2 !important;
+  color: var(--ink) !important;
+  white-space: pre-line;
+}
+
+h2 {
+  display: inline-block;
+  position: relative;
+  font-family: var(--font-sans);
+  font-weight: 900 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.4 !important;
+  margin: 1.5rem 0 1rem !important;
+  padding: 0.45rem 1.4rem 0.75rem !important;
+  color: #ffffff !important;
+  background: var(--orange);
+  mask: url("./imgs/shapes/h2-patch.svg") center / 100% 100% no-repeat;
+  transform: rotate(-0.5deg);
+}
+
+h2::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  background: url("./imgs/shapes/h2-stitch.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 900 !important;
+  font-size: 1.4rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.75rem !important;
+  padding: 0.25rem 0 0.25rem 1rem !important;
+  border-left: 8px solid var(--blue);
+  color: var(--blue) !important;
+  opacity: 1 !important;
+}
+
+p {
+  font-size: 1.4rem !important;
+  line-height: 1.6 !important;
+  white-space: pre-line;
+  word-break: auto-phrase;
+}
+
+li {
+  font-size: 1.4rem !important;
+  line-height: 1.75 !important;
+  word-break: auto-phrase;
+}
+
+li::marker {
+  color: var(--orange);
+}
+
+ol {
+  list-style-type: decimal !important;
+  padding-left: 0rem !important;
+}
+
+strong {
+  color: var(--orange);
+}
+
+a {
+  color: var(--blue) !important;
+  border-bottom: 2px dashed currentColor !important;
+}
+
+img {
+  margin: 0 auto;
+}
+
+blockquote {
+  position: relative;
+  margin: 1.1rem 0;
+  padding: 0.75rem 1.75rem !important;
+  color: var(--ink) !important;
+  background: rgba(226, 157, 37, 0.18) !important;
+  border-left: 8px solid var(--mustard) !important;
+  border-radius: 0 8px 8px 0;
+  font-style: normal;
+}
+
+blockquote p {
+  font-size: 1.4rem !important;
+  margin: 0;
+}
+
+:not(pre) > code {
+  color: var(--purple) !important;
+  background: rgba(89, 59, 110, 0.1) !important;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  background: #ffffff !important;
+  border: 2px dashed var(--rule);
+  border-radius: 8px;
+}
+
+table {
+  font-size: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th {
+  color: #ffffff;
+  background: var(--blue);
+  padding: 0.4rem 0.8rem !important;
+}
+
+td {
+  padding: 0.4rem 0.8rem !important;
+  border-bottom: 1px solid var(--rule);
+}
+
+tr:nth-child(even) td {
+  background: rgba(0, 74, 186, 0.05);
+}
+
+.slidev-page-1 .slidev-layout {
+  overflow: hidden;
+}
+
+.slidev-page-1 h1 {
+  position: relative;
+}
+
+/* 図形は公式サイトのSVGをそのまま使う。色やステッチを自前で描くと公式の見た目からずれるため */
+.patch {
+  position: absolute;
+  margin: 0;
+  pointer-events: none;
+}
+
+.cover-logo {
+  position: absolute;
+  top: 136px;
+  right: 70px;
+  width: 260px;
+}
+
+.slidev-page-1 h2 {
+  background: var(--ink);
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 350px;
+}
+
+.center-content p,
+.center-content li {
+  font-size: 2.25rem !important;
+}
+
+.center-content ul,
+.center-content ol {
+  display: inline-block;
+  text-align: left;
+}
+
+.arrow {
+  display: block;
+  width: 56px;
+  margin: 0.5rem auto;
+}
+
+.arrow-inline {
+  display: inline-block;
+  height: 1.1em;
+  margin: 0 0.3em;
+  vertical-align: -0.1em;
+  transform: rotate(90deg);
+}
+
+.architecture {
+  display: block;
+  max-height: 360px;
+  margin: 0 auto;
+}
+
+.architecture.tall {
+  max-height: 365px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.two-col > * > :first-child {
+  margin-top: 0 !important;
+}
+
+.two-col > * > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.two-col.figure {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+}
+
+.text-center p,
+.slidev-layout.text-center-body > p {
+  text-wrap: balance;
+}
+
+.statement {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statement p {
+  margin: 0;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.statement-patch {
+  position: relative;
+  padding: 1.6rem 3.2rem 1.9rem;
+  font-size: 3.2rem !important;
+  line-height: 1.2 !important;
+  color: #ffffff;
+  background: var(--orange);
+  mask: url("./imgs/shapes/h2-patch.svg") center / 100% 100% no-repeat;
+  transform: rotate(-1deg);
+}
+
+.statement-patch::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  background: url("./imgs/shapes/h2-stitch.svg") center / 100% 100% no-repeat;
+}
+
+.summary-cloth-wrap {
+  position: relative;
+  width: 820px;
+  margin: 0.8rem auto 0;
+}
+
+.summary-cloth {
+  position: relative;
+  padding: 2.5rem 3rem;
+  background: #ffffff;
+  mask: url("./imgs/shapes/h2-patch.svg") center / 100% 100% no-repeat;
+}
+
+.summary-cloth::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  background: url("./imgs/shapes/cloth-stitch.svg") center / 100% 100% no-repeat;
+}
+
+.summary-cloth p {
+  margin: 0 !important;
+  font-size: 1.25rem !important;
+  font-weight: 700;
+  line-height: 1.7 !important;
+}
+
+.summary-cloth p.strong {
+  font-weight: 900;
+  color: var(--blue);
+}
+
+.cloth-thread {
+  margin: 1rem 0;
+  border-top: 3px dashed var(--orange);
+}
+
+.cloth-scrap {
+  position: absolute;
+  z-index: 1;
+  width: 90px;
+  height: 64px;
+  mask: url("./imgs/shapes/h2-patch.svg") center / 100% 100% no-repeat;
+}
+
+.cloth-scrap::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  background: url("./imgs/shapes/h2-stitch.svg") center / 100% 100% no-repeat;
+}
+
+.cloth-scrap.mustard {
+  top: -18px;
+  left: -26px;
+  background: var(--mustard);
+  transform: rotate(-12deg);
+}
+
+.cloth-scrap.blue {
+  right: -26px;
+  bottom: -18px;
+  background: var(--blue);
+  transform: rotate(10deg);
+}
+
+.slidev-layout.text-center-body > p {
+  text-align: center;
+}
+
+.two-col.figure .architecture {
+  max-height: 300px;
+}
+
+p code {
+  font-size: 0.8em !important;
+  white-space: nowrap;
+}
+
+.two-col:has(> :first-child > h3) {
+  min-height: 18.5rem;
+  align-items: start;
+}
+
+.two-col > :first-child:has(> h3) {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem !important;
+}
+
+.two-col > :first-child > h3 + * {
+  margin-top: auto !important;
+}
+
+.two-col > :first-child:has(> h3) > :last-child {
+  margin-bottom: auto !important;
+}
+
+.zoom-frame {
+  overflow: hidden;
+}
+
+.zoom-target {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  transform-origin: 50% 21%;
+  transition: transform 0.3s ease;
+}
+
+.zoom-target.zoomed {
+  transform: translateY(50px) scale(1.6);
+}
+
+.zoom-highlight {
+  position: absolute;
+  left: 45%;
+  top: 10.5%;
+  width: 10%;
+  height: 11%;
+  border: 2px solid #e60012;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.zoom-target.zoomed .zoom-highlight {
+  opacity: 1;
+}
